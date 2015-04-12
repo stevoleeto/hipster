@@ -1,0 +1,14 @@
+{
+  "global": {
+    "parseVersion": "1.4.2"
+  },
+  "applications": {
+    "Scheduling App": {
+      "applicationId": "t5hvXf3wJOYnL3MMIffsemMdhLM7f4brACcf0eBa",
+      "masterKey": "q98Yqgu1ULCMsYa1Pu6wyJwgq2JVDeqJX0rZXb3k"
+    },
+    "_default": {
+      "link": "Scheduling App"
+    }
+  }
+}
