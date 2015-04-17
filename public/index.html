@@ -1,31 +1,58 @@
-
 <html>
-  <head>
-    <title>My ParseApp site</title>
-    <style>
-    body { font-family: Helvetica, Arial, sans-serif; }
-    h1 { font-size: 30px; margin: 0; }
-    p { margin: 40px 0; }
-    em { font-family: monospace; }
-    a { color: #5298fc; text-decoration: none; }
-    </style>
-  </head>
-  <body>
-    <div>
-      <h1>Congratulations! Add your name to this list.</h1>
-      <ul>
-      <li>Stephen</li>
-      <li>Joe is awesomest.</li>
-      <li>Toepump is the shadow lord of times past.</li>
-      <li>Sher has joined your quest party.</li>
-      <li>Pharayansiiisqooo owns MyKey</li>
-      <li>Kann</li>
-      <li>Sara</li>
-      <li>Saveen</li>
-      <li>Buhrahndhun sux</li>
-      <li>10</li>
-    </ul>
-
-    </div>
-  </body>
+    <head>
+        <!-- Information about the document goes here
+             This includes the encoding, title, css files, and JS files -->
+        <meta charset="utf-8">
+        <title>Practice</title>
+        
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script src="http://www.parsecdn.com/js/parse-1.1.14.min.js" type="text/javascript"></script>
+		
+        <!-- Inline CSS goes here -->
+        <style>
+        </style>
+        
+        <!-- Inline JS goes here -->
+        <script>          
+            //Link to Parse database
+            Parse.initialize( "t5hvXf3wJOYnL3MMIffsemMdhLM7f4brACcf0eBa", "UhqQaEDIEQr6cxhO8XS4Fl8BcGU4ir9jL9To7PVO" );                                  
+            
+            function signup(){
+				var user = new Parse.User(); 
+				
+				user.set( 'username', $( '#sName' ).val() );
+				user.set( 'password', $( '#sPass' ).val() );
+				
+				user.signUp(null, {
+					success: function( user ) {
+						alert( "User signed up!" );
+					},
+					error: function( user ) {
+						alert( "You're a loser!" );
+					}
+				});
+            }
+			
+			function login(){
+				alert( "Login Name: " + $( '#lName' ).val() );
+                alert( "Login Pass: " + $( '#lPass' ).val() );
+			}
+        </script>
+    </head>
+    <body>
+		<br>
+        <div style="width:50%">
+			<h1>Sign Up</h1>
+            <input type="text" id="sName" placeholder="username" /><br>
+            <input type="password" id="sPass" placeholder="password" /><br>
+            <button onclick="signup()">Sign Up</button><br><br>
+        </div>
+        
+        <div style="width:50%">
+			<h1>Log In</h1>
+            <input type="text" id="lName" placeholder="username" /><br>
+            <input type="password" id="lPass" placeholder="password" /><br>
+            <button onclick="login()">Log In</button>
+        </div>
+    </body>
 </html>
