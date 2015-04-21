@@ -71,8 +71,7 @@
 				cursor: pointer;
 			}
             
-            #tips {
-                top: 30px;
+            .tips {
                 position: relative;
                 color: white;
                 border: 2px solid #74DE74;
@@ -108,51 +107,53 @@
         <!-- Inline JS goes here -->
         <script> 
             $( document ).ready( function(){
+                var sForm = document.getElementById( 'sForm' ), lForm = document.getElementById( 'lForm' );
                 //Link to Parse database
                 Parse.initialize( "t5hvXf3wJOYnL3MMIffsemMdhLM7f4brACcf0eBa", "UhqQaEDIEQr6cxhO8XS4Fl8BcGU4ir9jL9To7PVO" );
                 
                 $( '#options div' ).on( 'click', function() {
                     $( this ).siblings( 'div' ).css({ 'background':'#D8D8D8' });
-                    $( this ).css({ 'background':'white' })
+                    this.style.background = 'white';
                     
                     if ( this.innerHTML == 'Log In' ) {
-                        $( '#sForm' ).css({ 'display':'none' });
-                        $( '#lForm' ).css({ 'display':'block' });
+                        sForm.style.display = 'none';
+                        lForm.style.display = 'block';
                     } else {
-                        $( '#lForm' ).css({ 'display':'none' });
-                        $( '#sForm' ).css({ 'display':'block' });
+                        lForm.style.display = 'none';
+                        sForm.style.display = 'block';
                     }
                 });
             });
             
             function signup(){
-                var  good = true, sName = $( '#sName' ), sEmail = $( '#sEmail' ), sPass = $( '#sPass' ),
-                nameRegex = /^[a-z]([a-z_\s])+$/i, emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+                var  good = true, sName = document.getElementById( 'sName' ), sEmail = document.getElementById( 'sEmail' ), 
+                sPass = document.getElementById( 'sPass' ), tips = document.getElementsByClassName( 'tips' ), 
+                nameRegex = /^[a-z']([a-z'_\s])+$/i, emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
                 
-                good = good && checkLength( sName, 'name', 2, 25 );
-                good = good && valInput( sName, nameRegex, 'name' );
+                good = good && checkLength( sName, 'name', 2, 25, 'sTips' );
+                good = good && valInput( sName, nameRegex, 'name', 'sTips' );
                 
                 if ( good ) {
-                    sName.css({ 'border' : '1px solid #81F781' });
+                    sName.style.border = '1px solid #81F781';
                 }
                 
-                good = good && checkLength( sEmail, 'email', 6, 80 );
-                good = good && valInput( sEmail, emailRegex, 'email' );
+                good = good && checkLength( sEmail, 'email', 6, 80, 'sTips' );
+                good = good && valInput( sEmail, emailRegex, 'email', 'sTips' );
                 
                 if ( good ) {
-                    sEmail.css({ 'border' : '1px solid #81F781' });
+                    sEmail.style.border = '1px solid #81F781';
                 }
                 
-                good = good && checkLength( sPass, 'password', 5, 10 );
+                good = good && checkLength( sPass, 'password', 5, 15, 'sTips' );
                 
                 if ( good ) {
-                    sPass.css({ 'border' : '1px solid #81F781' });
+                    sPass.style.border = '1px solid #81F781';
                 
                     var user = new Parse.User(); 
                     
-                    user.set( 'name', sName.val() );
-                    user.set( 'username', sEmail.val() );
-                    user.set( 'password', sPass.val() );
+                    user.set( 'name', sName.value );
+                    user.set( 'username', sEmail.value );
+                    user.set( 'password', sPass.value );
                     
                     user.signUp(null, {
                         success: function( user ) {
@@ -166,20 +167,22 @@
                                 confirmButtonText: 'Go to my page!'
                             });
                             
-                            $( '#tips' ).text( 'Please fill out the following fields' );
-                            tips.css({'background':'#81F781', 'border':'2px solid #74DE74', 'color':'black'}); 
+                            tips.innerHTML = 'Please fill out the following fields';
+                            tips.style.background = '#81F781';
+                            tips.style.border = '2px solid #74DE74';
+                            tips.style.color = 'black';
                         },
                         error: function( user ) {
-                            $( '#tips' ).text( 'An account with this name already exists!' );
+                            tips.innerHTML = 'An account with this name already exists!';
                         }
                     });
                 }
             }
                 
             function login(){
-                var lName = $( '#lName' ), lPass = $( '#lPass' );
+                var lName = document.getElementById( 'lName' ), lPass = document.getElementById( 'lPass' );
                 
-                Parse.User.logIn( lName.val(), lPass.val(), {
+                Parse.User.logIn( lName.value, lPass.value, {
                     success: function( user ) {
                         swal({
                             title: 'Awesome!',
@@ -225,10 +228,10 @@
                                           
             * Result:		True if length of input is valid, false if not.
             ************************************************************************/
-            function checkLength( input, strName, min, max ) {
-                if ( input.val().length > max || input.val().length < min ) {
-                    input.css({ 'border' : '1px solid #F78181' });
-                    updateTips( 'Length of ' + strName + ' must be between ' + min + ' and ' + max + ' characters!' );
+            function checkLength( input, strName, min, max, tipId ) {
+                if ( input.value.length > max || input.value.length < min ) {
+                    input.style.border = '1px solid #F78181';
+                    updateTips( tipId, 'Length of ' + strName + ' must be between ' + min + ' and ' + max + ' characters!' );
                     return false;
                 } else {
                     return true;
@@ -246,11 +249,14 @@
                             
             * Input:		var newTip - The string to be displayed in the tip bar
             ************************************************************************/
-            function updateTips( newTip ) {
+            function updateTips( id, newTip ) {
+                var tips = document.getElementById( id );
                 //Change the text displayed to the argument
-                $( '#tips' ).text( newTip );
+                tips.innerHTML = newTip;
                 //Change the background-color and border color of the tips bar.
-                $( '#tips' ).css({ 'background':'#F78181', 'border':'2px solid #DE7474', 'color':'white' });
+                tips.style.background = '#F78181';
+                tips.style.border = '2px solid #DE7474';
+                tips.style.color = 'white';
             }
             
             /************************************************************************
@@ -270,10 +276,10 @@
                                           
             * Result:		True if length of input is valid, false if not.
             ************************************************************************/
-            function valInput( input, valChar, name ) {
-                if ( !( valChar.test( input.val() ) ) ) {
-                    updateTips( 'That doesn\'t look like an actual ' + name + '...but I don\'t judge' );
-                    input.css({ 'border' : '1px solid #F78181' });
+            function valInput( input, valChar, name, tipId ) {
+                if ( !( valChar.test( input.value ) ) ) {
+                    updateTips( tipId, 'That doesn\'t look like an actual ' + name + '...but I don\'t judge' );
+                    input.style.border = '1px solid #F78181';
                     return false;
                 } else {
                     return true;
@@ -291,14 +297,15 @@
                     <div id="login">Log In</div>
                     <div id="signup" style="background:#D8D8D8;">Sign Up</div>
                 </div>
-                <center><br><div id="tips">Please fill in the following fields</div>
-                <div id="lForm" style="display:block;position:relative;top:40px;">
+                <center><br><br><div id="lForm" style="display:block;position:relative;top:20px;">
+                    <div id="lTips" class="tips">Please fill in the following fields</div><br>
                     <input id="lName" type="text" placeholder="Email"><br><br>
                     <input id="lPass" type="password" placeholder="Password"><br><br>
                     <a href="">Forgot password</a>
                     <div onclick="login()" class="btn" style="margin-top:10px;">Log In</div>
                 </div>
-                <div id="sForm" style="display:none;position:relative;top:40px;">
+                <div id="sForm" style="display:none;position:relative;top:20px;">
+                    <div id="sTips" class="tips">Please fill in the following fields</div><br>
                     <input id="sName" type="text" placeholder="Name"><br><br>
                     <input id="sEmail" type="email" placeholder="Email"><br><br>
                     <input id="sPass" type="password" placeholder="Password"><br><br>
