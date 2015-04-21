@@ -55,7 +55,6 @@
             
             .active {
                 background: white;
-                color: #2E64FE;
             }
 			
 			#options div {
@@ -77,7 +76,7 @@
                 border: 2px solid #74DE74;
                 background: #81F781;
                 width: 90%;
-                font-weight: 700;
+                font-weight: 600;
             }
             
 			input {
@@ -106,59 +105,91 @@
         
         <!-- Inline JS goes here -->
         <script> 
-            $( document ).ready( function(){
-                var sForm = document.getElementById( 'sForm' ), lForm = document.getElementById( 'lForm' );
-                //Link to Parse database
+            //Global variables
+            var nameRegex = /^[a-z']([a-z'_\s])+$/i, emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+            
+            //Anonymous function that gets called once the window loads
+            window.onload = function() {
+                //Link to Parse database - accepts application_ID, JavaScript_Key
                 Parse.initialize( "t5hvXf3wJOYnL3MMIffsemMdhLM7f4brACcf0eBa", "UhqQaEDIEQr6cxhO8XS4Fl8BcGU4ir9jL9To7PVO" );
+            };
+            
+            function dispTab( tabId ) {
+                var login = document.getElementById( 'login' ), signup = document.getElementById( 'signup' ),
+                    sForm = document.getElementById( 'sForm' ), lForm = document.getElementById( 'lForm' );
                 
-                $( '#options div' ).on( 'click', function() {
-                    $( this ).siblings( 'div' ).css({ 'background':'#D8D8D8' });
-                    this.style.background = 'white';
-                    
-                    if ( this.innerHTML == 'Log In' ) {
-                        sForm.style.display = 'none';
-                        lForm.style.display = 'block';
-                    } else {
-                        lForm.style.display = 'none';
-                        sForm.style.display = 'block';
-                    }
-                });
-            });
+                //If the user clicked on "Log In" tab
+                if ( tabId == 'login' ) {
+                    //Change the background of "Sign Up" tab gray
+                    signup.style.background = '#D8D8D8';
+                    //Change the background of "Log In" tab white
+                    login.style.background = 'white';
+                    //Hide the text boxes and buttons for the sign up form
+                    sForm.style.display = 'none';
+                    //Display the text boxes and the buttons for the log in form
+                    lForm.style.display = 'block';
+                } else {
+                    //Change the background of "Log In" tab gray
+                    login.style.background = '#D8D8D8';
+                    //Change the background of "Sign Up" tab white
+                    signup.style.background = 'white';
+                    //Hide the text boxes and buttons for the log in form
+                    lForm.style.display = 'none';
+                    //Display the text boxes and buttons for the sign up form
+                    sForm.style.display = 'block';
+                }
+            }
             
             function signup(){
-                var  good = true, sName = document.getElementById( 'sName' ), sEmail = document.getElementById( 'sEmail' ), 
-                sPass = document.getElementById( 'sPass' ), tips = document.getElementsByClassName( 'tips' ), 
-                nameRegex = /^[a-z']([a-z'_\s])+$/i, emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+                //Declare any necessary variables
+                var good = true, sName = document.getElementById( 'sName' ), sEmail = document.getElementById( 'sEmail' ), 
+                sPass = document.getElementById( 'sPass' ), tips = document.getElementById( 'sTips' );
                 
+                //Check if name is within specified length
                 good = good && checkLength( sName, 'name', 2, 25, 'sTips' );
+                //Check if name uses valid characters
                 good = good && valInput( sName, nameRegex, 'name', 'sTips' );
                 
+                //If the name is good, change the text box border green
                 if ( good ) {
-                    sName.style.border = '1px solid #81F781';
+                    sName.style.border = '1px solid #c6c6c6';
                 }
-                
+
+                //Check if email is within specified length
                 good = good && checkLength( sEmail, 'email', 6, 80, 'sTips' );
+                //Check if email uses valid characters
                 good = good && valInput( sEmail, emailRegex, 'email', 'sTips' );
                 
+                //If the email is good, change the text box border green
                 if ( good ) {
-                    sEmail.style.border = '1px solid #81F781';
+                    sEmail.style.border = '1px solid #c6c6c6';
                 }
                 
+                //Check if password is within the specified length
                 good = good && checkLength( sPass, 'password', 5, 15, 'sTips' );
                 
+                //If the password is good, change the text box border green and attempts to add user to database
                 if ( good ) {
-                    sPass.style.border = '1px solid #81F781';
-                
+                    sPass.style.border = '1px solid #c6c6c6';
+                    
+                    //Create a reference variable to a new parse user
                     var user = new Parse.User(); 
                     
+                    //Set the user's inputs as database fields
                     user.set( 'name', sName.value );
                     user.set( 'username', sEmail.value );
                     user.set( 'password', sPass.value );
                     
+                    //Call Parse's signUp function
                     user.signUp(null, {
+                        //If Parse is able to successfully add the user to that database
                         success: function( user ) {
-                            $( '#sName, #sEmail, #sPass' ).val( '' );
+                            //Clear the text boxes
+                            sName.value = '';
+                            sEmail.value = '';
+                            sPass.value = '';
                             
+                            //Call sweet alert to notify user of success
                             swal({
                                 title: 'Awesome!',
                                 text: 'You have successfully signed up!',
@@ -167,41 +198,92 @@
                                 confirmButtonText: 'Go to my page!'
                             });
                             
+                            //Reset the tips field back to original
                             tips.innerHTML = 'Please fill out the following fields';
                             tips.style.background = '#81F781';
                             tips.style.border = '2px solid #74DE74';
-                            tips.style.color = 'black';
                         },
+                        //If Parse isn't able to successfully add the user to the database
                         error: function( user ) {
+                            //Update the tips field to let the user know
                             tips.innerHTML = 'An account with this name already exists!';
                         }
                     });
                 }
             }
+             
+            /************************************************************************
+             * Name:		login()
                 
-            function login(){
-                var lName = document.getElementById( 'lName' ), lPass = document.getElementById( 'lPass' );
+             * Purpose:		
                 
-                Parse.User.logIn( lName.value, lPass.value, {
-                    success: function( user ) {
-                        swal({
-                            title: 'Awesome!',
-                            text: 'Welcome back ' + Parse.User.current().get( "name" ) + '!',
-                            type: 'success',
-                            confirmButtonColor: '#5858FA',
-                            confirmButtonText: 'Awww yeaaaa'
-                        });
-                    },
-                    error: function( user ) {
-                        swal({
-                            title: 'Oops...',
-                            text: 'We just accidently deleted your account. Please sign up again.',
-                            type: 'error',
-                            confirmButtonColor: '#5858FA',
-                            confirmButtonText: '...Ok...'
-                        });
-                    }
-                });
+             * Description:	Compares the field's input length to the max and min 
+                            arguments.If invalid, turn border red, and call 
+                            updateTips() with error message.
+                                
+             * Input:		var input - field that is being checked
+                            var strName - Name of field being checked. Used in 
+                                          updateTips() to show user where error is.
+                            var min - The minimum number of characters the length of
+                                      the input must be to be valid. Used in length
+                                      checking and in updateTips() to show user length
+                                      bounds.
+                            var max - The maximum number of characters the length of
+                                      the input can be to be valid. Used in length
+                                      checking and in updateTips() to show user length
+                                      bounds.
+                                          
+             * Result:      True if length of input is valid, false if not.
+            ************************************************************************/
+            function login() {
+                //Declares any necessary variables
+                var good = true, lEmail = document.getElementById( 'lEmail' ), lPass = document.getElementById( 'lPass' ),
+                    tips = document.getElementById( 'lTips' );
+                
+                good = good && checkLength( lEmail, 'email', 6, 80, 'lTips' );
+                good = good && valInput( lEmail, emailRegex, 'email', 'lTips' );
+                
+                if ( good ) {
+                    lEmail.style.border = '1px solid #c6c6c6';
+                }
+                
+                good = good && checkLength( lPass, 'password', 5, 15, 'lTips' );
+                
+                if ( good ) {
+                    //Calls the Parse logIn function passing in the user's inputs and what to do on success and error
+                    Parse.User.logIn( lEmail.value, lPass.value, {
+                        //If the logIn is successful, notify user via sweet alert
+                        success: function( user ) {
+                            lPass.style.border = '1px solid #c6c6c6';
+                            lEmail.value = '';
+                            lPass.value = '';
+                            
+                            swal({
+                                title: 'Awesome!',
+                                //Gets the value in the logged in user's name field of the database
+                                text: 'Welcome back ' + Parse.User.current().get( "name" ) + '!',
+                                type: 'success',
+                                confirmButtonColor: '#5858FA',
+                                confirmButtonText: 'Awww yeaaaa'
+                            });
+                            
+                            //Reset the tips field back to original
+                            tips.innerHTML = 'Please fill out the following fields';
+                            tips.style.background = '#81F781';
+                            tips.style.border = '2px solid #74DE74';
+                        },
+                        //If the logIn is not successful, notify the user via sweet alert
+                        error: function( user ) {
+                            swal({
+                                title: 'Oops...',
+                                text: 'We just accidently deleted your account. Please sign up again.',
+                                type: 'error',
+                                confirmButtonColor: '#5858FA',
+                                confirmButtonText: 'Aw man, not again...'
+                            });
+                        }
+                    });
+                }
             }
             
             /************************************************************************
@@ -226,11 +308,14 @@
                                       checking and in updateTips() to show user length
                                       bounds.
                                           
-            * Result:		True if length of input is valid, false if not.
+            * Result:       True if length of input is valid, false if not.
             ************************************************************************/
             function checkLength( input, strName, min, max, tipId ) {
+                //Check if the length of input doesn't fall in the bounds
                 if ( input.value.length > max || input.value.length < min ) {
+                    //Change the color of the text box red
                     input.style.border = '1px solid #F78181';
+                    //Call update tips to notify the user of their error
                     updateTips( tipId, 'Length of ' + strName + ' must be between ' + min + ' and ' + max + ' characters!' );
                     return false;
                 } else {
@@ -265,7 +350,7 @@
             * Purpose:		Checks to see if input uses valid characters or not.
                             e.g. Name can't have numbers in it...like wtf bro...
                 
-            * Description:	Tests the field's input with a regex argument. If
+            * Description:	Tests the field's input with a regEx argument. If
                             not valid, it calls updateTips to display the error
                             message.
                                 
@@ -277,8 +362,11 @@
             * Result:		True if length of input is valid, false if not.
             ************************************************************************/
             function valInput( input, valChar, name, tipId ) {
+                //Test the users input against the regular expression passed in
                 if ( !( valChar.test( input.value ) ) ) {
+                    //Update the tips with an error message if it fails
                     updateTips( tipId, 'That doesn\'t look like an actual ' + name + '...but I don\'t judge' );
+                    //Change the color of the text box red
                     input.style.border = '1px solid #F78181';
                     return false;
                 } else {
@@ -294,12 +382,12 @@
         <div id="content">
             <div id="getInWrapper">
                 <div id="options">
-                    <div id="login">Log In</div>
-                    <div id="signup" style="background:#D8D8D8;">Sign Up</div>
+                    <div id="login" onclick="dispTab( 'login' )">Log In</div>
+                    <div id="signup" onclick="dispTab( 'signup' )" style="background:#D8D8D8;">Sign Up</div>
                 </div>
                 <center><br><br><div id="lForm" style="display:block;position:relative;top:20px;">
                     <div id="lTips" class="tips">Please fill in the following fields</div><br>
-                    <input id="lName" type="text" placeholder="Email"><br><br>
+                    <input id="lEmail" type="email" placeholder="Email"><br><br>
                     <input id="lPass" type="password" placeholder="Password"><br><br>
                     <a href="">Forgot password</a>
                     <div onclick="login()" class="btn" style="margin-top:10px;">Log In</div>
