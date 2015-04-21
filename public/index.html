@@ -114,6 +114,17 @@
                 Parse.initialize( "t5hvXf3wJOYnL3MMIffsemMdhLM7f4brACcf0eBa", "UhqQaEDIEQr6cxhO8XS4Fl8BcGU4ir9jL9To7PVO" );
             };
             
+            /************************************************************************
+             * Name:		dispTab()
+                
+             * Purpose:		Changes the UI to display the form requested by the user.
+                
+             * Description:	This function changes the background color of the tab
+                            requested by the user to be white. It also changes the
+                            background color of the other tab to be grey. Finally,
+                            it displays the correct form and hides the other tab's 
+                            form.
+            ************************************************************************/
             function dispTab( tabId ) {
                 var login = document.getElementById( 'login' ), signup = document.getElementById( 'signup' ),
                     sForm = document.getElementById( 'sForm' ), lForm = document.getElementById( 'lForm' );
@@ -140,6 +151,18 @@
                 }
             }
             
+            /************************************************************************
+             * Name:		signup()
+                
+             * Purpose:		Allows the user to sign up and get added to the database
+                
+             * Description:	This function validates the input of the of the
+                            text boxes in the signup form. If they are good,
+                            it calls Parse's signUp function. If the user's
+                            input is not valid, it updates the tips field
+                            in the form with the correct error message to
+                            help the user sign up properly.
+            ************************************************************************/
             function signup(){
                 //Declare any necessary variables
                 var good = true, sName = document.getElementById( 'sName' ), sEmail = document.getElementById( 'sEmail' ), 
@@ -215,25 +238,14 @@
             /************************************************************************
              * Name:		login()
                 
-             * Purpose:		
+             * Purpose:		Allows the user to login to their profile page.
                 
-             * Description:	Compares the field's input length to the max and min 
-                            arguments.If invalid, turn border red, and call 
-                            updateTips() with error message.
-                                
-             * Input:		var input - field that is being checked
-                            var strName - Name of field being checked. Used in 
-                                          updateTips() to show user where error is.
-                            var min - The minimum number of characters the length of
-                                      the input must be to be valid. Used in length
-                                      checking and in updateTips() to show user length
-                                      bounds.
-                            var max - The maximum number of characters the length of
-                                      the input can be to be valid. Used in length
-                                      checking and in updateTips() to show user length
-                                      bounds.
-                                          
-             * Result:      True if length of input is valid, false if not.
+             * Description:	This function validates the input of the of the
+                            text boxes in the login form. If they are good,
+                            it calls Parse's logIn function. If the user's
+                            input is not valid, it updates the tips field
+                            in the form with the correct error message to
+                            help the user login properly.
             ************************************************************************/
             function login() {
                 //Declares any necessary variables
@@ -287,16 +299,16 @@
             }
             
             /************************************************************************
-            * Name:			checkLength()
+             * Name:		checkLength()
                 
-            * Purpose:		Checks to see if the length of a text field is within
+             * Purpose:		Checks to see if the length of a text field is within
                             bounds
                 
-            * Description:	Compares the field's input length to the max and min 
+             * Description:	Compares the field's input length to the max and min 
                             arguments.If invalid, turn border red, and call 
                             updateTips() with error message.
                                 
-            * Input:		var input - field that is being checked
+             * Input:		var input - field that is being checked
                             var strName - Name of field being checked. Used in 
                                           updateTips() to show user where error is.
                             var min - The minimum number of characters the length of
@@ -307,8 +319,10 @@
                                       the input can be to be valid. Used in length
                                       checking and in updateTips() to show user length
                                       bounds.
+                            var tipId - the ID of the tip field for this form. Allows
+                                        updateTips to update the correct tips field.
                                           
-            * Result:       True if length of input is valid, false if not.
+             * Result:      True if length of input is valid, false if not.
             ************************************************************************/
             function checkLength( input, strName, min, max, tipId ) {
                 //Check if the length of input doesn't fall in the bounds
@@ -324,15 +338,16 @@
             }
             
             /************************************************************************
-            * Name:			updateTips()
+             * Name:		updateTips()
             
-            * Purpose:		Updates the value and css of the tip bar at the top of 
+             * Purpose:		Updates the value and css of the tip bar at the top of 
                             the form if there is an error
                             
-            * Description:	Sets the value, background color, and border color of the
-                            tip bar
+             * Description:	Sets the value, background color, and border color of the
+                            tips bar
                             
-            * Input:		var newTip - The string to be displayed in the tip bar
+             * Input:		var id - The ID of the tips field to update.
+                            var newTip - The string to be displayed in the tip bar.
             ************************************************************************/
             function updateTips( id, newTip ) {
                 var tips = document.getElementById( id );
@@ -345,21 +360,22 @@
             }
             
             /************************************************************************
-            * Name:			valInput()
+             * Name:		valInput()
                 
-            * Purpose:		Checks to see if input uses valid characters or not.
+             * Purpose:		Checks to see if input uses valid characters or not.
                             e.g. Name can't have numbers in it...like wtf bro...
                 
-            * Description:	Tests the field's input with a regEx argument. If
+             * Description:	Tests the field's input with a regEx argument. If
                             not valid, it calls updateTips to display the error
                             message.
                                 
-            * Input:		var input - jQuery of field that is being checked
+             * Input:		var input - jQuery of field that is being checked
                             var name - Name of field being checked. Used in updateTips
                                        to show user where error is.
-                            var valChar - The regex that the input is tested against.
+                            var valChar - The regex that the input is tested against
+                            var tipId - the ID of the tip field to update.
                                           
-            * Result:		True if length of input is valid, false if not.
+             * Result:		True if length of input is valid, false if not.
             ************************************************************************/
             function valInput( input, valChar, name, tipId ) {
                 //Test the users input against the regular expression passed in
