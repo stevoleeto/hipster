@@ -11,8 +11,6 @@
         
         <!-- Get access to Sweet Alert JS -->
 		<script src="lib/sweet-alert.min.js"></script> 
-        <!-- Get access to jQuery libraries -->
-		<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
         <!-- Get access to the Parse libraries -->
 		<script type="text/javascript" src="https://www.parsecdn.com/js/parse-1.1.14.min.js"></script>
 		
@@ -27,30 +25,63 @@
                 width: 100%;
                 height: 64px;
                 position: fixed;
-                background: #819FF7;
+                background: #2196F3;
             }
             
             #content {
                 width: 100%;
                 height: 100%;
-                background: #E0ECF8;
                 top: 64px;
+                background: #E3F2FD;
+                display: inline-block;
+                z-index: 1;
+            }
+            
+            #gallery {
+                width: 800px;
+                height: 400px;
+                position: relative;
+                display: inline-block;
+                margin: auto;
+                top: 25%;
+                left: 75px;
+                bottom: 25%;
+                background: white;
+                border-radius: 5px;
+            }
+            
+            #btnWrapper {
+                margin: 0 auto;
+                position: relative;
+                top: 90%;
+                height: 20px;
+                width: 50px;
+            }
+            
+            #btnWrapper div {
+                display: inline-block;
+                font-size: 20px;
+            }
+            
+            #btnWrapper div:hover {
+                cursor: pointer;
             }
             
             #getInWrapper {
 				width: 325px;
-				margin: auto;
+                margin: auto;
 				border-radius: 0 0 5px 5px;
 				background: white;
-				position: absolute;
-				color: #2E64FE;
-				padding: 0 0 20px 0;
-				box-shadow: 2px 4px 6px #000;
-				top: 0;
+				position: relative;
+				color: #2196F3;
+				top: 30%;
 				left: 0;
-				bottom: 0;
+				bottom: 30%;
 				right: 0;
-                height: 320px;
+                float: right;
+                margin-right: 100px;
+                height: 340px;
+                display: inline-block;
 			}
             
             .active {
@@ -73,8 +104,8 @@
             .tips {
                 position: relative;
                 color: white;
-                border: 2px solid #74DE74;
-                background: #81F781;
+                border: 2px solid #1B5E20;
+                background: #4CAF50;
                 width: 90%;
                 font-weight: 600;
             }
@@ -90,7 +121,7 @@
             
             .btn {
                 width: 90%;
-                background: #819FF7;
+                background: #90CAF9;
                 height: 40px;
                 color: white;
                 font-size: 30px;
@@ -99,7 +130,7 @@
             
             .btn:hover {
                 cursor: pointer;
-                background: #2E64FE;
+                background: #2196F3;
             }
         </style>
         
@@ -126,6 +157,7 @@
                             form.
             ************************************************************************/
             function dispTab( tabId ) {
+                //Declare any necessary variables
                 var login = document.getElementById( 'login' ), signup = document.getElementById( 'signup' ),
                     sForm = document.getElementById( 'sForm' ), lForm = document.getElementById( 'lForm' );
                 
@@ -223,8 +255,10 @@
                             
                             //Reset the tips field back to original
                             tips.innerHTML = 'Please fill out the following fields';
-                            tips.style.background = '#81F781';
-                            tips.style.border = '2px solid #74DE74';
+                            tips.style.background = '#4CAF50';
+                            //tips.style.background = '#81F781';
+                            tips.style.border = '2px solid #1B5E20';
+                            //tips.style.border = '2px solid #74DE74';
                         },
                         //If Parse isn't able to successfully add the user to the database
                         error: function( user ) {
@@ -281,8 +315,10 @@
                             
                             //Reset the tips field back to original
                             tips.innerHTML = 'Please fill out the following fields';
-                            tips.style.background = '#81F781';
-                            tips.style.border = '2px solid #74DE74';
+                            tips.style.background = '#4CAF50';
+                            //tips.style.background = '#81F781';
+                            tips.style.border = '2px solid #1B5E20';
+                            //tips.style.border = '2px solid #74DE74';
                         },
                         //If the logIn is not successful, notify the user via sweet alert
                         error: function( user ) {
@@ -328,7 +364,7 @@
                 //Check if the length of input doesn't fall in the bounds
                 if ( input.value.length > max || input.value.length < min ) {
                     //Change the color of the text box red
-                    input.style.border = '1px solid #F78181';
+                    input.style.border = '1px solid #F44336';
                     //Call update tips to notify the user of their error
                     updateTips( tipId, 'Length of ' + strName + ' must be between ' + min + ' and ' + max + ' characters!' );
                     return false;
@@ -354,8 +390,8 @@
                 //Change the text displayed to the argument
                 tips.innerHTML = newTip;
                 //Change the background-color and border color of the tips bar.
-                tips.style.background = '#F78181';
-                tips.style.border = '2px solid #DE7474';
+                tips.style.background  = '#F44336';
+                tips.style.border = '2px solid #D50000';
                 tips.style.color = 'white';
             }
             
@@ -383,7 +419,7 @@
                     //Update the tips with an error message if it fails
                     updateTips( tipId, 'That doesn\'t look like an actual ' + name + '...but I don\'t judge' );
                     //Change the color of the text box red
-                    input.style.border = '1px solid #F78181';
+                    input.style.border = '1px solid #F44336';
                     return false;
                 } else {
                     return true;
@@ -396,6 +432,12 @@
             <h3 style="text-align:center;font-size:30px;font-weight:400;">Name of Company™</h3>
         </div>
         <div id="content">
+            <div id="gallery">
+                <div id="btnWrapper">
+                    <div>&vrtri;</div>
+                    <div>&vltri;</div>
+                </div>
+            </div>
             <div id="getInWrapper">
                 <div id="options">
                     <div id="login" onclick="dispTab( 'login' )">Log In</div>
