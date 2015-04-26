@@ -136,7 +136,8 @@
         
         <!-- Inline JS goes here -->
         <script> 
-            //Global variables
+            /** Global variables **/
+            //These are regular expressions (templates) for how the name and the email should look.
             var nameRegex = /^[a-z']([a-z'_\s])+$/i, emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
             
             //Anonymous function that gets called once the window loads
@@ -155,6 +156,8 @@
                             background color of the other tab to be grey. Finally,
                             it displays the correct form and hides the other tab's 
                             form.
+                            
+             * Called In:   main()
             ************************************************************************/
             function dispTab( tabId ) {
                 //Declare any necessary variables
@@ -194,6 +197,8 @@
                             input is not valid, it updates the tips field
                             in the form with the correct error message to
                             help the user sign up properly.
+                            
+             * Called In:   main()
             ************************************************************************/
             function signup(){
                 //Declare any necessary variables
@@ -226,7 +231,11 @@
                 //If the password is good, change the text box border green and attempts to add user to database
                 if ( good ) {
                     sPass.style.border = '1px solid #c6c6c6';
-                    
+                }
+                
+                //good = good && checkAlreadyUser( sEmail.value );
+                
+                if ( good ) {
                     //Create a reference variable to a new parse user
                     var user = new Parse.User(); 
                     
@@ -237,7 +246,7 @@
                     
                     //Call Parse's signUp function
                     user.signUp(null, {
-                        //If Parse is able to successfully add the user to that database
+                        //If Parse is able to successfully add the user to the database
                         success: function( user ) {
                             //Clear the text boxes
                             sName.value = '';
@@ -256,14 +265,12 @@
                             //Reset the tips field back to original
                             tips.innerHTML = 'Please fill out the following fields';
                             tips.style.background = '#4CAF50';
-                            //tips.style.background = '#81F781';
                             tips.style.border = '2px solid #1B5E20';
-                            //tips.style.border = '2px solid #74DE74';
                         },
                         //If Parse isn't able to successfully add the user to the database
                         error: function( user ) {
                             //Update the tips field to let the user know
-                            tips.innerHTML = 'An account with this name already exists!';
+                            updateTips( 'sTips', 'Something is wrong. Please check your inputs and try again!');
                         }
                     });
                 }
@@ -273,6 +280,8 @@
              * Name:		login()
                 
              * Purpose:		Allows the user to login to their profile page.
+             
+             * Called In:   main()
                 
              * Description:	This function validates the input of the of the
                             text boxes in the login form. If they are good,
@@ -316,9 +325,7 @@
                             //Reset the tips field back to original
                             tips.innerHTML = 'Please fill out the following fields';
                             tips.style.background = '#4CAF50';
-                            //tips.style.background = '#81F781';
                             tips.style.border = '2px solid #1B5E20';
-                            //tips.style.border = '2px solid #74DE74';
                         },
                         //If the logIn is not successful, notify the user via sweet alert
                         error: function( user ) {
@@ -343,6 +350,8 @@
              * Description:	Compares the field's input length to the max and min 
                             arguments.If invalid, turn border red, and call 
                             updateTips() with error message.
+                            
+             * Called in:   login(), signup()
                                 
              * Input:		var input - field that is being checked
                             var strName - Name of field being checked. Used in 
@@ -382,6 +391,8 @@
              * Description:	Sets the value, background color, and border color of the
                             tips bar
                             
+             * Called in:   login(), signup(), checkAlreadyUser()
+                            
              * Input:		var id - The ID of the tips field to update.
                             var newTip - The string to be displayed in the tip bar.
             ************************************************************************/
@@ -404,6 +415,8 @@
              * Description:	Tests the field's input with a regEx argument. If
                             not valid, it calls updateTips to display the error
                             message.
+                            
+             * Called in:   login(), signup()
                                 
              * Input:		var input - jQuery of field that is being checked
                             var name - Name of field being checked. Used in updateTips
@@ -425,11 +438,53 @@
                     return true;
                 }
             }
+            
+            /************************************************************************
+             * Name:		checkAlreadyUser()
+                
+             * Purpose:		Checks to see if a user trying to sign up is already in
+                            the database.
+                
+             * Description:	This function calls queries the database checking to see
+                            if the user's email is already in it. This works because
+                            the user's email should be unique. If it is in the
+                            database, the function returns false to break the 'good'
+                            boolean in the signup function. If the user's email is
+                            NOT in the database, the function returns true to
+                            preserve the 'good' boolean in the signup function.
+             
+             * Called in:   NOT READY FOR IMPLEMENTATION
+                                
+             * Input:		var userEmail - The value that the user inputted into
+                                            email field while trying to sign up.
+                                          
+             * Result:      True if email is NOT in database. False if email is in
+                            database.
+            ************************************************************************/
+            function checkAlreadyUser( userEmail ) {
+                //Declare a query reference variable 
+                var query = new Parse.Query( 'Post' );
+                var result = true;
+                
+                //Set the query to only look through the username column for the argument
+                query.equalTo( 'username', userEmail );
+                
+                //Dispatch the query.
+                query.find({
+                    //If the email is found update the tips bar with an error message and return false.
+                    success: function( objects ) {
+                    },
+                    error: function( error ) {
+                    }
+                });
+                
+                return result;
+            }
         </script>
     </head>
     <body>
         <div id="header">
-            <h3 style="text-align:center;font-size:30px;font-weight:400;">Name of Company™</h3>
+            <h3 style="text-align:center;font-size:30px;font-weight:400;position:relative;bottom:10px;">Name of Company™</h3>
         </div>
         <div id="content">
             <div id="gallery">
