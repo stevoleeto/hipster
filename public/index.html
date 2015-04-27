@@ -122,8 +122,8 @@
                     var user = new Parse.User(); 
                     
                     //Set the user's inputs as database fields
-                    user.set( 'name', sName.value );
-                    user.set( 'username', sEmail.value );
+                    user.set( 'username', sName.value );
+                    user.set( 'email', sEmail.value );
                     user.set( 'password', sPass.value );
                     
                     //Call Parse's signUp function
@@ -349,7 +349,7 @@
                 var result = true;
                 
                 //Set the query to only look through the username column for the argument
-                query.equalTo( 'username', userEmail );
+                query.equalTo( 'email', userEmail );
                 
                 //Dispatch the query.
                 query.find({
