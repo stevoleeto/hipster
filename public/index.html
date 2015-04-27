@@ -207,12 +207,14 @@
                             tips.innerHTML = 'Please fill out the following fields';
                             tips.style.background = '#4CAF50';
                             tips.style.border = '2px solid #1B5E20';
+
+                            location.href = "hipster.parseapp.com/profile";
                         },
                         //If the logIn is not successful, notify the user via sweet alert
                         error: function( user ) {
                             swal({
                                 title: 'Oops...',
-                                text: 'We just accidently deleted your account. Please sign up again.',
+                                text: 'Something went wrong. Please try again.',
                                 type: 'error',
                                 confirmButtonColor: '#5858FA',
                                 confirmButtonText: 'Aw man, not again...'
