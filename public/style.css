@@ -21,6 +21,7 @@ body
 /*    background: #E3F2FD;*/
     display: inline-block;
     z-index: 1;
+/*    border: solid black;*/
 }
 
 #gallery 
