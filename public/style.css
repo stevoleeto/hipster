@@ -1,0 +1,131 @@
+body 
+{
+    margin: 0;
+    font-family: 'Tahoma';
+}
+
+#header 
+{
+    width: 100%;
+    height: 64px;
+    position: fixed;
+    background: #2196F3;
+}
+
+#content 
+{
+    width: 100%;
+    height: 100%;
+    top: 64px;
+    background: #E3F2FD;
+    display: inline-block;
+    z-index: 1;
+}
+
+#gallery 
+{
+    width: 800px;
+    height: 400px;
+    position: relative;
+    display: inline-block;
+    margin: auto;
+    top: 25%;
+    left: 75px;
+    bottom: 25%;
+    background: white;
+    border-radius: 5px;
+}
+
+#btnWrapper 
+{
+    margin: 0 auto;
+    position: relative;
+    top: 90%;
+    height: 20px;
+    width: 50px;
+}
+
+#btnWrapper div 
+{
+    display: inline-block;
+    font-size: 20px;
+}
+
+#btnWrapper div:hover 
+{
+    cursor: pointer;
+}
+
+#getInWrapper 
+{
+    width: 325px;
+    margin: auto;
+    border-radius: 0 0 5px 5px;
+    background: white;
+    position: relative;
+    color: #2196F3;
+    top: 30%;
+    left: 0;
+    bottom: 30%;
+    right: 0;
+    float: right;
+    margin-right: 100px;
+    height: 340px;
+    display: inline-block;
+}
+
+.active 
+{
+    background: white;
+}
+
+#options div 
+{
+    width: 50%;
+    float: left;
+    text-align: center;
+    font-size: 30px;
+    line-height: 40px;
+    height: 40px;
+}
+
+#options div:hover 
+{
+    cursor: pointer;
+}
+
+.tips 
+{
+    position: relative;
+    color: white;
+    border: 2px solid #1B5E20;
+    background: #4CAF50;
+    width: 90%;
+    font-weight: 600;
+}
+
+input 
+{
+    line-height: 2em;
+    border-radius: 3px;
+    font-size: 16px;
+    color: #575757;
+    border: 1px solid #c6c6c6;
+    width: 90%;
+}
+
+.btn 
+{
+    width: 90%;
+    background: #90CAF9;
+    height: 40px;
+    color: white;
+    font-size: 30px;
+    line-height: 40px;
+}
+
+.btn:hover 
+{
+    cursor: pointer;
+    background: #2196F3;
+}
