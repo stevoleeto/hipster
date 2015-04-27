@@ -2,6 +2,7 @@ body
 {
     margin: 0;
     font-family: 'Tahoma';
+    min-width: 1350px;
 }
 
 #header 
@@ -29,7 +30,7 @@ body
     position: relative;
     display: inline-block;
     margin: auto;
-    top: 25%;
+    top: 20%;
     left: 75px;
     bottom: 25%;
     background: white;
