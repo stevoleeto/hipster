@@ -15,19 +15,21 @@
              Parse.initialize( "t5hvXf3wJOYnL3MMIffsemMdhLM7f4brACcf0eBa", "UhqQaEDIEQr6cxhO8XS4Fl8BcGU4ir9jL9To7PVO");
 
 
-             var currentUser = Parse.User.current();
+            var currentUser = Parse.User.current();
 
-             console.log(currentUser.getEmail());
+            console.log(currentUser.getEmail());
 
             if (currentUser) {
             // do stuff with the user
-            console.log(currentUser.getEmail());
-            alert(currentUser.get("name"));
+            setTimeout(function(){alert(currentUser.get("name"));}, 1000);
             } 
             else {
             // show the signup or login page
             location.href = "hipster.parseapp.com";
-            console.log("Not logged in!");
+            }
+
+            function logout(){
+               Parse.User.logOut();
             }
 
 
@@ -38,5 +40,8 @@
 
         </script>
         <p> Test</p>
+        <div id="logoutWrapper">
+                <div onclick="logout()" class="btn">Log Out</div>
+        </div>
     </head>
 </html>
