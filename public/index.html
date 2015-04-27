@@ -8,8 +8,7 @@
         
         <!-- Get access to Sweet Alert CSS -->
 		<link rel="stylesheet" type="text/css" href="lib/sweet-alert.css"> 
-        <!-- Get access to style sheet for index -->
-	<link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
         
         <!-- Get access to Sweet Alert JS -->
 		<script src="lib/sweet-alert.min.js"></script> 
@@ -122,8 +121,8 @@
                     var user = new Parse.User(); 
                     
                     //Set the user's inputs as database fields
-                    user.set( 'name', sName.value );
-                    user.set( 'username', sEmail.value );
+                    user.set( 'username', sName.value );
+                    user.set( 'email', sEmail.value );
                     user.set( 'password', sPass.value );
                     
                     //Call Parse's signUp function
@@ -349,7 +348,7 @@
                 var result = true;
                 
                 //Set the query to only look through the username column for the argument
-                query.equalTo( 'username', userEmail );
+                query.equalTo( 'email', userEmail );
                 
                 //Dispatch the query.
                 query.find({
@@ -407,4 +406,3 @@
         <a href="http://hipster.parseapp.com/contact/">Contact</a>
     </p>
 </html>
-
