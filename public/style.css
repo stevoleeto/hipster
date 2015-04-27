@@ -1,7 +1,6 @@
-body 
-{
+body  {
     margin: 0;
-    font-family: 'Tahoma';
+    font-family: 'Century Gothic';
     min-width: 1350px;
 }
 
@@ -10,7 +9,7 @@ body
     width: 100%;
     height: 64px;
     position: fixed;
-    border-bottom: solid grey 1px;
+    border-bottom: solid #888 1px;
 }
 
 #header p
