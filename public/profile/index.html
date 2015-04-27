@@ -1,3 +1,39 @@
 <html>
-test
+    <head>
+        <!-- Information about the document goes here
+             This includes the encoding, title, css files, and JS files -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0">	
+        <title>Scheduling App</title>
+        <!-- Get access to the Parse libraries -->
+		<script type="text/javascript" src="https://www.parsecdn.com/js/parse-1.1.14.min.js"></script>
+		    
+        <!-- Inline JS goes here -->
+        <script> 
+            /** Global variables **/
+             
+             Parse.initialize( "t5hvXf3wJOYnL3MMIffsemMdhLM7f4brACcf0eBa", "UhqQaEDIEQr6cxhO8XS4Fl8BcGU4ir9jL9To7PVO");
+
+
+             var currentUser = Parse.User.current();
+
+             console.log(currentUser.getEmail());
+
+            if (currentUser) {
+            // do stuff with the user
+            console.log(currentUser.getEmail());
+            } 
+            else {
+            // show the signup or login page
+            location.href = "hipster.parseapp.com";
+            console.log("Not logged in!");
+            }
+            
+                
+
+
+
+        </script>
+        <p> Test</p>
+    </head>
 </html>
