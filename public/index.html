@@ -194,15 +194,6 @@
                             lEmail.value = '';
                             lPass.value = '';
                             
-                            swal({
-                                title: 'Awesome!',
-                                //Gets the value in the logged in user's name field of the database
-                                text: 'Welcome back ' + Parse.User.current().get( "name" ) + '!',
-                                type: 'success',
-                                confirmButtonColor: '#5858FA',
-                                confirmButtonText: 'Awww yeaaaa'
-                            });
-                            
                             //Reset the tips field back to original
                             tips.innerHTML = 'Please fill out the following fields';
                             tips.style.background = '#4CAF50';
