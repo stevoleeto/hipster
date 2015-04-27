@@ -1,7 +1,6 @@
-body 
-{
+body  {
     margin: 0;
-    font-family: 'Tahoma';
+    font-family: 'Century Gothic';
     min-width: 1350px;
 }
 
@@ -10,7 +9,30 @@ body
     width: 100%;
     height: 64px;
     position: fixed;
-    border-bottom: solid grey 1px;
+    border-bottom: solid #888 1px;
+}
+
+#header p
+{
+    text-align:center; 
+    font-size:30px;
+    font-weight: 100; 
+    letter-spacing: 3px; 
+    position:relative; 
+    bottom:15px;
+}
+
+#busy
+{
+    position:relative;
+    left:10px; 
+    background-color:#B8FCBC; 
+    padding: 4px;
+}
+
+#blocks
+{
+    text-decoration:underline;
 }
 
 #content 
