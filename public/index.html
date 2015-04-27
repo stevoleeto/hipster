@@ -121,8 +121,8 @@
                     var user = new Parse.User(); 
                     
                     //Set the user's inputs as database fields
-                    user.set( 'username', sName.value );
-                    user.set( 'email', sEmail.value );
+                    user.set( 'name', sName.value );
+                    user.set( 'username', sEmail.value );
                     user.set( 'password', sPass.value );
                     
                     //Call Parse's signUp function
@@ -207,6 +207,8 @@
                             tips.innerHTML = 'Please fill out the following fields';
                             tips.style.background = '#4CAF50';
                             tips.style.border = '2px solid #1B5E20';
+                            
+                            location.href="hipster.parseapp.com/profile";
                         },
                         //If the logIn is not successful, notify the user via sweet alert
                         error: function( user ) {
