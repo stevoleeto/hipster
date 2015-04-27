@@ -76,7 +76,8 @@ body
     margin-right: 100px;
     height: 340px;
     display: inline-block;
-    
+/*    border: solid grey 1px;*/
+/*    box-shadow: 2px 2px 2px grey;*/
 }
 
 .active 
@@ -86,12 +87,13 @@ body
 
 #options div 
 {
-    width: 50%;
+    width: 49.3%;
     float: left;
     text-align: center;
     font-size: 30px;
     line-height: 40px;
     height: 40px;
+    border: solid grey 1px;
 }
 
 #options div:hover 
