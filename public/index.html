@@ -28,8 +28,24 @@
             window.onload = function() {
                 //Link to Parse database - accepts application_ID, JavaScript_Key
                 Parse.initialize( "t5hvXf3wJOYnL3MMIffsemMdhLM7f4brACcf0eBa", "UhqQaEDIEQr6cxhO8XS4Fl8BcGU4ir9jL9To7PVO" );
-            };
+
+                /********************
+                Checks if signed in or not
+                ***************/
             
+                if (currentUser) {
+                // do stuff with the user
+                setTimeout(function(){alert(currentUser.get("name"));}, 1000);
+                } 
+                else {
+                // show the signup or login page
+                location.href = "hipster.parseapp.com";
+                }
+            };
+
+            
+
+
             /************************************************************************
              * Name:		dispTab()
                 
