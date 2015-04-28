@@ -4,6 +4,12 @@ body  {
     min-width: 1350px;
 }
 
+.companyName
+{
+  text-align:right; 
+  position:relative; 
+  right: 10px;
+}
 #header 
 {
     width: 100%;
