@@ -16,6 +16,14 @@
         <!-- Inline JS goes here -->
         <script> 
             /** Global variables **/
+            if (currentUser) {
+            // do stuff with the user
+            setTimeout(function(){alert(currentUser.get("name"));}, 1000);
+            } 
+            else {
+            // show the signup or login page
+            location.href = "http://hipster.parseapp.com";
+            }
             /* 
              Parse.initialize( "t5hvXf3wJOYnL3MMIffsemMdhLM7f4brACcf0eBa", "UhqQaEDIEQr6cxhO8XS4Fl8BcGU4ir9jL9To7PVO");
 
@@ -24,14 +32,6 @@
 
             console.log(currentUser.getEmail());
 
-            if (currentUser) {
-            // do stuff with the user
-            setTimeout(function(){alert(currentUser.get("name"));}, 1000);
-            } 
-            else {
-            // show the signup or login page
-            location.href = "hipster.parseapp.com";
-            }
 
             function logout(){
                Parse.User.logOut();

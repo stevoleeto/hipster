@@ -63,7 +63,7 @@ app.controller('MainController', ['$scope', function($scope) {
         tips.innerHTML = 'Please fill out the following fields';
         tips.style.background = '#4CAF50';
         tips.style.border = '2px solid #1B5E20';
-        location.href="./home/index.html";
+        location.href="./home";
       },
       //If Parse isn't able to successfully add the user to the database
       error: function( user ) {
@@ -90,7 +90,7 @@ app.controller('MainController', ['$scope', function($scope) {
     Parse.User.logIn( $scope.email, $scope.password, {
       //If the logIn is successful, notify user via sweet alert
       success: function( user ) {
-        location.href="./home/index.html";
+        location.href="./home";
       },
     //If the logIn is not successful, notify the user via sweet alert
     error: function( user ) {
