@@ -118,7 +118,7 @@ app.controller('MainController', ['$scope', function($scope) {
   $scope.logout = function(){
 
     Parse.User.logOut();
-    location.href='hipster.parseapp.com';
+    location.href='http://hipster.parseapp.com';
 
   }
 
