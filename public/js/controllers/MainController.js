@@ -57,6 +57,7 @@ app.controller('MainController', ['$scope', function($scope) {
     //Set the user's inputs as database fields
     user.set( 'name', $scope.name );
     user.set( 'username', $scope.email );
+    user.set( 'email', $scope.email );
     user.set( 'password', $scope.password );
 
     //Call Parse's signUp function
@@ -143,6 +144,19 @@ app.controller('MainController', ['$scope', function($scope) {
     Parse.User.logOut();
     location.href='login/login.html';
 
+  }
+
+  $scope.forgotPassword = function(){
+    alert( $scope.email);
+    Parse.User.requestPasswordReset( $scope.email , {
+      success: function() {
+      alert("An email has been sent with information on changing password.");
+      },
+      error: function(error) {
+      // Show the error message somewhere
+      alert("Error: Forgot Password Error" + error.message);
+      }
+    });
   }
 
 
