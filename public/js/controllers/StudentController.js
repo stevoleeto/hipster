@@ -1,5 +1,9 @@
-app.controller('MainController', ['$scope', function($scope) { 
-   // $scope.title = 'This Month\'s Bestsellers'; 
+/*
+ * StudentController.js
+ * Description: This controller will be used to control the student view.
+ * 
+ */
+app.controller('StudentController', ['$scope', function($scope) { 
    $scope.companyName = 'HIPSTERinc';
   
 }]);
