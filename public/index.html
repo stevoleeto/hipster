@@ -47,13 +47,17 @@
       <p>You have been a member since: {{ user.joinDate | date }} </p>
 
       <!-- These buttons serve as a proof of concept for switching between the two primary views. -->
-      <form>.
+      <form>
         <div ng-click = "toggleProfileView()" class="btn" style="margin-top:10px;">Profile</div>
         <div ng-click = "toggleGroupView()" class="btn" style="margin-top:10px;">Groups</div>
       </form>
 
-      <div id="profileView" ng-show="profileView">Yay Profile!</div>
-      <div id="groupView" ng-show="groupView">Yay Group!</div>
+      <div id="profileView" ng-show="profileView">
+        <p>Yay Profile!</p>
+      </div>
+      <div id="groupView" ng-show="groupView">
+        <p>Yay Group!</p>
+      </div>
 
 
     </body>
