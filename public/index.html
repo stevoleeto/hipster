@@ -41,10 +41,6 @@
         </div>
     </head>
     <body>
-      <!-- This is an example of the view being filled with the model -->
-      <p>Your profile name is: {{ user.name }} </p>
-      <!-- This is an example of using a filter!     -> v <- thats a pipe  -->
-      <p>You have been a member since: {{ user.joinDate | date }} </p>
 
       <!-- These buttons serve as a proof of concept for switching between the two primary views. -->
       <form>
@@ -53,10 +49,13 @@
       </form>
 
       <div id="profileView" ng-show="profileView">
-        <p>Yay Profile!</p>
+        <!-- This is an example of the view being filled with the model -->
+        <p>Your profile name is: {{ user.name }} </p>
+        <!-- This is an example of using a filter!     -> v <- thats a pipe  -->
+        <p>You have been a member since: {{ user.joinDate | date }} </p>
       </div>
       <div id="groupView" ng-show="groupView">
-        <p>Yay Group!</p>
+        <p>I'm hardcoded to say that you're not in any Groups yet!</p>
       </div>
 
 
