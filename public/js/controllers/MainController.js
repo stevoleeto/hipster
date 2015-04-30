@@ -147,14 +147,13 @@ app.controller('MainController', ['$scope', function($scope) {
   }
 
   $scope.forgotPassword = function(){
-    alert( $scope.email);
     Parse.User.requestPasswordReset( $scope.email , {
       success: function() {
       alert("An email has been sent with information on changing password.");
       },
       error: function(error) {
       // Show the error message somewhere
-      alert("Error: Forgot Password Error" + error.message);
+      alert("Error: Forgot Password Error. The error message is: " + error.message);
       }
     });
   }
