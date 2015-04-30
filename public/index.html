@@ -1,4 +1,6 @@
-<html ng-app = "myApp" ng-controller = "MainController">
+<html ng-app = "myApp" ng-controller = "StudentController">
+    <!-- We are using a different controller here. The student controller
+         is like the student class for our purposes -->
     <head>
         <!-- Information about the document goes here
              This includes the encoding, title, css files, and JS files -->
@@ -12,6 +14,11 @@
 
         <!-- Get access to the AngularJS library -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+
+        <!-- Modules -->
+        <script src="js/app.js"></script>
+        <!-- Controllers -->
+        <script src="js/controllers/StudentController.js"></script>
 		    
         <!-- Inline JS goes here -->
         <script> 
@@ -20,40 +27,27 @@
             var currentUser = Parse.User.current();
             if (currentUser) {
             // do stuff with the user
-              setTimeout(function(){alert(currentUser.get("name"));}, 1000);
+              setTimeout(null, 1000);
+
             } 
             else {
             // show the signup or login page
               location.href = "login/login.html";
             }
-            /* 
-
-
-
-            console.log(currentUser.getEmail());
-
-
-            function logout(){
-               Parse.User.logOut();
-               location.href="/";
-            }
-            */
 
         </script>
-        <p> Test</p>
         <div id="logoutWrapper">
                 <div ng-click= "logout()" class="btn">Log Out</div>
         </div>
     </head>
     <body>
-      <p>{{ name }} </p>
+      <!-- This is an example of the view being filled with the model -->
+      <p>Your profile name is: {{ user.name }} </p>
+      <!-- This is an example of using a filter!     -> v <- thats a pipe  -->
+      <p>You have been a member since: {{ user.joinDate | date }} </p>
 
 
     </body>
 
-        <!-- Modules -->
-        <script src="js/app.js"></script>
 
-        <!-- Controllers -->
-        <script src="js/controllers/MainController.js"></script>
 </html>
