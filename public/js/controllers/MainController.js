@@ -65,14 +65,15 @@ app.controller('MainController', ['$scope', function($scope) {
       success: function( user ) {
 
         //Call sweet alert to notify user of success
-        swal({
+        ///
+        /*swal({
           title: 'Awesome!',
           text: 'You have successfully signed up!',
           type: 'success',
           confirmButtonColor: '#5858FA',
           confirmButtonText: 'Go to my page!'
         });
-
+        */
         //Reset the tips field back to original
         tips.innerHTML = 'Please fill out the following fields';
         tips.style.background = '#4CAF50';
