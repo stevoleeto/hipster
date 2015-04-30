@@ -13,12 +13,25 @@ var currentUser = Parse.User.current();
 
 app.controller('StudentController', ['$scope', function($scope) { 
 
-
   // Get the user's data and make a user object in the model
   $scope.user = {
     name : currentUser.get("name"),
     joinDate: currentUser.createdAt
   }
+
+  $scope.groupView = false;
+  $scope.profileView = true;
+
+  $scope.toggleGroupView = function(){
+    $scope.groupView = true;
+    $scope.profileView = false;
+  }
+
+  $scope.toggleProfileView = function(){
+    $scope.groupView = false;
+    $scope.profileView = true;
+  }
+
 
 
 
