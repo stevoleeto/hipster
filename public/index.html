@@ -36,7 +36,7 @@
         <div class = "main">
         <!-- Here is an example of angular in action, see js/MainContoller.js
              to see how companyName is defined-->
-          <h2 class = "companyName" > {{ companyName }} </h2>
+          <h2  class = "companyName" > {{ companyName }} </h2>
         <div id="content">
             <div id="gallery">
                 <img style="width:100%;height:100%;" src = "images/concept.png">
@@ -45,26 +45,28 @@
                     <div>&vltri;</div>
                 </div>-->
             </div>
-            <div id="getInWrapper">
+            <div name = "myForm" id="getInWrapper">
                 <div id="options">
                     <div id="login" onclick="dispTab( 'login' )">Log In</div>
                     <div id="signup" onclick="dispTab( 'signup' )" style="background:#D8D8D8;">Sign Up</div>
                 </div>
                 <center><br><br><div id="lForm" style="display:block;position:relative;top:20px;">
                     <div id="lTips" class="tips">Please fill in the following fields</div><br>
+                    <label style="color:red" for="lEmail" ng-show ="!email">Please Enter a Valid Email.</label>
                     <input id="lEmail" type="email" ng-model = "email"><br><br>
                     <input id="lPass" type="password" ng-model = "password"><br><br>
                     <a href="">Forgot password</a>
                     <div ng-click = "login()" class="btn" style="margin-top:10px;">Log In</div>
                 </div>
-                <div id="sForm" style="display:none;position:relative;top:20px;">
+                <div name = "sForm "id="sForm" style="display:none;position:relative;top:20px;">
                     <div id="sTips" class="tips">Please fill in the following fields</div><br>
-                    <input id="sName" type="text" ng-model = "name"><br><br>
-                    <input id="sEmail" type="email" ng-model = "email"><br><br>
-                    <input id="sPass" type="password" ng-model = "password"><br><br>
-                    <div ng-click= "signUp()" class="btn">Sign Up</div>
+                    <input name = "sname" id="sName" type="text" ng-model = "name" required><br><br>
+                    <!-- Here is an example of ng-show on email validation -->
+                    <label style="color:red" for="sEmail" ng-show ="!email">Please Enter a Valid Email.</label>
+                    <input id="sEmail" type="email" ng-model = "email" > <br><br>
+                    <input id="sPass" type="password" ng-model = "password" ><br><br>
+                    <div ng-click= "signUp()" ng-disabled="!email" class="btn">Sign Up</div>
                 </div></center>
-            </div>
             
             
         </div>
