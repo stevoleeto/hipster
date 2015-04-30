@@ -76,7 +76,7 @@
                     <form novalidate ng-submit = "signUp(); setValidEmail(); setValidName()">
                       <!-- This label is only shown when name is not valid -->
                       <label style="color:red"  ng-show ="!name">Please Enter a Valid Name.</label>
-                      <input name = "sname" id="sName" type="text" ng-model = "name" required ng-pattern="/^[a-z']([a-z'_\s])+$/i" ><br><br>
+                      <input name = "sname" id="sName" type="text" ng-model = "name" required ng-pattern="/^[a-z']([a-z'_\s])+$/i" placeholder="name" ><br><br>
 
                       <!-- Here is an example of ng-show on email validation -->
                       <!-- This label is only shown when email is not valid -->
