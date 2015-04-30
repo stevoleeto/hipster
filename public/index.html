@@ -46,6 +46,12 @@
       <!-- This is an example of using a filter!     -> v <- thats a pipe  -->
       <p>You have been a member since: {{ user.joinDate | date }} </p>
 
+      <!-- These buttons serve as a proof of concept for switching between the two primary views. -->
+      <form>.
+        <div ng-click = "toggleProfileView()" class="btn" style="margin-top:10px;">Profile</div>
+        <div ng-click = "toggleGroupView()" class="btn" style="margin-top:10px;">Groups</div>
+      </form>
+
 
     </body>
 
