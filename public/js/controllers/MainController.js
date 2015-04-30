@@ -22,6 +22,15 @@ app.controller('MainController', ['$scope', function($scope) {
   $scope.email = 'email';
   $scope.password = 'password';
 
+  $scope.validEmail = true;
+  $scope.validName = true;
+
+
+
+
+
+
+
   /************************************************************************
    * Name:		signUp()
 
@@ -37,6 +46,11 @@ app.controller('MainController', ['$scope', function($scope) {
    * Called In:   main()
    ************************************************************************/
   $scope.signUp = function(){
+    //if the name or email is invalid, update tip box and return
+    if(!$scope.name || !$scope.email || !$scope.password){
+      updateTips( 'sTips', 'Please enter valid input.');
+      return;
+    }
     //Create a reference variable to a new parse user
     var user = new Parse.User(); 
 
@@ -68,7 +82,7 @@ app.controller('MainController', ['$scope', function($scope) {
       //If Parse isn't able to successfully add the user to the database
       error: function( user ) {
         //Update the tips field to let the user know
-        updateTips( 'sTips', 'Something is wrong. Please check your inputs and try again!');
+        updateTips( 'sTips', 'Email already in use.');
       }
     });
 
@@ -87,6 +101,11 @@ app.controller('MainController', ['$scope', function($scope) {
    help the user login properly.
    ************************************************************************/
   $scope.login = function(){
+    //if the email is invalid, update tip box and return
+    if(!$scope.email || !$scope.password ){
+      updateTips( 'lTips', 'Please enter valid input.');
+      return;
+    }
     Parse.User.logIn( $scope.email, $scope.password, {
       //If the logIn is successful, notify user via sweet alert
       success: function( user ) {
@@ -94,13 +113,16 @@ app.controller('MainController', ['$scope', function($scope) {
       },
     //If the logIn is not successful, notify the user via sweet alert
     error: function( user ) {
+      updateTips( 'lTips', 'Email or password not recognized.');
+      /*
       swal({
         title: 'Oops...',
-      text: 'Something went wrong. Please try again.',
+      text: 'Email or password not recognized.',
       type: 'error',
       confirmButtonColor: '#5858FA',
-      confirmButtonText: 'Aw man, not again...'
+      confirmButtonText: 'Okay'
       });
+      */
     }
     });
 

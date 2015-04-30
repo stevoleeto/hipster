@@ -7,7 +7,7 @@
         <title>Busy Blocks</title>
         
         <!-- Get access to Sweet Alert CSS -->
-		<link rel="stylesheet" type="text/css" href="lib/sweet-alert.css"> 
+		<link rel="stylesheet" type="text/css" href="../lib/sweet-alert.css"> 
         <!-- Get access to our style sheet -->
         <link rel="stylesheet" type="text/css" href="../style.css">
         <!-- Get access to the Didact Gothic font -->
@@ -52,19 +52,44 @@
                 </div>
                 <center><br><br><div id="lForm" style="display:block;position:relative;top:20px;">
                     <div id="lTips" class="tips">Please fill in the following fields</div><br>
-                    <label style="color:red" for="lEmail" ng-show ="!email">Please Enter a Valid Email.</label>
-                    <input id="lEmail" type="email" ng-model = "email"><br><br>
-                    <input id="lPass" type="password" ng-model = "password"><br><br>
+                      <!-- This label is only shown when email is not valid -->
+                    <label style="color:red"  ng-show ="!validEmail">Please Enter a Valid Email.</label>
+                    <!-- Here is an example of ng-show on email validation -->
+                    <!-- ng-submit tells the hidden submit button what to call on enter -->
+                    <form novalidate ng-submit = "login()">
+                      <label style="color:red" ng-show ="!email">Please Enter a Valid Email.</label>
+                      <input id="lEmail" type="email"  ng-model = "email" ng-pattern = "/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/"><br><br>
+
+                      <label style="color:red" ng-show ="!password">Password must be greater than four characters.</label>
+                      <input id="lPass" type="password" ng-model = "password" ng-minlength = "5"><br><br>
+
+                      <!-- hidden submit button! -->
+                      <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
                     <a href="">Forgot password</a>
                     <div ng-click = "login()" class="btn" style="margin-top:10px;">Log In</div>
+                    </form>
                 </div>
                 <div name = "sForm "id="sForm" style="display:none;position:relative;top:20px;">
                     <div id="sTips" class="tips">Please fill in the following fields</div><br>
-                    <input name = "sname" id="sName" type="text" ng-model = "name" required><br><br>
-                    <!-- Here is an example of ng-show on email validation -->
-                    <label style="color:red" for="sEmail" ng-show ="!email">Please Enter a Valid Email.</label>
-                    <input id="sEmail" type="email" ng-model = "email" > <br><br>
-                    <input id="sPass" type="password" ng-model = "password" ><br><br>
+
+                    <!-- ng-submit tells the hidden submit button what to call on enter -->
+                    <form novalidate ng-submit = "signUp(); setValidEmail(); setValidName()">
+                      <!-- This label is only shown when name is not valid -->
+                      <label style="color:red"  ng-show ="!name">Please Enter a Valid Name.</label>
+                      <input name = "sname" id="sName" type="text" ng-model = "name" required ng-pattern="/^[a-z']([a-z'_\s])+$/i" ><br><br>
+
+                      <!-- Here is an example of ng-show on email validation -->
+                      <!-- This label is only shown when email is not valid -->
+                      <label style="color:red"  ng-show ="!email">Please Enter a Valid Email.</label>
+                      <input id="sEmail" type="email" ng-model = "email" required ng-pattern = "/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" > <br><br>
+
+                      <!-- This label is only shown when password is not valid -->
+                      <label style="color:red"  ng-show ="!password">Password must be greater than four characters.</label>
+                      <input id="sPass" type="password" ng-model = "password" ng-minlength = "5" ><br><br>
+
+                      <!-- hidden submit button! -->
+                      <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+                    </form>
                     <div ng-click= "signUp()" ng-disabled="!email" class="btn">Sign Up</div>
                 </div></center>
             
