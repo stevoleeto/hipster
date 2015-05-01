@@ -1,7 +1,7 @@
 body  {
     margin: 0;
     font-family: 'Didact Gothic', sans-serif;
-    min-width: 1350px;
+    width: 1350px;
 }
 
 
@@ -165,4 +165,19 @@ input
 {
     cursor: pointer;
     background: #2196F3;
+}
+
+#logoutWrapper 
+{
+	width: 70px;
+	position:relative;
+    right:-85%;
+}
+
+#logoutWrapper .btn
+{	
+	background: gray;
+	font-size: 14px;
+	text-align: center;
+	border-radius: 10px;
 }
