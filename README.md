@@ -23,12 +23,14 @@ There are three tables showing file heiarchy, one for the public directory, one 
 | /public/contact | Files and HTML for Contact Page |
 
 | js Directory | What's in it |
+| ------------- | ------------- |
 | /js/app.js | Defines the module for Application |
 | /js/controllers | All Controllers |
 | /js/home | JavaScript files for Homepage |
 | /js/shared | JavaScript files shared |
 
 | controllers Directory | What's in it |
+| ------------- | ------------- |
 | /controllers/groups | Controllers for Groups |
 | /controllers/home | Controller for Homepage |
 | /controllers/login | Controller for Login page |
