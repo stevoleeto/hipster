@@ -21,6 +21,7 @@ app.controller('LoginController', ['$scope', function($scope) {
   $scope.name = '';
   $scope.email = '';
   $scope.password = '';
+  $scope.repassword = '';
 
   $scope.validEmail = true;
   $scope.validName = true;
@@ -47,7 +48,8 @@ app.controller('LoginController', ['$scope', function($scope) {
    ************************************************************************/
   $scope.signUp = function(){
     //if the name or email is invalid, update tip box and return
-    if(!$scope.name || !$scope.email || !$scope.password){
+    if(!$scope.name || !$scope.email || !$scope.passworad || $scope.password !=
+    $scope.repassword){
       updateTips( 'sTips', 'Please enter valid input.');
       return;
     }
