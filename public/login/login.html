@@ -86,27 +86,25 @@
 
                     <!-- ng-submit tells the hidden submit button what to call on enter -->
                     <form novalidate ng-submit = "signUp(); setValidEmail(); setValidName()">
-                      <!-- This label is only shown when name is not valid -->
-                      <!--<label style="color:red"  ng-show ="!name">Please Enter a Valid Name.</label>-->
-                      <input name = "sname" id="sName" type="text" ng-model="name" required ng-pattern="/^[a-z']([a-z'_\s])+$/i" placeholder="Name" >
-                      <span style="color:red;font-size:25px;font-weight:700" ng-show="!name" >&cross;</span>
-                      <span style="color:green;font-size:25px;font-weight:700;" ng-show="name">&check;</span><br><br>
+                      
+                      <input name = "sname" id="sName" type="text" ng-model="name" required ng-pattern="/^[a-z']([a-z'_\s])+$/i" placeholder="Name"
+                             ng-style="( name.length == 0 ) ? { 'border':'2px solid #c6c6c6' } : ( (name) ? { 'border':'2px solid green' } : { 'border':'2px solid red' } )">
+                            <br>
+                            <br>
 
-                      <!-- Here is an example of ng-show on email validation -->
-                      <!-- This label is only shown when email is not valid -->
-                      <!--<label style="color:red"  ng-show ="!email">Please Enter a Valid Email.</label>-->
-                      <input id="sEmail" type="email" ng-model="email" required ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" placeholder="Email">
-                      <span style="color:red;font-size:25px;font-weight:700;" ng-show="!email">&cross;</span>
-                      <span style="color:green;font-size:25px;font-weight:700;" ng-show="email">&check;</span><br><br>
-
-                      <!-- This label is only shown when password is not valid -->
-                      <!--<label style="color:red"  ng-show ="!password">Password must be greater than four characters.</label>-->
-                      <input id="sPass" type="password" ng-model="password" ng-minlength="5" placeholder="Password">
-                      <span style="color:red;font-size:25px;font-weight:700;" ng-show="!password">&cross;</span>
-                      <span style="color:green;font-size:25px;font-weight:700;"ng-show="password">&check;</span><br><br>
-                      <input id="sPass" type="password" ng-model="repassword" placeholder="Enter you Password Again">
-                      <span style="color:red;font-size:25px;font-weight:700;" ng-show="password != repassword || repassword == '' ">&cross;</span>
-                      <span style="color:green;font-size:25px;font-weight:700;"ng-show="password == repassword &&  repassword !='' ">&check;</span><br><br>
+                      
+                      <input id="sEmail" type="email" ng-model="email" required ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" 
+                             ng-style="( email.length == 0 ) ? { 'border':'2px solid #c6c6c6' } : ( (email) ? { 'border':'2px solid green' } : { 'border':'2px solid red' } )" placeholder="Email">
+                            <br>
+                            <br>
+                      
+                      <input id="sPass" type="password" ng-model="password" ng-minlength="5" placeholder="Password"
+                             ng-style="( password.length == 0 ) ? { 'border':'2px solid #c6c6c6' } : ( (password) ? { 'border':'2px solid green' } : { 'border':'2px solid red' } )">
+                            <br>
+                            <br>
+                      <input id="sPass" type="password" ng-model="repassword" placeholder="Confirm Password"
+                             ng-style="( repassword.length == 0 ) ? { 'border':'2px solid #c6c6c6' } : ( (repassword) ? { 'border':'2px solid green' } : { 'border':'2px solid red' } )">
+                            
 
                       <!-- hidden submit button! -->
                       <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
@@ -124,4 +122,4 @@
         <script src="../js/controllers/login/LoginController.js"></script>
         
     </body>
-    </html>
+    </html>    
