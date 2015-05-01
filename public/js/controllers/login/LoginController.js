@@ -1,6 +1,6 @@
 /*
- * MainController.js
- * Controls user entry and path through the site.
+ * LoginController.js
+ * Controls user entry to the site.
  *
  * 
  */
@@ -15,12 +15,13 @@ var currentUser = Parse.User.current();
 
 
 
-app.controller('MainController', ['$scope', function($scope) { 
+app.controller('LoginController', ['$scope', function($scope) { 
 
   $scope.companyName = 'HIPSTERinc';
   $scope.name = '';
   $scope.email = '';
   $scope.password = '';
+  $scope.repassword = '';
 
   $scope.validEmail = true;
   $scope.validName = true;
@@ -47,7 +48,7 @@ app.controller('MainController', ['$scope', function($scope) {
    ************************************************************************/
   $scope.signUp = function(){
     //if the name or email is invalid, update tip box and return
-    if(!$scope.name || !$scope.email || !$scope.password){
+    if(!$scope.name || !$scope.email || !$scope.password || ($scope.password != $scope.repassword)){
       updateTips( 'sTips', 'Please enter valid input.');
       return;
     }

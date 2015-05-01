@@ -1,6 +1,6 @@
 /*
- * StudentController.js
- * Controls user entry and path through the site.
+ * HomeController.js
+ * Controls user on Homepage. Controls whether the GroupView or ProfileView is being shown.
  *
  * 
  */
@@ -11,7 +11,7 @@
 Parse.initialize( "t5hvXf3wJOYnL3MMIffsemMdhLM7f4brACcf0eBa", "UhqQaEDIEQr6cxhO8XS4Fl8BcGU4ir9jL9To7PVO" );
 var currentUser = Parse.User.current();
 
-app.controller('StudentController', ['$scope', function($scope) { 
+app.controller('HomeController', ['$scope', function($scope) { 
 
   // Get the user's data and make a user object in the model
   $scope.user = {
