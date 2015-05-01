@@ -161,6 +161,12 @@ input
     line-height: 40px;
 }
 
+.btn:hover 
+{
+    cursor: pointer;
+    background: #2196F3;
+}
+
 .btn2
 {
     width: 90%;
@@ -171,10 +177,10 @@ input
     line-height: 20px;
 }
 
-.btn:hover 
+.btn22:hover
 {
-    cursor: pointer;
-    background: #2196F3;
+  cursor: pointer;
+  text-decoration:underline;
 }
 
 #logoutWrapper 
