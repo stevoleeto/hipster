@@ -95,8 +95,10 @@
                       <!--<label style="color:red"  ng-show ="!password">Password must be greater than four characters.</label>-->
                       <input id="sPass" type="password" ng-model="password" ng-minlength="5" placeholder="Password">
                       <span style="color:red;font-size:25px;font-weight:700;" ng-show="!password">&cross;</span>
-                      <span style="color:green;font-size:25px;font-weight:700;"ng-show="password">&check;</span><br>
-                      <input id="sPass" type="password" ng-model="repassword" placeholder="Password"><br>
+                      <span style="color:green;font-size:25px;font-weight:700;"ng-show="password">&check;</span><br><br>
+                      <input id="sPass" type="password" ng-model="repassword" placeholder="Enter you Password Again">
+                      <span style="color:red;font-size:25px;font-weight:700;" ng-show="password != repassword || repassword == '' ">&cross;</span>
+                      <span style="color:green;font-size:25px;font-weight:700;"ng-show="password == repassword &&  repassword !='' ">&check;</span><br><br>
 
                       <!-- hidden submit button! -->
                       <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
