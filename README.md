@@ -1,2 +1,3 @@
-# hipster APP
-For CSE 110
+#Busy Blocks
+Team HIPSTER
+CSE 110
