@@ -36,7 +36,7 @@ app.controller('MainController', ['$scope', function($scope) {
 
    * Purpose:		Allows the user to sign up and get added to the database
 
-   * Description:	This function validates the input of the of the
+   * Description:	This function validates the input of the
    text boxes in the signup form. If they are good,
    it calls Parse's signUp function. If the user's
    input is not valid, it updates the tips field
