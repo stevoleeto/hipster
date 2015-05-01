@@ -5,7 +5,7 @@
 
 To access website, use the link below.
 
-hipster.parseapp.com
+[Busy Blocks](http://hipster.parseapp.com/)
 
 Currently Supported Functionality:
 
