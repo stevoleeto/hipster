@@ -7,7 +7,7 @@
         <title>Busy Blocks</title>
         
         <!-- Get access to Sweet Alert CSS -->
-		<link rel="stylesheet" type="text/css" href="../lib/sweet-alert.css"> 
+		    <link rel="stylesheet" type="text/css" href="../lib/sweet-alert.css"> 
         <!-- Get access to our style sheet -->
         <link rel="stylesheet" type="text/css" href="../style.css">
         <!-- Get access to the Didact Gothic font -->
@@ -95,7 +95,8 @@
                       <!--<label style="color:red"  ng-show ="!password">Password must be greater than four characters.</label>-->
                       <input id="sPass" type="password" ng-model="password" ng-minlength="5" placeholder="Password">
                       <span style="color:red;font-size:25px;font-weight:700;" ng-show="!password">&cross;</span>
-                      <span style="color:green;font-size:25px;font-weight:700;"ng-show="password">&check;</span><br><br>
+                      <span style="color:green;font-size:25px;font-weight:700;"ng-show="password">&check;</span><br>
+                      <input id="sPass" type="password" ng-model="repassword" placeholder="Password"><br>
 
                       <!-- hidden submit button! -->
                       <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
