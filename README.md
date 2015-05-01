@@ -1,3 +1,5 @@
 ###Busy Blocks
-##Team HIPSTER
-#CSE 110
+#Team HIPSTER
+
+This is an example of text.
+
