@@ -1,7 +1,7 @@
 body  {
     margin: 0;
     font-family: 'Didact Gothic', sans-serif;
-    width: 1350px;
+    width: 100%;
 }
 
 
@@ -145,7 +145,7 @@ input
     border-radius: 3px;
     font-size: 16px;
     color: #575757;
-    border: 1px solid #c6c6c6;
+    border: 2px solid #c6c6c6;
     width: 90%;
 }
 

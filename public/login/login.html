@@ -62,7 +62,7 @@
                     <!-- ng-submit tells the hidden submit button what to call on enter -->
                     <form novalidate ng-submit = "login()">
                       <!--<label style="color:red" ng-show ="!email">Please Enter a Valid Email.</label>-->
-                      <input id="lEmail" type="email"  ng-model="email" ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" placeholder="Email"><br><br>
+                      <input id="lEmail" type="email" ng-model="email" ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" placeholder="Email"><br><br>
                       <!-- Removed. Do these belong here? Confusing for user
                       <span style="color:red;font-size:25px;font-weight:700;" ng-show="!email">&cross;</span>
                       <span style="color:green;font-size:25px;font-weight:700;" ng-show="email">&check;</span><br><br>
