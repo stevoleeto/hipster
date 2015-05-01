@@ -161,6 +161,16 @@ input
     line-height: 40px;
 }
 
+.btn2
+{
+    width: 90%;
+    background: #FFFFFF;
+    height: 20px;
+    color: blue;
+    font-size: 15px;
+    line-height: 20px;
+}
+
 .btn:hover 
 {
     cursor: pointer;
