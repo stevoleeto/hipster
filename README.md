@@ -1,13 +1,29 @@
 ###Busy Blocks
 #Team HIPSTER
 
-This docuemnt serves as the GO-TO docuement for information on organization of our Website.
+
+
+To access website, use the link below.
+
+hipster.parseapp.com
+
+Currently Supported Functionality:
+
+- Ability to sign up using Email, Password, and Username.
+- Ability to login using Email and Password, and be directed to Homepage.
+- Ability to switch between Profile and Group View
+- Ability to logout of homepage
+
+The rest of this docuemnt serves as the GO-TO for information regarding the organization of our Directories.
 
 The parse folder contains three primary folders, cloud, config, and public. The public folder is what is acceisble by the viewer on hipster.parseapp.com, and thus all of our code will be found in there.
 
 There are three tables showing file heiarchy, one for the public directory, one for the js directory, and one for the controllers directory.
+
 /public
+
 /public/js
+
 /public/js/controllers
 
 	
