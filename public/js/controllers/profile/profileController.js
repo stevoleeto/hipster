@@ -1,6 +1,6 @@
 /*
- * profileController.js
- * Controls the view when the user is logged in and viewing their profile
+ * ProfileController.js
+ * Controls the view when the user viewing their profile
  */
  
 //Global Variables//

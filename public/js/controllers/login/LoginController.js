@@ -1,6 +1,6 @@
 /*
- * MainController.js
- * Controls user entry and path through the site.
+ * LoginController.js
+ * Controls user entry to the site.
  *
  * 
  */

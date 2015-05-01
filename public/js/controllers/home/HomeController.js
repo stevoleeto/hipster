@@ -1,6 +1,6 @@
 /*
- * StudentController.js
- * Controls user entry and path through the site.
+ * HomeController.js
+ * Controls user on Homepage. Controls whether the GroupView or ProfileView is being shown.
  *
  * 
  */
