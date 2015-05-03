@@ -63,17 +63,9 @@
                     <form novalidate ng-submit = "login()">
                       <!--<label style="color:red" ng-show ="!email">Please Enter a Valid Email.</label>-->
                       <input id="lEmail" type="email" ng-model="email" ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" placeholder="Email"><br><br>
-                      <!-- Removed. Do these belong here? Confusing for user
-                      <span style="color:red;font-size:25px;font-weight:700;" ng-show="!email">&cross;</span>
-                      <span style="color:green;font-size:25px;font-weight:700;" ng-show="email">&check;</span><br><br>
-                      -->
 
                       <!--<label style="color:red" ng-show ="!password">Password must be greater than four characters.</label>-->
                       <input id="lPass" type="password" ng-model="password" ng-minlength="5" placeholder="Password"><br><br>
-                      <!-- Removed. Do these belong here? Confusing for user 
-                      <span style="color:red;font-size:25px;font-weight:700;" ng-show="!password">&cross;</span>
-                      <span style="color:green;font-size:25px;font-weight:700;" ng-show="password">&check;</span><br><br>
-                      -->
 
                       <!-- hidden submit button! -->
                       <input type="submit" style="position:absolute;left:-9999px;width:1px;height:1px;"/>
@@ -103,7 +95,7 @@
                             <br>
                             <br>
                       <input id="sPass" type="password" ng-model="repassword" placeholder="Confirm Password"
-                             ng-style="( repassword.length == 0 ) ? { 'border':'2px solid #c6c6c6' } : ( (repassword) ? { 'border':'2px solid green' } : { 'border':'2px solid red' } )">
+                             ng-style="( repassword.length == 0 ) ? { 'border':'2px solid #c6c6c6' } : ( (repassword == password) ? { 'border':'2px solid green' } : { 'border':'2px solid red' } )">
                             
 
                       <!-- hidden submit button! -->
