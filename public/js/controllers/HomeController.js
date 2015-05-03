@@ -13,11 +13,6 @@ var currentUser = Parse.User.current();
 
 app.controller('HomeController', ['$scope', function($scope) { 
 
-  // Get the user's data and make a user object in the model
-  $scope.user = {
-    name : currentUser.get("name"),
-    joinDate: currentUser.createdAt
-  }
 
   $scope.groupView = false;
   $scope.profileView = true;

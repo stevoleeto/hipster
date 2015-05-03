@@ -60,6 +60,7 @@ app.controller('LoginController', ['$scope', function($scope) {
     user.set( 'username', $scope.email );
     user.set( 'email', $scope.email );
     user.set( 'password', $scope.password );
+    user.set( 'Groups', [] );
 
     //Call Parse's signUp function
     user.signUp(null, {
