@@ -28,18 +28,18 @@
     <body >
         <div id="header">
             <p>
-                <span id = "busy">BUSY</span>
-                <span id = "blocks">BLOCKS</span></p>
+                <span id="busy">BUSY</span>
+                <span id="blocks">BLOCKS</span></p>
         </div>
         <!-- here is a block that will be controlled by the "MainController
              controller -->
-        <div class = "main">
+        <div class="main">
         <!-- Here is an example of angular in action, see js/MainContoller.js
              to see how companyName is defined-->
-          <h2  class = "companyName" > {{ companyName }} </h2>
+          <h2  class="companyName" >{{ companyName }}</h2>
         <div id="content">
             <div id="gallery">
-                <img style="width:100%;height:100%;" src = "../images/concept.png">
+                <img style="width:100%;height:100%;" src="../images/concept.png">
                 <p align="center">
                    <a href="http://hipster.parseapp.com/contact/">Contact</a>
                 </p>
@@ -49,7 +49,7 @@
                     <div>&vltri;</div>
                 </div>-->
             </div>
-            <div name = "myForm" id="getInWrapper">
+            <div name="myForm" id="getInWrapper">
                 <div id="options">
                     <div id="login" onclick="dispTab( 'login' )">Log In</div>
                     <div id="signup" onclick="dispTab( 'signup' )" style="background:#D8D8D8;">Sign Up</div>
@@ -60,7 +60,7 @@
                     <!--<label style="color:red"  ng-show ="!validEmail">Please Enter a Valid Email.</label>-->
                     <!-- Here is an example of ng-show on email validation -->
                     <!-- ng-submit tells the hidden submit button what to call on enter -->
-                    <form novalidate ng-submit = "login()">
+                    <form novalidate ng-submit="login()">
                       <!--<label style="color:red" ng-show ="!email">Please Enter a Valid Email.</label>-->
                       <input id="lEmail" type="email" ng-model="email" ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" placeholder="Email"><br><br>
 
@@ -69,42 +69,33 @@
 
                       <!-- hidden submit button! -->
                       <input type="submit" style="position:absolute;left:-9999px;width:1px;height:1px;"/>
-                    <div ng-click = "login()" class="btn" style="margin-top:10px;">Log In</div><br>
-                    <div ng-click = "forgotPassword()" class="btn2">Forgot Password</div>
+                    <div ng-click="login()" class="btn" style="margin-top:10px;">Log In</div><br>
+                    <div ng-click="forgotPassword()" class="btn2">Forgot Password</div>
                     </form>
                 </div>
-                <div name = "sForm "id="sForm" style="display:none;position:relative;top:20px;">
+                <div name="sForm "id="sForm" style="display:none;position:relative;top:20px;">
                     <div id="sTips" class="tips">Please fill in the following fields</div><br>
 
                     <!-- ng-submit tells the hidden submit button what to call on enter -->
-                    <form novalidate ng-submit = "signUp(); setValidEmail(); setValidName()">
+                    <form novalidate ng-submit="signUp(); setValidEmail(); setValidName()">
                       
-                      <input name = "sname" id="sName" type="text" ng-model="name" required ng-pattern="/^[a-z']([a-z'_\s])+$/i" placeholder="Name"
-                             ng-style="( name.length == 0 ) ? { 'border':'2px solid #c6c6c6' } : ( (name) ? { 'border':'2px solid green' } : { 'border':'2px solid red' } )">
-                            <br>
-                            <br>
-
-                      
+                      <input name="sname" id="sName" type="text" ng-model="name" required ng-pattern="/^[a-z']([a-z'_\s])+$/i" placeholder="Name"
+                             ng-style="( name.length == 0 ) ? { 'border':'2px solid #c6c6c6' } : ( (name) ? { 'border':'2px solid green' } : { 'border':'2px solid red' } )"><br><br>
+ 
                       <input id="sEmail" type="email" ng-model="email" required ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" 
-                             ng-style="( email.length == 0 ) ? { 'border':'2px solid #c6c6c6' } : ( (email) ? { 'border':'2px solid green' } : { 'border':'2px solid red' } )" placeholder="Email">
-                            <br>
-                            <br>
+                             ng-style="( email.length == 0 ) ? { 'border':'2px solid #c6c6c6' } : ( (email) ? { 'border':'2px solid green' } : { 'border':'2px solid red' } )" placeholder="Email"><br><br>
                       
                       <input id="sPass" type="password" ng-model="password" ng-minlength="5" placeholder="Password"
-                             ng-style="( password.length == 0 ) ? { 'border':'2px solid #c6c6c6' } : ( (password) ? { 'border':'2px solid green' } : { 'border':'2px solid red' } )">
-                            <br>
-                            <br>
+                             ng-style="( password.length == 0 ) ? { 'border':'2px solid #c6c6c6' } : ( (password) ? { 'border':'2px solid green' } : { 'border':'2px solid red' } )"><br><br>
+
                       <input id="sPass" type="password" ng-model="repassword" placeholder="Confirm Password"
                              ng-style="( repassword.length == 0 ) ? { 'border':'2px solid #c6c6c6' } : ( (repassword == password) ? { 'border':'2px solid green' } : { 'border':'2px solid red' } )">
                             
-
                       <!-- hidden submit button! -->
                       <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
                     </form>
                     <div ng-click= "signUp()" ng-disabled="!email" class="btn">Sign Up</div>
                 </div></center>
-            
-            
         </div>
         </div>
         <!-- Modules -->
