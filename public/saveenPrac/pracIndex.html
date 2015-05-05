@@ -124,14 +124,18 @@
 
         .tileGroup {
           list-style-type: none;
-          height: 50px;
-          width: 50px;
+          height: 100px;
+          width: 100px;
           margin: 10px;
           background: blue;
           color: white;
           text-align: center;
           display: inline-block;
           float: left;
+        }
+
+        .tileGroup:hover {
+        	cursor: pointer;
         }
       </style>
 
@@ -150,7 +154,7 @@
         <div id="welcome" ng-controller="ProfileController">Welcome <i>{{ userName }}</i>!</div>
         <div id="logout" ng-click="logout()" class="btn">Log Out</div>
       </div>
-      <div style="backgroun:white;" id="title" class="slide" ng-controller="ProfileController">
+      <div style="background:white;" id="title" class="slide" ng-controller="ProfileController">
         <div class="title">
           <h1>My Profile</h1>
           <p>You have been a member since {{ joinDate | date }}. </p>
