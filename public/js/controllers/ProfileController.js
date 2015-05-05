@@ -27,6 +27,7 @@ var currentUser = Parse.User.current();
 
 
 app.controller('ProfileController', ['$scope', function($scope) {
+  $scope.sched = new Schedule(); // will be changed to pull schedule down
 	$scope.userName = currentUser.get("name");
 	$scope.joinDate = currentUser.createdAt;
 
@@ -71,6 +72,7 @@ app.controller('ProfileController', ['$scope', function($scope) {
    * Description:	Calls Parse's logout function. 
    ************************************************************************/
   $scope.logout = function(){
+    $scope.sched.test;
 
     Parse.User.logOut();
     location.href='login/login.html';
