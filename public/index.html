@@ -1,4 +1,4 @@
-<html ng-app = "myApp" ng-controller="HomeController">
+<html ng-app = "myApp" ng-controller="ProfileController">
     <!-- We are using a different controller here. The student controller
          is like the student class for our purposes -->
     <head>
@@ -18,9 +18,7 @@
         <!-- Modules -->
         <script src="js/app.js"></script>
         <!-- Controllers -->
-        <script src="js/controllers/HomeController.js"></script>
 		    <script src="js/controllers/ProfileController.js"></script>
-        <script src="js/controllers/GroupController.js"></script>
 
         <!-- Inline JS goes here -->
         <script> 
@@ -52,7 +50,7 @@
         </div>
 
       <div id="profileView" ng-show="profileView">
-        <div ng-controller="ProfileController">
+        <div >
           <!-- This is an example of the view being filled with the model -->
           <p>Welcome {{ userName }}. </p>
           <!-- This is an example of using a filter!     -> v <- thats a pipe  -->
@@ -60,7 +58,7 @@
         </div>
       </div>
       <div id="groupView" ng-show="groupView">
-        <div ng-controller="GroupController">
+        <div >
           <p>You are in: {{ numberOfGroups }} Groups!</p>
           <div ng-click = "addGroup()" class="btn2" style="margin-top:10px;">Add One Group</div>
           <ul>
