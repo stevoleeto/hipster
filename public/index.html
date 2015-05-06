@@ -37,11 +37,14 @@
               location.href = "login/login.html";
             }
             
+
+            /* this is how to create a new schedule */
             var sched = new Schedule();
-            sched.addEvent(new Event("WHAT", 3, 4, new Date(), new Date(),false), 0);
-            sched.addEvent(new Event("WHAT", 5, 7, new Date(), new Date(),false), 0);
-            sched.addEvent(new Event("WHAT", 1, 12, new Date(), new Date(),false), 0);
-            console.log(sched);
+            /* this is how to add events */
+            sched.addEvent(new Event("EventOne", 3, 4, new Date(), new Date(),false), 0);
+            sched.addEvent(new Event("EventTwo", 5, 7, new Date(), new Date(),false), 0);
+            sched.addEvent(new Event("JoeIsAmazing", 1, 12, new Date(), new Date(),false), 0);
+            console.log(sched); //check out the console if you want to see the result
 
         </script>
         <div id="logoutWrapper">
