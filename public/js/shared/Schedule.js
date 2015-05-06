@@ -10,9 +10,6 @@
  *
  *
  */
-function Schedule(sched){
-  this.schedule = sched;
-}
 
 function Schedule(){
   this.week = [
@@ -35,7 +32,7 @@ function Schedule(){
   this.test = function(){
       alert("test");
   }
-  this.addMeeting = function(meeting, dayNum){
+  this.addEvent = function(newEvent, dayNum){
     switch(dayNum){
       case 0:
         //inserted sort into day0
