@@ -60,8 +60,18 @@ app.controller('LoginController', ['$scope', function($scope) {
     user.set( 'username', $scope.email );
     user.set( 'email', $scope.email );
     user.set( 'password', $scope.password );
-    user.set( 'Groups', [] );
+    
+    // Simple syntax to create a new subclass of Parse.Object.
+    var GroupList = Parse.Object.extend("GroupList");
 
+    // Create a new instance of that class.
+    var newGroupList = new GroupList();
+
+    newGroupList.set("userEmail", $scope.email);
+    newGroupList.set( 'userGroups', [] );
+    newGroupList.save(null, {
+      success: function(GroupList) {}
+    });
     //Call Parse's signUp function
     user.signUp(null, {
       //If Parse is able to successfully add the user to the database

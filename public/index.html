@@ -67,10 +67,14 @@
       </div>
       <div id="groupView" ng-show="groupView">
         <div >
+          <p>This is used to test functionality regarding showing groups</p>
           <p>You are in: {{ numberOfGroups }} Groups!</p>
+          <input type="text" ng-model="newGroupName" placeholder="Group Name"><br><br>
+          <input type="text" ng-model="newFriendEmail" placeholder="Friends Email"><br><br>
           <div ng-click = "addGroup()" class="btn2" style="margin-top:10px;">Add One Group</div>
+           <div ng-click = "removeAllGroups()" class="btn2" style="margin-top:10px;">Remove All Groups</div>
           <ul>
-            <li ng-repeat="x in userParticipatedGroups">{{ x }}</li>
+            <li ng-repeat="x in userParticipatedGroups track by $index">{{ x }}</li>
           </ul>
         </div>
       </div>

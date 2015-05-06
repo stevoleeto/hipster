@@ -1,6 +1,6 @@
 /*
  * FileName: ProfileController.js
- * Authors: Joe d'Eon (if you edit this file, add your name to this list)
+ * Authors: Joe d'Eon, Stephen Gilardi (if you edit this file, add your name to this list)
  * Description: This controller will be used to control the main profile view
  *              of a user. It will have all the attributes and behaviors of
  *              a single user defined, and will be able to access the database
@@ -26,17 +26,34 @@ Parse.initialize( "t5hvXf3wJOYnL3MMIffsemMdhLM7f4brACcf0eBa", "UhqQaEDIEQr6cxhO8
 var currentUser = Parse.User.current();
 
 
+
 app.controller('ProfileController', ['$scope', function($scope) {
   $scope.sched = new Schedule(); // will be changed to pull schedule down
 	$scope.userName = currentUser.get("name");
+  $scope.userID = currentUser.get("objectId");
 	$scope.joinDate = currentUser.createdAt;
 
 
-  $scope.userParticipatedGroups = currentUser.get("Groups");
+  $scope.userParticipatedGroups = [];
   $scope.numberOfGroups = $scope.userParticipatedGroups.length;
+
+ var GroupList = Parse.Object.extend("GroupList");
+ var query = new Parse.Query(GroupList);
+ query.get($scope.userID, {
+ success: function(object) {
+    console.log(object);
+    $scope.userParticipatedGroups = object._serverData.userGroups;
+    $scope.numberOfGroups = $scope.userParticipatedGroups.length;
+    },
+    error: function(object, error) {
+    }
+  });
+
 
   $scope.groupView = false;
   $scope.profileView = true;
+
+  $scope.newFriendEmail = "";
 
   $scope.toggleGroupView = function(){
     $scope.groupView = true;
@@ -47,14 +64,15 @@ app.controller('ProfileController', ['$scope', function($scope) {
     $scope.groupView = false;
     $scope.profileView = true;
   }
-   $scope.addGroup = function(){
-    $scope.userParticipatedGroups[$scope.numberOfGroups] = $scope.numberOfGroups;
-    $scope.numberOfGroups++;
-    currentUser.set("Groups", $scope.userParticipatedGroups);
+  
+
+  $scope.removeAllGroups = function(){
+    $scope.numberOfGroups = 0;
+    currentUser.set("Groups", [] );
     currentUser.save(null, {
-  		success: function(user) {}
-	});
-}
+      success: function(user) {}
+    });
+  }
 
 
 
@@ -79,5 +97,39 @@ app.controller('ProfileController', ['$scope', function($scope) {
 
   }
 
+
+   $scope.addGroup = function(){
+    $scope.userParticipatedGroups[$scope.numberOfGroups] = $scope.newGroupName //would really be the ID;
+    $scope.numberOfGroups++;
+
+    var GroupList = Parse.Object.extend("GroupList");
+    var query = new Parse.Query(GroupList);
+    query.get($scope.userID, {
+      success: function(object) {
+      console.log("good refresh");
+      object.set("userGroups", $scope.userParticipatedGroups);
+      object.save();
+      },
+      error: function(object, error) {
+      }
+    });
+
+    query.equalTo("userEmail", $scope.newFriendEmail);
+    console.log(query);
+    console.log($scope.newFriendEmail)
+    query.find({
+      success: function(object) {
+      console.log("good refresh for friend");
+      console.log(object);
+      var tempList = object[0]._serverData.userGroups;
+      tempList[tempList.length] = $scope.newGroupName;
+      object[0].set("userGroups", tempList);
+      object[0].save();
+      },
+      error: function(object, error) {
+      }
+    });    
+   
+  }
     
 }]);
