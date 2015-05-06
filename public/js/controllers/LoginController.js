@@ -78,9 +78,6 @@ app.controller('LoginController', ['$scope', function($scope) {
         });
         */
         //Reset the tips field back to original
-        tips.innerHTML = 'Please fill out the following fields';
-        tips.style.background = '#4CAF50';
-        tips.style.border = '2px solid #1B5E20';
         location.href="../index.html";
       },
       //If Parse isn't able to successfully add the user to the database

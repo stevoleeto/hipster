@@ -1,6 +1,6 @@
 /*
  * FileName: ProfileController.js
- * Authors: Joe d'Eon (if you edit this file, add your name to this list)
+ * Authors: Joe d'Eon, Stephen Gilardi (if you edit this file, add your name to this list)
  * Description: This controller will be used to control the main profile view
  *              of a user. It will have all the attributes and behaviors of
  *              a single user defined, and will be able to access the database
@@ -38,6 +38,8 @@ app.controller('ProfileController', ['$scope', function($scope) {
   $scope.groupView = false;
   $scope.profileView = true;
 
+  $scope.friendGroups = ["null"];
+
   $scope.toggleGroupView = function(){
     $scope.groupView = true;
     $scope.profileView = false;
@@ -48,13 +50,30 @@ app.controller('ProfileController', ['$scope', function($scope) {
     $scope.profileView = true;
   }
    $scope.addGroup = function(){
-    $scope.userParticipatedGroups[$scope.numberOfGroups] = $scope.numberOfGroups;
+    $scope.userParticipatedGroups[$scope.numberOfGroups] = $scope.newGroupName //would really be the ID;
     $scope.numberOfGroups++;
     currentUser.set("Groups", $scope.userParticipatedGroups);
     currentUser.save(null, {
   		success: function(user) {}
-	});
-}
+	  });
+
+    otherUser = new Parse.User({email:$scope.newFriendEmail});
+    //Trying to get group added to a friends group array. This code will be used in a seperate function when finally implemented.
+    //$scope.friendGroups = otherUser.get("Groups");
+    //$scope.friendGroups.push($scope.newGroupName)
+    //otherUser.set("Groups", friendGroups);
+    //otherUser.save(null, {
+    //  success: function(user) {}
+    //});    
+  }
+
+  $scope.removeAllGroups = function(){
+    $scope.numberOfGroups = 0;
+    currentUser.set("Groups", [] );
+    currentUser.save(null, {
+      success: function(user) {}
+    });
+  }
 
 
 
