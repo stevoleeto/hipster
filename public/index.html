@@ -36,6 +36,12 @@
             // show the signup or login page
               location.href = "login/login.html";
             }
+            
+            var sched = new Schedule();
+            sched.addEvent(new Event("WHAT", 3, 4, new Date(), new Date(),false), 0);
+            sched.addEvent(new Event("WHAT", 5, 7, new Date(), new Date(),false), 0);
+            sched.addEvent(new Event("WHAT", 1, 12, new Date(), new Date(),false), 0);
+            console.log(sched);
 
         </script>
         <div id="logoutWrapper">
