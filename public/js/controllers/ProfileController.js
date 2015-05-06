@@ -30,20 +30,23 @@ var currentUser = Parse.User.current();
 app.controller('ProfileController', ['$scope', function($scope) {
   $scope.sched = new Schedule(); // will be changed to pull schedule down
 	$scope.userName = currentUser.get("name");
-  $scope.userID = currentUser.get("objectId");
+  $scope.userID = currentUser.id
 	$scope.joinDate = currentUser.createdAt;
 
 
   $scope.userParticipatedGroups = [];
   $scope.numberOfGroups = $scope.userParticipatedGroups.length;
-
  var GroupList = Parse.Object.extend("GroupList");
  var query = new Parse.Query(GroupList);
+ console.log("First query for init");
+ console.log(query);
+ console.log(GroupList);
  query.get($scope.userID, {
  success: function(object) {
     console.log(object);
     $scope.userParticipatedGroups = object._serverData.userGroups;
     $scope.numberOfGroups = $scope.userParticipatedGroups.length;
+    console.log($scope.userParticipatedGroups);
     },
     error: function(object, error) {
     }
@@ -119,14 +122,15 @@ app.controller('ProfileController', ['$scope', function($scope) {
     console.log($scope.newFriendEmail)
     query.find({
       success: function(object) {
-      console.log("good refresh for friend");
-      console.log(object);
-      var tempList = object[0]._serverData.userGroups;
-      tempList[tempList.length] = $scope.newGroupName;
-      object[0].set("userGroups", tempList);
-      object[0].save();
+        console.log("good refresh for friend");
+        console.log(object[0]);
+        var tempList = object[0]._serverData.userGroups;
+        tempList[tempList.length] = $scope.newGroupName;
+        object[0].set("userGroups", tempList);
+        object[0].save();
       },
       error: function(object, error) {
+        console.log(error);
       }
     });    
    
