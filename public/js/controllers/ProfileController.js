@@ -56,15 +56,7 @@ app.controller('ProfileController', ['$scope', function($scope) {
     currentUser.save(null, {
   		success: function(user) {}
 	  });
-
-    otherUser = new Parse.User({email:$scope.newFriendEmail});
-    //Trying to get group added to a friends group array. This code will be used in a seperate function when finally implemented.
-    //$scope.friendGroups = otherUser.get("Groups");
-    //$scope.friendGroups.push($scope.newGroupName)
-    //otherUser.set("Groups", friendGroups);
-    //otherUser.save(null, {
-    //  success: function(user) {}
-    //});    
+   
   }
 
   $scope.removeAllGroups = function(){
