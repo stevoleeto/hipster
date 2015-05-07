@@ -97,7 +97,6 @@
         }
         
         .title {
-          width: 50%;
           padding: 5%;
           border-radius: 5px;
           background: rgba(240, 230, 220, 0.7);
@@ -128,14 +127,18 @@
           width: 100px;
           margin: 10px;
           background: blue;
-          color: white;
-          text-align: center;
           display: inline-block;
           float: left;
         }
 
-        .tileGroup:hover {
-        	cursor: pointer;
+        .tileGroup span {
+        	height: 100px;
+        	width: 100px;
+        	display: table-cell;
+        	vertical-align: middle;
+        	font-size: 20px;
+        	font-weight: 700;
+        	color: white;
         }
       </style>
 
@@ -145,7 +148,7 @@
         Parse.initialize( "t5hvXf3wJOYnL3MMIffsemMdhLM7f4brACcf0eBa", "UhqQaEDIEQr6cxhO8XS4Fl8BcGU4ir9jL9To7PVO" );
         var currentUser = Parse.User.current();
         if (!currentUser) {
-          location.href = "../login/login.html";
+          location.href = "../../login/login.html";
         }
       </script>
     </head>
@@ -161,13 +164,13 @@
         </div>
       </div>  
       <div style="background:white;" id="slide1" class="slide">
-        <div ng-controller="GroupController" class="title">
-          <h1>My Groups</h1>
-          <p>You are in: {{ numberOfGroups }} Groups!</p>
-          <div ng-click = "addGroup()" class="btn2" style="margin-top:10px;">Add One Group</div>
+        <div style="overflow:auto;" ng-controller="GroupController" class="title">
+          <h1>My Group</h1>
+          <p>You are a member of {{ numberOfGroups }} Groups!</p>
+          <center><div ng-click = "addGroup()" class="btn" style="margin-top:10px;">Add One Group</div>
           <ul>
-            <li class="tileGroup" ng-repeat="x in userParticipatedGroups">{{ x }}</li>
-          </ul>
+            <a href="" class="tileGroup" ng-repeat="x in userParticipatedGroups"><span>{{ x }}</span></a>
+          </ul></center>
         </div>
       </div>
     </body>
