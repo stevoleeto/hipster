@@ -41,9 +41,9 @@
             /* this is how to create a new schedule */
             var sched = new Schedule();
             /* this is how to add events */
-            sched.addEvent(new Event("EventOne", 3, 4, new Date(), new Date(),false), 0);
-            sched.addEvent(new Event("EventTwo", 5, 7, new Date(), new Date(),false), 0);
-            sched.addEvent(new Event("JoeIsAmazing", 1, 12, new Date(), new Date(),false), 0);
+            sched.addEvent(new Event(0, "EventOne", 3, 4, new Date(), new Date(),false));
+            sched.addEvent(new Event(0, "EventTwo", 5, 7, new Date(), new Date(),false));
+            sched.addEvent(new Event(0, "JoeIsKing", 1, 12, new Date(), new Date(),false));
             console.log(sched); //check out the console if you want to see the result
 
         </script>

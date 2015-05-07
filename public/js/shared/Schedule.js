@@ -1,9 +1,8 @@
 /*
  * Filename: Schedule.js
- * Description: This is the Schedule prototype. It will contain behaviors 
+ * Description: This is the Schedule and Event prototype. It will contain behaviors 
  *              and attributes of a schedule. The main attribute is the week,
  *              which is an array of days which are in turn an array of events.
- *              It also contains a prototype for an Event object.
  * Authors: Joe d'Eon (if you edit this file, add your name TODO)
  *
  * Used by: ProfileController.js, GroupController.js
@@ -15,7 +14,8 @@
 
 /*
  * Prototype name: Event
- * Purpose: Called with new to create a new Event object
+ * Implementation: Called with new to create a new Event object
+ * Description: Contains attrubutes of an Event.
  */
 function Event(name, startTime, endTime, startDate, endDate, recurring){
 
@@ -31,9 +31,11 @@ function Event(name, startTime, endTime, startDate, endDate, recurring){
 
 /*
  * Prototype name: Schedule
- * Purpose: Called with new to create a new Schedule object.
+ * Implementation: Called with new to create a new Schedule object.
+ * Description: Contains attributes and behaviors of a schedule.
  */
 function Schedule(){
+  /* the array of days */
   this.week = [
     day0 = [
            ],
@@ -51,11 +53,22 @@ function Schedule(){
            ]
                ]
 
-  this.test = function(){
-      alert("test");
-  }
-  /* function to add event to schedule */
-  this.addEvent = function(newEvent, dayNum){
+  /*
+   * Function name: addEvent
+   *
+   * Parameters:
+   *              newEvent - the new event to be added to the specified day 
+   *                         array
+   *              dayNum   - an integer 0-6 to represent days of the week 
+   *                         Mon-Sun
+   * Description: 
+   *              Adds a new event to the schedule. It does so by finding
+   *              which day to insert into, using a case-switch, then it 
+   *              calls sorted insert to insert into the array based on start
+   *              time.
+   *
+   * */
+  this.addEvent = function(dayNum, newEvent){
     switch(dayNum){
       case 0:
         //inserted sort into day0
@@ -81,10 +94,19 @@ function Schedule(){
         break;
       default:
         //default code
+        console.log("Please insert a day 0-6");
 
     }
   }
-  /* takes a day array and an event and inserts it into the array */
+  /*
+   * Function name: sortedInsert
+   * Parameters: 
+   *            day      - an array of events
+   *            newEvent - the event to be inserted into the day array
+   * Description: Finds the event to sort before based on start time, then
+   *              inserts the event.
+   *
+   * */
   this.sortedInsert = function(day, newEvent){
     if(day.length === 0){
       day.push(newEvent);
