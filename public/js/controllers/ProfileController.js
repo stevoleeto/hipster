@@ -17,15 +17,18 @@
  *             newFriendEmail - The email of the friend being added to a group.
  *
  *
- * Behaviors:  logout() - log out
- *             addGroup() - create a new group
- *             createEvent() - create an event that is either singular or
- *                             recurring in nature
- *             deleteEvent() - delete an event
- *             editEvent()   - edit an existing event
+ * Behaviors:  
  *             toggleGroupView() - Selects only the Group view to be shown
  *             toggleProfileView() - Selects only the Profile view to be shown
  *             removeAllGroups() - Removes the current user from all groups.
+ *
+ *             logout() - log out
+ *             addGroup() - create a new group
+ *
+ *             createEvent() - create an event that is either singular or
+ *                             recurring in nature TODO
+ *             deleteEvent() - delete an event TODO
+ *             editEvent()   - edit an existing event TODO
  *
  *          
  * 
