@@ -41,92 +41,40 @@ var currentUser = Parse.User.current();
 
 
 app.controller('ProfileController', ['$scope', function($scope) {
+
+  /* user data */
   $scope.sched = new Schedule(); // will be changed to pull schedule down
-	$scope.userName = currentUser.get("name");
-	$scope.joinDate = currentUser.createdAt;
+  $scope.userName = currentUser.get("name");
+  $scope.joinDate = currentUser.createdAt;
   $scope.email = currentUser.get("email");
 
 
+  /* user's group's */
   $scope.myGroupList = []; // local groupList
   $scope.numberOfGroups = $scope.myGroupList.length;
-  
+
+  /*     */
+  $scope.currentGroup = '';
+
   //This Query's the database for the CURRENT users GroupList Object.
   //Once it finds the GroupList object, it pulls down the array and fills it locally.
   var GroupList = Parse.Object.extend("GroupList");
   var query = new Parse.Query(GroupList);
   query.equalTo("userEmail", $scope.email);
   query.find({
-  success: function(object) {
-    $scope.myGroupList = object[0]._serverData.userGroups;
-    $scope.numberOfGroups = $scope.myGroupList.length;
+    success: function(object) {
+      $scope.myGroupList = object[0]._serverData.userGroups;
+      $scope.numberOfGroups = $scope.myGroupList.length;
     },
     error: function(object, error) {
     }
   });
 
 
-  $scope.groupView = false;
-  $scope.profileView = true;
-  $scope.singleGroupView = false;
-  $scope.homeView = true;
 
-  /************************************************************************
-   * Name:    toggleGroupView()
 
-   * Purpose:   Allows the user to see the Group view.
 
-   * Called In:   index.html
 
-   * Description: Shows and Hides specific elements in index.html to control what is shown.
-   ************************************************************************/
-  $scope.toggleGroupView = function(){
-    $scope.groupView = true;
-    $scope.profileView = false;
-  }
-
-  /************************************************************************
-   * Name:    toggleProfileView()
-
-   * Purpose:   Allows the user to see the Profile view.
-
-   * Called In:   index.html
-
-   * Description: Shows and Hides specific elements in index.html to control what is shown.
-   ************************************************************************/
-  $scope.toggleProfileView = function(){
-    $scope.groupView = false;
-    $scope.profileView = true;
-  }
-
-  /************************************************************************
-   * Name:    toggleHomeView()
-
-   * Purpose:   Allows the user to see the Profile view.
-
-   * Called In:   index.html
-
-   * Description: Shows and Hides specific elements in index.html to control what is shown.
-   ************************************************************************/
-  $scope.toggleHomeView = function(){
-    $scope.homeView = true;
-    $scope.singleGroupView = false;
-  }
-
-  /************************************************************************
-   * Name:    togglesingleGroupView()
-
-   * Purpose:   Allows the user to see the Profile view.
-
-   * Called In:   index.html
-
-   * Description: Shows and Hides specific elements in index.html to control what is shown.
-   ************************************************************************/
-  $scope.toggleSingleGroupView = function(){
-    $scope.homeView = false;
-    $scope.singleGroupView = true;
-    console.log("Single Group View!");
-  }
-  
   /************************************************************************
    * Name:    removeAllGroups()
 
@@ -142,14 +90,14 @@ app.controller('ProfileController', ['$scope', function($scope) {
 
     var query = new Parse.Query(GroupList);
     query.equalTo("userEmail", $scope.email)
-    query.find({
-      success: function(object) {
-      object[0].set("userGroups", $scope.myGroupList);
-      object[0].save();
-      },
-      error: function(object, error) {
-      }
-    });
+      query.find({
+        success: function(object) {
+          object[0].set("userGroups", $scope.myGroupList);
+          object[0].save();
+        },
+        error: function(object, error) {
+        }
+      });
   }
 
   /************************************************************************
@@ -178,9 +126,9 @@ app.controller('ProfileController', ['$scope', function($scope) {
    * Description: Creates a new group, and adds the new group to the GroupList userGroups array for both the current user the and user they have selected.
    ************************************************************************/
 
-   $scope.createGroup = function(){
+  $scope.createGroup = function(){
 
-     
+
     /* CODE TO CREATE THE GROUP */
     var Group = Parse.Object.extend("Group");
     var newGroup = new Group();
@@ -192,7 +140,7 @@ app.controller('ProfileController', ['$scope', function($scope) {
         $scope.myGroupList[$scope.numberOfGroups] = {id: Group.id, name: $scope.newGroupName};
         console.log(Group);
         //would really be the ID; sets next myGroupList index to new group id
-        
+
       }
     });
 
@@ -203,18 +151,43 @@ app.controller('ProfileController', ['$scope', function($scope) {
     //This sets the current User's GroupList userGroups array to be updated with the new group
     var query = new Parse.Query(GroupList);
     query.equalTo("userEmail", $scope.email)
-    query.find({
-      success: function(cloudGroupList) {
-      console.log("good refresh");
-      cloudGroupList[0].set("userGroups", $scope.myGroupList);
-      cloudGroupList[0].save();
-      },
-      error: function(cloudGroupList, error) {
-      }
-    });
-    
-       
-   
+      query.find({
+        success: function(cloudGroupList) {
+          console.log("good refresh");
+          cloudGroupList[0].set("userGroups", $scope.myGroupList);
+          cloudGroupList[0].save();
+        },
+        error: function(cloudGroupList, error) {
+        }
+      });
+
+
+
   }
-    
+
+  /*
+   * Function name: setCurrentGroup
+   *
+   *
+   *
+   *
+   */
+
+  $scope.setCurrentGroup = function(id){
+    $scope.currentGroup = id;
+    console.log(id);
+
+
+  }
+
+
+
+
+
+
+
+
+
+
+
 }]);
