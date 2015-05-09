@@ -187,6 +187,11 @@ input
     top: 10px;
 }
 
+#profileWrapper {
+    position: relative;
+    top: 75px;
+}
+
 td {
     border: 3px solid #04B404;
     background: #81F781;
