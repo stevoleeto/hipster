@@ -158,6 +158,8 @@ input
     color: black;
     font-size: 30px;
     line-height: 40px;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .viewBtn:hover 

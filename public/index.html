@@ -58,8 +58,8 @@
             }
         </script>
         <div id="logoutWrapper">
-            <div ng-click= "logout()" class="logoutbtn" ng-show="profileView"></div>
-            <p id = "greeting">How ya doin', {{ userName }}?</p>
+            <div ng-click="logout()" class="logoutbtn" ng-show="profileView"></div>
+            <p id="greeting">ooooh, playa! How you doin, {{ userName }}?</p>
             <center>
                 <div onclick="showView(0);" class="viewBtn">Profile</div>
                 <div onclick="showView(1);" class="viewBtn">Groups</div>
@@ -91,7 +91,7 @@
             </div>
         </div>
             
-        <div id="groupView">
+        <div id="groupView" style="display:none;">
             <div>
                 <p>This is used to test functionality regarding showing groups</p>
                 <p>You are in: {{ numberOfGroups }} Groups!</p>
