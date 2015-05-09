@@ -221,13 +221,14 @@ input
     position: relative; 
     cursor: pointer;
     margin: auto 5px;
+    top: 10px;
     
     transition: width .5s;
 }
 
 .logoutbtn:hover
 {
-    width:85px;
+    width:80px;
     cursor: pointer;
     
     transition: width .5s;
@@ -267,14 +268,8 @@ input
     border:solid black 1px;
 }
 
-#homeView {
+#homeView 
+{
     position: relative;
     top: 75px;
-}
-
-td {
-    border: 3px solid #04B404;
-    background: #81F781;
-    width: 200px;
-    height: 200px;
 }
