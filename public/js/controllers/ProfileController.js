@@ -54,7 +54,7 @@ app.controller('ProfileController', ['$scope', function($scope) {
   $scope.numberOfGroups = $scope.myGroupList.length;
 
   /*     */
-  $scope.currentGroup = '';
+  $scope.currentGroupId = '';
 
   //This Query's the database for the CURRENT users GroupList Object.
   //Once it finds the GroupList object, it pulls down the array and fills it locally.
@@ -173,12 +173,14 @@ app.controller('ProfileController', ['$scope', function($scope) {
    *
    */
 
-  $scope.setCurrentGroup = function(id){
-    $scope.currentGroup = id;
+  $scope.setCurrentGroupId = function(id){
+    $scope.currentGroupId = id;
     console.log(id);
 
 
   }
+
+
 
 
 
