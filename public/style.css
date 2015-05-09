@@ -197,14 +197,15 @@ input
 
 #logoutWrapper .logoutbtn
 {	
-    float:right;
-    background: gray;
-    width: 150px;
+    background-image: url(images/cog.png);
     height:100%;
+    width: 100px;
+    background-size:contain;
+    background-repeat: no-repeat;
+    float:right;
     font-size: 14px;
     text-align: center;
     float: right;
-    margin-right: 20px;
     position: relative; 
 }
 
