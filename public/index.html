@@ -62,9 +62,12 @@
 
       <div id="profileView" ng-show="profileView">
         <div id="profileWrapper"><center>
-	  <table cellpadding="8" cellspacing="10">
+	  <table cellpadding="8" cellspacing="10" style="position:relative;top:10px;z-index:1;">
 	    <tr align="center">
-	      <td class="long" colspan="3">1</td>
+	      <td class="long" colspan="3">	
+                <p>Welcome {{ userName }}!</p>
+                <p>You have been a member since {{ joinDate | date }}.</p>
+	      </td>
 	    </tr>
 	    <tr align="center">
 	      <td class="side">2</td>
@@ -79,34 +82,6 @@
 	      <td class="long" colspan="3">7</td>
 	    </tr>
 	  </table>
-	  <!--<section class="long newRow">
-		<p>1</p>
-	  </section>
-	  <section class="sides">
-		<p>2</p>
-	  </section>
-	  <section class="middle">
-		<p>3</p>
-	  </section>
-	  <section class="sides newRow">
-		<p>4</p>
-	  </section>
-	  <section class="sides">
-		<p>5</p>
-	  </section>
-	  <section class="sides">
-		<p>6</p>
-	  </section>
-	  <section class="long">
-		<p>7</p>
-	  </section>-->
-
-
-	  <!--<img id="profPic" height="200px;" width="200px" src="http://lorempixel.com/200/200/">
-          This is an example of the view being filled with the model
-          <p>Welcome {{ userName }}. </p>
-          This is an example of using a filter!     -> v <- thats a pipe
-          <p>You have been a member since {{ joinDate | date }}. </p>-->
         </center></div>
       </div>
       <div id="groupView" ng-show="groupView">
