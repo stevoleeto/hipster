@@ -53,13 +53,13 @@
         </div>
     </head>
     <body>
-      <div ng-show="homeView">
+      <div id="homeView" ng-show="homeView">  
+        <form><center>
+          <div ng-click="toggleProfileView()" class="btn" style="margin-top:10px;display:inline;">Profile</div>
+          <div ng-click="toggleGroupView()" class="btn" style="margin-top:10px;display:inline;">Groups</div>
+        </center></form>
         <div id="profileView" ng-show="profileView">
           <div id="profileWrapper"><center>
-            <form><center>
-              <div ng-click = "toggleProfileView()" class="btn" style="margin-top:10px;display:inline;">Profile</div>
-              <div ng-click = "toggleGroupView()" class="btn" style="margin-top:10px;display:inline;">Groups</div>
-            </center></form>
 	    <table cellpadding="8" cellspacing="10" style="position:relative;top:10px;z-index:1;">
 	      <tr align="center">
                 <td class="long" colspan="3">	

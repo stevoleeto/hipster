@@ -173,6 +173,7 @@ input
     height: 64px;
     border-bottom: 1px solid black;
     z-index: 2;
+    margin-top: 0;
 }
 
 #logoutWrapper .btn
@@ -184,10 +185,10 @@ input
     float: right;
     margin-right: 20px;
     position: relative; 
-    top: 10px;
+    top: 12px;
 }
 
-#profileView {
+#homeView {
     position: relative;
     top: 75px;
 }
