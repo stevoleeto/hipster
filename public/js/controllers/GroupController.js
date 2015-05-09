@@ -30,29 +30,43 @@
  * 
  */
 
- var currentUser = Parse.User.current();
+var currentUser = Parse.User.current();
 
 app.controller('GroupController', ['$scope', function($scope) { 
-   $scope.groupName = '';
+  $scope.getGroup = function(){
+    var Group = Parse.Object.extend("Group");
+    var query = new Parse.Query(Group);
+    query.equalTo("objectId", $scope.currentGroup);
+    query.find({
+      success: function(group){
+        console.log(group);
+        $scope.gSchedule = group[0]._serverData.gSchedule;
+        $scope.groupName = group[0]._serverData.name;
+      },
+      error: function(group, error){
+        console.log("getting group by object id failed");
+      }
+    });
+  }
 
-
- $scope.addMember = function(){
-   var query = new Parse.Query(GroupList);
-   query.equalTo("userEmail", $scope.newMemberEmail);
-   query.find({
-    success: function(object) {
-    	console.log("good refresh for friend");
+  $scope.addMember = function(){
+    var query = new Parse.Query(GroupList);
+    query.equalTo("userEmail", $scope.newMemberEmail);
+    query.find({
+      success: function(object) {
+        console.log("good refresh for friend");
         var tempList = object[0]._serverData.userGroups;
         tempList[tempList.length] = $scope.newGroupName;
         object[0].set("userGroups", tempList);
         object[0].save();
-    },
-    error: function(object, error) {
+      },
+      error: function(object, error) {
         console.log(error);
       }
     });    
-}
+  }
 
 
-  
+
+
 }]);

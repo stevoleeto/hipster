@@ -1,4 +1,7 @@
 <html ng-app = "myApp" ng-controller="ProfileController">
+
+    <!-- initialize values for controlling views -->
+    <div ng-init = "groupView = false; profileView = true; singleGroupView = false; homeView = true"> </div>
     <!-- We are using a different controller here. The student controller
          is like the student class for our purposes -->
     <head>
@@ -55,8 +58,8 @@
     <body>
       <div id="homeView" ng-show="homeView">  
         <form><center>
-          <div ng-click="toggleProfileView()" class="btn" style="margin-top:10px;display:inline;">Profile</div>
-          <div ng-click="toggleGroupView()" class="btn" style="margin-top:10px;display:inline;">Groups</div>
+          <div ng-click="profileView = true; groupView = false" class="btn" style="margin-top:10px;display:inline;">Profile</div>
+          <div ng-click="groupView = true; profileView = false" class="btn" style="margin-top:10px;display:inline;">Groups</div>
         </center></form>
         <div id="profileView" ng-show="profileView">
           <div id="profileWrapper"><center>
@@ -90,16 +93,16 @@
           <div ng-click = "createGroup()" class="btn2" style="margin-top:10px;">Add One Group</div>
             <div ng-click = "removeAllGroups()" class="btn2" style="margin-top:10px;">Remove All Groups</div>
           <ul>
-            <div ng-repeat="x in myGroupList track by $index" class ="btn2" ng-click = "toggleSingleGroupView()"> {{ x.name }}</div>
+            <div ng-repeat="x in myGroupList" class ="btn2" ng-click = "$parent.homeView = false; $parent.singleGroupView = true; setCurrentGroup(x.id) " > {{ x.name }}</div>
           </ul>
         </div>
       </div>
     </div>
       <!-- This is the div for a specific group -->
-      <div id="singleGroup" ng-show="singleGroupView">
+      <div id="singleGroupView" ng-show="singleGroupView">
           <div ng-controller="GroupController">
-              <p>Im a group!</p>
-              <div ng-click = "toggleHomeView()" class="btn2" style="margin-top:10px;">Home</div>
+            <p>{{ groupName }}</p>
+            <div ng-click = "homeView = true; singleGroupView = false" class="btn2" style="margin-top:10px;">Home</div><!--toggleHomeView -->
           </div>
       </div>
 
