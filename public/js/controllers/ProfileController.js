@@ -68,8 +68,6 @@ app.controller('ProfileController', ['$scope', function($scope) {
   $scope.groupView = false;
   $scope.profileView = true;
 
-  $scope.newFriendEmail = "";
-
   /************************************************************************
    * Name:    toggleGroupView()
 

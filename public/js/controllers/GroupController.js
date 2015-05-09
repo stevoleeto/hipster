@@ -33,7 +33,27 @@
  var currentUser = Parse.User.current();
 
 app.controller('GroupController', ['$scope', function($scope) { 
-   // $scope.title = 'This Month\'s Bestsellers'; TEMPLATE for attributes
+   $scope.groupName = '';
+   $scope.
+
+
+ $scope.addMember = function(){
+   var query = new Parse.Query(GroupList);
+   query.equalTo("userEmail", $scope.newFriendEmail);
+   query.find({
+    success: function(object) {
+    	console.log("good refresh for friend");
+        var tempList = object[0]._serverData.userGroups;
+        tempList[tempList.length] = $scope.newGroupName;
+        object[0].set("userGroups", tempList);
+        object[0].save();
+    },
+    error: function(object, error) {
+        console.log(error);
+      }
+    });    
+}
+
 
   
 }]);
