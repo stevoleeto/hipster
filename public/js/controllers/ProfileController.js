@@ -67,6 +67,8 @@ app.controller('ProfileController', ['$scope', function($scope) {
 
   $scope.groupView = false;
   $scope.profileView = true;
+  $scope.singleGroupView = false;
+  $scope.homeView = true;
 
   /************************************************************************
    * Name:    toggleGroupView()
@@ -94,6 +96,35 @@ app.controller('ProfileController', ['$scope', function($scope) {
   $scope.toggleProfileView = function(){
     $scope.groupView = false;
     $scope.profileView = true;
+  }
+
+  /************************************************************************
+   * Name:    toggleHomeView()
+
+   * Purpose:   Allows the user to see the Profile view.
+
+   * Called In:   index.html
+
+   * Description: Shows and Hides specific elements in index.html to control what is shown.
+   ************************************************************************/
+  $scope.toggleHomeView = function(){
+    $scope.homeView = true;
+    $scope.singleGroupView = false;
+  }
+
+  /************************************************************************
+   * Name:    togglesingleGroupView()
+
+   * Purpose:   Allows the user to see the Profile view.
+
+   * Called In:   index.html
+
+   * Description: Shows and Hides specific elements in index.html to control what is shown.
+   ************************************************************************/
+  $scope.toggleSingleGroupView = function(){
+    $scope.homeView = false;
+    $scope.singleGroupView = true;
+    console.log("Single Group View!");
   }
   
   /************************************************************************
