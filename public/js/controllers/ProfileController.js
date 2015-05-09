@@ -151,45 +151,40 @@ app.controller('ProfileController', ['$scope', function($scope) {
 
    $scope.createGroup = function(){
 
+     
     /* CODE TO CREATE THE GROUP */
     var Group = Parse.Object.extend("Group");
     var newGroup = new Group();
     newGroup.set("gSchedule", new Schedule() );
-    newGroup.set(
+    newGroup.set("name", $scope.newGroupName);
+    newGroup.set("memberList", [$scope.userName]);
+    newGroup.save(null, {
+      success: function(Group) {
+        $scope.myGroupList[$scope.numberOfGroups] = Group.id;
+        console.log(Group);
+        //would really be the ID; sets next myGroupList index to new group id
+        
+      }
+    });
+
     /* END CODE TO CREATE THE GROUP */
 
-    $scope.myGroupList[$scope.numberOfGroups] = $scope.newGroupName //would really be the ID; sets next myGroupList index to new group id
-    $scope.numberOfGroups++;
 
 
     //This sets the current User's GroupList userGroups array to be updated with the new group
     var query = new Parse.Query(GroupList);
     query.equalTo("userEmail", $scope.email)
     query.find({
-      success: function(object) {
+      success: function(cloudGroupList) {
       console.log("good refresh");
-      object[0].set("userGroups", $scope.myGroupList);
-      object[0].save();
+      cloudGroupList[0].set("userGroups", $scope.myGroupList);
+      cloudGroupList[0].save();
       },
-      error: function(object, error) {
+      error: function(cloudGroupList, error) {
       }
     });
     
-    //This sets the friend User's GroupList userGroups array to be updated with the new group
-    var query = new Parse.Query(GroupList);
-    query.equalTo("userEmail", $scope.newFriendEmail);
-    query.find({
-      success: function(object) {
-        console.log("good refresh for friend");
-        var tempList = object[0]._serverData.userGroups;
-        tempList[tempList.length] = $scope.newGroupName;
-        object[0].set("userGroups", tempList);
-        object[0].save();
-      },
-      error: function(object, error) {
-        console.log(error);
-      }
-    });    
+       
    
   }
     
