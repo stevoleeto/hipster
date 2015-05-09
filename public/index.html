@@ -50,16 +50,23 @@
             sched.addEvent(0,new Event(0, "JoeIsKing", 1, 12, new Date(), new Date(),false));
             console.log(sched); //check out the console if you want to see the result
 
+            function showView( view ) {
+           		if ( view == 0 ) {
+           			document.getElementById('groupView').style.display = 'none';
+           			document.getElementById('profileView').style.display = 'block';
+           		} else {
+           			document.getElementById('groupView').style.display = 'block';
+           			document.getElementById('profileView').style.display = 'none';
+           		}
+            }
         </script>
         <div id="logoutWrapper">
             <div ng-click= "logout()" class="logoutbtn" ng-show="profileView"></div>
-            <p id = "greeting">Hi, {{ userName }}!</p>
-            <form>
+            <p id = "greeting">How ya doin', {{ userName }}?</p>
             <center>
-                <div ng-click="toggleProfileView()" class="viewBtn">Profile</div>
-                <div ng-click="toggleGroupView()" class="viewBtn">Groups</div>
+                <div ng-click="profileView = true; groupView = false" class="viewBtn">Profile</div>
+                <div ng-click="groupView = true; profileView = false" class="viewBtn">Groups</div>
             </center>
-        </form>
         </div>
     </head>
     
@@ -71,15 +78,27 @@
           <div ng-click="groupView = true; profileView = false" class="btn" style="margin-top:10px;display:inline;">Groups</div>
         </center></form>
         <div id="profileView" ng-show="profileView">
+        <div id="homeView" ng-show="homeView">  
+        
+            
+        <div id="profileView">
             <div id="profileWrapper">
                 <center>
 
 <!--                    <p>You have been a member since {{ joinDate | date }}.</p>-->
                 </center>
                 
+                <p id = "yourSched">Your Schedule</p>
+                
+                <p id = "createTitle">Create Event</p>
+                
                 <div class = "schedule">
-                    <p>hello</p>
+                    <p>SKEHJEWELL</p>
                 </div>
+                
+                
+                
+                <div class = "createEvent">KREATEEEVEHNT</div>
             </div>
         </div>
       <div id="groupView" ng-show="groupView">
@@ -94,6 +113,8 @@
           </ul>
         </div>
       </div>
+            
+        
         
         
       <!-- This is the div for a specific group -->

@@ -160,6 +160,11 @@ input
     line-height: 40px;
 }
 
+.viewBtn:hover 
+{
+    cursor: pointer;
+}
+
 .btn 
 {
     width: 100%;
@@ -193,6 +198,7 @@ input
     border-bottom: 1px solid black;
     z-index: 2;
     margin-top: 0;
+    background: white;
 }
 
 #logoutWrapper .logoutbtn
@@ -214,11 +220,32 @@ input
    float:right;
 }
 
+#yourSched
+{
+    float:left;
+}
+
+#createTitle
+{
+    float:right;
+}
+
 .schedule
 {
+    float:left;
+    clear:left;
     width:70%;
-    
+    height: 80%;
     background-color: #FFF9F4;
+    border: solid black 1px;
+}
+
+.createEvent
+{
+    float:left;
+    width: 25%;
+    height: 80%;
+    border:solid black 1px;
 }
 
 #homeView {
