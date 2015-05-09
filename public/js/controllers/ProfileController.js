@@ -9,7 +9,7 @@
  * Attributes: userName  - The name of the user.
  *             email     - The user's unique email
  *             joinDate  - The date the user signed up.   
- *             userParticipatedGroups - The array containing the list of groups the currentUser is part of.
+ *             myGroupList - The array containing the list of groups the currentUser is part of.
  *             numberOfGroups - The number of groups the current user is part of.            
  *             groupList - A list of the groups a user is in.
  *             groupView - Determines if the group element in the HTML is shown.
@@ -47,8 +47,8 @@ app.controller('ProfileController', ['$scope', function($scope) {
   $scope.email = currentUser.get("email");
 
 
-  $scope.userParticipatedGroups = [];
-  $scope.numberOfGroups = $scope.userParticipatedGroups.length;
+  $scope.myGroupList = []; // local groupList
+  $scope.numberOfGroups = $scope.myGroupList.length;
   
   //This Query's the database for the CURRENT users GroupList Object.
   //Once it finds the GroupList object, it pulls down the array and fills it locally.
@@ -57,8 +57,8 @@ app.controller('ProfileController', ['$scope', function($scope) {
   query.equalTo("userEmail", $scope.email);
   query.find({
   success: function(object) {
-    $scope.userParticipatedGroups = object[0]._serverData.userGroups;
-    $scope.numberOfGroups = $scope.userParticipatedGroups.length;
+    $scope.myGroupList = object[0]._serverData.userGroups;
+    $scope.numberOfGroups = $scope.myGroupList.length;
     },
     error: function(object, error) {
     }
@@ -108,14 +108,14 @@ app.controller('ProfileController', ['$scope', function($scope) {
    * Description: Removs all groups found in their GroupList userGroups array.
    ************************************************************************/
   $scope.removeAllGroups = function(){
-    $scope.userParticipatedGroups = []; //would really be the ID;
+    $scope.myGroupList = []; //would really be the ID;
     $scope.numberOfGroups = 0;
 
     var query = new Parse.Query(GroupList);
     query.equalTo("userEmail", $scope.email)
     query.find({
       success: function(object) {
-      object[0].set("userGroups", $scope.userParticipatedGroups);
+      object[0].set("userGroups", $scope.myGroupList);
       object[0].save();
       },
       error: function(object, error) {
@@ -148,14 +148,19 @@ app.controller('ProfileController', ['$scope', function($scope) {
 
    * Description: Creates a new group, and adds the new group to the GroupList userGroups array for both the current user the and user they have selected.
    ************************************************************************/
+
    $scope.createGroup = function(){
-    $scope.userParticipatedGroups[$scope.numberOfGroups] = $scope.newGroupName //would really be the ID;
-    $scope.numberOfGroups++;
 
     /* CODE TO CREATE THE GROUP */
     var Group = Parse.Object.extend("Group");
     var newGroup = new Group();
+    newGroup.set("gSchedule", new Schedule() );
+    newGroup.set(
     /* END CODE TO CREATE THE GROUP */
+
+    $scope.myGroupList[$scope.numberOfGroups] = $scope.newGroupName //would really be the ID; sets next myGroupList index to new group id
+    $scope.numberOfGroups++;
+
 
     //This sets the current User's GroupList userGroups array to be updated with the new group
     var query = new Parse.Query(GroupList);
@@ -163,7 +168,7 @@ app.controller('ProfileController', ['$scope', function($scope) {
     query.find({
       success: function(object) {
       console.log("good refresh");
-      object[0].set("userGroups", $scope.userParticipatedGroups);
+      object[0].set("userGroups", $scope.myGroupList);
       object[0].save();
       },
       error: function(object, error) {
