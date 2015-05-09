@@ -242,7 +242,7 @@ input
 
 .createEvent
 {
-    float:left;
+    float:right;
     width: 25%;
     height: 80%;
     border:solid black 1px;
