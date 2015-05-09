@@ -34,12 +34,11 @@
 
 app.controller('GroupController', ['$scope', function($scope) { 
    $scope.groupName = '';
-   $scope.
 
 
  $scope.addMember = function(){
    var query = new Parse.Query(GroupList);
-   query.equalTo("userEmail", $scope.newFriendEmail);
+   query.equalTo("userEmail", $scope.newMemberEmail);
    query.find({
     success: function(object) {
     	console.log("good refresh for friend");
