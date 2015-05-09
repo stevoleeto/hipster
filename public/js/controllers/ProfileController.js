@@ -189,7 +189,7 @@ app.controller('ProfileController', ['$scope', function($scope) {
     newGroup.set("memberList", [$scope.userName]);
     newGroup.save(null, {
       success: function(Group) {
-        $scope.myGroupList[$scope.numberOfGroups] = Group.id;
+        $scope.myGroupList[$scope.numberOfGroups] = {id: Group.id, name: $scope.newGroupName};
         console.log(Group);
         //would really be the ID; sets next myGroupList index to new group id
         

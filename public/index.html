@@ -78,7 +78,7 @@
           <div ng-click = "createGroup()" class="btn2" style="margin-top:10px;">Add One Group</div>
             <div ng-click = "removeAllGroups()" class="btn2" style="margin-top:10px;">Remove All Groups</div>
           <ul>
-            <div ng-repeat="x in myGroupList track by $index" class ="btn2" ng-click = "toggleSingleGroupView()"> {{ x }}</div>
+            <div ng-repeat="x in myGroupList track by $index" class ="btn2" ng-click = "toggleSingleGroupView()"> {{ x.name }}</div>
           </ul>
         </div>
       </div>
