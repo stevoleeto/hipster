@@ -160,11 +160,15 @@ input
     line-height: 40px;
     display: table-cell;
     vertical-align: middle;
+    transition: width;
 }
 
 .viewBtn:hover 
 {
     cursor: pointer;
+    width: 200px;
+    background-color: #ccc;
+    transition: width .5s;
 }
 
 .btn 
@@ -203,7 +207,7 @@ input
     background: white;
 }
 
-#logoutWrapper .logoutbtn
+.logoutbtn
 {	
     background-image: url(images/cog.png);
     height:100%;
@@ -215,6 +219,17 @@ input
     text-align: center;
     float: right;
     position: relative; 
+    cursor: pointer
+    
+    transition: width;
+}
+
+.logoutbtn:hover
+{
+    width:85px;
+    cursor: pointer;
+    
+    transition: width .5s;
 }
 
 #greeting
