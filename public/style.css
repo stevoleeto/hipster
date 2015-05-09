@@ -166,6 +166,7 @@ input
 .viewBtn:hover 
 {
     cursor: pointer;
+    background: #B1E0F0;
     width: 200px;
     transition: width .5s;
 }
@@ -218,7 +219,8 @@ input
     text-align: center;
     float: right;
     position: relative; 
-    cursor: pointer
+    cursor: pointer;
+    margin: auto 5px;
     
     transition: width .5s;
 }
@@ -233,7 +235,8 @@ input
 
 #greeting
 {
-   float:right;
+    line-height: 64px;
+    float:right;
 }
 
 #yourSched
