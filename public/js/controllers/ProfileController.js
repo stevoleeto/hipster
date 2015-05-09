@@ -23,7 +23,7 @@
  *             removeAllGroups() - Removes the current user from all groups.
  *
  *             logout() - log out
- *             addGroup() - create a new group
+ *             createGroup() - create a new group
  *
  *             createEvent() - create an event that is either singular or
  *                             recurring in nature TODO
@@ -133,7 +133,6 @@ app.controller('ProfileController', ['$scope', function($scope) {
    * Description:	Calls Parse's logout function. 
    ************************************************************************/
   $scope.logout = function(){
-    $scope.sched.test;
 
     Parse.User.logOut();
     location.href='login/login.html';
@@ -141,7 +140,7 @@ app.controller('ProfileController', ['$scope', function($scope) {
   }
 
   /************************************************************************
-   * Name:    addGroup()
+   * Name:    createGroup()
 
    * Purpose:   Allows the user to create a group and include an email to invite to the group.
 
@@ -149,9 +148,14 @@ app.controller('ProfileController', ['$scope', function($scope) {
 
    * Description: Creates a new group, and adds the new group to the GroupList userGroups array for both the current user the and user they have selected.
    ************************************************************************/
-   $scope.addGroup = function(){
+   $scope.createGroup = function(){
     $scope.userParticipatedGroups[$scope.numberOfGroups] = $scope.newGroupName //would really be the ID;
     $scope.numberOfGroups++;
+
+    /* CODE TO CREATE THE GROUP */
+    var Group = Parse.Object.extend("Group");
+    var newGroup = new Group();
+    /* END CODE TO CREATE THE GROUP */
 
     //This sets the current User's GroupList userGroups array to be updated with the new group
     var query = new Parse.Query(GroupList);
