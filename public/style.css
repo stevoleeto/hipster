@@ -2,7 +2,7 @@ body  {
     margin-left: auto;
     margin-right: auto;
     font-family: 'Didact Gothic', sans-serif;
-    min-width: 1000px;
+    min-width: 1350px;
     margin-top: 0;
 }
 
@@ -196,20 +196,6 @@ input
 td {
     border: 3px solid #04B404;
     background: #81F781;
-}
-
-.long {
-    width: 90%;
-    height: 150px;
-}
-
-.side {
     width: 200px;
     height: 200px;
 }
-
-.middle {
-    width: 500px;
-    height: 500px;
-}
-
