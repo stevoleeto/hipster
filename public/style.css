@@ -160,6 +160,11 @@ input
     line-height: 40px;
 }
 
+.viewBtn:hover 
+{
+    cursor: pointer;
+}
+
 .btn 
 {
     width: 100%;
@@ -193,6 +198,7 @@ input
     border-bottom: 1px solid black;
     z-index: 2;
     margin-top: 0;
+    background: white;
 }
 
 #logoutWrapper .logoutbtn

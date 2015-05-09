@@ -47,25 +47,30 @@
             sched.addEvent(0,new Event(0, "JoeIsKing", 1, 12, new Date(), new Date(),false));
             console.log(sched); //check out the console if you want to see the result
 
+            function showView( view ) {
+           		if ( view == 0 ) {
+           			document.getElementById('groupView').style.display = 'none';
+           			document.getElementById('profileView').style.display = 'block';
+           		} else {
+           			document.getElementById('groupView').style.display = 'block';
+           			document.getElementById('profileView').style.display = 'none';
+           		}
+            }
         </script>
         <div id="logoutWrapper">
             <div ng-click= "logout()" class="logoutbtn" ng-show="profileView"></div>
-            <p id = "greeting">Hi, {{ userName }}!</p>
-            <form>
+            <p id = "greeting">How ya doin', {{ userName }}?</p>
             <center>
-                <div ng-click="toggleProfileView()" class="viewBtn">Profile</div>
-                <div ng-click="toggleGroupView()" class="viewBtn">Groups</div>
+                <div onclick="showView(0);" class="viewBtn">Profile</div>
+                <div onclick="showView(1);" class="viewBtn">Groups</div>
             </center>
-        </form>
         </div>
     </head>
     
     
     <body>
         <div id="homeView" ng-show="homeView">  
-        
-            
-        <div id="profileView" ng-show="profileView">
+        <div id="profileView">
             <div id="profileWrapper">
                 <center>
 
@@ -78,7 +83,7 @@
             </div>
         </div>
             
-        <div id="groupView" ng-show="groupView">
+        <div id="groupView">
             <div>
                 <p>This is used to test functionality regarding showing groups</p>
                 <p>You are in: {{ numberOfGroups }} Groups!</p>
