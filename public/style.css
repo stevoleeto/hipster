@@ -149,10 +149,21 @@ input
     width: 90%;
 }
 
+.viewBtn
+{
+    border-right:solid black 1px;
+    float:left;
+    width: 10%;
+    height: 100%;
+    color: black;
+    font-size: 30px;
+    line-height: 40px;
+}
+
 .btn 
 {
     width: 100%;
-    background: #90CAF9;
+    background-color:#90caf9;
     height: 40px;
     color: white;
     font-size: 30px;
@@ -162,30 +173,51 @@ input
 .btn:hover 
 {
     cursor: pointer;
-    background: #2196F3;
+    background: #2196f3;
 }
+
+#profileWrapper
+{
+/*    border:solid black 1px;*/
+    width: 100%;
+    height:800px;
+}
+
+
 
 #logoutWrapper 
 {
     width: 100%;
     position: fixed;
-    background: #A9D0F5;
     height: 64px;
     border-bottom: 1px solid black;
     z-index: 2;
     margin-top: 0;
 }
 
-#logoutWrapper .btn
+#logoutWrapper .logoutbtn
 {	
+    float:right;
     background: gray;
     width: 150px;
+    height:100%;
     font-size: 14px;
     text-align: center;
     float: right;
     margin-right: 20px;
     position: relative; 
-    top: 12px;
+}
+
+#greeting
+{
+   float:right;
+}
+
+.schedule
+{
+    width:70%;
+    
+    background-color: #FFF9F4;
 }
 
 #homeView {

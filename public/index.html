@@ -49,40 +49,53 @@
 
         </script>
         <div id="logoutWrapper">
-          <div ng-click= "logout()" class="btn">Log Out</div>
+            
+            <div ng-click= "logout()" class="logoutbtn" ng-show="profileView">Log Out</div>
+            <p id = "greeting">Welcome {{ userName }}!</p>
+            <form>
+            <center>
+                <div ng-click="toggleProfileView()" class="viewBtn">Profile</div>
+                <div ng-click="toggleGroupView()" class="viewBtn">Groups</div>
+            </center>
+        </form>
         </div>
     </head>
+    
+    
     <body>
-      <div id="homeView" ng-show="homeView">  
-        <form><center>
-          <div ng-click="toggleProfileView()" class="btn" style="margin-top:10px;display:inline;">Profile</div>
-          <div ng-click="toggleGroupView()" class="btn" style="margin-top:10px;display:inline;">Groups</div>
-        </center></form>
+        <div id="homeView" ng-show="homeView">  
+        
+            
         <div id="profileView" ng-show="profileView">
-          <div id="profileWrapper"><center>
-              <p>Welcome {{ userName }}!</p>
-              <p>You have been a member since {{ joinDate | date }}.</p>
-	    <table cellpadding="8" cellspacing="10" style="position:relative;top:10px;z-index:1;">
-              <tr align="center">
-                <td>1</td>
-                <td>2</td>
-              </tr>
-            </table>
-          </center></div>
+            <div id="profileWrapper">
+                <center>
+
+<!--                    <p>You have been a member since {{ joinDate | date }}.</p>-->
+                </center>
+                
+                <div class = "schedule">
+                    <p>hello</p>
+                </div>
+            </div>
         </div>
-      <div id="groupView" ng-show="groupView">
-        <div >
-          <p>This is used to test functionality regarding showing groups</p>
-          <p>You are in: {{ numberOfGroups }} Groups!</p>
-          <input type="text" ng-model="newGroupName" placeholder="Group Name"><br><br>
-          <div ng-click = "createGroup()" class="btn2" style="margin-top:10px;">Add One Group</div>
-            <div ng-click = "removeAllGroups()" class="btn2" style="margin-top:10px;">Remove All Groups</div>
-          <ul>
-            <div ng-repeat="x in myGroupList track by $index" class ="btn2" ng-click = "toggleSingleGroupView()"> {{ x.name }}</div>
-          </ul>
+            
+        <div id="groupView" ng-show="groupView">
+            <div>
+                <p>This is used to test functionality regarding showing groups</p>
+                <p>You are in: {{ numberOfGroups }} Groups!</p>
+                <input type="text" ng-model="newGroupName" placeholder="Group Name"><br><br>
+                <div ng-click = "createGroup()" class="btn2" style="margin-top:10px;">Add One Group</div>
+                <div ng-click = "removeAllGroups()" class="btn2" style="margin-top:10px;">Remove All Groups</div>
+
+                <ul>
+                    <div ng-repeat="x in myGroupList track by $index" class ="btn2" ng-click = "toggleSingleGroupView()"> {{ x.name }}</div>
+                </ul>
+                
+            </div>
         </div>
-      </div>
-    </div>
+        </div>
+        
+        
       <!-- This is the div for a specific group -->
       <div id="singleGroup" ng-show="singleGroupView">
           <div ng-controller="GroupController">
@@ -90,11 +103,6 @@
               <div ng-click = "toggleHomeView()" class="btn2" style="margin-top:10px;">Home</div>
           </div>
       </div>
-
-      
-
-      </div>
-
 
     </body>
 
