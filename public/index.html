@@ -54,19 +54,60 @@
     <body>
         <div>
       <!-- These buttons serve as a proof of concept for switching between the two primary views. -->
-          <form>
-            <div ng-click = "toggleProfileView()" class="btn" style="margin-top:10px;">Profile</div>
-            <div ng-click = "toggleGroupView()" class="btn" style="margin-top:10px;">Groups</div>
-          </form>
+          <form><center>
+            <div ng-click = "toggleProfileView()" class="btn" style="margin-top:10px;display:inline;">Profile</div>
+            <div ng-click = "toggleGroupView()" class="btn" style="margin-top:10px;display:inline;">Groups</div>
+          </center></form>
         </div>
 
       <div id="profileView" ng-show="profileView">
-        <div >
-          <!-- This is an example of the view being filled with the model -->
+        <div id="profileWrapper"><center>
+	  <table cellpadding="8" cellspacing="10">
+	    <tr align="center">
+	      <td class="long" colspan="3">1</td>
+	    </tr>
+	    <tr align="center">
+	      <td class="side">2</td>
+	      <td class="middle" rowspan="2">3</td>
+	      <td class="side">4</td>
+	    </tr>
+	    <tr align="center">
+	      <td class="side">5</td>
+	      <td class="side">6</td>
+	    </tr>
+	    <tr align="center">
+	      <td class="long" colspan="3">7</td>
+	    </tr>
+	  </table>
+	  <!--<section class="long newRow">
+		<p>1</p>
+	  </section>
+	  <section class="sides">
+		<p>2</p>
+	  </section>
+	  <section class="middle">
+		<p>3</p>
+	  </section>
+	  <section class="sides newRow">
+		<p>4</p>
+	  </section>
+	  <section class="sides">
+		<p>5</p>
+	  </section>
+	  <section class="sides">
+		<p>6</p>
+	  </section>
+	  <section class="long">
+		<p>7</p>
+	  </section>-->
+
+
+	  <!--<img id="profPic" height="200px;" width="200px" src="http://lorempixel.com/200/200/">
+          This is an example of the view being filled with the model
           <p>Welcome {{ userName }}. </p>
-          <!-- This is an example of using a filter!     -> v <- thats a pipe  -->
-          <p>You have been a member since {{ joinDate | date }}. </p>
-        </div>
+          This is an example of using a filter!     -> v <- thats a pipe
+          <p>You have been a member since {{ joinDate | date }}. </p>-->
+        </center></div>
       </div>
       <div id="groupView" ng-show="groupView">
         <div >
