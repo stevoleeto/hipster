@@ -157,17 +157,16 @@ input
     height: 100%;
     color: black;
     font-size: 30px;
-    line-height: 40px;
+    line-height: 64px;
     display: table-cell;
     vertical-align: middle;
-    transition: width;
+    transition: width .5s;
 }
 
 .viewBtn:hover 
 {
     cursor: pointer;
     width: 200px;
-    background-color: #ccc;
     transition: width .5s;
 }
 
@@ -221,7 +220,7 @@ input
     position: relative; 
     cursor: pointer
     
-    transition: width;
+    transition: width .5s;
 }
 
 .logoutbtn:hover
