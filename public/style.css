@@ -214,11 +214,32 @@ input
    float:right;
 }
 
+#yourSched
+{
+    float:left;
+}
+
+#createTitle
+{
+    float:right;
+}
+
 .schedule
 {
+    float:left;
+    clear:left;
     width:70%;
-    
+    height: 80%;
     background-color: #FFF9F4;
+    border: solid black 1px;
+}
+
+.createEvent
+{
+    float:left;
+    width: 25%;
+    height: 80%;
+    border:solid black 1px;
 }
 
 #homeView {
