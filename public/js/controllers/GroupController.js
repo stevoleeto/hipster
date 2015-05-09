@@ -33,10 +33,12 @@
 var currentUser = Parse.User.current();
 
 app.controller('GroupController', ['$scope', function($scope) { 
+
+	$scope.groupName = "wut";
   $scope.getGroup = function(){
     var Group = Parse.Object.extend("Group");
     var query = new Parse.Query(Group);
-    query.equalTo("objectId", $scope.currentGroup);
+    query.equalTo("objectId", $scope.currentGroupId);
     query.find({
       success: function(group){
         console.log(group);

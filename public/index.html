@@ -61,8 +61,8 @@
             <div ng-click="logout()" class="logoutbtn" ng-show="homeView"></div>
             <p id="greeting">Hi, {{ userName }}</p>
             <center>
-                <div ng-click="profileView = true; groupView = false" class="viewBtn">Profile</div>
-                <div ng-click="groupView = true; profileView = false" class="viewBtn">Groups</div>
+                <div ng-click="profileView = true; groupView = false; singleGroupView = false" class="viewBtn">Profile</div>
+                <div ng-click="groupView = true; profileView = false; singleGroupView = false" class="viewBtn">Groups</div>
             </center>
         </div>
     
@@ -89,17 +89,19 @@
                 	<div ng-click = "createGroup()" class="btn2" style="margin-top:10px;">Add One Group</div>
                 	<div ng-click = "removeAllGroups()" class="btn2" style="margin-top:10px;">Remove All Groups</div>
                 	<ul>
-                    	<div ng-repeat="x in myGroupList" class ="btn2" ng-click = "$parent.homeView = false; $parent.singleGroupView = true"> {{ x.name }}</div>
+                    	<div ng-repeat="x in myGroupList" class ="btn2" ng-click = "$parent.profileView = false; $parent.groupView = false; $parent.singleGroupView = true; setCurrentGroupId(x.id)"> {{ x.name }}</div>
                 	</ul>
             	</div>
         	</div>
-        </div>    
-        <!-- This is the div for a specific group -->
-      	<div ng-init="singleGroupView = false" id="singleGroupView" ng-show="singleGroupView">
-        	<div ng-controller="GroupController">
-            	<p>{{ groupName }}</p>
-            	<div ng-click = "homeView = true; singleGroupView = false" class="btn2" style="margin-top:10px;">Home</div>
+            <div ng-init="singleGroupView = false" id="singleGroupView" ng-show="singleGroupView">
+            <div ng-controller= "GroupController">
+                <p>{{ groupName }}</p>
+                <div ng-click = "profileView = false; groupView = true; singleGroupView = false" class="btn2"> Back to Groups.</div>
+                <div ng-click = "getGroup()" class="btn2">Refresh</div>
             </div>
         </div>
+        </div>    
+        <!-- This is the div for a specific group -->
+      	
     </body>
 </html>
