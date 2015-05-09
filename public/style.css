@@ -207,7 +207,7 @@ input
 {	
     background-image: url(images/cog.png);
     height:100%;
-    width: 100px;
+    width: 75px;
     background-size:contain;
     background-repeat: no-repeat;
     float:right;
