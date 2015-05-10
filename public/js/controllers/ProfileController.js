@@ -165,6 +165,8 @@ app.controller('ProfileController', ['$scope','groupService', function($scope, g
           console.log("error with cloudGroupList");
         }
       });
+          $scope.$apply();
+
 
 
 
