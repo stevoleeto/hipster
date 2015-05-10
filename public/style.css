@@ -171,7 +171,7 @@ input
     transition: width .5s;
 }
 
-.btn 
+.bttn 
 {
     width: 100%;
     background-color:#90caf9;
@@ -181,7 +181,7 @@ input
     line-height: 40px;
 }
 
-.btn:hover 
+.bttn:hover 
 {
     cursor: pointer;
     background: #2196f3;
@@ -210,7 +210,7 @@ input
 .logoutbtn
 {	
     background-image: url(images/cog.png);
-    height:64px;
+    height:45px;
     width: 75px;
     background-size:contain;
     background-repeat: no-repeat;
@@ -223,7 +223,7 @@ input
     margin: auto 5px;
     top: 10px;
     transform: rotate(0deg);
-    transform-origin: 50% 50%;
+    transform-origin: 37.5px 22.5px;
 
     transition: transform .5s;
 }
@@ -231,8 +231,8 @@ input
 .logoutbtn:hover
 {
     cursor: pointer;
-    transform: rotate(360deg);
-    transform-origin: 50% 50%;
+    transform: rotate(180deg);
+    transform-origin: 37.5px 22.5px;
     
     transition: transform .5s;
 }
