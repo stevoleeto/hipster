@@ -1,4 +1,4 @@
-<html ng-app="myApp">
+<html ng-app="myApp" ng-controller="ProfileController">
     <!-- initialize values for controlling views 
     <div ng-init="groupView=false;profileView=true;singleGroupView=false;homeView=true"> 
     </div> -->
@@ -65,14 +65,14 @@
         
     </head>
     
-    <body ng-controller="ProfileController">
+    <body>
         <div id="logoutWrapper">
         	<center>
                 <div ng-click="profileView=true; groupView=false; singleGroupView=false" class="viewBtn">Profile</div>
                 <div ng-click="groupView=true; profileView=false; singleGroupView=false" class="viewBtn">Groups</div>
             </center>
-            <div ng-click="logout()" class="logoutbtn" title="Log Out"></div>
             <div id="greeting">Hi, {{ userName }}</div>
+            <div ng-click="logout()" class="logoutbtn" title="Log Out"></div>
         </div>
     
         <center>
