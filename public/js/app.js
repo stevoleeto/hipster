@@ -23,3 +23,6 @@ app.service('groupService', function(){
 
 
 });
+
+//Intalls angular UI bootstrap
+angular.module('myModule', ['ui.bootstrap']);
