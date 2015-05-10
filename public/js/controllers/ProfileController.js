@@ -9,8 +9,7 @@
  * Attributes: userName  - The name of the user.
  *             email     - The user's unique email
  *             joinDate  - The date the user signed up.   
- *             myGroupList - The array containing the list of groups the currentUser is part of.
- *             numberOfGroups - The number of groups the current user is part of.            
+ *             myGroupList - The array containing the list of groups the currentUser is part of.           
  *             groupList - A list of the groups a user is in.
  *             groupView - Determines if the group element in the HTML is shown.
  *             profileView - Determines if the profile element in the HTML is shown.
@@ -51,7 +50,6 @@ app.controller('ProfileController', ['$scope','groupService', function($scope, g
 
   /* user's group's */
   $scope.myGroupList = []; // local groupList
-  $scope.numberOfGroups = $scope.myGroupList.length;
 
   /*     */
   $scope.currentGroupId = '';
@@ -64,7 +62,6 @@ app.controller('ProfileController', ['$scope','groupService', function($scope, g
   query.find({
     success: function(object) {
       $scope.myGroupList = object[0]._serverData.userGroups;
-      $scope.numberOfGroups = $scope.myGroupList.length;
     },
     error: function(object, error) {
     }
@@ -91,7 +88,6 @@ app.controller('ProfileController', ['$scope','groupService', function($scope, g
    ************************************************************************/
   $scope.removeAllGroups = function(){
     $scope.myGroupList = []; //would really be the ID;
-    $scope.numberOfGroups = 0;
 
     var query = new Parse.Query(GroupList);
     query.equalTo("userEmail", $scope.email)
@@ -142,8 +138,8 @@ app.controller('ProfileController', ['$scope','groupService', function($scope, g
     newGroup.set("memberList", [$scope.userName]);
     newGroup.save(null, {
       success: function(Group) {
-        $scope.myGroupList[$scope.numberOfGroups] = {id: Group.id, name: $scope.newGroupName};
-        console.log(Group);
+        $scope.myGroupList[$scope.myGroupList.length] = {id: Group.id, name: $scope.newGroupName};
+        console.log(myGroupList);
         //would really be the ID; sets next myGroupList index to new group id
 
       }
@@ -154,15 +150,18 @@ app.controller('ProfileController', ['$scope','groupService', function($scope, g
 
 
     //This sets the current User's GroupList userGroups array to be updated with the new group
+    var GroupList = Parse.Object.extend("GroupList");
     var query = new Parse.Query(GroupList);
     query.equalTo("userEmail", $scope.email)
       query.find({
         success: function(cloudGroupList) {
-          console.log("good refresh");
+          console.log(query);
           cloudGroupList[0].set("userGroups", $scope.myGroupList);
+          console.log(cloudGroupList);
           cloudGroupList[0].save();
         },
         error: function(cloudGroupList, error) {
+          console.log("error with cloudGroupList");
         }
       });
 
