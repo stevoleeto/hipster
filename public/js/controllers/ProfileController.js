@@ -72,11 +72,6 @@ app.controller('ProfileController', ['$scope','groupService','$timeout', functio
       groupService.addGroupId($scope.currentGroupId);
   }
 
-
-
-
-
-
   /************************************************************************
    * Name:    removeAllGroups()
 
@@ -129,7 +124,6 @@ app.controller('ProfileController', ['$scope','groupService','$timeout', functio
 
   $scope.createGroup = function(){
 
-
     /* CODE TO CREATE THE GROUP */
     var Group = Parse.Object.extend("Group");
     var newGroup = new Group();
@@ -139,7 +133,6 @@ app.controller('ProfileController', ['$scope','groupService','$timeout', functio
     newGroup.save(null, {
       success: function(Group) {
         $scope.myGroupList[$scope.myGroupList.length] = {id: Group.id, name: $scope.newGroupName};
-        console.log(myGroupList);
         //would really be the ID; sets next myGroupList index to new group id
 
       }
@@ -164,39 +157,19 @@ app.controller('ProfileController', ['$scope','groupService','$timeout', functio
           console.log("error with cloudGroupList");
         }
       });
-          $scope.$apply();
-          $timeout(function(){$scope.apply()}, 1000);
-          $timeout(function(){$scope.apply()}, 2000);
-          $timeout(function(){$scope.apply()}, 5000);
-
-
+          $timeout(function(){$scope.$apply()}, 1000);
+          $timeout(function(){$scope.$apply()}, 2000);
+          $timeout(function(){$scope.$apply()}, 5000);
 
   }
 
   /*
    * Function name: setCurrentGroup
    *
-   *
-   *
-   *
    */
-
   $scope.setCurrentGroupId = function(id){
     $scope.currentGroupId = id;
-    console.log(id);
-
-
   }
-
-
-
-
-
-
-
-
-
-
 
 
 

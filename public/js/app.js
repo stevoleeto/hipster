@@ -2,7 +2,7 @@ var app = angular.module("myApp", []);
 
 app.service('groupService', function(){
   
-  var currentGroupId = '';
+  var currentGroupId = 'jhjh';
 
   var addGroupId = function (newGroupId){
       currentGroupId = newGroupId;

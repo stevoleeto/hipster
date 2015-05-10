@@ -76,9 +76,6 @@
         <div id="homeView" ng-init="homeView = true" ng-show="homeView">     
         	<div ng-init="profileView = true" ng-show = "profileView" id="profileView">
             	<div id="profileWrapper">
-                	<!--<center>
-					<p>You have been a member since {{ joinDate | date }}.</p>
-                	</center>-->
                     <div id = "scheduleWrapper">
                         <p id="yourSched">Your Schedule</p>
                 
@@ -104,17 +101,23 @@
                 	<div ng-click = "createGroup()" class="btn2" style="margin-top:10px;">Add One Group</div>
                 	<div ng-click = "removeAllGroups()" class="btn2" style="margin-top:10px;">Remove All Groups</div>
                 	<ul>
-                    	<div ng-repeat="x in myGroupList track by $index" class ="btn2" ng-click = "$parent.profileView = false; $parent.groupView = false; $parent.singleGroupView = true; setCurrentGroupId(x.id); addGroupId(); $scope.$apply()"> {{ x.name }}</div>
+                    	<div ng-repeat="x in myGroupList track by $index" 
+                        class ="btn2" 
+                        ng-click = "$parent.profileView = false; $parent.groupView = false; 
+                            $parent.$parent.singleGroupView = true; setCurrentGroupId(x.id); addGroupId()"> {{ x.name }}</div>
                 	</ul>
             	</div>
         	</div>
-        </div> <!--END PROFILE CONTROLLER -->
+        </div> 
+      </div> <!--END PROFILE CONTROLLER -->
           <!-- GROUP CONTROLLER -->
-            <div ng-init="singleGroupView = false" id="singleGroupView" ng-if="singleGroupView">
+          <div class="singleGroupView" ng-init="singleGroupView = false" ng-show="singleGroupView">
+            <div>
 	            <div ng-controller= "GroupController">
 	                <p>{{ groupName }}</p>
-	                <div ng-click = "" class="btn2"> Back to Groups.</div>
+	                <div ng-click = "" class="backButton"> Back to Groups.</div>
 	            </div>
+            </div>
 	        </div>
         </div>    
     </body>

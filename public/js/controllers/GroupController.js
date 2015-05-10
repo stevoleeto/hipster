@@ -35,21 +35,30 @@ var currentUser = Parse.User.current();
 app.controller('GroupController', ['$scope','groupService', function($scope, groupService) { 
 
 
-  $scope.currentGroupId = groupService.getGroupId();
-  var Group = Parse.Object.extend("Group");
-  var query = new Parse.Query(Group);
-  query.equalTo("objectId", $scope.currentGroupId);
-  query.find({
-      success: function(group){
-      console.log(group);
-      $scope.gSchedule = group[0]._serverData.gSchedule;
-      $scope.groupName = group[0]._serverData.name;
-      $scope.$apply();
-    },
-    error: function(group, error){
-        console.log("getting group by object id failed");
+  /* Watch to see if single group view is set to true, if it is, pull down group id*/
+  $scope.$watch('singleGroupView', function(){
+    if($scope.singleGroupView === true){
+      /* get the groupId from service */
+      $scope.currentGroupId = groupService.getGroupId();
+
+      var Group = Parse.Object.extend("Group");
+      var query = new Parse.Query(Group);
+      query.equalTo("objectId", $scope.currentGroupId);
+      query.find({
+        success: function(group){
+          $scope.gSchedule = group[0]._serverData.gSchedule;
+          $scope.groupName = group[0]._serverData.name;
+          $scope.$apply();
+        },
+        error: function(group, error){
+          console.log("getting group by object id failed");
+        }
+      });
+
+
     }
-    });
+  });
+
 
   $scope.addMember = function(){
     var query = new Parse.Query(GroupList);
