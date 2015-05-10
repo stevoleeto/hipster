@@ -121,7 +121,7 @@ body  {
     font-size: 30px;
     line-height: 40px;
     height: 40px;
-    border: solid grey 1px;
+    border: solid gray 1px;
 }
 
 #options div:hover 
@@ -219,14 +219,12 @@ input
     float:right;
     font-size: 14px;
     text-align: center;
-    float: right;
     position: relative; 
     cursor: pointer;
     margin: auto 5px;
     top: 10px;
     transform: rotate(0deg);
     transform-origin: 37.5px 22.5px;
-
     transition: transform .5s;
 }
 
@@ -235,58 +233,48 @@ input
     cursor: pointer;
     transform: rotate(180deg);
     transform-origin: 37.5px 22.5px;
-    
     transition: transform .5s;
 }
 
 #greeting
 {
     line-height: 64px;
+    font-size: 20px;
     float:right;
 }
 
 #scheduleWrapper
 {
-    height:auto;
-    width:70%;
+    height:500px;
+    width:65%;
     float:left;
     margin-left: 2%;
-}
-
-#yourSched
-{
-    position:relative;
-    font-size: 1.7em;
-    float:left;
-    left: 10px;
-    letter-spacing: 3px;
 }
 
 .schedule
 {
     float:left;
     clear:left;
-    width:100%;
-    height: 70%;
+    width: 90%;
+    height: 100%;
     background-color: #FFF9F4;
     border: solid black 1px;
 }
 
 #createWrapper
 {
-    height: auto;
+    height: 500px;
     width: 25%;
-    float: right;
+    float: left;
     margin-right: 2%;
 
 }
 
-#createTitle
+.boxTitle
 {
     position:relative;
     font-size: 1.7em;
     float:left;
-    left: 10px;
     letter-spacing: 3px;
 }
 
