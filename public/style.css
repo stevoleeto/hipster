@@ -171,7 +171,7 @@ input
     transition: width .5s;
 }
 
-.btn 
+.bttn 
 {
     width: 100%;
     background-color:#90caf9;
@@ -181,7 +181,7 @@ input
     line-height: 40px;
 }
 
-.btn:hover 
+.bttn:hover 
 {
     cursor: pointer;
     background: #2196f3;
