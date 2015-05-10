@@ -94,9 +94,11 @@
                 	<ul>
                     	<div ng-repeat="x in myGroupList" class ="btn2" ng-click = "$parent.profileView = false; $parent.groupView = false; $parent.singleGroupView = true; setCurrentGroupId(x.id); addGroupId()"> {{ x.name }}</div>
                 	</ul>
-                	<button type="button" class="btn btn-primary" ng-model="singleModel">
-                		Add Group
-                	</button>
+                	<div ng-controller="ButtonsCtrl">
+                		<button type="button" class="btn btn-primary" ng-model="singleModel">
+                			Add New Group
+                		</button>
+                	</div>
             	</div>
         	</div>
             <div ng-init="singleGroupView = false" id="singleGroupView" ng-if="singleGroupView">
