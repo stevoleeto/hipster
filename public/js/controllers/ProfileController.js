@@ -165,6 +165,7 @@ app.controller('ProfileController', ['$scope','groupService','$timeout', functio
         }
       });
           $scope.$apply();
+          $timeout(function(){$scope.apply()}, 1000);
           $timeout(function(){$scope.apply()}, 2000);
           $timeout(function(){$scope.apply()}, 5000);
 
