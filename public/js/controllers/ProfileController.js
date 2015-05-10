@@ -39,7 +39,7 @@ var currentUser = Parse.User.current();
 
 
 
-app.controller('ProfileController', ['$scope','groupService', function($scope, groupService) {
+app.controller('ProfileController', ['$scope','groupService','$timeout', function($scope, groupService, $timeout) {
 
   /* user data */
   $scope.sched = new Schedule(); // will be changed to pull schedule down
@@ -152,21 +152,21 @@ app.controller('ProfileController', ['$scope','groupService', function($scope, g
     //This sets the current User's GroupList userGroups array to be updated with the new group
     var GroupList = Parse.Object.extend("GroupList");
     var query = new Parse.Query(GroupList);
-    query.equalTo("userEmail", $scope.email)
+    query.equalTo("userEmail", $scope.email);
       query.find({
         success: function(cloudGroupList) {
           console.log(query);
           cloudGroupList[0].set("userGroups", $scope.myGroupList);
           console.log(cloudGroupList);
           cloudGroupList[0].save();
-          $scope.$apply();
         },
         error: function(cloudGroupList, error) {
           console.log("error with cloudGroupList");
         }
       });
           $scope.$apply();
-
+          $timeout(function(){$scope.apply()}, 2000);
+          $timeout(function(){$scope.apply()}, 5000);
 
 
 
