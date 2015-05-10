@@ -223,7 +223,7 @@ input
     margin: auto 5px;
     top: 10px;
     transform: rotate(0deg);
-    transform-origin: 50% 50%;
+    transform-origin: 33px 22px;
 
     transition: transform .5s;
 }
@@ -232,7 +232,7 @@ input
 {
     cursor: pointer;
     transform: rotate(360deg);
-    transform-origin: 50% 50%;
+    transform-origin: 33px 22px;
     
     transition: transform .5s;
 }
