@@ -95,14 +95,11 @@ app.controller('GroupController', ['$scope','groupService', function($scope, gro
 
               console.log("New Member Saved");
               console.log(tempList);
-      },
-      error: function(object, error) {
-        console.log(error);
-      }
-    });    
-
-
-
+            },
+            error: function(object, error) {
+              console.log(error);
+            }
+          });    
         },
         error: function(group, error){
           console.log("getting group by object id failed");
