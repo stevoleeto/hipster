@@ -40,7 +40,7 @@ var currentUser = Parse.User.current();
 
 
 
-app.controller('ProfileController', ['$scope', function($scope) {
+app.controller('ProfileController', ['$scope','groupService', function($scope, groupService) {
 
   /* user data */
   $scope.sched = new Schedule(); // will be changed to pull schedule down
@@ -69,6 +69,11 @@ app.controller('ProfileController', ['$scope', function($scope) {
     error: function(object, error) {
     }
   });
+
+
+  $scope.addGroupId = function(){
+      groupService.addGroupId($scope.currentGroupId);
+  }
 
 
 

@@ -89,15 +89,14 @@
                 	<div ng-click = "createGroup()" class="btn2" style="margin-top:10px;">Add One Group</div>
                 	<div ng-click = "removeAllGroups()" class="btn2" style="margin-top:10px;">Remove All Groups</div>
                 	<ul>
-                    	<div ng-repeat="x in myGroupList" class ="btn2" ng-click = "$parent.profileView = false; $parent.groupView = false; $parent.singleGroupView = true; setCurrentGroupId(x.id)"> {{ x.name }}</div>
+                    	<div ng-repeat="x in myGroupList" class ="btn2" ng-click = "$parent.profileView = false; $parent.groupView = false; $parent.singleGroupView = true; setCurrentGroupId(x.id); addGroupId()"> {{ x.name }}</div>
                 	</ul>
             	</div>
         	</div>
-            <div ng-init="singleGroupView = false" id="singleGroupView" ng-show="singleGroupView">
+            <div ng-init="singleGroupView = false" id="singleGroupView" ng-if="singleGroupView">
             <div ng-controller= "GroupController">
                 <p>{{ groupName }}</p>
-                <div ng-click = "profileView = false; groupView = true; singleGroupView = false" class="btn2"> Back to Groups.</div>
-                <div ng-click = "getGroup()" class="btn2">Refresh</div>
+                <div ng-click = "" class="btn2"> Back to Groups.</div>
             </div>
         </div>
         </div>    
