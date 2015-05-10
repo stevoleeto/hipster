@@ -152,6 +152,7 @@ input
 .viewBtn
 {
     border-right:solid black 1px;
+    letter-spacing: 2px;
     float:left;
     width: 150px;
     height: 100%;
@@ -253,7 +254,11 @@ input
 
     #yourSched
     {
+        position:relative;
+        font-size: 1.7em;
         float:left;
+        left: 10px;
+        letter-spacing: 3px;
     }
 
     .schedule
@@ -277,7 +282,11 @@ input
 
     #createTitle
     {
+        position:relative;
+        font-size: 1.7em;
         float:left;
+        left: 10px;
+        letter-spacing: 3px;
     }
 
     .createEvent
