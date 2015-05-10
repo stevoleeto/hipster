@@ -203,6 +203,7 @@ input
     position: fixed;
     height: 64px;
     border-bottom: 1px solid black;
+    border-top: 1px solid black;
     z-index: 2;
     margin-top: 0;
     background: white;
@@ -244,59 +245,59 @@ input
     float:right;
 }
 
-    #scheduleWrapper
-    {
-        height:auto;
-        width:70%;
-        float:left;
-        margin-left: 2%;
-    }
+#scheduleWrapper
+{
+    height:auto;
+    width:70%;
+    float:left;
+    margin-left: 2%;
+}
 
-    #yourSched
-    {
-        position:relative;
-        font-size: 1.7em;
-        float:left;
-        left: 10px;
-        letter-spacing: 3px;
-    }
+#yourSched
+{
+    position:relative;
+    font-size: 1.7em;
+    float:left;
+    left: 10px;
+    letter-spacing: 3px;
+}
 
-    .schedule
-    {
-        float:left;
-        clear:left;
-        width:100%;
-        height: 70%;
-        background-color: #FFF9F4;
-        border: solid black 1px;
-    }
+.schedule
+{
+    float:left;
+    clear:left;
+    width:100%;
+    height: 70%;
+    background-color: #FFF9F4;
+    border: solid black 1px;
+}
 
-    #createWrapper
-    {
-        height: auto;
-        width: 25%;
-        float: right;
-        margin-right: 2%;
+#createWrapper
+{
+    height: auto;
+    width: 25%;
+    float: right;
+    margin-right: 2%;
 
-    }
+}
 
-    #createTitle
-    {
-        position:relative;
-        font-size: 1.7em;
-        float:left;
-        left: 10px;
-        letter-spacing: 3px;
-    }
+#createTitle
+{
+    position:relative;
+    font-size: 1.7em;
+    float:left;
+    left: 10px;
+    letter-spacing: 3px;
+}
 
-    .createEvent
-    {
-        float:right;
-        clear:right;
-        width: 100%;
-        height: 70%;
-        border:solid black 1px;
-    }
+.createEvent
+{
+    float:right;
+    clear:right;
+    width: 100%;
+    height: 70%;
+    border:solid black 1px;
+}
 
 #homeView 
 {
