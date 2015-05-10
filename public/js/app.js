@@ -1,4 +1,4 @@
-var app = angular.module("myApp", ['ui.bootstrap']);
+var app = angular.module("myApp", []);
 
 app.service('groupService', function(){
   
@@ -16,4 +16,13 @@ app.service('groupService', function(){
       addGroupId: addGroupId,
       getGroupId: getGroupId
   };
+
+
+
+
+
+
 });
+
+//Intalls angular UI bootstrap
+angular.module('myModule', ['ui.bootstrap']);
