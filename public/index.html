@@ -1,6 +1,5 @@
-<html ng-app = "myApp" ng-controller="ProfileController">
+<html ng-app = "myApp" >
     <!-- initialize values for controlling views 
-    <div ng-init="groupView=false;profileView=true;singleGroupView=false;homeView=true"> 
     </div> -->
     <!-- We are using a different controller here. The student controller
          is like the student class for our purposes -->
@@ -63,6 +62,8 @@
     </head>
     
     <body>
+      <!-- PROFILE CONTROLLER -->
+      <div ng-controller="ProfileController"> 
         <div id="logoutWrapper">
             <div ng-click="logout()" class="logoutbtn" ng-show="homeView"></div>
             <div id="greeting">Hi, {{ userName }}</div>
@@ -107,6 +108,8 @@
                 	</ul>
             	</div>
         	</div>
+        </div> <!--END PROFILE CONTROLLER -->
+          <!-- GROUP CONTROLLER -->
             <div ng-init="singleGroupView = false" id="singleGroupView" ng-if="singleGroupView">
 	            <div ng-controller= "GroupController">
 	                <p>{{ groupName }}</p>
