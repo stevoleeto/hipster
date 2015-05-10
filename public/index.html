@@ -112,13 +112,16 @@
       </div> <!--END PROFILE CONTROLLER -->
           <!-- GROUP CONTROLLER -->
         <div class="singleGroupView" ng-init="singleGroupView = false" ng-show="singleGroupView">
-            <p>.1</p>
-            <p>.2</p>
-            <p>.3</p>
-            <p>.4</p>
             <div>
 	            <div ng-controller= "GroupController">
-	                <p>{{ groupName }}</p>
+	                <p>Group Name: {{ groupName }}</p><br><br>
+                    <p>Members in Group:</p>
+                    <p ng-repeat="x in memberList track by $index"> {{x}} </p>
+                    <br><br>
+                    <div ng-click = "addMember()" class="btn2" style="margin-top:10px;">Add New Member</div>
+                    <input type="text" ng-model="newMemberEmail" placeholder="New Member Email">
+                    <br><br>
+ 
 	            </div>
             </div>
 	    </div>   

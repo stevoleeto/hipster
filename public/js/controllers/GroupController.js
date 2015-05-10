@@ -48,6 +48,9 @@ app.controller('GroupController', ['$scope','groupService', function($scope, gro
         success: function(group){
           $scope.gSchedule = group[0]._serverData.gSchedule;
           $scope.groupName = group[0]._serverData.name;
+          $scope.memberList = group[0]._serverData.memberList;
+          console.log(group);
+          console.log($scope.memberList);
           $scope.$apply();
         },
         error: function(group, error){
@@ -61,20 +64,52 @@ app.controller('GroupController', ['$scope','groupService', function($scope, gro
 
 
   $scope.addMember = function(){
-    var query = new Parse.Query(GroupList);
-    query.equalTo("userEmail", $scope.newMemberEmail);
-    query.find({
-      success: function(object) {
-        console.log("good refresh for friend");
-        var tempList = object[0]._serverData.userGroups;
-        tempList[tempList.length] = $scope.newGroupName;
-        object[0].set("userGroups", tempList);
-        object[0].save();
+    var Group = Parse.Object.extend("Group");
+      var query = new Parse.Query(Group);
+      query.equalTo("objectId", $scope.currentGroupId);
+      query.find({
+        success: function(group){
+          $scope.gSchedule = group[0]._serverData.gSchedule;
+          $scope.groupName = group[0]._serverData.name;
+          $scope.memberList = group[0]._serverData.memberList;
+          
+
+          var GroupList = Parse.Object.extend("GroupList");
+          var query = new Parse.Query(GroupList);
+          query.equalTo("userEmail", $scope.newMemberEmail);
+          query.find({
+            success: function(object) {
+              console.log("Group List Object: ");
+              console.log(object[0]);
+              console.log("userGroups info: ");
+              console.log(object[0]._serverData.userGroups);
+
+
+              var tempList = object[0]._serverData.userGroups;
+              tempList[tempList.length] = {id: groupService.getGroupId(), name: $scope.groupName};
+              object[0].set("userGroups", tempList);
+              object[0].save();
+
+              $scope.memberList[$scope.memberList.length] = $scope.newMemberEmail;
+              group[0].save();
+
+              console.log("New Member Saved");
+              console.log(tempList);
       },
       error: function(object, error) {
         console.log(error);
       }
     });    
+
+
+
+        },
+        error: function(group, error){
+          console.log("getting group by object id failed");
+        }
+      });
+
+    
   }
 
 
