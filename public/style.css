@@ -210,7 +210,7 @@ input
 .logoutbtn
 {	
     background-image: url(images/cog.png);
-    height:64px;
+    height:45px;
     width: 75px;
     background-size:contain;
     background-repeat: no-repeat;
@@ -223,7 +223,7 @@ input
     margin: auto 5px;
     top: 10px;
     transform: rotate(0deg);
-    transform-origin: 33px 22px;
+    transform-origin: 37.5px 22.5px;
 
     transition: transform .5s;
 }
@@ -231,8 +231,8 @@ input
 .logoutbtn:hover
 {
     cursor: pointer;
-    transform: rotate(360deg);
-    transform-origin: 33px 22px;
+    transform: rotate(180deg);
+    transform-origin: 37.5px 22.5px;
     
     transition: transform .5s;
 }
