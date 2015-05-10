@@ -159,6 +159,7 @@ app.controller('ProfileController', ['$scope','groupService', function($scope, g
           cloudGroupList[0].set("userGroups", $scope.myGroupList);
           console.log(cloudGroupList);
           cloudGroupList[0].save();
+          $scope.$apply();
         },
         error: function(cloudGroupList, error) {
           console.log("error with cloudGroupList");
