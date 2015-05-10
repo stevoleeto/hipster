@@ -81,6 +81,9 @@ app.controller('GroupController', ['$scope','groupService', function($scope, gro
               tempList[tempList.length] = {id: groupService.getGroupId(), name: $scope.groupName};
               object[0].set("userGroups", tempList);
               object[0].save();
+              console.log("Looking into th GroupList below:")
+              console.log(object[0]);
+              console.log(object[0]._serverData.userName);
               $scope.memberList[$scope.memberList.length] = object[0]._serverData.userName;
               group[0].save();
             },

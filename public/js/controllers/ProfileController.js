@@ -128,6 +128,8 @@ app.controller('ProfileController', ['$scope','groupService','$timeout', functio
     var Group = Parse.Object.extend("Group");
     var newGroup = new Group();
     newGroup.set("gSchedule", new Schedule() );
+    console.log("createGroup Name:");
+    console.log($scope.newGroupName)
     newGroup.set("name", $scope.newGroupName);
     newGroup.set("memberList", [$scope.userName]);
     newGroup.save(null, {
