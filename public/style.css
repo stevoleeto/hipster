@@ -243,33 +243,51 @@ input
     float:right;
 }
 
-#yourSched
-{
-    float:left;
-}
+    #scheduleWrapper
+    {
+        height:auto;
+        width:70%;
+        float:left;
+        margin-left: 1%;
+    }
 
-#createTitle
-{
-    float:right;
-}
+    #yourSched
+    {
+        float:left;
+    }
 
-.schedule
-{
-    float:left;
-    clear:left;
-    width:70%;
-    height: 80%;
-    background-color: #FFF9F4;
-    border: solid black 1px;
-}
+    .schedule
+    {
+        float:left;
+        clear:left;
+        width:100%;
+        height: 70%;
+        background-color: #FFF9F4;
+        border: solid black 1px;
+    }
 
-.createEvent
-{
-    float:right;
-    width: 25%;
-    height: 80%;
-    border:solid black 1px;
-}
+    #createWrapper
+    {
+        height: auto;
+        width: 25%;
+        float: right;
+        margin-right: 1%;
+
+    }
+
+    #createTitle
+    {
+        float:left;
+    }
+
+    .createEvent
+    {
+        float:right;
+        clear:right;
+        width: 100%;
+        height: 70%;
+        border:solid black 1px;
+    }
 
 #homeView 
 {
