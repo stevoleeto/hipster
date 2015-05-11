@@ -320,9 +320,29 @@ input
 
 .btn2
 {
+    background:lightblue;
+    width:10%;
+    height:20px;
+    cursor: pointer;
+}
+
+.groupSelect
+{
     border:solid black 1px;
-    width:50px;
-    height: 50px;
+    width:150px;
+    height: 150px;
+    float: left;
+    margin-right: 30px;
+    background: #FDA7B2;
+
+}
+
+.groupSelect p
+{
+    text-align: center;
+    font-size: 16px;
+    border-bottom:solid black 1px;
+    background:white;
 }
 
 #homeView 
