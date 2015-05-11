@@ -51,7 +51,13 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
 
 
 
-  $scope.eventSources = [];
+  $scope.eventSources = [{
+            events: [ // put the array in the `events` property
+                {
+                    title  : 'CalendarTestEvent',
+                    start  : '2015-05-11'
+
+                },]}];
 
 
   /* Change to weeksly view after 50 milliseconds
