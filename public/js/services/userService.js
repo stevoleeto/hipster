@@ -38,7 +38,6 @@ app.service('userService',['$q', function($q){
           else{
             friendGroupList = pulledList[0]._serverData.userGroups;
           }
-          groupList = pulledList[0]._serverData.userGroups;
           groupListQuery = pulledList;
         })
         );
