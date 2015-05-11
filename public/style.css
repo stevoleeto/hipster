@@ -355,6 +355,22 @@ input
     background:white;
 }
 
+#addGroupBtn
+{
+    float:left;
+    background:#B8FCBC;
+    height:100px;
+    width:100px;
+    background-image:url(images/plus.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#addGroupBtn:hover
+{
+    cursor:pointer;
+}
+
 #homeView 
 {
     position: relative;
