@@ -111,9 +111,10 @@
                 	<div ng-click = "removeAllGroups()" class="btn2" style="margin-top:10px;">Remove All Groups</div>
                 	<ul>
                     	<div ng-repeat="x in myGroupList track by $index" 
-                        class ="btn2" 
+                        class ="groupButton" 
                         ng-click = "$parent.profileView = false; $parent.groupView = false; 
-                            $parent.$parent.singleGroupView = true; setCurrentGroupId(x.id); addGroupId()"> {{ x.name }}</div>
+                            $parent.$parent.singleGroupView = true; setCurrentGroupId(x.id); addGroupId()"> {{ x.name }}
+                      </div>
                 	</ul>
             	</div>
         	</div>
