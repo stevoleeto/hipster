@@ -255,7 +255,7 @@ input
     width:70%;
     float:left;
     margin-left: 2%;
-    overflow:hidden;
+    overflow:scroll;
 }
 
 #yourSched
@@ -273,8 +273,7 @@ input
     clear:left;
     width:100%;
     height: 70%;
-    background-color: #FFF9F4;
-    border: solid black 1px;
+/*    border: solid black 1px;*/
 }
 
 #createWrapper
