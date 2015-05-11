@@ -39,7 +39,7 @@ var currentUser = Parse.User.current();
 
 
 
-app.controller('ProfileController', ['$scope','groupService','$timeout','userService', function($scope, groupService, $timeout, userService) {
+app.controller('ProfileController', ['$scope','groupService','$timeout','userService','uiCalendarConfig', function($scope, groupService, $timeout, userService, uiCalendarConfig) {
 
   /* user data */
   $scope.sched = new Schedule(); // will be changed to pull schedule down
@@ -50,11 +50,22 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
   userService.setEmail(currentUser.get("email")); //set users email in service
 
 
-  /* user's group's */
-  $scope.myGroupList = []; // local groupList
 
-  /*     */
-  $scope.currentGroupId = '';
+  $scope.eventSources = [];
+
+
+  /* Change to weeksly view after 50 milliseconds
+   */
+  $timeout(function(){ uiCalendarConfig.calendars['userCalendar'].
+    fullCalendar('changeView','agendaWeek')}, 50);
+
+  $scope.initCalendar = function(){
+
+    uiCalendarConfig.calendars['MyCalendar'].fullCalendar('changeView','agendaWeek');
+    console.log("calendars");
+    console.log( uiCalendarConfig.calendars);
+
+  }
 
 
 

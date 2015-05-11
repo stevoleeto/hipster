@@ -12,20 +12,19 @@
         <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0">	
         <title>Scheduling App</title>
 
-        <!-- Get access to the AngularJS library -->
-    	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-
-    	<!-- Get access to the AngularJS library -->
-    	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
-
-        <!-- Get access to the JQuery library. ONLY FOR BOOTSTRAP -->
-        <script type="text/javascript" src="js/ui-bootstrap-tpls-0.13.0.js"></script>
-
-        <!-- Get access to the BootStrap JS library -->
-        <script type="text/javascript" src="bootstrap-3.3.4-dist/js/bootstrap.js"></script>
 
         <!-- Get access to the Parse library -->
 		    <script type="text/javascript" src="https://parse.com/downloads/javascript/parse-1.4.2.js"></script>
+
+        <!-- Load UI Calendar sources -->
+        <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css"/>
+        <!-- jquery, moment, and angular have to get included before fullcalendar -->
+        <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+        <script type="text/javascript" src="bower_components/moment/moment.js"></script>
+        <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+        <script type="text/javascript" src="bower_components/angular-ui-calendar/src/calendar.js"></script>
+        <script type="text/javascript" src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
+        <script type="text/javascript" src="bower_components/fullcalendar/dist/gcal.js"></script>
 
         <!--First Modules -->
         <script src="js/shared/Schedule.js"></script>
@@ -84,6 +83,8 @@
                 
                         <div class="schedule">
                             <p>Schedule</p>
+                            <!-- TEST UI CALENDAR -->
+                            <div  ng-model="eventSources" calendar='userCalendar' ui-calendar="uiConfig.calendar" view="agendaWeel" ></div>
                         </div>
                     </div>
                     
@@ -94,7 +95,7 @@
                             <input type="text" ng-model="lol" placeholder="wut"><br><br>
                             <input type="text" ng-model="lol2" placeholder="wut2"><br><br>
                             <input type="text" ng-model="lol3" placeholder="wut3"><br><br>
-                            <div ng-click = "" class="btn2" style="margin-top:10px;">Add new Event</div>
+                            <div ng-click="" class="btn2" style="margin-top:10px;">Add new Event</div>
                         </div>
                     </div>
                     
