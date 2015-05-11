@@ -182,12 +182,14 @@ input
     color: white;
     font-size: 30px;
     line-height: 40px;
+
 }
 
 .bttn:hover 
 {
     cursor: pointer;
     background: #2196f3;
+    
 }
 
 #profileWrapper
@@ -299,6 +301,28 @@ input
     width: 100%;
     height: 70%;
     border:solid black 1px;
+}
+
+.createEvent p
+{
+    font-size: 20px;
+    margin-left:10px;
+}
+
+.eventPar
+{
+    width:80%;
+    position:relative;
+    margin-left: 20px;
+    border:solid black 1px;
+    border-radius:0px;
+}
+
+.btn2
+{
+    border:solid black 1px;
+    width:50px;
+    height: 50px;
 }
 
 #homeView 
