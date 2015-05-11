@@ -47,10 +47,11 @@ body  {
 
 #content 
 {
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
+    margin-left: auto;
+    margin-right: auto;
     top: 64px;
-    display: inline-block;
     z-index: 1;
 }
 
@@ -181,12 +182,14 @@ input
     color: white;
     font-size: 30px;
     line-height: 40px;
+
 }
 
 .bttn:hover 
 {
     cursor: pointer;
     background: #2196f3;
+    
 }
 
 #profileWrapper
@@ -298,6 +301,74 @@ input
     width: 100%;
     height: 70%;
     border:solid black 1px;
+}
+
+.createEvent p
+{
+    font-size: 20px;
+    margin-left:10px;
+}
+
+.eventPar
+{
+    width:80%;
+    position:relative;
+    margin-left: 20px;
+    border:solid black 1px;
+    border-radius:0px;
+}
+
+.btn2
+{
+    background:lightblue;
+    width:10%;
+    height:20px;
+    cursor: pointer;
+}
+
+.groupSelect
+{
+    border:solid black 1px;
+    width:150px;
+    height: 150px;
+    float: left;
+    margin-right: 30px;
+    background: #FDA7B2;
+    
+    transition: height .3s, width .3s;
+}
+
+.groupSelect:hover
+{
+    height:160px;
+    width: 160px;
+    cursor:pointer;
+    
+    transition: height .3s, width .3s;
+}
+
+.groupSelect p
+{
+    text-align: center;
+    font-size: 16px;
+    border-bottom:solid black 1px;
+    background:white;
+}
+
+#addGroupBtn
+{
+    float:left;
+    background:#B8FCBC;
+    height:100px;
+    width:100px;
+    background-image:url(images/plus.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#addGroupBtn:hover
+{
+    cursor:pointer;
 }
 
 #homeView 

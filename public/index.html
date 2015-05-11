@@ -91,11 +91,22 @@
                     <div id = "createWrapper">
                         <p id="createTitle">Create Event</p>
                         <div class="createEvent">
-                            <input type="text" ng-model="newEventName" placeholder="Event Name"><br><br>
-                            <input type="text" ng-model="lol" placeholder="wut"><br><br>
-                            <input type="text" ng-model="lol2" placeholder="wut2"><br><br>
-                            <input type="text" ng-model="lol3" placeholder="wut3"><br><br>
-                            <div ng-click="" class="btn2" style="margin-top:10px;">Add new Event</div>
+                            <p>Event Name</p>
+                            <input type="text" class="eventPar" ng-model="newEventName" placeholder="Event Name"><br><br>
+                            
+                            <p>Start Time</p>
+                            <input type="text" class="eventPar" ng-model="lol" placeholder="wut"><br><br>
+                            
+                            <p>End Time</p>
+                            <input type="text" class="eventPar" ng-model="lol2" placeholder="wut2"><br><br>
+                            
+                            <p>Start Date</p>
+                            <input type="text" class="eventPar" ng-model="lol3" placeholder="wut3"><br><br>
+                            
+                            <p>End Date</p>
+                            <input type="text" class="eventPar" ng-model="lol3" placeholder="wut3"><br><br>
+                            
+                            <div ng-click = "" class="btn4" style="margin-top:10px;">Create</div>
                         </div>
                     </div>
                     
@@ -104,18 +115,15 @@
             
         	<div ng-init="groupView=false" ng-show="groupView" id="groupView">
             	<div>
-                	<p>This is used to test functionality regarding showing groups! You may have to make a new account if this doesn't work. </p>
-                	<p>You are in: {{ numberOfGroups }} Groups!</p>
-                	<input type="text" ng-model="newGroupName" placeholder="Group Name">
+                	
                 	<br><br>
-                	<div ng-click = "createGroup() " class="btn2" style="margin-top:10px;">Add One Group</div>
+                    <input type="text" ng-model="newGroupName" placeholder="Group Name">
                 	<div ng-click = "removeAllGroups()" class="btn2" style="margin-top:10px;">Remove All Groups</div>
                 	<ul>
-                    	<div ng-repeat="x in myGroupList track by $index" 
-                        class ="groupButton" 
-                        ng-click = "$parent.profileView = false; $parent.groupView = false; 
-                            $parent.$parent.singleGroupView = true; setCurrentGroupId(x.id); addGroupId()"> {{ x.name }}
-                      </div>
+                    	<div ng-repeat="x in myGroupList track by $index" class ="groupSelect"  ng-click = "$parent.profileView = false; $parent.groupView = false; $parent.$parent.singleGroupView = true; setCurrentGroupId(x.id); addGroupId()">
+                            <p>{{ x.name }}</p>
+                        </div>
+                        <div ng-click = "createGroup()" id = "addGroupBtn" style="margin-top:10px;"></div>
                 	</ul>
             	</div>
         	</div>
