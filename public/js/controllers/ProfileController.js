@@ -123,6 +123,7 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
     newGroup.save(null, {
       success: function(Group) {
         $scope.myGroupList[$scope.myGroupList.length] = {id: Group.id, name: $scope.newGroupName};
+        $scope.newGroupName = '';
       }
     });
 
