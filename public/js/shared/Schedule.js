@@ -114,7 +114,6 @@ function Schedule(){
     else{
       /* iterate over array, looking for where to insert based on start time */
       for(i=0; i < day.length; i++){
-        console.log(day.length);
         if(newEvent.startTime <= day[i].startTime){ 
           day.splice(i, 0, newEvent);//insert before 
           return;

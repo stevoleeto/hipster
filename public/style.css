@@ -13,6 +13,7 @@ body  {
   position:relative; 
   right: 10px;
 }
+
 #header 
 {
     width: 100%;
@@ -305,3 +306,10 @@ input
     position: relative;
     top: 75px;
 }
+
+.singleGroupView
+{
+    position: relative;
+    top: 75px;
+}
+

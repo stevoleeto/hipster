@@ -69,6 +69,7 @@ app.controller('LoginController', ['$scope', function($scope) {
 
     newGroupList.set("userEmail", $scope.email);
     newGroupList.set( 'userGroups', [] );
+    newGroupList.set( 'userName', $scope.name);
     newGroupList.save(null, {
       success: function(GroupList) {}
     });
