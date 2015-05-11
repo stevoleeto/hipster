@@ -25,15 +25,17 @@
         <script type="text/javascript" src="bootstrap-3.3.4-dist/js/bootstrap.js"></script>
 
         <!-- Get access to the Parse library -->
-		<script type="text/javascript" src="https://www.parsecdn.com/js/parse-1.1.14.min.js"></script>
+		    <script type="text/javascript" src="https://parse.com/downloads/javascript/parse-1.4.2.js"></script>
 
         <!--First Modules -->
         <script src="js/shared/Schedule.js"></script>
         <!-- Modules -->
         <script src="js/app.js"></script>
         <!-- Controllers -->
-		<script src="js/controllers/ProfileController.js"></script>
+    		<script src="js/controllers/ProfileController.js"></script>
         <script src="js/controllers/GroupController.js"></script>
+        <!-- Services -->
+    		<script src="js/services/userService.js"></script>
 
         <!-- Inline JS goes here -->
         <script> 
@@ -88,9 +90,9 @@
                         <p id="createTitle">Create Event</p>
                         <div class="createEvent">
                             <input type="text" ng-model="newEventName" placeholder="Event Name"><br><br>
-                            <input type="text" ng-model="" placeholder="wut"><br><br>
-                            <input type="text" ng-model="" placeholder="wut2"><br><br>
-                            <input type="text" ng-model="" placeholder="wut3"><br><br>
+                            <input type="text" ng-model="test" placeholder="wut"><br><br>
+                            <input type="text" ng-model="test1" placeholder="wut2"><br><br>
+                            <input type="text" ng-model="test2" placeholder="wut3"><br><br>
                             <div ng-click = "" class="btn2" style="margin-top:10px;">Add new Event</div>
                         </div>
                     </div>

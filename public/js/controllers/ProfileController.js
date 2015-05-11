@@ -39,13 +39,15 @@ var currentUser = Parse.User.current();
 
 
 
-app.controller('ProfileController', ['$scope','groupService','$timeout', function($scope, groupService, $timeout) {
+app.controller('ProfileController', ['$scope','groupService','$timeout','userService', function($scope, groupService, $timeout, userService) {
 
   /* user data */
   $scope.sched = new Schedule(); // will be changed to pull schedule down
   $scope.userName = currentUser.get("name");
   $scope.joinDate = currentUser.createdAt;
   $scope.email = currentUser.get("email");
+
+  userService.setEmail(currentUser.get("email")); //set users email in service
 
 
   /* user's group's */
@@ -54,22 +56,17 @@ app.controller('ProfileController', ['$scope','groupService','$timeout', functio
   /*     */
   $scope.currentGroupId = '';
 
-  //This Query's the database for the CURRENT users GroupList Object.
-  //Once it finds the GroupList object, it pulls down the array and fills it locally.
-  var GroupList = Parse.Object.extend("GroupList");
-  var query = new Parse.Query(GroupList);
-  query.equalTo("userEmail", $scope.email);
-  query.find({
-    success: function(object) {
-      $scope.myGroupList = object[0]._serverData.userGroups;
-    },
-    error: function(object, error) {
-    }
+
+
+  /* asks the service to please pull the group list of desire email,
+   * then it gets the groupList from the service when its done pulling */
+  userService.queryGroupList($scope.email).then(function(){
+    $scope.myGroupList = userService.getGroupList();
   });
 
 
   $scope.addGroupId = function(){
-      groupService.addGroupId($scope.currentGroupId);
+    groupService.addGroupId($scope.currentGroupId);
   }
 
   /************************************************************************
@@ -84,16 +81,11 @@ app.controller('ProfileController', ['$scope','groupService','$timeout', functio
   $scope.removeAllGroups = function(){
     $scope.myGroupList = []; //would really be the ID;
 
-    var query = new Parse.Query(GroupList);
-    query.equalTo("userEmail", $scope.email)
-      query.find({
-        success: function(object) {
-          object[0].set("userGroups", $scope.myGroupList);
-          object[0].save();
-        },
-        error: function(object, error) {
-        }
-      });
+    userService.queryGroupList($scope.email).then(function(){
+      var queryGroupList = userService.getGroupListQuery();
+      queryGroupList[0].set("userGroups", $scope.myGroupList);
+      queryGroupList[0].save();
+    });
   }
 
   /************************************************************************
@@ -106,10 +98,8 @@ app.controller('ProfileController', ['$scope','groupService','$timeout', functio
    * Description:	Calls Parse's logout function. 
    ************************************************************************/
   $scope.logout = function(){
-
     Parse.User.logOut();
     location.href='login/login.html';
-
   }
 
   /************************************************************************
@@ -128,15 +118,11 @@ app.controller('ProfileController', ['$scope','groupService','$timeout', functio
     var Group = Parse.Object.extend("Group");
     var newGroup = new Group();
     newGroup.set("gSchedule", new Schedule() );
-    console.log("createGroup Name:");
-    console.log($scope.newGroupName)
     newGroup.set("name", $scope.newGroupName);
     newGroup.set("memberList", [$scope.userName]);
     newGroup.save(null, {
       success: function(Group) {
         $scope.myGroupList[$scope.myGroupList.length] = {id: Group.id, name: $scope.newGroupName};
-        //would really be the ID; sets next myGroupList index to new group id
-
       }
     });
 
@@ -148,20 +134,20 @@ app.controller('ProfileController', ['$scope','groupService','$timeout', functio
     var GroupList = Parse.Object.extend("GroupList");
     var query = new Parse.Query(GroupList);
     query.equalTo("userEmail", $scope.email);
-      query.find({
-        success: function(cloudGroupList) {
-          console.log(query);
-          cloudGroupList[0].set("userGroups", $scope.myGroupList);
-          console.log(cloudGroupList);
-          cloudGroupList[0].save();
-        },
-        error: function(cloudGroupList, error) {
-          console.log("error with cloudGroupList");
-        }
-      });
-          $timeout(function(){$scope.$apply()}, 1000);
-          $timeout(function(){$scope.$apply()}, 2000);
-          $timeout(function(){$scope.$apply()}, 5000);
+    query.find({
+      success: function(cloudGroupList) {
+        console.log(query);
+        cloudGroupList[0].set("userGroups", $scope.myGroupList);
+        console.log(cloudGroupList);
+        cloudGroupList[0].save();
+      },
+      error: function(cloudGroupList, error) {
+        console.log("error with cloudGroupList");
+      }
+    });
+    $timeout(function(){$scope.$apply()}, 1000);
+    $timeout(function(){$scope.$apply()}, 2000);
+    $timeout(function(){$scope.$apply()}, 5000);
 
   }
 
