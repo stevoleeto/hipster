@@ -1,4 +1,4 @@
-<html ng-app = "myApp" >
+<html ng-app="myApp" >
     <!-- initialize values for controlling views 
     </div> -->
     <!-- We are using a different controller here. The student controller
@@ -70,24 +70,25 @@
             <div ng-click="logout()" class="logoutbtn" ng-show="homeView"></div>
             <div id="greeting">Hi, {{ userName }}</div>
             <center>
-                <div ng-click="profileView = true; groupView = false; $parent.singleGroupView = false" class="viewBtn">Profile</div>
-                <div ng-click="groupView = true; profileView = false; $parent.singleGroupView = false" class="viewBtn">Groups</div>
+                <div ng-click="profileView=true; groupView=false; $parent.singleGroupView=false" class="viewBtn">Profile</div>
+                <div ng-click="groupView=true; profileView=false; $parent.singleGroupView=false" class="viewBtn">Groups</div>
             </center>
         </div>
     
-        <div id="homeView" ng-init="homeView = true" ng-show="homeView">     
-        	<div ng-init="profileView = true" ng-show = "profileView" id="profileView">
+        <div id="homeView" ng-init="homeView=true" ng-show="homeView">     
+        	<div ng-init="profileView=true" ng-show="profileView" id="profileView">
             	<div id="profileWrapper">
-                    <div id = "scheduleWrapper">
+                    <div id="scheduleWrapper">
                         <p id="yourSched">Your Schedule</p>
                 
                         <div class="schedule">
                             <!-- TEST UI CALENDAR -->
                             <div  ng-model="eventSources" calendar='userCalendar' ui-calendar="uiConfig.calendar" view="agendaWeel" ></div>
+                            <br><br>
                         </div>
                     </div>
                     
-                    <div id = "createWrapper">
+                    <div id="createWrapper">
                         <p id="createTitle">Create Event</p>
                         <div class="createEvent">
                             <p>Event Name</p>
@@ -105,7 +106,7 @@
                             <p>End Date</p>
                             <input type="text" class="eventPar" ng-model="lol3" placeholder="wut3"><br><br>
                             
-                            <div ng-click = "" class="btn4" style="margin-top:10px;">Create</div>
+                            <div ng-click="" class="btn4" style="margin-top:10px;">Create</div>
                         </div>
                     </div>
                     
@@ -117,29 +118,28 @@
                 	
                 	<br><br>
                     <input type="text" ng-model="newGroupName" placeholder="Group Name">
-                	<div ng-click = "removeAllGroups()" class="btn2" style="margin-top:10px;">Remove All Groups</div>
+                	<div ng-click="removeAllGroups()" class="btn2" style="margin-top:10px;">Remove All Groups</div>
                 	<ul>
-                    	<div ng-repeat="x in myGroupList track by $index" class ="groupSelect"  ng-click = "$parent.profileView = false; $parent.groupView = false; $parent.$parent.singleGroupView = true; setCurrentGroupId(x.id); addGroupId()">
-                            <p>{{ x.name }}</p>
+                    	<div ng-repeat="x in myGroupList track by $index" class ="groupSelect"  ng-click="$parent.profileView=false; $parent.groupView=false; $parent.$parent.singleGroupView=true; setCurrentGroupId(x.id); addGroupId()" ng-attr-title="{{ x.name }}">
+                            <p>{{ x.name | limitTo:12 }}{{ x.name.length > 20 ? '...' : '' }}</p>
                         </div>
-                        <div ng-click = "createGroup()" id = "addGroupBtn" style="margin-top:10px;"></div>
+                        <div ng-click="createGroup()" id="addGroupBtn"></div>
                 	</ul>
             	</div>
         	</div>
         </div> 
       </div> <!--END PROFILE CONTROLLER -->
           <!-- GROUP CONTROLLER -->
-        <div class="singleGroupView" ng-init="singleGroupView = false" ng-show="singleGroupView">
+        <div class="singleGroupView" ng-init="singleGroupView=false" ng-show="singleGroupView">
             <div>
 	            <div ng-controller= "GroupController">
 	                <p>Group Name: {{ groupName }}</p><br><br>
                     <p>Members in Group:</p>
                     <p ng-repeat="x in memberList track by $index"> {{x}} </p>
                     <br><br>
-                    <div ng-click = "addMember()" class="btn2" style="margin-top:10px;">Add New Member</div>
+                    <div ng-click="addMember()" class="btn2" style="margin-top:10px;">Add New Member</div>
                     <input type="text" ng-model="newMemberEmail" placeholder="New Member Email">
                     <br><br>
- 
 	            </div>
             </div>
 	    </div>   

@@ -9,9 +9,9 @@ body  {
 
 .companyName
 {
-  text-align:right; 
-  position:relative; 
-  right: 10px;
+    text-align:right; 
+    position:relative; 
+    right: 10px;
 }
 
 #header 
@@ -123,7 +123,7 @@ body  {
     font-size: 30px;
     line-height: 40px;
     height: 40px;
-    border: solid grey 1px;
+    border: solid gray 1px;
 }
 
 #options div:hover 
@@ -194,7 +194,6 @@ input
 
 #profileWrapper
 {
-/*    border:solid black 1px;*/
     width: 100%;
     height:800px;
 }
@@ -230,7 +229,6 @@ input
     top: 10px;
     transform: rotate(0deg);
     transform-origin: 37.5px 22.5px;
-
     transition: transform .5s;
 }
 
@@ -239,7 +237,6 @@ input
     cursor: pointer;
     transform: rotate(180deg);
     transform-origin: 37.5px 22.5px;
-    
     transition: transform .5s;
 }
 
@@ -319,7 +316,7 @@ input
 
 .btn2
 {
-    background:lightblue;
+    background: blue;
     width:10%;
     height:20px;
     cursor: pointer;
@@ -333,7 +330,6 @@ input
     float: left;
     margin-right: 30px;
     background: #FDA7B2;
-    
     transition: height .3s, width .3s;
 }
 
@@ -342,8 +338,8 @@ input
     height:160px;
     width: 160px;
     cursor:pointer;
-    
     transition: height .3s, width .3s;
+    float: left;
 }
 
 .groupSelect p
@@ -354,31 +350,34 @@ input
     background:white;
 }
 
+#addGroupBtn:before {
+    content: "+";
+}
+
 #addGroupBtn
 {
-    float:left;
-    background:#B8FCBC;
-    height:100px;
-    width:100px;
-    background-image:url(images/plus.png);
-    background-repeat: no-repeat;
-    background-size: contain;
+    position: relative;
+    top: 25px;
+    left: 25px;
+    float: left;
+    height: 100px;
+    width: 100px;
+    background: #81BEF7;
+    border-radius: 50px;
+    font-size: 80px;
+    line-height: 81px;
+    text-align: center;
+    font-weight: 700;
+    color: white;
 }
 
-#addGroupBtn:hover
-{
-    cursor:pointer;
+#addGroupBtn:hover {
+    cursor: pointer;
+    background: #0080FF;
 }
 
-#homeView 
+#homeView, .singleGroupView
 {
     position: relative;
     top: 75px;
 }
-
-.singleGroupView
-{
-    position: relative;
-    top: 75px;
-}
-
