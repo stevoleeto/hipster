@@ -141,7 +141,7 @@ body  {
     font-weight: 600;
 }
 
-input 
+input
 {
     line-height: 2em;
     border-radius: 3px;
@@ -334,11 +334,12 @@ input
     margin-left: 20px;
     border:solid black 1px;
     border-radius:0px;
+    height:35px;
 }
 
 .btn2
 {
-    background: blue;
+    background: aqua;
     width:10%;
     height:20px;
     cursor: pointer;
@@ -352,18 +353,12 @@ input
     float: left;
     margin-right: 30px;
     background: #FDA7B2;
-/*    transition: height .3s, width .3s;*/
+    cursor:pointer;
+    margin-top:20px;
 }
 
 .groupSelect:hover
 {
-/*
-    height:160px;
-    width: 160px;
-*/
-    cursor:pointer;
-/*    transition: height .3s, width .3s;*/
-    float: left;
 }
 
 .groupSelect p
@@ -381,7 +376,7 @@ input
 #addGroupBtn
 {
     position: relative;
-    top: 25px;
+    top: 45px;
     left: 25px;
     float: left;
     height: 100px;
