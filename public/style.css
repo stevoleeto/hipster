@@ -308,6 +308,28 @@ input
     margin-left:10px;
 }
 
+.createButton
+{
+    font-size: 35px;
+    letter-spacing: 3px;
+    background:#9EF699;
+    height:60px;
+    text-align: center;
+    width: 180px;
+    margin-right: auto;
+    margin-left: auto;
+    transition:width .5s;
+}
+
+.createButton:hover
+{
+    cursor:pointer;
+    transition:width .5s;
+    width: 210px;
+    background:#99FF99;
+
+}
+
 .eventPar
 {
     width:80%;
@@ -334,16 +356,18 @@ input
     margin-right: 30px;
     background: #FDA7B2;
     
-    transition: height .3s, width .3s;
+/*    transition: height .3s, width .3s;*/
 }
 
 .groupSelect:hover
 {
+/*
     height:160px;
     width: 160px;
+*/
     cursor:pointer;
     
-    transition: height .3s, width .3s;
+/*    transition: height .3s, width .3s;*/
 }
 
 .groupSelect p
