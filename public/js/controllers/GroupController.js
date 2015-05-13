@@ -35,7 +35,6 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
       /* get the groupId from service */
       $scope.currentGroupId = groupService.getGroupId();
       $scope.groupColor = groupService.getGroupColor();
-      console.log($scope.groupColor);
 
       var Group = Parse.Object.extend("Group");
       var query = new Parse.Query(Group);
