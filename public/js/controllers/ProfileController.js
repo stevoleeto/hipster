@@ -49,14 +49,12 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
 
   userService.setEmail(currentUser.get("email")); //set users email in service
 
-
-
-  $scope.eventSources = [{
-            events: [ // put the array in the `events` property
+  $scope.eventArray = [ // put the array in the `events` property
                 {
                     
                     title  : 'CalendarTestEvent',
                     start  : '2015-05-11T14:50:21',
+                    
                     end    : '2015-05-11T20:00:00',
                     color  : 'green'
                 },
@@ -66,7 +64,11 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
                     end    : '2015-05-12T16:00:00',
                     color  : 'blue'
                 }
-                ,]}];
+            
+  ];
+
+
+  $scope.eventSources = [$scope.eventArray];
 
   /* Used in getRandomColor() below */
   //var colors = ['#B9F5FF', '#B5FBA3', '#FFA6B1'];
@@ -182,6 +184,23 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
     $timeout(function(){$scope.$apply()}, 1000);
     $timeout(function(){$scope.$apply()}, 2000);
     $timeout(function(){$scope.$apply()}, 5000);
+
+  }
+
+  $scope.addEvent = function(){
+    var newEventStart = "";
+    var newEventEnd = "";
+    newEventStart = $scope.newEventStartDate + "T" + $scope.newEventStartTime + ":00";
+    newEventEnd = $scope.newEventEndDate + "T" + $scope.newEventEndTime + ":00";
+    
+    $scope.eventArray.push({
+      title  : $scope.newEventName,
+      start  : newEventStart,
+      end    : newEventEnd
+    });
+
+    console.log($scope.eventSources)
+
 
   }
 
