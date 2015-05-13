@@ -46,26 +46,9 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
   $scope.userName = currentUser.get("name");
   $scope.joinDate = currentUser.createdAt;
   $scope.email = currentUser.get("email");
+  $scope.eventArray = currentUser.get("personalSchedule");
 
   userService.setEmail(currentUser.get("email")); //set users email in service
-
-  $scope.eventArray = [ // put the array in the `events` property
-                {
-                    
-                    title  : 'CalendarTestEvent',
-                    start  : '2015-05-11T14:50:21',
-                    
-                    end    : '2015-05-11T20:00:00',
-                    color  : 'green'
-                },
-                {
-                    title  : 'CalendarTestEvent2',
-                    start  : '2015-05-12T11:50:21',
-                    end    : '2015-05-12T16:00:00',
-                    color  : 'blue'
-                }
-            
-  ];
 
 
   $scope.eventSources = [$scope.eventArray];
@@ -199,8 +182,14 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
       end    : newEventEnd
     });
 
-    console.log($scope.eventSources)
+    console.log($scope.eventArray);
 
+    currentUser.set("personalSchedule", $scope.eventArray);
+    currentUser.save(null, {
+      success: function(object) {
+        
+      }
+    });
 
   }
 
