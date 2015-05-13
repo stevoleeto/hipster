@@ -139,10 +139,10 @@
         <div class="singleGroupView" ng-init="singleGroupView=false" ng-show="singleGroupView">
             <div id="profileWrapper" ng-controller="GroupController">
                     <p id = "groupName">{{ groupName }}</p>
-                    <div id="scheduleWrapper" style="border:solid black 1px;">
+                    <div id="scheduleWrapper">
                         <p id="yourSched">Your Schedule</p>
                 
-                        <div class="schedule">
+                        <div class="schedule" style="border:solid black 1px;">
                             <!-- TEST UI CALENDAR -->
                              <div  ng-model="eventSources" calendar='groupCalendar' ui-calendar="uiConfig.calendar"  ></div> 
                             <br><br>
@@ -170,16 +170,14 @@
                             <div ng-click="" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
                     </div>
-                    
-                
-                    <p>Members in Group:</p>
-                    <p ng-repeat="x in memberList track by $index"> {{x}} </p>
+                <div id = "membersInfo">
+                    <h2>Members</h2>
+                    <p class="members" ng-repeat="x in memberList track by $index"> {{x}} </p>
                     <br><br>
                     <div ng-click="addMember()" class="btn2" style="margin-top:10px;">Add New Member</div>
                     <input type="text" ng-model="newMemberEmail" placeholder="New Member Email">
                     <br><br>
-            	
-	            
+                </div>
             </div>   
         </div>
     </body>
