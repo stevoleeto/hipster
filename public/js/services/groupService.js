@@ -1,9 +1,9 @@
 app.service('groupService', function(){
   
-  var currentGroupId = '';
+  var currentGroupId;
+  var groupColor;
 
   var addGroupId = function (newGroupId){
-    console.log("not getting called");
       currentGroupId = newGroupId;
   };
 
@@ -11,9 +11,19 @@ app.service('groupService', function(){
       return currentGroupId;
   };
 
+  var addGroupColor = function(color){
+    groupColor = color;
+  };
+
+  var getGroupColor = function(){
+    return groupColor;
+  };
+
   return {
       addGroupId: addGroupId,
-      getGroupId: getGroupId
+      getGroupId: getGroupId,
+      addGroupColor: addGroupColor,
+      getGroupColor: getGroupColor
   };
 
 });

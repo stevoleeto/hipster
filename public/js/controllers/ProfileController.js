@@ -93,9 +93,12 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
   });
 
 
-  $scope.addGroupId = function(){
+  $scope.addGroup = function(){
     groupService.addGroupId($scope.currentGroupId);
+    groupService.addGroupColor($scope.currentGroupColor);
   }
+
+  
 
   /************************************************************************
    * Name:    removeAllGroups()
@@ -182,13 +185,6 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
 
   }
 
-  /*
-   * Function name: setCurrentGroup
-   *
-   */
-  $scope.setCurrentGroupId = function(id){
-    $scope.currentGroupId = id;
-  }
 
   /*
    * Function name: getRandomColor
