@@ -32,7 +32,7 @@
 
 var currentUser = Parse.User.current();
 
-app.controller('GroupController', ['$scope','groupService', '$timeout', function($scope, groupService, $timeout) { 
+app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalendarConfig', function($scope, groupService, $timeout, uiCalendarConfig) { 
 
 
   /* Watch to see if single group view is set to true, if it is, pull down group id*/
@@ -59,6 +59,8 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', function
 
     }
   });
+
+  $scope.eventSources = [];
 
 
   $scope.addMember = function(){

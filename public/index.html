@@ -112,7 +112,7 @@
                 	<div ng-click="removeAllGroups()" class="btn2" style="margin-top:10px;">Remove All Groups</div>
                 	<ul>
                     	<div ng-repeat="x in myGroupList track by $index" class ="groupSelect"  ng-click="$parent.profileView=false; $parent.groupView=false; $parent.$parent.singleGroupView=true; setCurrentGroupId(x.id); addGroupId()" ng-attr-title="{{ x.name }}" 
-                    	ng-style="{'background':'{{ getRandomColor() }}'}">
+                    	ng-style="{'background':getRandomColor()}">
                             <p>{{ x.name | limitTo:12 }}{{ x.name.length >= 12 ? '...' : '' }}</p>
                         </div>
                         <div ng-click="createGroup()" id="addGroupBtn"></div>
@@ -130,7 +130,7 @@
                 
                         <div class="schedule">
                             <!-- TEST UI CALENDAR -->
-                            <div  ng-model="eventSources" calendar='userCalendar' ui-calendar="uiConfig.calendar" view="agendaWeel" ></div>
+                             <div  ng-model="eventSources" calendar='groupCalendar' ui-calendar="uiConfig.calendar"  ></div> 
                             <br><br>
                         </div>
                     </div>

@@ -60,20 +60,20 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
                 },]}];
 
   /* Used in getRandomColor() below */
-  $scope.colors = ['#B9F5FF', '#B5FBA3', '#FFA6B1'];
+  //var colors = ['#B9F5FF', '#B5FBA3', '#FFA6B1'];
 
   /* Change to weeksly view after 50 milliseconds
    */
   $timeout(function(){ uiCalendarConfig.calendars['userCalendar'].
     fullCalendar('changeView','agendaWeek')}, 50);
 
+  /*
   $scope.initCalendar = function(){
-
     uiCalendarConfig.calendars['MyCalendar'].fullCalendar('changeView','agendaWeek');
     console.log("calendars");
     console.log( uiCalendarConfig.calendars);
-
   }
+  */
 
 
 
@@ -178,11 +178,26 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
     $scope.currentGroupId = id;
   }
 
+'#B9F5FF', '#B5FBA3', '#FFA6B1'
   /*
    * Function name: getRandomColor
    *
    */
   $scope.getRandomColor = function() {
-    return $scope.colors[Math.floor(Math.random() * $scope.colors.length)];
+    var num = Math.floor(Math.random() * 4);
+    switch(num){
+      case 0:
+        return '#B9F5FF';
+        break;
+      case 1:
+        return '#B5FBA3';
+        break;
+      case 2:
+        return '#FFA6B1';
+        break;
+      default:
+        //default
+        return '#FEC12F';
+    }
   }
 }]);
