@@ -147,7 +147,7 @@
         <!-- GROUP CONTROLLER -->
         <div class="singleGroupView" ng-init="singleGroupView=false" ng-show="singleGroupView">
             <div id="profileWrapper" ng-controller="GroupController">
-                    <p id = "groupName">{{ groupName }}</p>
+                    <p id = "groupName" ng-style="{background:groupColor}">{{ groupName }}</p>
                     <div id="scheduleWrapper" style="border:solid black 1px;">
                         <p id="yourSched">Your Schedule</p>
                 
