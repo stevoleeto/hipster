@@ -140,7 +140,8 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
     newGroup.set("memberList", [$scope.userName]);
     newGroup.save(null, {
       success: function(Group) {
-        $scope.myGroupList[$scope.myGroupList.length] = {id: Group.id, name: $scope.newGroupName};
+        $scope.myGroupList[$scope.myGroupList.length] = {id: Group.id, name: $scope.newGroupName, color: $scope.getRandomColor() };
+        /* clear text box */
         $scope.newGroupName = '';
       }
     });
@@ -155,7 +156,9 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
     query.equalTo("userEmail", $scope.email);
     query.find({
       success: function(cloudGroupList) {
-        console.log(query);
+        console.log("Setting Grouplist");
+        console.log($scope.myGroupList);
+        
         cloudGroupList[0].set("userGroups", $scope.myGroupList);
         console.log(cloudGroupList);
         cloudGroupList[0].save();
