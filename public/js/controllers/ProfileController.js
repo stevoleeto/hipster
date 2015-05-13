@@ -54,10 +54,19 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
   $scope.eventSources = [{
             events: [ // put the array in the `events` property
                 {
+                    
                     title  : 'CalendarTestEvent',
-                    start  : '2015-05-11'
-
-                },]}];
+                    start  : '2015-05-11T14:50:21',
+                    end    : '2015-05-11T20:00:00',
+                    color  : 'green'
+                },
+                {
+                    title  : 'CalendarTestEvent2',
+                    start  : '2015-05-12T11:50:21',
+                    end    : '2015-05-12T16:00:00',
+                    color  : 'blue'
+                }
+                ,]}];
 
   /* Used in getRandomColor() below */
   //var colors = ['#B9F5FF', '#B5FBA3', '#FFA6B1'];
