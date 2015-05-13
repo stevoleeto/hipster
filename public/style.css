@@ -399,3 +399,20 @@ input
     position: relative;
     top: 75px;
 }
+
+
+#singleGroupWrapper
+{
+    border:solid black 1px;
+}
+
+#groupName
+{
+    position:relative;
+    padding-left:2%;
+    background:#4FC3F7;
+    color:white;
+    font-size: 35px;
+    letter-spacing: 5px;
+    font-weight: 500;
+}
