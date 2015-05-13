@@ -63,17 +63,12 @@
       <div ng-controller="ProfileController"> 
         <div id="logoutWrapper">
             <div class="btn-group" dropdown>
-                <button type="button" class="logoutbtn" dropdown-toggle></button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><div ng-click="logout()">Logout</div></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                </ul>
+                <div class="logoutbtn" ng-show="homeView" dropdown-toggle></div>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><div ng-click="logout()">Logout</div></li>
+                    </ul>
             </div>
-
-            <div ng-click="logout()" class="logoutbtn" ng-show="homeView"></div>
+            
             <div id="greeting">Hi, {{ userName }}</div>
             <center>
                 <div ng-click="profileView=true; groupView=false; $parent.singleGroupView=false" class="viewBtn">Profile</div>
