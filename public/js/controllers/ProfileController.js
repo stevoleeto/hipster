@@ -140,7 +140,7 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
     newGroup.set("memberList", [$scope.userName]);
     newGroup.save(null, {
       success: function(Group) {
-        $scope.myGroupList[$scope.myGroupList.length] = {id: Group.id, name: $scope.newGroupName, color: $scope.getRandomColor() };
+        $scope.myGroupList[$scope.myGroupList.length] = {id: Group.id, name: $scope.newGroupName, color: $scope.groupColor };
         /* clear text box */
         $scope.newGroupName = '';
       }
@@ -181,7 +181,6 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
     $scope.currentGroupId = id;
   }
 
-'#B9F5FF', '#B5FBA3', '#FFA6B1'
   /*
    * Function name: getRandomColor
    *

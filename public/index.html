@@ -9,7 +9,7 @@
 
 
         <!-- Get access to the Parse library -->
-		    <script type="text/javascript" src="https://parse.com/downloads/javascript/parse-1.4.2.js"></script>
+		<script type="text/javascript" src="https://parse.com/downloads/javascript/parse-1.4.2.js"></script>
 
         <!-- Load UI Calendar sources -->
         <link rel="stylesheet" href="lib/bower_components/fullcalendar/dist/fullcalendar.css"/>
@@ -118,6 +118,14 @@
             	<div>
                 	<br><br>
                     <input type="text" ng-model="newGroupName" placeholder="Group Name">
+                    <br>
+                    <label for="groupColor">Select a Color</label>
+                    <select id="groupColor" ng-model="groupColor">
+                    	<option value="#B9F5FF">Light Blue</option>
+                    	<option value="#B5FBA3">Light Green</option>
+                    	<option value="#FFA6B1">Light Red</option>
+                    	<option value="#FEC12F">Light Orange</option>
+                    </select>
                 	<div ng-click="removeAllGroups()" class="btn2" style="margin-top:10px;">Remove All Groups</div>
                 	<ul>
                     	<div ng-repeat="group in myGroupList track by $index" class ="groupSelect"  ng-click="$parent.profileView=false; $parent.groupView=false; $parent.$parent.singleGroupView=true; setCurrentGroupId(group.id); addGroupId()" ng-attr-title="{{ group.name }}" 
@@ -134,10 +142,10 @@
         <div class="singleGroupView" ng-init="singleGroupView=false" ng-show="singleGroupView">
             <div id="profileWrapper" ng-controller="GroupController">
                     <p id = "groupName">{{ groupName }}</p>
-                    <div id="scheduleWrapper">
+                    <div id="scheduleWrapper" style="border:solid black 1px;">
                         <p id="yourSched">Your Schedule</p>
                 
-                        <div class="schedule" style="border:solid black 1px;">
+                        <div class="schedule">
                             <!-- TEST UI CALENDAR -->
                              <div  ng-model="eventSources" calendar='groupCalendar' ui-calendar="uiConfig.calendar"  ></div> 
                             <br><br>
@@ -165,14 +173,16 @@
                             <div ng-click="" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
                     </div>
-                <div id = "membersInfo">
-                    <h2>Members</h2>
-                    <p class="members" ng-repeat="x in memberList track by $index"> {{x}} </p>
+                    
+                
+                    <p>Members in Group:</p>
+                    <p ng-repeat="x in memberList track by $index"> {{x}} </p>
                     <br><br>
                     <div ng-click="addMember()" class="btn2" style="margin-top:10px;">Add New Member</div>
                     <input type="text" ng-model="newMemberEmail" placeholder="New Member Email">
                     <br><br>
-                </div>
+            	
+	            
             </div>   
         </div>
     </body>
