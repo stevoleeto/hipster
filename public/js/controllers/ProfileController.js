@@ -185,26 +185,4 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
 
   }
 
-
-  /*
-   * Function name: getRandomColor
-   *
-   */
-  $scope.getRandomColor = function() {
-    var num = Math.floor(Math.random() * 4);
-    switch(num){
-      case 0:
-        return '#B9F5FF';
-        break;
-      case 1:
-        return '#B5FBA3';
-        break;
-      case 2:
-        return '#FFA6B1';
-        break;
-      default:
-        //default
-        return '#FEC12F';
-    }
-  }
 }]);
