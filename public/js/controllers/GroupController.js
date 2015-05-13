@@ -7,18 +7,12 @@
  *              attributes of a group.
  *
  * Attributes: name     - The name of the group.
- *             schedule - an array of days where each day is an array of events
- *                        where each event has:
- *                              name: string
- *                              startTime: time
- *                              endTime: time
- *                              startDate: date
- *                              endDate: date
- *                              recurring: boolean
- *             groupID     - unique ID of the group
+ *             currentGroupID     - unique ID of the group
  *             membersList - a list of members with the group leader in 
  *                           position zero. Each element will be a user email.
- *             groupLeader - can manipulate information.
+ *             groupColor - the color of this group, gotten from service
+ *
+ *             
  *
  * Behaviors: createMeeting() - anyone will be able to create a meeting
  *            freeTime()      - this will be our main algorithm to get the 
@@ -40,6 +34,8 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
     if($scope.singleGroupView === true){
       /* get the groupId from service */
       $scope.currentGroupId = groupService.getGroupId();
+      $scope.groupColor = groupService.getGroupColor();
+      console.log($scope.groupColor);
 
       var Group = Parse.Object.extend("Group");
       var query = new Parse.Query(Group);

@@ -132,9 +132,9 @@
                         ng-click="$parent.profileView=false; 
                                   $parent.groupView=false; 
                                   $parent.$parent.singleGroupView=true; 
-                                  $parent.currentGroupId = 
-                                  group.id; 
-                                  addGroupId();" ng-attr-title="{{ group.name }}" 
+                                  $parent.currentGroupId = group.id; 
+                                  $parent.currentGroupColor = group.color;
+                                  addGroup();" ng-attr-title="{{ group.name }}" 
                     	ng-style="{background:group.color}">
                             <p>{{ group.name | limitTo:12 }}{{ group.name.length >= 12 ? '...' : '' }}</p>
                         </div>

@@ -84,9 +84,12 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
   });
 
 
-  $scope.addGroupId = function(){
+  $scope.addGroup = function(){
     groupService.addGroupId($scope.currentGroupId);
+    groupService.addGroupColor($scope.currentGroupColor);
   }
+
+  
 
   /************************************************************************
    * Name:    removeAllGroups()
