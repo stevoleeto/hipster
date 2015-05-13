@@ -59,6 +59,8 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
 
                 },]}];
 
+  /* Used in getRandomColor() below */
+  $scope.colors = ['#B9F5FF', '#B5FBA3', '#FFA6B1'];
 
   /* Change to weeksly view after 50 milliseconds
    */
@@ -128,7 +130,6 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
 
    * Description: Creates a new group, and adds the new group to the GroupList userGroups array for both the current user the and user they have selected.
    ************************************************************************/
-
   $scope.createGroup = function(){
 
     /* CODE TO CREATE THE GROUP */
@@ -177,6 +178,11 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
     $scope.currentGroupId = id;
   }
 
-
-
+  /*
+   * Function name: getRandomColor
+   *
+   */
+  $scope.getRandomColor = function() {
+    return $scope.colors[Math.floor(Math.random() * $scope.colors.length)];
+  }
 }]);

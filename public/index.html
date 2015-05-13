@@ -1,11 +1,6 @@
 <html ng-app="myApp" >
-    <!-- initialize values for controlling views 
-    </div> -->
-    <!-- We are using a different controller here. The student controller
-         is like the student class for our purposes -->
     <head>
-        <!-- Information about the document goes here
-             This includes the encoding, title, css files, and JS files -->
+        <!-- Information about the document goes here. This includes the encoding, title, css files, and JS files -->
         <link rel="stylesheet" type="text/css" href="./style.css">
         <link rel="stylesheet" type="text/css" href="bootstrap-3.3.4-dist/css/bootstrap.css">
         <meta charset="utf-8">
@@ -31,11 +26,11 @@
         <!-- Modules -->
         <script src="js/app.js"></script>
         <!-- Controllers -->
-    		<script src="js/controllers/ProfileController.js"></script>
+    	<script src="js/controllers/ProfileController.js"></script>
         <script src="js/controllers/GroupController.js"></script>
         <!-- Services -->
-    		<script src="js/services/userService.js"></script>
-    		<script src="js/services/groupService.js"></script>
+    	<script src="js/services/userService.js"></script>
+    	<script src="js/services/groupService.js"></script>
 
         <!-- Inline JS goes here -->
         <script> 
@@ -43,16 +38,13 @@
             Parse.initialize( "t5hvXf3wJOYnL3MMIffsemMdhLM7f4brACcf0eBa", "UhqQaEDIEQr6cxhO8XS4Fl8BcGU4ir9jL9To7PVO" );
             var currentUser = Parse.User.current();
             if (currentUser) {
-            // do stuff with the user
-              
-
+            	// do stuff with the user
             } 
             else {
-            // show the signup or login page
-              location.href = "login/login.html";
+            	// show the signup or login page
+            	location.href = "login/login.html";
             }
             
-
             /* this is how to create a new schedule */
             var sched = new Schedule();
             /* this is how to add events */
@@ -106,7 +98,7 @@
                             <p>End Date</p>
                             <input type="date" class="eventPar" ng-model="lol3" placeholder="wut3"><br><br>
                             
-                            <div ng-click = "" class="createButton" style="margin-top:10px;">Create</div>
+                            <div ng-click="" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
                     </div>
                     
@@ -115,13 +107,13 @@
             
         	<div ng-init="groupView=false" ng-show="groupView" id="groupView">
             	<div>
-                	
                 	<br><br>
                     <input type="text" ng-model="newGroupName" placeholder="Group Name">
                 	<div ng-click="removeAllGroups()" class="btn2" style="margin-top:10px;">Remove All Groups</div>
                 	<ul>
-                    	<div ng-repeat="x in myGroupList track by $index" class ="groupSelect"  ng-click="$parent.profileView=false; $parent.groupView=false; $parent.$parent.singleGroupView=true; setCurrentGroupId(x.id); addGroupId()" ng-attr-title="{{ x.name }}">
-                            <p>{{ x.name | limitTo:12 }}{{ x.name.length > 20 ? '...' : '' }}</p>
+                    	<div ng-repeat="x in myGroupList track by $index" class ="groupSelect"  ng-click="$parent.profileView=false; $parent.groupView=false; $parent.$parent.singleGroupView=true; setCurrentGroupId(x.id); addGroupId()" ng-attr-title="{{ x.name }}" 
+                    	ng-style="{'background':'{{ getRandomColor() }}'}">
+                            <p>{{ x.name | limitTo:12 }}{{ x.name.length >= 12 ? '...' : '' }}</p>
                         </div>
                         <div ng-click="createGroup()" id="addGroupBtn"></div>
                 	</ul>
@@ -129,7 +121,7 @@
         	</div>
         </div> 
       </div> <!--END PROFILE CONTROLLER -->
-          <!-- GROUP CONTROLLER -->
+        <!-- GROUP CONTROLLER -->
         <div class="singleGroupView" ng-init="singleGroupView=false" ng-show="singleGroupView">
             <div>
 	            <div ng-controller= "GroupController">

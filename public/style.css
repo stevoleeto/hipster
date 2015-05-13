@@ -351,7 +351,7 @@ input
     height: 150px;
     float: left;
     margin-right: 30px;
-    background: #FDA7B2;
+    /*background: #FDA7B2;*/
     cursor:pointer;
     margin-top:20px;
 }
