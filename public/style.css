@@ -434,3 +434,17 @@ input
     height:100px;
     border:solid black 1px;
 }
+
+.dropdown-menu li
+{
+    float:right;
+    position:relative;
+    top: 10px;
+
+}
+
+.btn-group
+{
+    float:right;
+    position:relative;
+}
