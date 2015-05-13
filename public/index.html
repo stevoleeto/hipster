@@ -122,7 +122,13 @@
                     </select>
                 	<div ng-click="removeAllGroups()" class="btn2" style="margin-top:10px;">Remove All Groups</div>
                 	<ul>
-                    	<div ng-repeat="group in myGroupList track by $index" class ="groupSelect"  ng-click="$parent.profileView=false; $parent.groupView=false; $parent.$parent.singleGroupView=true; setCurrentGroupId(group.id); addGroupId()" ng-attr-title="{{ group.name }}" 
+                    	<div ng-repeat="group in myGroupList track by $index" class ="groupSelect"  
+                        ng-click="$parent.profileView=false; 
+                                  $parent.groupView=false; 
+                                  $parent.$parent.singleGroupView=true; 
+                                  $parent.currentGroupId = 
+                                  group.id; 
+                                  addGroupId();" ng-attr-title="{{ group.name }}" 
                     	ng-style="{background:group.color}">
                             <p>{{ group.name | limitTo:12 }}{{ group.name.length >= 12 ? '...' : '' }}</p>
                         </div>
