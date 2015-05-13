@@ -21,6 +21,9 @@
         <script type="text/javascript" src="lib/bower_components/fullcalendar/dist/fullcalendar.js"></script>
         <script type="text/javascript" src="lib/bower_components/fullcalendar/dist/gcal.js"></script>
 
+        <!-- Load BootStrap -->
+        <script type="text/javascript" src="lib/ui-bootstrap-tpls-0.13.0.min.js"></script>
+
         <!--First Modules -->
         <script src="js/shared/Schedule.js"></script>
         <!-- Modules -->
@@ -59,6 +62,17 @@
       <!-- PROFILE CONTROLLER -->
       <div ng-controller="ProfileController"> 
         <div id="logoutWrapper">
+            <div class="btn-group" dropdown>
+                <button type="button" class="logoutbtn" dropdown-toggle></button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><div ng-click="logout()">Logout</div></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                </ul>
+            </div>
+
             <div ng-click="logout()" class="logoutbtn" ng-show="homeView"></div>
             <div id="greeting">Hi, {{ userName }}</div>
             <center>
