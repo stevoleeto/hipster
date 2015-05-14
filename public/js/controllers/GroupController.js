@@ -28,7 +28,6 @@ var currentUser = Parse.User.current();
 
 app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalendarConfig', function($scope, groupService, $timeout, uiCalendarConfig) { 
 
-
   $scope.eventSources = [
     [
       {
@@ -38,19 +37,15 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
     ]
   ];
 
-  $timeout(function(){ uiCalendarConfig.calendars['groupCalendar'].
-    fullCalendar('changeView','agendaWeek')}, 50);
 
   /* Watch to see if single group view is set to true, if it is, pull down group id*/
   $scope.$watch('singleGroupView', function(){
-    //$scope.eventSources = [[]];
     if($scope.singleGroupView === false){
       /* clear the event array if we leave single group view */
       $scope.eventSources.length = 0;
     }
     if($scope.singleGroupView === true){
       /* get the groupId from service */
-      today();
       $scope.currentGroupId = groupService.getGroupId();
       $scope.groupColor = groupService.getGroupColor();
 
@@ -64,6 +59,9 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
           $scope.memberList = group[0]._serverData.memberList;
           $scope.$apply();
 
+
+          $timeout(function(){ uiCalendarConfig.calendars['groupCalendar'].
+          fullCalendar('changeView','agendaWeek')}, 50);
           var User = Parse.Object.extend("User");
           var query = new Parse.Query(User);
           for(i= 0; i< $scope.memberList.length; i++){
@@ -72,9 +70,7 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
             query.find({
               success: function(member){
                 $scope.eventSources.push(member[0]._serverData.personalSchedule);
-                console.log($scope.eventSources);
-                console.log("what I'm pushing");
-                console.log(member[0]._serverData.personalSchedule);
+                $scope.$apply();
               },
               error: function(member, error){
                 console.log("MEMBER SCHEDULE UPDATE ERROR");

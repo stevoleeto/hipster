@@ -55,22 +55,11 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
   console.log("Profile event sources");
   console.log($scope.eventSources);
 
-  /* Used in getRandomColor() below */
-  //var colors = ['#B9F5FF', '#B5FBA3', '#FFA6B1'];
 
   /* Change to weeksly view after 50 milliseconds
    */
   $timeout(function(){ uiCalendarConfig.calendars['userCalendar'].
     fullCalendar('changeView','agendaWeek')}, 50);
-
-  /*
-  $scope.initCalendar = function(){
-    uiCalendarConfig.calendars['MyCalendar'].fullCalendar('changeView','agendaWeek');
-    console.log("calendars");
-    console.log( uiCalendarConfig.calendars);
-  }
-  */
-
 
 
   /* asks the service to please pull the group list of desire email,
