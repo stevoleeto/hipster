@@ -45,13 +45,15 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
   $scope.sched = new Schedule(); // will be changed to pull schedule down
   $scope.userName = currentUser.get("name");
   $scope.joinDate = currentUser.createdAt;
-  $scope.email = currentUser.get("email");
+  $scope.email = currentUser.get("username");
   $scope.eventArray = currentUser.get("personalSchedule");
 
-  userService.setEmail(currentUser.get("email")); //set users email in service
+  userService.setEmail(currentUser.get("username")); //set users email in service
 
 
   $scope.eventSources = [$scope.eventArray];
+  console.log("Profile event sources");
+  console.log($scope.eventSources);
 
   /* Used in getRandomColor() below */
   //var colors = ['#B9F5FF', '#B5FBA3', '#FFA6B1'];
@@ -134,7 +136,7 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
     var newGroup = new Group();
     newGroup.set("gSchedule", new Schedule() );
     newGroup.set("name", $scope.newGroupName);
-    newGroup.set("memberList", [$scope.userName]);
+    newGroup.set("memberList", [{name: $scope.userName, email: $scope.email}]);
     newGroup.save(null, {
       success: function(Group) {
         $scope.myGroupList[$scope.myGroupList.length] = {id: Group.id, name: $scope.newGroupName, color: $scope.groupColor };
@@ -153,11 +155,8 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
     query.equalTo("userEmail", $scope.email);
     query.find({
       success: function(cloudGroupList) {
-        console.log("Setting Grouplist");
-        console.log($scope.myGroupList);
         
         cloudGroupList[0].set("userGroups", $scope.myGroupList);
-        console.log(cloudGroupList);
         cloudGroupList[0].save();
       },
       error: function(cloudGroupList, error) {

@@ -84,7 +84,7 @@
                 
                         <div class="schedule">
                             <!-- TEST UI CALENDAR -->
-                            <div  ng-model="eventSources" calendar='userCalendar' ui-calendar="uiConfig.calendar" view="agendaWeel" ></div>
+                            <div  ng-model="eventSources" calendar='userCalendar' ui-calendar="uiConfig.calendar"  ></div>
                             <br><br>
                         </div>
                     </div>
@@ -152,7 +152,7 @@
                         <p id="yourSched">Your Schedule</p>
                 
                         <div class="schedule">
-                            <!-- TEST UI CALENDAR -->
+                            <!-- TEST group UI CALENDAR -->
                              <div  ng-model="eventSources" calendar='groupCalendar' ui-calendar="uiConfig.calendar"  ></div> 
                             <br><br>
                         </div>
@@ -182,7 +182,7 @@
                     
                 
                     <p>Members in Group:</p>
-                    <p ng-repeat="x in memberList track by $index"> {{x}} </p>
+                    <p ng-repeat="member in memberList track by $index"> {{member.name}} </p>
                     <br><br>
                     <div ng-click="addMember()" class="btn2" style="margin-top:10px;">Add New Member</div>
                     <input type="text" ng-model="newMemberEmail" placeholder="New Member Email">

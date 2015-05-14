@@ -29,10 +29,28 @@ var currentUser = Parse.User.current();
 app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalendarConfig', function($scope, groupService, $timeout, uiCalendarConfig) { 
 
 
+  $scope.eventSources = [
+    [
+      {
+          title: 'Event1',
+          start: '2015-05-13'
+      }
+    ]
+  ];
+
+  $timeout(function(){ uiCalendarConfig.calendars['groupCalendar'].
+    fullCalendar('changeView','agendaWeek')}, 50);
+
   /* Watch to see if single group view is set to true, if it is, pull down group id*/
   $scope.$watch('singleGroupView', function(){
+    //$scope.eventSources = [[]];
+    if($scope.singleGroupView === false){
+      /* clear the event array if we leave single group view */
+      $scope.eventSources.length = 0;
+    }
     if($scope.singleGroupView === true){
       /* get the groupId from service */
+      today();
       $scope.currentGroupId = groupService.getGroupId();
       $scope.groupColor = groupService.getGroupColor();
 
@@ -45,21 +63,43 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
           $scope.groupName = group[0]._serverData.name;
           $scope.memberList = group[0]._serverData.memberList;
           $scope.$apply();
-        },
-        error: function(group, error){
-          console.log("getting group by object id failed");
-        }
-      });
+
+          var User = Parse.Object.extend("User");
+          var query = new Parse.Query(User);
+          for(i= 0; i< $scope.memberList.length; i++){
+
+            query.equalTo("username", $scope.memberList[i].email);
+            query.find({
+              success: function(member){
+                $scope.eventSources.push(member[0]._serverData.personalSchedule);
+                console.log($scope.eventSources);
+                console.log("what I'm pushing");
+                console.log(member[0]._serverData.personalSchedule);
+              },
+              error: function(member, error){
+                console.log("MEMBER SCHEDULE UPDATE ERROR");
+              }
 
 
-    }
-  });
-
-  $scope.eventSources = [];
+            });
+            }
 
 
-  $scope.addMember = function(){
-    var Group = Parse.Object.extend("Group");
+
+            },
+            error: function(group, error){
+              console.log("getting group by object id failed");
+            }
+            });
+
+
+      }
+    });
+
+
+
+    $scope.addMember = function(){
+      var Group = Parse.Object.extend("Group");
       var query = new Parse.Query(Group);
       query.equalTo("objectId", $scope.currentGroupId);
       query.find({
@@ -67,7 +107,7 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
           $scope.gSchedule = group[0]._serverData.gSchedule;
           $scope.groupName = group[0]._serverData.name;
           $scope.memberList = group[0]._serverData.memberList;
-          
+
 
           var GroupList = Parse.Object.extend("GroupList");
           var query = new Parse.Query(GroupList);
@@ -78,28 +118,25 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
               tempList[tempList.length] = {id: groupService.getGroupId(), name: $scope.groupName};
               object[0].set("userGroups", tempList);
               object[0].save();
-              console.log("Looking into th GroupList below:")
-              console.log(object[0]);
-              console.log(object[0]._serverData.userName);
-              $scope.memberList[$scope.memberList.length] = object[0]._serverData.userName;
-              group[0].save();
+          $scope.memberList[$scope.memberList.length] = {name:object[0]._serverData.userName, email:object[0]._serverData.userEmail};
+          group[0].save();
             },
             error: function(object, error) {
               console.log(error);
             }
           });    
         },
-        error: function(group, error){
-          console.log("getting group by object id failed");
-        }
+          error: function(group, error){
+            console.log("getting group by object id failed");
+          }
       });
-          $timeout(function(){$scope.$apply()}, 1000);
-          $timeout(function(){$scope.$apply()}, 2000);
-          $timeout(function(){$scope.$apply()}, 5000);
-    
-  }
+      $timeout(function(){$scope.$apply()}, 1000);
+      $timeout(function(){$scope.$apply()}, 2000);
+      $timeout(function(){$scope.$apply()}, 5000);
+
+    }
 
 
 
 
-}]);
+  }]);
