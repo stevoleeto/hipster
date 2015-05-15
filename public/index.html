@@ -139,6 +139,7 @@
         <div class="singleGroupView" ng-init="singleGroupView=false" ng-show="singleGroupView">
             <div id="profileWrapper" ng-controller="GroupController">
                     <p id = "groupName" ng-style="{background:groupColor}">{{ groupName }}</p>
+                    <div style="clear:both;">
                     <div id="scheduleWrapper" >
                         <p id="yourSched">Your Schedule</p>
                 
@@ -170,15 +171,16 @@
                             <div ng-click="" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
                     </div>
+                        </div>
                     
-                
-                    <p>Members in Group:</p>
-                    <p ng-repeat="member in memberList track by $index"> {{member.name}} </p>
-                    <br><br>
-                    <div ng-click="addMember()" class="btn2" style="margin-top:10px;">Add New Member</div>
-                    <input type="text" ng-model="newMemberEmail" placeholder="New Member Email">
-                    <br><br>
-            	
+                    <div id="membersInfo">
+                        <h2>Members</h2>
+                        <div class = "members" ng-repeat="member in memberList track by $index"> {{member.name}} </div>
+                        <br><br><br><br><br><br>
+                        <div ng-click="addMember()" class="btn2" style="margin-top:10px;">Add New Member</div>
+                        <input type="text" ng-model="newMemberEmail" placeholder="New Member Email">
+                        <br><br>
+            	   </div>
 	            
             </div>   
         </div>
