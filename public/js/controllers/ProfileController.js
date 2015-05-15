@@ -94,6 +94,29 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
     });
   }
 
+  $scope.removeGroup = function(){
+    userService.queryGroupList($scope.email).then(function(){
+      var queryGroupList = userService.getGroupListQuery();
+      var queryUserGroups = queryGroupList[0]._serverData.userGroups;
+      console.log(queryUserGroups);
+      console.log($scope.removedGroup);
+      var indexGroupRemoved = -1;
+      for(var i = 0; i < queryUserGroups.length; i += 1) {
+        if(queryUserGroups[i]['id'] === $scope.removedGroup) {
+          console.log(queryUserGroups[i]);
+          indexGroupRemoved = i;
+        }
+      }
+      if (indexGroupRemoved > -1) {
+        queryUserGroups.splice(indexGroupRemoved, 1);
+      }
+      console.log(queryUserGroups);
+
+      queryGroupList[0].set("userGroups", queryUserGroups);
+      queryGroupList[0].save();      
+    });
+  }
+
   /************************************************************************
    * Name:		logout()
 
