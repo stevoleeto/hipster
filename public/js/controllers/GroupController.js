@@ -54,7 +54,6 @@ $scope.$watch('singleGroupView', function(){
     query.equalTo("objectId", $scope.currentGroupId);
     query.find({
       success: function(group){
-        $scope.gSchedule = group[0]._serverData.gSchedule;
         $scope.groupName = group[0]._serverData.name;
         $scope.memberList = group[0]._serverData.memberList;
         $scope.$apply();
@@ -101,8 +100,6 @@ $scope.addMember = function(){
   query.equalTo("objectId", $scope.currentGroupId);
   query.find({
     success: function(group){
-      console.log("SHit");
-      $scope.gSchedule = group[0]._serverData.gSchedule;
       $scope.groupName = group[0]._serverData.name;
       $scope.memberList = group[0]._serverData.memberList;
 
