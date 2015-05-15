@@ -42,7 +42,6 @@ var currentUser = Parse.User.current();
 app.controller('ProfileController', ['$scope','groupService','$timeout','userService','uiCalendarConfig', function($scope, groupService, $timeout, userService, uiCalendarConfig) {
 
   /* user data */
-  $scope.sched = new Schedule(); // will be changed to pull schedule down
   $scope.userName = currentUser.get("name");
   $scope.joinDate = currentUser.createdAt;
   $scope.email = currentUser.get("username");
@@ -123,7 +122,6 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
     /* CODE TO CREATE THE GROUP */
     var Group = Parse.Object.extend("Group");
     var newGroup = new Group();
-    newGroup.set("gSchedule", new Schedule() );
     newGroup.set("name", $scope.newGroupName);
     newGroup.set("memberList", [{name: $scope.userName, email: $scope.email}]);
     newGroup.save(null, {
