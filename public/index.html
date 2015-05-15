@@ -126,7 +126,15 @@
                     	<option value="#FFA6B1">Red</option>
                     	<option value="#FEC12F">Orange</option>
                     </select>
-                	<div ng-click="removeAllGroups()" class="btn2" style="margin-top:10px;">Remove All Groups</div>
+                    
+                    <div>
+                        <label for="removedGroup">Selected group to remove:</label>
+                        <select id="removedGroup" ng-model="removedGroup">
+                            <option ng-repeat="group in myGroupList track by $index" value={{group.id}}>{{group.name}}</option>
+                        </select>
+                        <div ng-click="removeGroup()" class="btn2" style="margin-top:10px;">Remove Group</div>
+                    </div>
+                	<div ng-click="removeAllGroups()" class="btn2" style="margin-top:10px;">Remove ALL Group</div>
                 	<ul>
                     	<div ng-repeat="group in myGroupList track by $index" class ="groupSelect"  
                         ng-click="$parent.profileView=false; 

@@ -95,6 +95,17 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
     });
   }
 
+  $scope.removeGroup = function(){
+    console.log($scope.removedGroup);
+    userService.queryGroupList($scope.email).then(function(){
+      var queryGroupList = userService.getGroupListQuery();
+      var queryUserGroups = queryGroupList[0]._serverData.userGroups;
+      var groupToRemove = queryUserGroups.indexOf($scope.removedGroup);
+      queryUserGroups.splice(groupToRemove,1);
+      console.log(queryUserGroups);
+    });
+  }
+
   /************************************************************************
    * Name:		logout()
 
