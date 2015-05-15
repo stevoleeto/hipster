@@ -127,7 +127,7 @@ $scope.addMember = function(){
       query.find({
         success: function(object) {
           var tempList = object[0]._serverData.userGroups;
-          tempList[tempList.length] = {id: groupService.getGroupId(), name: $scope.groupName};
+          tempList[tempList.length] = {id: groupService.getGroupId(), name: $scope.groupName, color: groupService.getGroupColor()};
           object[0].set("userGroups", tempList);
           object[0].save();
           $scope.memberList[$scope.memberList.length] = {name:object[0]._serverData.userName, email:object[0]._serverData.userEmail};
