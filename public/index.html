@@ -24,8 +24,6 @@
         <!-- Load BootStrap -->
         <script type="text/javascript" src="lib/ui-bootstrap-tpls-0.13.0.min.js"></script>
 
-        <!--First Modules -->
-        <script src="js/shared/Schedule.js"></script>
         <!-- Modules -->
         <script src="js/app.js"></script>
         <!-- Controllers -->
@@ -48,13 +46,6 @@
             	location.href = "login/login.html";
             }
             
-            /* this is how to create a new schedule */
-            var sched = new Schedule();
-            /* this is how to add events */
-            sched.addEvent(0, new Event(0, "EventOne", 3, 4, new Date(), new Date(),false));
-            sched.addEvent(0, new Event(0, "EventTwo", 5, 7, new Date(), new Date(),false));
-            sched.addEvent(0,new Event(0, "JoeIsKing", 1, 12, new Date(), new Date(),false));
-            console.log(sched); //check out the console if you want to see the result
         </script> 
     </head>
     
@@ -156,6 +147,7 @@
         <div class="singleGroupView" ng-init="singleGroupView=false" ng-show="singleGroupView">
             <div id="profileWrapper" ng-controller="GroupController">
                     <p id = "groupName" ng-style="{background:groupColor}">{{ groupName }}</p>
+                    <div style="clear:both;">
                     <div id="scheduleWrapper" >
                         <p id="yourSched">Your Schedule</p>
                 
@@ -187,15 +179,16 @@
                             <div ng-click="" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
                     </div>
+                        </div>
                     
-                
-                    <p>Members in Group:</p>
-                    <p ng-repeat="member in memberList track by $index"> {{member.name}} </p>
-                    <br><br>
-                    <div ng-click="addMember()" class="btn2" style="margin-top:10px;">Add New Member</div>
-                    <input type="text" ng-model="newMemberEmail" placeholder="New Member Email">
-                    <br><br>
-            	
+                    <div id="membersInfo">
+                        <h2>Members</h2>
+                        <div class = "members" ng-repeat="member in memberList track by $index"> {{member.name}} </div>
+                        <br><br><br><br><br><br>
+                        <div ng-click="addMember()" class="btn2" style="margin-top:10px;">Add New Member</div>
+                        <input type="text" ng-model="newMemberEmail" placeholder="New Member Email">
+                        <br><br>
+            	   </div>
 	            
             </div>   
         </div>
