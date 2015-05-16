@@ -443,3 +443,12 @@ input
     float:right;
     position:relative;
 }
+
+.friend
+{
+    background: red;
+    width: 10%;
+    height: 20px;
+    cursor: pointer;
+}
+

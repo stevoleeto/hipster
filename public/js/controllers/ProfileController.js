@@ -46,6 +46,7 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
   $scope.joinDate = currentUser.createdAt;
   $scope.email = currentUser.get("username");
   $scope.eventArray = currentUser.get("personalSchedule");
+  $scope.friendList = currentUser.get("friendList");
 
   //set users email in service
   userService.setEmail(currentUser.get("username")); 
@@ -188,5 +189,14 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
     });
 
   }
+  //ADDED BY SARA
+  $scope.addFriend = function() {
+    console.log($scope.friendList);
+    $scope.friendList.push($scope.newFriend); 
+    console.log($scope.friendList);
+    currentUser.set("friendList", $scope.friendList);
+    currentUser.save();
+  }
+
 
 }]);
