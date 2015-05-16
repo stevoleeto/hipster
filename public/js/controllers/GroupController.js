@@ -41,7 +41,9 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
 /* Watch to see if single group view is set to true, if it is, pull down group id*/
 $scope.$watch('singleGroupView', function(){
   if($scope.singleGroupView === false){
-    /* clear the event array if we leave single group view */
+    /* clear current group data */
+    $scope.groupName = '';
+    $scope.memberList.length = 0;
     $scope.eventSources.length = 0;
   }
   if($scope.singleGroupView === true){
