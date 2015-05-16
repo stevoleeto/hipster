@@ -93,8 +93,8 @@
                             <p>Event Name</p>
                             <input type="text" class="eventPar" ng-model="newEventName" placeholder="Event Name"><br><br>
 
-                            <input type="radio" name="singleEvent" ng-click="singleEvent=true">Single Event
-                            <input type="radio" name="singleEvent" ng-click="singleEvent=false">Recurring Event
+                            <input type="radio" name="singleEvent" ng-click="singleEvent=true">Single
+                            <input type="radio" name="singleEvent" ng-click="singleEvent=false">Recurring
 
                             <p ng-show="!singleEvent">Start Date</p>
                             <input ng-show="!singleEvent" type="date" class="eventPar" ng-model="newEventStartDate"><br><br>
@@ -116,6 +116,7 @@
                             
                             <p ng-show="!singleEvent">End Date</p>
                             <input ng-init="newEventEndDate = Date()" ng-show="!singleEvent" type="date" class="eventPar" ng-model="newEventEndDate"><br><br>
+                            
                             
                             <div ng-click="addEvent()" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
