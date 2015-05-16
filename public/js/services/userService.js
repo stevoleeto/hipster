@@ -63,7 +63,6 @@ app.service('userService',['$q', function($q){
   var createGroup = function(userName, userEmail, userGroupList, newGroupName, newGroupColor){
       var Group = Parse.Object.extend("Group");
       var newGroup = new Group();
-      var userGroupList
       newGroup.set("name", newGroupName);
       newGroup.set("memberList", [{name: userName, email: userEmail}]);
       newGroup.save(null, {
@@ -73,11 +72,27 @@ app.service('userService',['$q', function($q){
       });
 
       queryGroupList(userEmail).then(function(){
-        console.log(groupListQuery[0]);
         groupListQuery[0].set("userGroups", userGroupList);
         groupListQuery[0].save();
       });
   };
+
+  var removeGroup = function(groupToRemove){
+     queryGroupList(email).then(function(){
+        var groupsList = groupListQuery[0]._serverData.userGroups;
+        for (i = 0; i < groupsList.length; i++){
+          if(groupsList[i]['id'] === groupToRemove){
+             groupsList.splice(i, 1);
+             groupListQuery[0].set("userGroups", groupsList);
+             groupListQuery[0].save();
+          }
+        }
+     });
+  }
+
+  var addEvent = function(){
+
+  }
 
   return {
     // return all functions here so the dependant knows what to call!
@@ -86,6 +101,8 @@ app.service('userService',['$q', function($q){
       getFriendGroupList: getFriendGroupList,
       getGroupListQuery: getGroupListQuery,
       createGroup: createGroup,
+      addEvent: addEvent,
+      removeGroup: removeGroup,
       setEmail : setEmail
   };
 

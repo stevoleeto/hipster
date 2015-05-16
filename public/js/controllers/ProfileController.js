@@ -95,21 +95,8 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
   }
 
   $scope.removeGroup = function(){
-    userService.queryGroupList($scope.email).then(function(){
-      var queryGroupList = userService.getGroupListQuery();
-      var queryUserGroups = queryGroupList[0]._serverData.userGroups;
-      for(i = 0; i < queryUserGroups.length; i++) {
-        if(queryUserGroups[i]['id'] === $scope.removedGroup) {
-          queryUserGroups.splice(i,1);
-          $scope.removedGroup = ''; // clear drop box
-        }
-      }
-      $scope.myGroupList = queryUserGroups; 
-      $scope.$apply();
-
-      queryGroupList[0].set("userGroups", queryUserGroups);
-      queryGroupList[0].save();      
-    });
+    userService.removeGroup($scope.removedGroup);
+    $scope.removedGroup = '';
   }
 
   /************************************************************************
