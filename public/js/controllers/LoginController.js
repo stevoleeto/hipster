@@ -61,7 +61,8 @@ app.controller('LoginController', ['$scope', function($scope) {
     user.set( 'email', $scope.email );
     user.set( 'password', $scope.password );
     user.set( 'personalSchedule',  []);
-    
+    user.set( 'friendList' , []);
+
     // Simple syntax to create a new subclass of Parse.Object.
     var GroupList = Parse.Object.extend("GroupList");
 
