@@ -47,13 +47,11 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
   $scope.email = currentUser.get("username");
   $scope.eventArray = currentUser.get("personalSchedule");
 
-  userService.setEmail(currentUser.get("username")); //set users email in service
+  //set users email in service
+  userService.setEmail(currentUser.get("username")); 
 
-
+  // source for calendar events
   $scope.eventSources = [$scope.eventArray];
-  console.log("Profile event sources");
-  console.log($scope.eventSources);
-
 
   /* Change to weeksly view after 50 milliseconds
    */
@@ -66,7 +64,6 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
   userService.queryGroupList($scope.email).then(function(){
     $scope.myGroupList = userService.getGroupList();
   });
-
 
   $scope.addGroup = function(){
     groupService.addGroupId($scope.currentGroupId);
@@ -85,8 +82,7 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
    * Description: Removs all groups found in their GroupList userGroups array.
    ************************************************************************/
   $scope.removeAllGroups = function(){
-    $scope.myGroupList = []; //would really be the ID;
-
+    $scope.myGroupList = []; 
     userService.queryGroupList($scope.email).then(function(){
       var queryGroupList = userService.getGroupListQuery();
       queryGroupList[0].set("userGroups", $scope.myGroupList);
@@ -98,19 +94,14 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
     userService.queryGroupList($scope.email).then(function(){
       var queryGroupList = userService.getGroupListQuery();
       var queryUserGroups = queryGroupList[0]._serverData.userGroups;
-      console.log(queryUserGroups);
-      console.log($scope.removedGroup);
-      var indexGroupRemoved = -1;
-      for(var i = 0; i < queryUserGroups.length; i += 1) {
+      for(i = 0; i < queryUserGroups.length; i++) {
         if(queryUserGroups[i]['id'] === $scope.removedGroup) {
-          console.log(queryUserGroups[i]);
-          indexGroupRemoved = i;
+          queryUserGroups.splice(i,1);
+          $scope.removedGroup = ''; // clear drop box
         }
       }
-      if (indexGroupRemoved > -1) {
-        queryUserGroups.splice(indexGroupRemoved, 1);
-      }
-      console.log(queryUserGroups);
+      $scope.myGroupList = queryUserGroups; 
+      $scope.$apply();
 
       queryGroupList[0].set("userGroups", queryUserGroups);
       queryGroupList[0].save();      
@@ -157,8 +148,6 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
 
     /* END CODE TO CREATE THE GROUP */
 
-
-
     //This sets the current User's GroupList userGroups array to be updated with the new group
     var GroupList = Parse.Object.extend("GroupList");
     var query = new Parse.Query(GroupList);
@@ -190,8 +179,6 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
       start  : newEventStart,
       end    : newEventEnd
     });
-
-    console.log($scope.eventArray);
 
     currentUser.set("personalSchedule", $scope.eventArray);
     currentUser.save(null, {
