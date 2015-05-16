@@ -43,7 +43,6 @@ $scope.$watch('singleGroupView', function(){
   if($scope.singleGroupView === false){
     /* clear current group data */
     $scope.groupName = '';
-    $scope.memberList.length = 0;
     $scope.eventSources.length = 0;
   }
   if($scope.singleGroupView === true){

@@ -103,19 +103,19 @@
                             <input ng-show="!singleEvent" type="date" class="eventPar" ng-model="newEventEndDate"><br><br>
 
                             <p ng-show="singleEvent">Date</p>
-                            <input ng-show="singleEvent" type="date" class="eventPar" ng-model="newSingleEventDate"><br><br>
+                            <input ng-init="newSingleEventDate = Date()" ng-show="singleEvent" type="date" class="eventPar" ng-model="newSingleEventDate"><br><br>
                             
                             <p>Start Time</p>
-                            <input type="time" class="eventPar" ng-model="newEventStartTime"><br><br>
+                            <input ng-init="newEventStartTime = Date()" type="time" class="eventPar" ng-model="newEventStartTime"><br><br>
                             
                             <p>End Time</p>
-                            <input type="time" class="eventPar" ng-model="newEventEndTime"><br><br>
+                            <input ng-init="newEventEndTime = Date()" type="time" class="eventPar" ng-model="newEventEndTime"><br><br>
                             
                             <p ng-show="!singleEvent">Start Date</p>
-                            <input ng-show="!singleEvent" type="date" class="eventPar" ng-model="newEventStartDate"><br><br>
+                            <input ng-init="newEventStartDate = Date()" ng-show="!singleEvent" type="date" class="eventPar" ng-model="newEventStartDate"><br><br>
                             
                             <p ng-show="!singleEvent">End Date</p>
-                            <input ng-show="!singleEvent" type="date" class="eventPar" ng-model="newEventEndDate"><br><br>
+                            <input ng-init="newEventEndDate = Date()" ng-show="!singleEvent" type="date" class="eventPar" ng-model="newEventEndDate"><br><br>
                             
                             <div ng-click="addEvent()" class="createButton" style="margin-top:10px;">Create</div>
                         </div>

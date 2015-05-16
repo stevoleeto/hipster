@@ -71,6 +71,10 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
     groupService.addGroupColor($scope.currentGroupColor);
   }
 
+  $scope.Date = function(){
+     return new Date();
+  };
+
   
 
   /************************************************************************
