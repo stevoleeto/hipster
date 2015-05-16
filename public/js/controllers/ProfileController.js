@@ -47,6 +47,7 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
   $scope.email = currentUser.get("username");
   $scope.eventArray = currentUser.get("personalSchedule");
   $scope.friendList = currentUser.get("friendList");
+  console.log(currentUser);
 
   //set users email in service
   userService.setEmail(currentUser.get("username")); 
