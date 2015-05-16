@@ -60,12 +60,32 @@ app.service('userService',['$q', function($q){
       email = newEmail;
   }
 
+  var createGroup = function(userName, userEmail, userGroupList, newGroupName, newGroupColor){
+      var Group = Parse.Object.extend("Group");
+      var newGroup = new Group();
+      var userGroupList
+      newGroup.set("name", newGroupName);
+      newGroup.set("memberList", [{name: userName, email: userEmail}]);
+      newGroup.save(null, {
+        success: function(Group){
+          userGroupList[userGroupList.length] = {id: Group.id, name: newGroupName, color: newGroupColor};
+        }
+      });
+
+      queryGroupList(userEmail).then(function(){
+        console.log(groupListQuery[0]);
+        groupListQuery[0].set("userGroups", userGroupList);
+        groupListQuery[0].save();
+      });
+  };
+
   return {
     // return all functions here so the dependant knows what to call!
     queryGroupList: queryGroupList,
       getGroupList: getGroupList,
       getFriendGroupList: getFriendGroupList,
       getGroupListQuery: getGroupListQuery,
+      createGroup: createGroup,
       setEmail : setEmail
   };
 

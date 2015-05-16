@@ -48,6 +48,8 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
   $scope.eventArray = currentUser.get("personalSchedule");
   $scope.friendList = currentUser.get("friendList");
   console.log(currentUser);
+  var lol = "test"
+  console.log(lol);
 
   //set users email in service
   userService.setEmail(currentUser.get("username")); 
@@ -135,35 +137,9 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
    ************************************************************************/
   $scope.createGroup = function(){
 
-    /* CODE TO CREATE THE GROUP */
-    var Group = Parse.Object.extend("Group");
-    var newGroup = new Group();
-    newGroup.set("name", $scope.newGroupName);
-    newGroup.set("memberList", [{name: $scope.userName, email: $scope.email}]);
-    newGroup.save(null, {
-      success: function(Group) {
-        $scope.myGroupList[$scope.myGroupList.length] = {id: Group.id, name: $scope.newGroupName, color: $scope.groupColor };
-        /* clear text box */
-        $scope.newGroupName = '';
-      }
-    });
+    userService.createGroup($scope.userName, $scope.email, $scope.myGroupList, $scope.newGroupName, $scope.groupColor);
+    $scope.newGroupName = '';
 
-    /* END CODE TO CREATE THE GROUP */
-
-    //This sets the current User's GroupList userGroups array to be updated with the new group
-    var GroupList = Parse.Object.extend("GroupList");
-    var query = new Parse.Query(GroupList);
-    query.equalTo("userEmail", $scope.email);
-    query.find({
-      success: function(cloudGroupList) {
-        
-        cloudGroupList[0].set("userGroups", $scope.myGroupList);
-        cloudGroupList[0].save();
-      },
-      error: function(cloudGroupList, error) {
-        console.log("error with cloudGroupList");
-      }
-    });
     $timeout(function(){$scope.$apply()}, 1000);
     $timeout(function(){$scope.$apply()}, 2000);
     $timeout(function(){$scope.$apply()}, 5000);
