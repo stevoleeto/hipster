@@ -128,12 +128,13 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
    ************************************************************************/
   $scope.createGroup = function(){
 
-    userService.createGroup($scope.userName, $scope.email, $scope.myGroupList, $scope.newGroupName, $scope.groupColor);
+    userService.createGroup($scope.userName, $scope.email, $scope.myGroupList, $scope.newGroupName, $scope.groupColor).then(function(){
+      /* this is to ensure scope gets applied even if query takes a bit too long*/
+      $timeout(function(){$scope.$apply()}, 150);
+    });
+    /* clear text box */
     $scope.newGroupName = '';
 
-    $timeout(function(){$scope.$apply()}, 1000);
-    $timeout(function(){$scope.$apply()}, 2000);
-    $timeout(function(){$scope.$apply()}, 5000);
 
   }
 

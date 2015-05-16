@@ -71,7 +71,7 @@ app.service('userService',['$q', function($q){
         }
       });
 
-      queryGroupList(userEmail).then(function(){
+      return queryGroupList(userEmail).then(function(){
         groupListQuery[0].set("userGroups", userGroupList);
         groupListQuery[0].save();
       });
