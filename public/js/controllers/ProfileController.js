@@ -47,9 +47,6 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
   $scope.email = currentUser.get("username");
   $scope.eventArray = currentUser.get("personalSchedule");
   $scope.friendList = currentUser.get("friendList");
-  console.log(currentUser);
-  var lol = "test"
-  console.log(lol);
 
   //set users email in service
   userService.setEmail(currentUser.get("username")); 
@@ -96,7 +93,14 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
 
   $scope.removeGroup = function(){
     userService.removeGroup($scope.removedGroup);
-    $scope.removedGroup = '';
+    
+    for (i = 0; i < $scope.myGroupList.length; i++){
+      if($scope.myGroupList[i]['id'] === $scope.removedGroup){
+        $scope.myGroupList.splice(i, 1);
+        $scope.removedGroup = '';
+        break;
+      }
+    }
   }
 
   /************************************************************************

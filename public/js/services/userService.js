@@ -85,6 +85,7 @@ app.service('userService',['$q', function($q){
              groupsList.splice(i, 1);
              groupListQuery[0].set("userGroups", groupsList);
              groupListQuery[0].save();
+             break;
           }
         }
      });
