@@ -10,6 +10,7 @@ app.service('userService',['$q', function($q){
 
   var groupList;
   var email;
+  var name;
   var friendGroupList;
 
   var groupListQuery;
@@ -60,6 +61,10 @@ app.service('userService',['$q', function($q){
       email = newEmail;
   }
 
+  var setName = function(newName){
+     name = newName;
+  }
+
   var createGroup = function(userName, userEmail, userGroupList, newGroupName, newGroupColor){
       var Group = Parse.Object.extend("Group");
       var newGroup = new Group();
@@ -95,6 +100,8 @@ app.service('userService',['$q', function($q){
 
   }
 
+
+
   return {
     // return all functions here so the dependant knows what to call!
     queryGroupList: queryGroupList,
@@ -104,7 +111,8 @@ app.service('userService',['$q', function($q){
       createGroup: createGroup,
       addEvent: addEvent,
       removeGroup: removeGroup,
-      setEmail : setEmail
+      setEmail : setEmail,
+      setName : setName
   };
 
 }]);
