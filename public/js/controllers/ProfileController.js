@@ -39,8 +39,64 @@ var currentUser = Parse.User.current();
 
 
 
-app.controller('ProfileController', ['$scope','groupService','$timeout','userService','uiCalendarConfig', function($scope, groupService, $timeout, userService, uiCalendarConfig) {
+app.controller('ProfileController', ['$scope', 'groupService','$timeout','userService','uiCalendarConfig', '$modal', '$log', 
+                                     function($scope, groupService, $timeout, userService, uiCalendarConfig, $modal,$log) {
+    
+  $scope.items = ['item1', 'item2', 'item3'];
 
+  $scope.animationsEnabled = true;
+
+  $scope.open = function (size) {
+
+    var modalInstance = $modal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'myModalContent.html',
+      controller: 'ModalInstanceCtrl',
+      size: size,
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
+      }
+    });
+      
+    modalInstance.result.then(function (selectedItem) {
+      $scope.selected = selectedItem;
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+  };
+                                         
+$scope.friendsModal = function (size) {
+
+    var modalInstance = $modal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'friendList.html',
+      controller: 'ModalInstanceCtrl',
+      size: size,
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
+      }
+    });
+     
+    modalInstance.result.then(function (selectedItem) {
+    $scope.selected = selectedItem;
+    }, function () {
+        $log.info('Modal dismissed at: ' + new Date());
+    });
+  };
+
+$scope.toggleAnimation = function () {
+    $scope.animationsEnabled = !$scope.animationsEnabled;
+};
+    
+    
+                                         
+                                         
+                                         
+                                         
   /* user data */
   $scope.userName = currentUser.get("name");
   $scope.joinDate = currentUser.createdAt;
@@ -173,3 +229,19 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
 
 
 }]);
+
+app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
+
+  $scope.items = items;
+  $scope.selected = {
+    item: $scope.items[0]
+  };
+
+  $scope.ok = function () {
+    $modalInstance.close($scope.selected.item);
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+});

@@ -56,6 +56,43 @@
     <body>
       <!-- PROFILE CONTROLLER -->
       <div ng-controller="ProfileController"> 
+        
+                                    <script type="text/ng-template" id="myModalContent.html">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Add a Friend</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul>
+                                                <li ng-repeat="item in items">
+                                                    <a ng-click="selected.item = item">{{ item }}</a>
+                                                </li>
+                                            </ul>
+                                            Selected: <b>{{ selected.item }}</b>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-primary" ng-click="ok()">OK</button>
+                                            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                                        </div>
+                                    </script>
+          
+                                    <script type="text/ng-template" id="friendList.html">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Your Friends</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul>
+                                                <li ng-repeat="item in items">
+                                                    <a ng-click="selected.item = item">{{ item }}</a>
+                                                </li>
+                                            </ul>
+                                            Selected: <b>{{ selected.item }}</b>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-primary" ng-click="ok()">OK</button>
+                                            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                                        </div>
+                                    </script>
+
         <div id="logoutWrapper">
             <div class="btn-group" dropdown>
                 <div class="logoutbtn" ng-show="homeView" dropdown-toggle></div>
@@ -64,8 +101,12 @@
                     </ul>
             </div>
             
-            <div>
-                <div class = "friendsOptionsBtn"></div>
+            <div class="btn-group" dropdown>
+                <div class = "friendsOptionsBtn" ng-show="homeView" dropdown-toggle></div>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><div ng-click="open('lg')">Add Friend</div></li>
+                        <li><div ng-click="friendsModal('lg')">View Friends List</div></li>
+                    </ul>
             </div>
             
             <div id="greeting">Hi, {{ userName }}</div>
