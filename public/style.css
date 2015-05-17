@@ -398,7 +398,7 @@ input
 #addGroupBtn:hover {
     cursor: pointer;
     opacity: 0.75;
-    filter: alpha(opacity=50);
+    filter: alpha(opacity=75);
 }
 
 #homeView, .singleGroupView
@@ -476,6 +476,16 @@ input
 
 #groupColorSelect li
 {
+<<<<<<< HEAD
+    border:solid black 1px;
+    width:25px;
+    height:25px;
+    margin-left:15px;
+    float:left;
+    cursor:pointer;
+}
+
+=======
     float:left;
     height:25px;
     width:25px;
@@ -502,3 +512,4 @@ input
     
 }
 
+>>>>>>> 7e339dd74eea5bc3b48e81cfcff0cca5920640c2

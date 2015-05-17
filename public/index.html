@@ -78,7 +78,7 @@
 	            </div>
 	            <div class="modal-body">
 	                <ul>
-	                    <li ng-repeat="friend in friendList track by $index">{{ friend }}</li>
+	                    <li ng-repeat="friend in friendList track by $index">{{ friend.name }} ({{ friend.email }})</li>
 	                </ul>
 	            </div>
 	            <div class="modal-footer">
@@ -87,11 +87,33 @@
 	            </div>
            	</div>
         </script>
+
+        <script type="text/ng-template" id="settings.html">
+            <div ng-controller="ProfileController">
+                <div class="modal-header">
+                    <h3 class="modal-title">Account Settings</h3>
+                </div>
+                <div class="modal-body">
+                    <label>New UserName</label>
+                    <input ng-model="newUserName"><br><br>
+                    <label>New Email</label>
+                    <input ng-model="newEmail"><br><br>
+                    <label>New Password</label>
+                    <input ng-model="newPassword"><br><br>
+                    <button ng-click="settingsSave()">Save</button>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" ng-click="ok()">OK</button>
+                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                </div>
+            </div>
+        </script>
           
         <div id="logoutWrapper">
             <div class="btn-group" dropdown>
                 <div class="logoutbtn" ng-show="homeView" dropdown-toggle></div>
                     <ul class="dropdown-menu" role="menu">
+                        <li><div ng-click="settingsModal('lg')">Account Settings</div></li>
                         <li><div ng-click="logout()">Logout</div></li>
                     </ul>
             </div>
@@ -137,41 +159,36 @@
                             <input type="radio" name="recurringEvent" ng-click="singleEvent=false">
                             <br><br>
 
-                            <label for="pStartTime" ng-show="!singleEvent">Single Event Start Date</label>
-                            <input ng-show="!singleEvent" name="pStartDate" type="date" class="eventPar" ng-model="newEventStartDate">
+                            <label for="pStartTime" ng-show="singleEvent">Single Event Start Date</label>
+                            <input ng-show="singleEvent" name="pStartDate" type="date" class="eventPar" ng-model="newSingleEventStartDate">
                             <br><br>
                             
-                            <label for="pEndTime" ng-show="!singleEvent">Single Event End Date</label>
-                            <input ng-show="!singleEvent" for="pEndDate" type="date" class="eventPar" ng-model="newEventEndDate">
+                            <label for="pEndTime" ng-show="singleEvent">Single Event End Date</label>
+                            <input ng-show="singleEvent" for="pEndDate" type="date" class="eventPar" ng-model="newSingleEventEndDate">
                             <br><br>
 
-                            <label for="pStartDate" ng-show="singleEvent">Date</label>
-                            <input ng-init="newSingleEventDate = Date()" ng-show="singleEvent" type="date" class="eventPar" ng-model="newSingleEventDate"><br><br>
-
-                            <label for="pStartDate" ng-show="singleEvent">Date</label>
-                            <input ng-init="newSingleEventDate = Date()" ng-show="singleEvent" type="date" class="eventPar" ng-model="newSingleEventDate">
-                            <br><br>
+                            <p ng-show="singleEvent">Single Event Start Time</p>
+                            <input ng-show="singleEvent" type="time" class="eventPar" ng-model="newSingleEventStartTime"><br><br>
                             
-                            <label>Start Time</label>
-                            <input ng-init="newEventStartTime=Date()" type="time" class="eventPar" ng-model="newEventStartTime">
-                            <br><br>
+                            <p ng-show="singleEvent">Single Event End Time</p>
+                            <input  ng-show="singleEvent" type="time" class="eventPar" ng-model="newSingleEventEndTime"><br><br>
 
-                            <p>End Time</p>
-                            <input ng-init="newEventEndTime = Date(1)" type="time" class="eventPar" ng-model="newEventEndTime"><br><br>
+                            <label for="pStartDate" ng-show="!singleEvent">Recurring Start Date</p>
+                            <input  ng-show="!singleEvent" type="date" class="eventPar" ng-model="newRecurringEventStartDate"><br><br>
+
+                            <label for="pEndTime" ng-show="!singleEvent">Recurring End Date</p>
+                            <input  ng-show="!singleEvent" type="date" class="eventPar" ng-model="newRecurringEventEndDate"><br><br>
+                            
+                            <p ng-show="!singleEvent">Recurring Start Time</p>
+                            <input ng-show="!singleEvent" type="time" class="eventPar" ng-model="newReccuringEventStartTime"><br><br>
+                            
+                            <p ng-show="!singleEvent">Recurring End Time</p>
+                            <input  ng-show="!singleEvent" type="time" class="eventPar" ng-model="newReccuringEventEndTime"><br><br>
+
                             
                             <div ng-click="addEvent()" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
                     </div>
-
-                   <!--ADDED BY SARA-->
-                    <div id="membersInfo">
-                         <h2>Friends</h2>
-                         <div ng-click="addFriend()" class="friend" style="margin-top:10px;">Add New Friend</div>
-                         <input type="text" ng-model="newFriend" placeholder="New Friend Email">
-                         <br><br>
-            	      </div>
-
-
             	</div>
         	</div>
             
@@ -192,12 +209,35 @@
                                   $parent.$parent.singleGroupView=true; 
                                   $parent.currentGroupId = group.id; 
                                   $parent.currentGroupColor = group.color;
-                                  addGroup();"
-                             ng-attr-title="{{ group.name }}" 
+                                  addGroup();" ng-attr-title="{{ group.name }}" 
                     	ng-style="{background:group.color}">
                             <p>{{ group.name | limitTo:12 }}{{ group.name.length >= 12 ? '...' : '' }}</p>
                         </div>
                         <div ng-click="addGroupModal()" id="addGroupBtn"></div>
+                                    <script type="text/ng-template" id="addGroup.html">
+                                        <div ng-controller="ProfileController">
+                                            <div class="modal-header">
+                                                <h3 class="modal-title">Add a Group</h3>
+                                            </div>
+                                            <div class="modal-body">
+                                            <input type="text" ng-model="newGroupName" placeholder="Group Name">
+                                            <br>
+                                            <label for="groupColor">Select a Color</label>
+                                                
+                                            <ul id="groupColorSelect">
+                                                <li style = "background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></li>
+                                                <li style = "background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></li>
+                                                <li style = "background:#FFA6B1;" ng-click="groupColor='#FFA6B1'"></li>
+                                                <li style = "background:#FEC12F;" ng-click="groupColor='#FEC12F'"></li>
+                                            </ul>    
+                                                
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-primary" ng-click="createGroup(); cancel()">OK</button>
+                                                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </script>
                         
                         <script type="text/ng-template" id="addGroup.html">
                             <div ng-controller="ProfileController">
