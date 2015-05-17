@@ -146,17 +146,19 @@
                             <input ng-show="!singleEvent" for="pEndDate" type="date" class="eventPar" ng-model="newEventEndDate">
                             <br><br>
 
-                            <label for="pStartDate" ng-show="singleEvent">Date</p>
+                            <label for="pStartDate" ng-show="singleEvent">Date</label>
+                            <input ng-init="newSingleEventDate = Date()" ng-show="singleEvent" type="date" class="eventPar" ng-model="newSingleEventDate"><br><br>
+
+                            <label for="pStartDate" ng-show="singleEvent">Date</label>
                             <input ng-init="newSingleEventDate = Date()" ng-show="singleEvent" type="date" class="eventPar" ng-model="newSingleEventDate">
                             <br><br>
                             
                             <label>Start Time</label>
                             <input ng-init="newEventStartTime=Date()" type="time" class="eventPar" ng-model="newEventStartTime">
                             <br><br>
-                            
-                            <label>End Time</label>
-                            <input ng-init="newEventEndTime = Date()" type="time" class="eventPar" ng-model="newEventEndTime">
-                            <br><br>
+
+                            <p>End Time</p>
+                            <input ng-init="newEventEndTime = Date(1)" type="time" class="eventPar" ng-model="newEventEndTime"><br><br>
                             
                             <div ng-click="addEvent()" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
@@ -196,31 +198,30 @@
                             <p>{{ group.name | limitTo:12 }}{{ group.name.length >= 12 ? '...' : '' }}</p>
                         </div>
                         <div ng-click="addGroupModal()" id="addGroupBtn"></div>
-                        
-                        <script type="text/ng-template" id="addGroup.html">
-                            <div ng-controller="ProfileController">
-                                <div class="modal-header">
-                                    <h3 class="modal-title">Add a Group</h3>
-                                </div>
-                                <div class="modal-body">
-                                <input type="text" ng-model="newGroupName" placeholder="Group Name">
-                                <br>
-                                <label for="groupColor">Select a Color</label>
-                                <select id="groupColor" ng-model="groupColor">
-                                    <option value="#B9F5FF">Blue</option>
-                                    <option value="#B5FBA3">Green</option>
-                                    <option value="#FFA6B1">Red</option>
-                                    <option value="#FEC12F">Orange</option>
-                                </select>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-primary" ng-click="createGroup(); cancel()">OK</button>
-                                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-                                </div>
-                            </div>
-                        </script>
-                	</ul>
-            	</div>
+                                    <script type="text/ng-template" id="addGroup.html">
+                                        <div ng-controller="ProfileController">
+                                            <div class="modal-header">
+                                                <h3 class="modal-title">Add a Group</h3>
+                                            </div>
+                                            <div class="modal-body">
+                                            <input type="text" ng-model="newGroupName" placeholder="Group Name">
+                                            <br>
+                                            <label for="groupColor">Select a Color</label>
+                                                
+                                            <ul id="groupColorSelect">
+                                                <li style = "background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></li>
+                                                <li style = "background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></li>
+                                                <li style = "background:#FFA6B1;" ng-click="groupColor='#FFA6B1'"></li>
+                                                <li style = "background:#FEC12F;" ng-click="groupColor='#FEC12F'"></li>
+                                            </ul>    
+                                                
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-primary" ng-click="createGroup(); cancel()">OK</button>
+                                                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </script>
         	</div>
         </div> 
       </div> <!--END PROFILE CONTROLLER -->
