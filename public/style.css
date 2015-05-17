@@ -217,14 +217,14 @@ input
     cursor: pointer;
     margin-left:15px;
     top: 10px;
-    transition: height .1s, width .1s;
+    transition: height .5s, width .5s;
 }
 
 .friendsOptionsBtn:hover
 {
     height:47px;
     width:47px;
-    transition: height .1s, width .1s;
+    transition: height .5s, width .5s;
 }
 
 .logoutbtn
@@ -453,6 +453,16 @@ input
 {
     float:right;
     position:relative;
+}
+
+.btn-group li
+{
+    cursor:pointer;
+}
+
+.btn-group li:hover
+{
+   background:#BBDEFB;
 }
 
 .friend
