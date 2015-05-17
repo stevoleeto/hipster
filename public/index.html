@@ -62,12 +62,8 @@
                 <h3 class="modal-title">Add a Friend</h3>
             </div>
             <div class="modal-body">
-                <ul>
-                    <li ng-repeat="item in items">
-                        <a ng-click="selected.item = item">{{ item }}</a>
-                    </li>
-                </ul>
-                Selected: <b>{{ selected.item }}</b>
+            	<label for="friendEmail">Friend&#39;s Email</label>
+            	<input type="text" name="friendEmail">
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary" ng-click="ok()">OK</button>
@@ -76,21 +72,20 @@
         </script>
 
         <script type="text/ng-template" id="friendList.html">
-            <div class="modal-header">
-                <h3 class="modal-title">Your Friends</h3>
-            </div>
-            <div class="modal-body">
-                <ul>
-                    <li ng-repeat="item in items">
-                        <a ng-click="selected.item = item">{{ item }}</a>
-                    </li>
-                </ul>
-                Selected: <b>{{ selected.item }}</b>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" ng-click="ok()">OK</button>
-                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-            </div>
+        	<div ng-controller="ProfileController">
+	            <div class="modal-header">
+	                <h3 class="modal-title">Your Friends</h3>
+	            </div>
+	            <div class="modal-body">
+	                <ul>
+	                    <li ng-repeat="friend in friendList track by $index">{{ friend }}</li>
+	                </ul>
+	            </div>
+	            <div class="modal-footer">
+	                <button class="btn btn-primary" ng-click="ok()">OK</button>
+	                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+	            </div>
+           	</div>
         </script>
           
         <div id="logoutWrapper">
