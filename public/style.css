@@ -466,3 +466,16 @@ input
     cursor: pointer;
 }
 
+#groupColorSelect
+{
+    list-style: none;
+}
+
+#groupColorSelect li
+{
+    float:left;
+    height:25px;
+    width:25px;
+    margin-left:15px;
+    cursor:pointer;
+}
