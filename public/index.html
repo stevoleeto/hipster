@@ -90,19 +90,22 @@
                     <div id="createWrapper">
                         <p id="createTitle">Create Event</p>
                         <div class="createEvent">
-                            <p>Event Name</p>
-                            <input type="text" class="eventPar" ng-model="newEventName" placeholder="Event Name"><br><br>
+                            <label for="pEventName">Event Name</label>
+                            <input type="text" name="pEventName" class="eventPar" ng-model="newEventName">
+                            <br><br>
 
                             <input type="radio" name="singleEvent" ng-click="singleEvent=true">Single
                             <input type="radio" name="singleEvent" ng-click="singleEvent=false">Recurring
 
-                            <p ng-show="!singleEvent">Start Date</p>
-                            <input ng-show="!singleEvent" type="date" class="eventPar" ng-model="newEventStartDate"><br><br>
+                            <label for="pStartTime" ng-show="!singleEvent">Single Event Start Date</label>
+                            <input ng-show="!singleEvent" name="pStartDate" type="date" class="eventPar" ng-model="newEventStartDate">
+                            <br><br>
                             
-                            <p ng-show="!singleEvent">End Date</p>
-                            <input ng-show="!singleEvent" type="date" class="eventPar" ng-model="newEventEndDate"><br><br>
+                            <label for="pEndTime" ng-show="!singleEvent">Single Event End Date</label>
+                            <input ng-show="!singleEvent" for="pEndDate" type="date" class="eventPar" ng-model="newEventEndDate">
+                            <br><br>
 
-                            <p ng-show="singleEvent">Date</p>
+                            <label for="pStartDate" ng-show="singleEvent">Date</p>
                             <input ng-init="newSingleEventDate = Date()" ng-show="singleEvent" type="date" class="eventPar" ng-model="newSingleEventDate"><br><br>
                             
                             <p>Start Time</p>
@@ -190,20 +193,20 @@
                     <div id="createWrapper">
                         <p id="createTitle">Create Event</p>
                         <div class="createEvent">
-                            <p>Event Name</p>
-                            <input type="text" class="eventPar" ng-model="newEventName" placeholder="Event Name"><br><br>
+                            <label for="gEventName">Event Name</label>
+                            <input type="text" name="gEventName" class="eventPar" ng-model="newEventName"><br><br>
                             
-                            <p>Start Time</p>
-                            <input type="time" class="eventPar" ng-model="lol" placeholder="wut"><br><br>
+                            <label for="gStartTime">Start Time</label>
+                            <input type="time" name="gStartTime" class="eventPar" ng-model="lol"><br><br>
                             
-                            <p>End Time</p>
-                            <input type="time" class="eventPar" ng-model="lol2" placeholder="wut2"><br><br>
+                            <label for="gEndTime">End Time</label>
+                            <input type="time" name="gEndTime" class="eventPar" ng-model="lol2"><br><br>
                             
-                            <p>Start Date</p>
-                            <input type="date" class="eventPar" ng-model="lol3" placeholder="wut3"><br><br>
+                            <label for="gStartDate">Start Date</label>
+                            <input type="date" name="gStartDate" class="eventPar" ng-model="lol3"><br><br>
                             
-                            <p>End Date</p>
-                            <input type="date" class="eventPar" ng-model="lol3" placeholder="wut3"><br><br>
+                            <label for="gEndDate">End Date</label>
+                            <input type="date" name="gEndDate" class="eventPar" ng-model="lol3"><br><br>
                             
                             <div ng-click="" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
