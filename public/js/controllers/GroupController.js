@@ -36,14 +36,22 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
       }
     ]
   ];
-    
+
+// Group Calendar Settings
+// -----------------------
 $scope.uiConfig = {
     calendar:{
-        height: "100%",
+        height: 795,
         viewRender: function(view, element) {
-            $log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
+            //$log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
         },
-		defaultView: 'agendaWeek'
+		defaultView: 'agendaWeek',
+    slotDuration: '00:30:00',
+    minTime: '06:00:00',
+    maxTime: '22:00:00',
+    dayClick: function(date, jsEvent, view) {
+      console.log("Clicked on " + date.format());
+    }
     }
 };
 
