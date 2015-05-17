@@ -92,7 +92,35 @@ $scope.toggleAnimation = function () {
     $scope.animationsEnabled = !$scope.animationsEnabled;
 };
     
-    
+                                         
+$scope.addGroupModal = function (size) {
+
+    var modalInstance = $modal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'addGroup.html',
+      controller: 'ModalInstanceCtrl',
+      size: size,
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
+      }
+    });
+
+    modalInstance.result.then(function (selectedItem) {
+    $scope.selected = selectedItem;
+    }, function () {
+        $scope.myGroupList = userService.getGroupList();
+        $log.info('Modal dismissed at: ' + new Date());
+        
+    });
+    };
+
+
+
+    $scope.toggleAnimation = function () {
+        $scope.animationsEnabled = !$scope.animationsEnabled;
+};   
                                          
                                          
                                          
@@ -187,15 +215,12 @@ $scope.toggleAnimation = function () {
    * Description: Creates a new group, and adds the new group to the GroupList userGroups array for both the current user the and user they have selected.
    ************************************************************************/
   $scope.createGroup = function(){
-
     userService.createGroup($scope.userName, $scope.email, $scope.myGroupList, $scope.newGroupName, $scope.groupColor).then(function(){
       /* this is to ensure scope gets applied even if query takes a bit too long*/
       $timeout(function(){$scope.$apply()}, 150);
     });
     /* clear text box */
     $scope.newGroupName = '';
-
-
   }
 
   $scope.addEvent = function(){
