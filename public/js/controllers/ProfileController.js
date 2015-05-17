@@ -154,15 +154,24 @@ $scope.addGroupModal = function (size) {
 								 
   // source for calendar events
   $scope.eventSources = [$scope.eventArray];
-  //configuration for calendar
+
+
+// Profile Calendar Settings
+// -----------------------
   $scope.uiConfig = {
     calendar:{
-        height: "100%",
+        height: 795,
         viewRender: function(view, element) {
-            $log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
+            //$log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
         },
 		editable: true,
-		defaultView: 'agendaWeek'
+		defaultView: 'agendaWeek',
+    slotDuration: '00:30:00',
+    minTime: '06:00:00',
+    maxTime: '22:00:00',
+    dayClick: function(date, jsEvent, view) {
+      console.log("Clicked on " + date.format());
+    }
     }
 };
 
@@ -347,11 +356,6 @@ $scope.addGroupModal = function (size) {
    * Description: Modal control
    ************************************************************************/
 app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
-
-  $scope.items = items;
-  $scope.selected = {
-    item: $scope.items[0]
-  };
 
   $scope.ok = function () {
     $modalInstance.close($scope.selected.item);
