@@ -26,7 +26,7 @@
 
 var currentUser = Parse.User.current();
 
-app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalendarConfig', function($scope, groupService, $timeout, uiCalendarConfig) { 
+app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalendarConfig','$log', function($scope, groupService, $timeout, uiCalendarConfig, $log) { 
 
   $scope.eventSources = [
     [
@@ -104,7 +104,18 @@ $scope.$watch('singleGroupView', function(){
 });
 
 
+ /************************************************************************
+   * Name:    addMember()
 
+   * Purpose: Add members to group.
+
+   * Called In:   index.html
+
+   * Description: This function queries the database to get the group's memberlist
+   *				then updates it with the new member. Once that is done, it 
+   *				queries the database to get the groupList associated with the
+   *				new member and adds the new group to their list.
+   ************************************************************************/
 $scope.addMember = function(){
   var Group = Parse.Object.extend("Group");
   var query = new Parse.Query(Group);

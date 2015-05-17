@@ -88,9 +88,6 @@ $scope.friendsModal = function (size) {
     });
   };
 
-$scope.toggleAnimation = function () {
-    $scope.animationsEnabled = !$scope.animationsEnabled;
-};
     
                                          
 $scope.addGroupModal = function (size) {
@@ -116,14 +113,7 @@ $scope.addGroupModal = function (size) {
     });
     };
 
-
-
-    $scope.toggleAnimation = function () {
-        $scope.animationsEnabled = !$scope.animationsEnabled;
-};   
-                                         
-                                         
-                                         
+                                                                                                                       
                                          
   /* user data */
   $scope.userName = currentUser.get("name");
@@ -157,12 +147,17 @@ $scope.addGroupModal = function (size) {
     $scope.myGroupList = userService.getGroupList();
   });
 
-  $scope.addGroup = function(){
-	
+  $scope.addGroup = function(){	
     groupService.addGroupId($scope.currentGroupId);
     groupService.addGroupColor($scope.currentGroupColor);
   }
 
+  
+  /* Function: Date
+   * Desciption: Called to get a new date object, offset will offset the hour. Minutes and seconds and milliseconds
+   * 			 set to 0.
+   *
+   */
   $scope.Date = function(hourOffset){
      var date =  new Date();
         date.setMinutes(0);
@@ -172,8 +167,7 @@ $scope.addGroupModal = function (size) {
             date.setHours(date.getHours() + hourOffset);
         }
         
-     console.log(date);
-     return date;
+	  return date;
   };
 
   
@@ -196,9 +190,17 @@ $scope.addGroupModal = function (size) {
     });
   }
 
+   /************************************************************************
+   * Name:    removeGroup()
+
+   * Purpose:   Remove a single group.
+
+   * Called In:   index.html
+
+   * Description: Removs all groups found in their GroupList userGroups array.
+   ************************************************************************/
   $scope.removeGroup = function(){
     userService.removeGroup($scope.removedGroup);
-    
     for (i = 0; i < $scope.myGroupList.length; i++){
       if($scope.myGroupList[i]['id'] === $scope.removedGroup){
         $scope.myGroupList.splice(i, 1);
@@ -240,7 +242,15 @@ $scope.addGroupModal = function (size) {
     $scope.newGroupName = '';
 
   }
+ /************************************************************************
+   * Name:    addEvent()
 
+   * Purpose:   Allows the user to add an event to their calendar.
+
+   * Called In:   index.html
+
+   * Description: Removs all groups found in their GroupList userGroups array.
+   ************************************************************************/
   $scope.addEvent = function(){
     var newEventStart = "";
     var newEventEnd = "";
@@ -262,16 +272,31 @@ $scope.addGroupModal = function (size) {
   }
   //ADDED BY SARA
   $scope.addFriend = function() {
-    console.log($scope.friendList);
-    $scope.friendList.push($scope.newFriend); 
-    console.log($scope.friendList);
-    currentUser.set("friendList", $scope.friendList);
-    currentUser.save();
+	var User = Parse.Object.extend("User");
+    var query = new Parse.Query(User);
+	query.equalTo("username", $scope.newFriend);
+	query.find().then(function(pulledFriend) {
+		$scope.friendList.push({email: $scope.newFriend, name:pulledFriend[0].attributes.name});
+		console.log($scope.friendList);
+		currentUser.set("friendList", $scope.friendList);
+		currentUser.save();
+	});
+    
+    
   }
 
 
 }]);
 
+ /************************************************************************
+   * Name:    ModalInstanceCtrl
+
+   * Purpose: Controller for Modal
+
+   * Called In:   ProfileController and GroupController
+
+   * Description: Modal control
+   ************************************************************************/
 app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
 
   $scope.items = items;
