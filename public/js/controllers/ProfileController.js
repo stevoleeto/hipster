@@ -143,15 +143,12 @@ $scope.addGroupModal = function (size) {
         height: "100%",
         viewRender: function(view, element) {
             $log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
-        }
+        },
+		editable: true,
+		defaultView: 'agendaWeek'
     }
 };
 
-
-  /* Change to weeksly view after 50 milliseconds
-   */
-  $timeout(function(){ uiCalendarConfig.calendars['userCalendar'].
-    fullCalendar('changeView','agendaWeek')}, 50);
 
 
   /* asks the service to please pull the group list of desire email,

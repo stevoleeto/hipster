@@ -37,12 +37,13 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
     ]
   ];
     
-$scope.uConfig = {
+$scope.uiConfig = {
     calendar:{
         height: "100%",
         viewRender: function(view, element) {
             $log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
-        }
+        },
+		defaultView: 'agendaWeek'
     }
 };
 
@@ -70,8 +71,8 @@ $scope.$watch('singleGroupView', function(){
 
 
         /* set group calendar to weekly view! */
-        $timeout(function(){ uiCalendarConfig.calendars['groupCalendar'].
-          fullCalendar('changeView','agendaWeek')}, 50);
+     //   $timeout(function(){ uiCalendarConfig.calendars['groupCalendar'].
+      //    fullCalendar('changeView','agendaWeek')}, 50);
         var User = Parse.Object.extend("User");
         var query = new Parse.Query(User);
         for(i= 0; i< $scope.memberList.length; i++){
