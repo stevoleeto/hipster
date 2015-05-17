@@ -3,18 +3,20 @@
         <!-- Information about the document goes here. This includes the encoding, title, css files, and JS files -->
         <link rel="stylesheet" type="text/css" href="./style.css">
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.0/angular-material.min.css">
-        <link rel="stylesheet" type="text/css" href="./lib/bootstrap.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0">	
         <title>Scheduling App</title>
 
 
         <!-- Get access to the Parse library -->
-		<script type="text/javascript" src="https://parse.com/downloads/javascript/parse-1.4.2.js"></script>
+		    <script type="text/javascript" src="https://parse.com/downloads/javascript/parse-1.4.2.js"></script>
 
         <!-- Load UI Calendar sources -->
         <link rel="stylesheet" href="lib/bower_components/fullcalendar/dist/fullcalendar.css"/>
+
         <!-- jquery, moment, and angular have to get included before fullcalendar -->
         <script type="text/javascript" src="lib/bower_components/jquery/dist/jquery.js"></script>
         <script type="text/javascript" src="lib/bower_components/moment/moment.js"></script>
@@ -22,12 +24,6 @@
         <script type="text/javascript" src="lib/bower_components/angular-ui-calendar/src/calendar.js"></script>
         <script type="text/javascript" src="lib/bower_components/fullcalendar/dist/fullcalendar.js"></script>
         <script type="text/javascript" src="lib/bower_components/fullcalendar/dist/gcal.js"></script>
-
-
-        <!-- Get Angular-Material Library -->
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.0/angular-material.min.js"></script>
 
         <!-- Load BootStrap -->
         <script type="text/javascript" src="lib/ui-bootstrap-tpls-0.13.0.min.js"></script>
@@ -91,19 +87,22 @@
                     <div id="createWrapper">
                         <p id="createTitle">Create Event</p>
                         <div class="createEvent">
-                            <p>Event Name</p>
-                            <input type="text" class="eventPar" ng-model="newEventName" placeholder="Event Name"><br><br>
+                            <label for="pEventName">Event Name</label>
+                            <input type="text" name="pEventName" class="eventPar" ng-model="newEventName">
+                            <br><br>
 
                             <input type="radio" name="singleEvent" ng-click="singleEvent=true">Single
                             <input type="radio" name="singleEvent" ng-click="singleEvent=false">Recurring
 
-                            <p ng-show="!singleEvent">Start Date</p>
-                            <input ng-show="!singleEvent" type="date" class="eventPar" ng-model="newEventStartDate"><br><br>
+                            <label for="pStartTime" ng-show="!singleEvent">Single Event Start Date</label>
+                            <input ng-show="!singleEvent" name="pStartDate" type="date" class="eventPar" ng-model="newEventStartDate">
+                            <br><br>
                             
-                            <p ng-show="!singleEvent">End Date</p>
-                            <input ng-show="!singleEvent" type="date" class="eventPar" ng-model="newEventEndDate"><br><br>
+                            <label for="pEndTime" ng-show="!singleEvent">Single Event End Date</label>
+                            <input ng-show="!singleEvent" for="pEndDate" type="date" class="eventPar" ng-model="newEventEndDate">
+                            <br><br>
 
-                            <p ng-show="singleEvent">Date</p>
+                            <label for="pStartDate" ng-show="singleEvent">Date</p>
                             <input ng-init="newSingleEventDate = Date()" ng-show="singleEvent" type="date" class="eventPar" ng-model="newSingleEventDate"><br><br>
                             
                             <p>Start Time</p>
@@ -185,20 +184,20 @@
                     <div id="createWrapper">
                         <p id="createTitle">Create Event</p>
                         <div class="createEvent">
-                            <p>Event Name</p>
-                            <input type="text" class="eventPar" ng-model="newEventName" placeholder="Event Name"><br><br>
+                            <label for="gEventName">Event Name</label>
+                            <input type="text" name="gEventName" class="eventPar" ng-model="newEventName"><br><br>
                             
-                            <p>Start Time</p>
-                            <input type="time" class="eventPar" ng-model="lol" placeholder="wut"><br><br>
+                            <label for="gStartTime">Start Time</label>
+                            <input type="time" name="gStartTime" class="eventPar" ng-model="lol"><br><br>
                             
-                            <p>End Time</p>
-                            <input type="time" class="eventPar" ng-model="lol2" placeholder="wut2"><br><br>
+                            <label for="gEndTime">End Time</label>
+                            <input type="time" name="gEndTime" class="eventPar" ng-model="lol2"><br><br>
                             
-                            <p>Start Date</p>
-                            <input type="date" class="eventPar" ng-model="lol3" placeholder="wut3"><br><br>
+                            <label for="gStartDate">Start Date</label>
+                            <input type="date" name="gStartDate" class="eventPar" ng-model="lol3"><br><br>
                             
-                            <p>End Date</p>
-                            <input type="date" class="eventPar" ng-model="lol3" placeholder="wut3"><br><br>
+                            <label for="gEndDate">End Date</label>
+                            <input type="date" name="gEndDate" class="eventPar" ng-model="lol3"><br><br>
                             
                             <div ng-click="" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
