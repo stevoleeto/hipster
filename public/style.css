@@ -217,6 +217,14 @@ input
     cursor: pointer;
     margin-left:15px;
     top: 10px;
+    transition: height .1s; width .1s;
+}
+
+.friendsOptionsBtn:hover
+{
+    height:47px;
+    width:47px;
+    transition: height .1s; width .1s;
 }
 
 .logoutbtn
