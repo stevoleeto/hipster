@@ -395,7 +395,7 @@ input
 #addGroupBtn:hover {
     cursor: pointer;
     opacity: 0.75;
-    filter: alpha(opacity=50);
+    filter: alpha(opacity=75);
 }
 
 #homeView, .singleGroupView
