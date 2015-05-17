@@ -140,7 +140,7 @@ $scope.addGroupModal = function (size) {
   //configuration for calendar
   $scope.uiConfig = {
     calendar:{
-        height: "50%",
+        height: "100%",
         viewRender: function(view, element) {
             $log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
         }

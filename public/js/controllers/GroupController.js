@@ -37,7 +37,7 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
     ]
   ];
     
-$scope.calendarConfig = {
+$scope.uConfig = {
     calendar:{
         height: "100%",
         viewRender: function(view, element) {
