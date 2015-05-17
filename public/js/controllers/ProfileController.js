@@ -39,7 +39,8 @@ var currentUser = Parse.User.current();
 
 
 
-app.controller('ProfileController', ['$scope','groupService','$timeout','userService','uiCalendarConfig', function($scope, groupService, $timeout, userService, uiCalendarConfig) {
+app.controller('ProfileController', ['$scope','groupService','$timeout','userService','uiCalendarConfig','$modal',
+                             function($scope, groupService, $timeout, userService, uiCalendarConfig, $modal) {
 
   /* user data */
   $scope.userName = currentUser.get("name");
@@ -47,12 +48,22 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
   $scope.email = currentUser.get("username");
   $scope.eventArray = currentUser.get("personalSchedule");
   $scope.friendList = currentUser.get("friendList");
-
+								 
   //set users email in service
   userService.setEmail(currentUser.get("username")); 
-
+								 
   // source for calendar events
   $scope.eventSources = [$scope.eventArray];
+  //configuration for calendar
+  $scope.uiConfig = {
+    calendar:{
+        height: "50%",
+        viewRender: function(view, element) {
+            $log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
+        }
+    }
+};
+
 
   /* Change to weeksly view after 50 milliseconds
    */
@@ -67,12 +78,22 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
   });
 
   $scope.addGroup = function(){
+	
     groupService.addGroupId($scope.currentGroupId);
     groupService.addGroupColor($scope.currentGroupColor);
   }
 
-  $scope.Date = function(){
-     return new Date();
+  $scope.Date = function(hourOffset){
+     var date =  new Date();
+        date.setMinutes(0);
+        date.setMilliseconds(0);
+        date.setSeconds(0);
+        if(hourOffset){
+            date.setHours(date.getHours() + hourOffset);
+        }
+        
+     console.log(date);
+     return date;
   };
 
   
@@ -139,7 +160,6 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
     /* clear text box */
     $scope.newGroupName = '';
 
-
   }
 
   $scope.addEvent = function(){
@@ -157,7 +177,6 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
     currentUser.set("personalSchedule", $scope.eventArray);
     currentUser.save(null, {
       success: function(object) {
-        
       }
     });
 
