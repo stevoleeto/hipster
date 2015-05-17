@@ -198,7 +198,7 @@ $scope.addGroupModal = function (size) {
 
   $scope.removeGroup = function(){
     userService.removeGroup($scope.removedGroup);
-    
+      
     for (i = 0; i < $scope.myGroupList.length; i++){
       if($scope.myGroupList[i]['id'] === $scope.removedGroup){
         $scope.myGroupList.splice(i, 1);
