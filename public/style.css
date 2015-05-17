@@ -205,6 +205,20 @@ input
     background: white;
 }
 
+.friendsOptionsBtn
+{
+    background-image: url(images/person.png);
+    height: 45px;
+    width: 45px;
+    background-size:contain;
+    background-repeat: no-repeat;
+    float:right;
+    position: relative; 
+    cursor: pointer;
+    margin-left:15px;
+    top: 10px;
+}
+
 .logoutbtn
 {	
     background-image: url(images/cog.png);
