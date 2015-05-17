@@ -145,14 +145,18 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
   $scope.addEvent = function(){
     var newEventStart = "";
     var newEventEnd = "";
-    newEventStart = $scope.newEventStartDate + "T" + $scope.newEventStartTime + ":00";
-    newEventEnd = $scope.newEventEndDate + "T" + $scope.newEventEndTime + ":00";
+    console.log($scope.newSingleEventStartDate);
+    console.log($scope.newSingleEventStartTime);
+    newEventStart = $scope.newSingleEventStartDate;
+    newEventEnd = $scope.newSingleEventEndDate;
     
     $scope.eventArray.push({
       title  : $scope.newEventName,
       start  : newEventStart,
       end    : newEventEnd
     });
+
+    console.log($scope.eventArray);
 
     currentUser.set("personalSchedule", $scope.eventArray);
     currentUser.save(null, {
