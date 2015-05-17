@@ -58,18 +58,19 @@
       <div ng-controller="ProfileController"> 
         
         <script type="text/ng-template" id="myModalContent.html">
-            <div class="modal-header">
-                <h3 class="modal-title">Add a Friend</h3>
-            </div>
-            <div class="modal-body">
-            	/* COMMENT: ADDED BY SARA */<br>
-            	<label for="friendEmail">Friend&#39;s Email</label>
-            	<input type="text" name="friendEmail" ng-model="newFriend">
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" ng-click="addFriend()">Add</button>
-                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-            </div>
+        	<div ng-controller="ProfileController">
+	            <div class="modal-header">
+	                <h3 class="modal-title">Add a Friend</h3>
+	            </div>
+	            <div class="modal-body">
+	            	<label for="friendEmail">Friend&#39;s Email</label>
+	            	<input type="text" name="friendEmail" ng-model="newFriend" placeholder="New Friend's Email">
+	            </div>
+	            <div class="modal-footer">
+	                <button class="btn btn-primary" ng-click="addFriend(); cancel()">OK</button>
+	                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+	            </div>
+	        </div>
         </script>
 
         <script type="text/ng-template" id="friendList.html">
@@ -79,7 +80,7 @@
 	            </div>
 	            <div class="modal-body">
 	                <ul>
-	                    <li ng-repeat="friend in friendList track by $index">{{ friend }}</li>
+	                    <li ng-repeat="friend in friendList track by $index">{{ friend.name }} ({{ friend.email }})</li>
 	                </ul>
 	            </div>
 	            <div class="modal-footer">
@@ -163,7 +164,15 @@
                             <div ng-click="addEvent()" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
                     </div>
-	           	</div>
+
+                   <!--ADDED BY SARA-->
+                    <div id="membersInfo">
+                         <h2>Friends</h2>
+                         <div ng-click="addFriend()" class="friend" style="margin-top:10px;">Add New Friend</div>
+                         <input type="text" ng-model="newFriend" placeholder="New Friend Email">
+                         <br><br>
+            	      </div>
+            	</div>
         	</div>
             
         	<div ng-init="groupView=false" ng-show="groupView" id="groupView">
@@ -183,8 +192,7 @@
                                   $parent.$parent.singleGroupView=true; 
                                   $parent.currentGroupId = group.id; 
                                   $parent.currentGroupColor = group.color;
-                                  addGroup();"
-                             ng-attr-title="{{ group.name }}" 
+                                  addGroup();" ng-attr-title="{{ group.name }}" 
                     	ng-style="{background:group.color}">
                             <p>{{ group.name | limitTo:12 }}{{ group.name.length >= 12 ? '...' : '' }}</p>
                         </div>
