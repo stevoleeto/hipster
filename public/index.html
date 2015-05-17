@@ -58,6 +58,7 @@
       <div ng-controller="ProfileController"> 
         
         <script type="text/ng-template" id="myModalContent.html">
+<<<<<<< HEAD
             <div class="modal-header">
                 <h3 class="modal-title">Add a Friend</h3>
             </div>
@@ -69,24 +70,38 @@
                 <button class="btn btn-primary" ng-click="ok()">OK</button>
                 <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
             </div>
+=======
+        	<div ng-controller="ProfileController">
+	            <div class="modal-header">
+	                <h3 class="modal-title">Add a Friend</h3>
+	            </div>
+	            <div class="modal-body">
+	            	<label for="friendEmail">Friend&#39;s Email</label>
+	            	<input type="text" name="friendEmail" ng-model="newFriend" placeholder="New Friend's Email">
+	            </div>
+	            <div class="modal-footer">
+	                <button class="btn btn-primary" ng-click="addFriend(); cancel()">OK</button>
+	                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+	            </div>
+	        </div>
+>>>>>>> 7e339dd74eea5bc3b48e81cfcff0cca5920640c2
         </script>
 
         <script type="text/ng-template" id="friendList.html">
-            <div class="modal-header">
-                <h3 class="modal-title">Your Friends</h3>
-            </div>
-            <div class="modal-body">
-                <ul>
-                    <li ng-repeat="item in items">
-                        <a ng-click="selected.item = item">{{ item }}</a>
-                    </li>
-                </ul>
-                Selected: <b>{{ selected.item }}</b>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" ng-click="ok()">OK</button>
-                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-            </div>
+        	<div ng-controller="ProfileController">
+	            <div class="modal-header">
+	                <h3 class="modal-title">Your Friends</h3>
+	            </div>
+	            <div class="modal-body">
+	                <ul>
+	                    <li ng-repeat="friend in friendList track by $index">{{ friend.name }} ({{ friend.email }})</li>
+	                </ul>
+	            </div>
+	            <div class="modal-footer">
+	                <button class="btn btn-primary" ng-click="ok()">OK</button>
+	                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+	            </div>
+           	</div>
         </script>
           
         <div id="logoutWrapper">
@@ -171,16 +186,6 @@
                             <div ng-click="addEvent()" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
                     </div>
-
-                   <!--ADDED BY SARA-->
-                    <div id="membersInfo">
-                         <h2>Friends</h2>
-                         <div ng-click="addFriend()" class="friend" style="margin-top:10px;">Add New Friend</div>
-                         <input type="text" ng-model="newFriend" placeholder="New Friend Email">
-                         <br><br>
-            	      </div>
-
-
             	</div>
         	</div>
             
@@ -206,6 +211,7 @@
                             <p>{{ group.name | limitTo:12 }}{{ group.name.length >= 12 ? '...' : '' }}</p>
                         </div>
                         <div ng-click="addGroupModal()" id="addGroupBtn"></div>
+<<<<<<< HEAD
                                     <script type="text/ng-template" id="addGroup.html">
                                         <div ng-controller="ProfileController">
                                             <div class="modal-header">
@@ -230,6 +236,38 @@
                                             </div>
                                         </div>
                                     </script>
+=======
+                        
+                        <script type="text/ng-template" id="addGroup.html">
+                            <div ng-controller="ProfileController">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">Add a Group</h3>
+                                </div>
+                                <div class="modal-body">
+                                <input type="text" ng-model="newGroupName" placeholder="Group Name">
+                                <br>
+                                <br>
+                                <label for="groupColor">Select a Color</label>
+
+                                <ul id="groupColorSelect">
+                                    <li style = "background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></li>
+                                    <li style = "background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></li>
+                                    <li style = "background:#FFA6B1;" ng-click="groupColor='#FFA6B1'"></li>
+                                    <li style = "background:#FEC12F;" ng-click="groupColor='#FEC12F'"></li>
+                                </ul>    
+
+                                <br>
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" ng-click="createGroup(); cancel()">OK</button>
+                                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                                </div>
+                            </div>
+                        </script>
+                	</ul>
+            	</div>
+>>>>>>> 7e339dd74eea5bc3b48e81cfcff0cca5920640c2
         	</div>
         </div> 
       </div> <!--END PROFILE CONTROLLER -->

@@ -88,6 +88,7 @@ $scope.friendsModal = function (size) {
     });
   };
 
+<<<<<<< HEAD
 $scope.settingsModal = function (size) {
 
     var modalInstance = $modal.open({
@@ -114,6 +115,8 @@ $scope.settingsModal = function (size) {
 $scope.toggleAnimation = function () {
     $scope.animationsEnabled = !$scope.animationsEnabled;
 };
+=======
+>>>>>>> 7e339dd74eea5bc3b48e81cfcff0cca5920640c2
     
                                          
 $scope.addGroupModal = function (size) {
@@ -139,14 +142,7 @@ $scope.addGroupModal = function (size) {
     });
     };
 
-
-
-    $scope.toggleAnimation = function () {
-        $scope.animationsEnabled = !$scope.animationsEnabled;
-};   
-                                         
-                                         
-                                         
+                                                                                                                       
                                          
   /* user data */
   $scope.userName = currentUser.get("name");
@@ -163,18 +159,15 @@ $scope.addGroupModal = function (size) {
   //configuration for calendar
   $scope.uiConfig = {
     calendar:{
-        height: "50%",
+        height: "100%",
         viewRender: function(view, element) {
             $log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
-        }
+        },
+		editable: true,
+		defaultView: 'agendaWeek'
     }
 };
 
-
-  /* Change to weeksly view after 50 milliseconds
-   */
-  $timeout(function(){ uiCalendarConfig.calendars['userCalendar'].
-    fullCalendar('changeView','agendaWeek')}, 50);
 
 
   /* asks the service to please pull the group list of desire email,
@@ -183,12 +176,17 @@ $scope.addGroupModal = function (size) {
     $scope.myGroupList = userService.getGroupList();
   });
 
-  $scope.addGroup = function(){
-	
+  $scope.addGroup = function(){	
     groupService.addGroupId($scope.currentGroupId);
     groupService.addGroupColor($scope.currentGroupColor);
   }
 
+  
+  /* Function: Date
+   * Desciption: Called to get a new date object, offset will offset the hour. Minutes and seconds and milliseconds
+   * 			 set to 0.
+   *
+   */
   $scope.Date = function(hourOffset){
      var date =  new Date();
         date.setMinutes(0);
@@ -198,8 +196,7 @@ $scope.addGroupModal = function (size) {
             date.setHours(date.getHours() + hourOffset);
         }
         
-     console.log(date);
-     return date;
+	  return date;
   };
 
   
@@ -222,9 +219,17 @@ $scope.addGroupModal = function (size) {
     });
   }
 
+   /************************************************************************
+   * Name:    removeGroup()
+
+   * Purpose:   Remove a single group.
+
+   * Called In:   index.html
+
+   * Description: Removs all groups found in their GroupList userGroups array.
+   ************************************************************************/
   $scope.removeGroup = function(){
     userService.removeGroup($scope.removedGroup);
-    
     for (i = 0; i < $scope.myGroupList.length; i++){
       if($scope.myGroupList[i]['id'] === $scope.removedGroup){
         $scope.myGroupList.splice(i, 1);
@@ -266,7 +271,15 @@ $scope.addGroupModal = function (size) {
     $scope.newGroupName = '';
 
   }
+ /************************************************************************
+   * Name:    addEvent()
 
+   * Purpose:   Allows the user to add an event to their calendar.
+
+   * Called In:   index.html
+
+   * Description: Removs all groups found in their GroupList userGroups array.
+   ************************************************************************/
   $scope.addEvent = function(){
     var newEventStart = "";
     var newEventEnd = "";
@@ -292,16 +305,31 @@ $scope.addGroupModal = function (size) {
   }
   //ADDED BY SARA
   $scope.addFriend = function() {
-    console.log($scope.friendList);
-    $scope.friendList.push($scope.newFriend); 
-    console.log($scope.friendList);
-    currentUser.set("friendList", $scope.friendList);
-    currentUser.save();
+	var User = Parse.Object.extend("User");
+    var query = new Parse.Query(User);
+	query.equalTo("username", $scope.newFriend);
+	query.find().then(function(pulledFriend) {
+		$scope.friendList.push({email: $scope.newFriend, name:pulledFriend[0].attributes.name});
+		console.log($scope.friendList);
+		currentUser.set("friendList", $scope.friendList);
+		currentUser.save();
+	});
+    
+    
   }
 
 
 }]);
 
+ /************************************************************************
+   * Name:    ModalInstanceCtrl
+
+   * Purpose: Controller for Modal
+
+   * Called In:   ProfileController and GroupController
+
+   * Description: Modal control
+   ************************************************************************/
 app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
 
   $scope.items = items;

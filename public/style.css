@@ -357,7 +357,8 @@ input
 
 .groupSelect
 {
-    border:solid black 1px;
+    position:relative;
+/*    border:solid black 1px;*/
     width:150px;
     height: 150px;
     float: left;
@@ -365,6 +366,7 @@ input
     /*background: #FDA7B2;*/
     cursor:pointer;
     margin-top:20px;
+    z-index:0;
 }
 
 .groupSelect:hover
@@ -376,6 +378,7 @@ input
     text-align: center;
     font-size: 16px;
     border-bottom:solid black 1px;
+    border-top:solid black 1px;
     background:white;
 }
 
@@ -473,6 +476,7 @@ input
 
 #groupColorSelect li
 {
+<<<<<<< HEAD
     border:solid black 1px;
     width:25px;
     height:25px;
@@ -481,3 +485,31 @@ input
     cursor:pointer;
 }
 
+=======
+    float:left;
+    height:25px;
+    width:25px;
+    margin-left:15px;
+    cursor:pointer;
+}
+
+#removeGroupBtn
+{
+    position:relative;
+    transition:height .2s;
+    background:white;
+    height:20px;
+    width:auto;
+    z-index: 3;
+    top:200px;
+    border:solid black 1px;
+}
+
+#removeGroupBtn:hover
+{
+    height:25px;
+    transition: height .2s;
+    
+}
+
+>>>>>>> 7e339dd74eea5bc3b48e81cfcff0cca5920640c2
