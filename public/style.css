@@ -61,7 +61,23 @@ body  {
     background: white;
     border-radius: 5px;
     z-index:1;
-    border:solid black 1px;
+}
+
+#slideText {
+    color: #333;
+    font-size: 20px;
+}
+
+.carousel-control:hover {
+    cursor: pointer;
+}
+
+.carousel-indicators li {
+    border: 1px solid #333;
+}
+
+.carousel-indicators .active {
+    background: #333;
 }
 
 #btnWrapper 
