@@ -206,12 +206,14 @@
                                             <input type="text" ng-model="newGroupName" placeholder="Group Name">
                                             <br>
                                             <label for="groupColor">Select a Color</label>
-                                            <select id="groupColor" ng-model="groupColor">
-                                                <option value="#B9F5FF">Blue</option>
-                                                <option value="#B5FBA3">Green</option>
-                                                <option value="#FFA6B1">Red</option>
-                                                <option value="#FEC12F">Orange</option>
-                                            </select>
+                                                
+                                            <ul id="groupColorSelect">
+                                                <li style = "background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></li>
+                                                <li style = "background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></li>
+                                                <li style = "background:#FFA6B1;" ng-click="groupColor='#FFA6B1'"></li>
+                                                <li style = "background:#FEC12F;" ng-click="groupColor='#FEC12F'"></li>
+                                            </ul>    
+                                                
                                             </div>
                                             <div class="modal-footer">
                                                 <button class="btn btn-primary" ng-click="createGroup(); cancel()">OK</button>
