@@ -58,7 +58,6 @@
       <div ng-controller="ProfileController"> 
         
         <script type="text/ng-template" id="myModalContent.html">
-<<<<<<< HEAD
             <div class="modal-header">
                 <h3 class="modal-title">Add a Friend</h3>
             </div>
@@ -70,21 +69,6 @@
                 <button class="btn btn-primary" ng-click="ok()">OK</button>
                 <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
             </div>
-=======
-        	<div ng-controller="ProfileController">
-	            <div class="modal-header">
-	                <h3 class="modal-title">Add a Friend</h3>
-	            </div>
-	            <div class="modal-body">
-	            	<label for="friendEmail">Friend&#39;s Email</label>
-	            	<input type="text" name="friendEmail" ng-model="newFriend" placeholder="New Friend's Email">
-	            </div>
-	            <div class="modal-footer">
-	                <button class="btn btn-primary" ng-click="addFriend(); cancel()">OK</button>
-	                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-	            </div>
-	        </div>
->>>>>>> 7e339dd74eea5bc3b48e81cfcff0cca5920640c2
         </script>
 
         <script type="text/ng-template" id="friendList.html">
@@ -102,6 +86,27 @@
 	                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
 	            </div>
            	</div>
+        </script>
+
+        <script type="text/ng-template" id="settings.html">
+            <div ng-controller="ProfileController">
+                <div class="modal-header">
+                    <h3 class="modal-title">Account Settings</h3>
+                </div>
+                <div class="modal-body">
+                    <label>New UserName</label>
+                    <input ng-model="newUserName"><br><br>
+                    <label>New Email</label>
+                    <input ng-model="newEmail"><br><br>
+                    <label>New Password</label>
+                    <input ng-model="newPassword"><br><br>
+                    <button ng-click="settingsSave()">Save</button>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" ng-click="ok()">OK</button>
+                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                </div>
+            </div>
         </script>
           
         <div id="logoutWrapper">
@@ -162,8 +167,6 @@
                             <input ng-show="singleEvent" for="pEndDate" type="date" class="eventPar" ng-model="newSingleEventEndDate">
                             <br><br>
 
-<<<<<<< HEAD
-
                             <p ng-show="singleEvent">Single Event Start Time</p>
                             <input ng-show="singleEvent" type="time" class="eventPar" ng-model="newSingleEventStartTime"><br><br>
                             
@@ -211,7 +214,6 @@
                             <p>{{ group.name | limitTo:12 }}{{ group.name.length >= 12 ? '...' : '' }}</p>
                         </div>
                         <div ng-click="addGroupModal()" id="addGroupBtn"></div>
-<<<<<<< HEAD
                                     <script type="text/ng-template" id="addGroup.html">
                                         <div ng-controller="ProfileController">
                                             <div class="modal-header">
@@ -236,7 +238,6 @@
                                             </div>
                                         </div>
                                     </script>
-=======
                         
                         <script type="text/ng-template" id="addGroup.html">
                             <div ng-controller="ProfileController">
@@ -267,7 +268,6 @@
                         </script>
                 	</ul>
             	</div>
->>>>>>> 7e339dd74eea5bc3b48e81cfcff0cca5920640c2
         	</div>
         </div> 
       </div> <!--END PROFILE CONTROLLER -->

@@ -88,7 +88,6 @@ $scope.friendsModal = function (size) {
     });
   };
 
-<<<<<<< HEAD
 $scope.settingsModal = function (size) {
 
     var modalInstance = $modal.open({
@@ -115,8 +114,6 @@ $scope.settingsModal = function (size) {
 $scope.toggleAnimation = function () {
     $scope.animationsEnabled = !$scope.animationsEnabled;
 };
-=======
->>>>>>> 7e339dd74eea5bc3b48e81cfcff0cca5920640c2
     
                                          
 $scope.addGroupModal = function (size) {
@@ -318,6 +315,23 @@ $scope.addGroupModal = function (size) {
     
   }
 
+  $scope.settingsSave = function(){
+    console.log($scope.newUserName);
+    if ($scope.newUserName != ""){
+      currentUser.set("name", $scope.newUserName);
+      $scope.userName = $scope.newUserName;
+      console.log($scope.newUserName);
+    }
+    if ($scope.newEmai != ""){ 
+      currentUser.set("username", $scope.newEmai);
+      currentUser.set("email", $scope.newEmai);
+      console.log($scope.newEmail);
+    }
+    if ($scope.newPassword != ""){
+      currentUser.set("password", $scope.newPassword);
+  }
+  currentUser.save();
+}
 
 }]);
 
