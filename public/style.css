@@ -379,30 +379,23 @@ input
     background:white;
 }
 
-#addGroupBtn:before {
-    content: "+";
-}
-
 #addGroupBtn
 {
     position: relative;
     top: 45px;
-    left: 25px;
+    left: 23px;
     float: left;
-    height: 100px;
-    width: 100px;
-    background: #81BEF7;
-    border-radius: 50px;
-    font-size: 80px;
-    line-height: 96px;
-    text-align: center;
-    font-weight: 700;
-    color: white;
+    height: 105px;
+    width: 107px;
+    background-image: url('images/addGroup.png');
+    background-repeat: no-repeat;
+    border-radius: 50%;
 }
 
 #addGroupBtn:hover {
     cursor: pointer;
-    background: #0080FF;
+    opacity: 0.75;
+    filter: alpha(opacity=50);
 }
 
 #homeView, .singleGroupView

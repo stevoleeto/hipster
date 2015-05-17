@@ -57,44 +57,42 @@
       <!-- PROFILE CONTROLLER -->
       <div ng-controller="ProfileController"> 
         
-                                    <script type="text/ng-template" id="myModalContent.html">
-                                        <div class="modal-header">
-                                            <h3 class="modal-title">Add a Friend</h3>
-                                        </div>
-                                        <div class="modal-body">
-                                            <ul>
-                                                <li ng-repeat="item in items">
-                                                    <a ng-click="selected.item = item">{{ item }}</a>
-                                                </li>
-                                            </ul>
-                                            Selected: <b>{{ selected.item }}</b>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button class="btn btn-primary" ng-click="ok()">OK</button>
-                                            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-                                        </div>
-                                    </script>
-          
-                                    <script type="text/ng-template" id="friendList.html">
-                                        <div class="modal-header">
-                                            <h3 class="modal-title">Your Friends</h3>
-                                        </div>
-                                        <div class="modal-body">
-                                            <ul>
-                                                <li ng-repeat="item in items">
-                                                    <a ng-click="selected.item = item">{{ item }}</a>
-                                                </li>
-                                            </ul>
-                                            Selected: <b>{{ selected.item }}</b>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button class="btn btn-primary" ng-click="ok()">OK</button>
-                                            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-                                        </div>
-                                    </script>
-          
-                                    
+        <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header">
+                <h3 class="modal-title">Add a Friend</h3>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li ng-repeat="item in items">
+                        <a ng-click="selected.item = item">{{ item }}</a>
+                    </li>
+                </ul>
+                Selected: <b>{{ selected.item }}</b>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="ok()">OK</button>
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
 
+        <script type="text/ng-template" id="friendList.html">
+            <div class="modal-header">
+                <h3 class="modal-title">Your Friends</h3>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li ng-repeat="item in items">
+                        <a ng-click="selected.item = item">{{ item }}</a>
+                    </li>
+                </ul>
+                Selected: <b>{{ selected.item }}</b>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="ok()">OK</button>
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+          
         <div id="logoutWrapper">
             <div class="btn-group" dropdown>
                 <div class="logoutbtn" ng-show="homeView" dropdown-toggle></div>
@@ -138,8 +136,11 @@
                             <input type="text" name="pEventName" class="eventPar" ng-model="newEventName">
                             <br><br>
 
-                            <input type="radio" name="singleEvent" ng-click="singleEvent=true">Single
-                            <input type="radio" name="singleEvent" ng-click="singleEvent=false">Recurring
+                            <label for="singleEvent">Single Event</label>
+                            <label for="recurringEvent">Recurring Event</label>
+                            <input type="radio" name="singleEvent" ng-click="singleEvent=true">
+                            <input type="radio" name="recurringEvent" ng-click="singleEvent=false">
+                            <br><br>
 
                             <label for="pStartTime" ng-show="!singleEvent">Single Event Start Date</label>
                             <input ng-show="!singleEvent" name="pStartDate" type="date" class="eventPar" ng-model="newEventStartDate">
@@ -149,14 +150,17 @@
                             <input ng-show="!singleEvent" for="pEndDate" type="date" class="eventPar" ng-model="newEventEndDate">
                             <br><br>
 
-                            <label for="pStartDate" ng-show="singleEvent">Date</label>
-                            <input ng-init="newSingleEventDate = Date()" ng-show="singleEvent" type="date" class="eventPar" ng-model="newSingleEventDate"><br><br>
+                            <label for="pStartDate" ng-show="singleEvent">Date</p>
+                            <input ng-init="newSingleEventDate = Date()" ng-show="singleEvent" type="date" class="eventPar" ng-model="newSingleEventDate">
+                            <br><br>
                             
-                            <p>Start Time</p>
-                            <input ng-init="newEventStartTime = Date()" type="time" class="eventPar" ng-model="newEventStartTime"><br><br>
+                            <label>Start Time</label>
+                            <input ng-init="newEventStartTime=Date()" type="time" class="eventPar" ng-model="newEventStartTime">
+                            <br><br>
                             
-                            <p>End Time</p>
-                            <input ng-init="newEventEndTime = Date()" type="time" class="eventPar" ng-model="newEventEndTime"><br><br>
+                            <label>End Time</label>
+                            <input ng-init="newEventEndTime = Date()" type="time" class="eventPar" ng-model="newEventEndTime">
+                            <br><br>
                             
                             <div ng-click="addEvent()" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
@@ -196,7 +200,6 @@
                             <p>{{ group.name | limitTo:12 }}{{ group.name.length >= 12 ? '...' : '' }}</p>
                         </div>
                         <div ng-click="addGroupModal()" id="addGroupBtn"></div>
-                        
                                     <script type="text/ng-template" id="addGroup.html">
                                         <div ng-controller="ProfileController">
                                             <div class="modal-header">
@@ -221,59 +224,55 @@
                                             </div>
                                         </div>
                                     </script>
-                        
-                	</ul>
-            	</div>
         	</div>
         </div> 
       </div> <!--END PROFILE CONTROLLER -->
         <!-- GROUP CONTROLLER -->
         <div class="singleGroupView" ng-init="singleGroupView=false" ng-show="singleGroupView">
             <div id="profileWrapper" ng-controller="GroupController">
-                    <p id = "groupName" ng-style="{background:groupColor}">{{ groupName }}</p>
-                    <div style="clear:both;">
-                    <div id="scheduleWrapper" >
-                        <p id="yourSched">Your Schedule</p>
-                
-                        <div class="schedule">
-                            <!-- TEST group UI CALENDAR -->
-                             <div  ng-model="eventSources" calendar='groupCalendar' ui-calendar="uiConfig.calendar"  ></div> 
-                            <br><br>
-                        </div>
-                    </div>
-                    
-                    <div id="createWrapper">
-                        <p id="createTitle">Create Event</p>
-                        <div class="createEvent">
-                            <label for="gEventName">Event Name</label>
-                            <input type="text" name="gEventName" class="eventPar" ng-model="newEventName"><br><br>
-                            
-                            <label for="gStartTime">Start Time</label>
-                            <input type="time" name="gStartTime" class="eventPar" ng-model="lol"><br><br>
-                            
-                            <label for="gEndTime">End Time</label>
-                            <input type="time" name="gEndTime" class="eventPar" ng-model="lol2"><br><br>
-                            
-                            <label for="gStartDate">Start Date</label>
-                            <input type="date" name="gStartDate" class="eventPar" ng-model="lol3"><br><br>
-                            
-                            <label for="gEndDate">End Date</label>
-                            <input type="date" name="gEndDate" class="eventPar" ng-model="lol3"><br><br>
-                            
-                            <div ng-click="" class="createButton" style="margin-top:10px;">Create</div>
-                        </div>
-                    </div>
-                        </div>
-                    
-                    <div id="membersInfo">
-                        <h2>Members</h2>
-                        <div class = "members" ng-repeat="member in memberList track by $index"> {{member.name}} </div>
-                        <br><br><br><br><br><br>
-                        <div ng-click="addMember()" class="btn2" style="margin-top:10px;">Add New Member</div>
-                        <input type="text" ng-model="newMemberEmail" placeholder="New Member Email">
+                <p id = "groupName" ng-style="{background:groupColor}">{{ groupName }}</p>
+                <div style="clear:both;">
+                <div id="scheduleWrapper" >
+                    <p id="yourSched">Your Schedule</p>
+            
+                    <div class="schedule">
+                        <!-- TEST group UI CALENDAR -->
+                         <div  ng-model="eventSources" calendar='groupCalendar' ui-calendar="uiConfig.calendar"  ></div> 
                         <br><br>
-            	   </div>
-	            
+                    </div>
+                </div>
+                
+                <div id="createWrapper">
+                    <p id="createTitle">Create Event</p>
+                    <div class="createEvent">
+                        <label for="gEventName">Event Name</label>
+                        <input type="text" name="gEventName" class="eventPar" ng-model="newEventName"><br><br>
+                        
+                        <label for="gStartTime">Start Time</label>
+                        <input type="time" name="gStartTime" class="eventPar" ng-model="lol"><br><br>
+                        
+                        <label for="gEndTime">End Time</label>
+                        <input type="time" name="gEndTime" class="eventPar" ng-model="lol2"><br><br>
+                        
+                        <label for="gStartDate">Start Date</label>
+                        <input type="date" name="gStartDate" class="eventPar" ng-model="lol3"><br><br>
+                        
+                        <label for="gEndDate">End Date</label>
+                        <input type="date" name="gEndDate" class="eventPar" ng-model="lol3"><br><br>
+                        
+                        <div ng-click="" class="createButton" style="margin-top:10px;">Create</div>
+                    </div>
+                </div>
+                    </div>
+                
+                <div id="membersInfo">
+                    <h2>Members</h2>
+                    <div class = "members" ng-repeat="member in memberList track by $index"> {{member.name}} </div>
+                    <br><br><br><br><br><br>
+                    <div ng-click="addMember()" class="btn2" style="margin-top:10px;">Add New Member</div>
+                    <input type="text" ng-model="newMemberEmail" placeholder="New Member Email">
+                    <br><br>
+        	   </div>
             </div>   
         </div>
     </body>
