@@ -62,12 +62,8 @@
                 <h3 class="modal-title">Add a Friend</h3>
             </div>
             <div class="modal-body">
-                <ul>
-                    <li ng-repeat="item in items">
-                        <a ng-click="selected.item = item">{{ item }}</a>
-                    </li>
-                </ul>
-                Selected: <b>{{ selected.item }}</b>
+            	<label for="friendEmail">Friend&#39;s Email</label>
+            	<input type="text" name="friendEmail">
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary" ng-click="ok()">OK</button>
@@ -76,21 +72,20 @@
         </script>
 
         <script type="text/ng-template" id="friendList.html">
-            <div class="modal-header">
-                <h3 class="modal-title">Your Friends</h3>
-            </div>
-            <div class="modal-body">
-                <ul>
-                    <li ng-repeat="item in items">
-                        <a ng-click="selected.item = item">{{ item }}</a>
-                    </li>
-                </ul>
-                Selected: <b>{{ selected.item }}</b>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" ng-click="ok()">OK</button>
-                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-            </div>
+        	<div ng-controller="ProfileController">
+	            <div class="modal-header">
+	                <h3 class="modal-title">Your Friends</h3>
+	            </div>
+	            <div class="modal-body">
+	                <ul>
+	                    <li ng-repeat="friend in friendList track by $index">{{ friend }}</li>
+	                </ul>
+	            </div>
+	            <div class="modal-footer">
+	                <button class="btn btn-primary" ng-click="ok()">OK</button>
+	                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+	            </div>
+           	</div>
         </script>
           
         <div id="logoutWrapper">
@@ -197,7 +192,8 @@
                                   $parent.$parent.singleGroupView=true; 
                                   $parent.currentGroupId = group.id; 
                                   $parent.currentGroupColor = group.color;
-                                  addGroup();" ng-attr-title="{{ group.name }}" 
+                                  addGroup();"
+                             ng-attr-title="{{ group.name }}" 
                     	ng-style="{background:group.color}">
                             <p>{{ group.name | limitTo:12 }}{{ group.name.length >= 12 ? '...' : '' }}</p>
                         </div>
@@ -211,13 +207,18 @@
                                 <div class="modal-body">
                                 <input type="text" ng-model="newGroupName" placeholder="Group Name">
                                 <br>
+                                <br>
                                 <label for="groupColor">Select a Color</label>
-                                <select id="groupColor" ng-model="groupColor">
-                                    <option value="#B9F5FF">Blue</option>
-                                    <option value="#B5FBA3">Green</option>
-                                    <option value="#FFA6B1">Red</option>
-                                    <option value="#FEC12F">Orange</option>
-                                </select>
+
+                                <ul id="groupColorSelect">
+                                    <li style = "background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></li>
+                                    <li style = "background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></li>
+                                    <li style = "background:#FFA6B1;" ng-click="groupColor='#FFA6B1'"></li>
+                                    <li style = "background:#FEC12F;" ng-click="groupColor='#FEC12F'"></li>
+                                </ul>    
+
+                                <br>
+                                    
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-primary" ng-click="createGroup(); cancel()">OK</button>
