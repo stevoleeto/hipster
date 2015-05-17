@@ -39,20 +39,114 @@ var currentUser = Parse.User.current();
 
 
 
-app.controller('ProfileController', ['$scope','groupService','$timeout','userService','uiCalendarConfig', function($scope, groupService, $timeout, userService, uiCalendarConfig) {
+app.controller('ProfileController', ['$scope', 'groupService','$timeout','userService','uiCalendarConfig', '$modal', '$log', 
+                                     function($scope, groupService, $timeout, userService, uiCalendarConfig, $modal,$log) {
+    
+  $scope.items = ['item1', 'item2', 'item3'];
 
+  $scope.animationsEnabled = true;
+
+  $scope.open = function (size) {
+
+    var modalInstance = $modal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'myModalContent.html',
+      controller: 'ModalInstanceCtrl',
+      size: size,
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
+      }
+    });
+      
+    modalInstance.result.then(function (selectedItem) {
+      $scope.selected = selectedItem;
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+  };
+                                         
+$scope.friendsModal = function (size) {
+
+    var modalInstance = $modal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'friendList.html',
+      controller: 'ModalInstanceCtrl',
+      size: size,
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
+      }
+    });
+     
+    modalInstance.result.then(function (selectedItem) {
+    $scope.selected = selectedItem;
+    }, function () {
+        $log.info('Modal dismissed at: ' + new Date());
+    });
+  };
+
+$scope.toggleAnimation = function () {
+    $scope.animationsEnabled = !$scope.animationsEnabled;
+};
+    
+                                         
+$scope.addGroupModal = function (size) {
+
+    var modalInstance = $modal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'addGroup.html',
+      controller: 'ModalInstanceCtrl',
+      size: size,
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
+      }
+    });
+
+    modalInstance.result.then(function (selectedItem) {
+    $scope.selected = selectedItem;
+    }, function () {
+        $scope.myGroupList = userService.getGroupList();
+        $log.info('Modal dismissed at: ' + new Date());
+        
+    });
+    };
+
+
+
+    $scope.toggleAnimation = function () {
+        $scope.animationsEnabled = !$scope.animationsEnabled;
+};   
+                                         
+                                         
+                                         
+                                         
   /* user data */
   $scope.userName = currentUser.get("name");
   $scope.joinDate = currentUser.createdAt;
   $scope.email = currentUser.get("username");
   $scope.eventArray = currentUser.get("personalSchedule");
   $scope.friendList = currentUser.get("friendList");
-
+								 
   //set users email in service
   userService.setEmail(currentUser.get("username")); 
-
+								 
   // source for calendar events
   $scope.eventSources = [$scope.eventArray];
+  //configuration for calendar
+  $scope.uiConfig = {
+    calendar:{
+        height: "50%",
+        viewRender: function(view, element) {
+            $log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
+        }
+    }
+};
+
 
   /* Change to weeksly view after 50 milliseconds
    */
@@ -67,12 +161,22 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
   });
 
   $scope.addGroup = function(){
+	
     groupService.addGroupId($scope.currentGroupId);
     groupService.addGroupColor($scope.currentGroupColor);
   }
 
-  $scope.Date = function(){
-     return new Date();
+  $scope.Date = function(hourOffset){
+     var date =  new Date();
+        date.setMinutes(0);
+        date.setMilliseconds(0);
+        date.setSeconds(0);
+        if(hourOffset){
+            date.setHours(date.getHours() + hourOffset);
+        }
+        
+     console.log(date);
+     return date;
   };
 
   
@@ -131,14 +235,12 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
    * Description: Creates a new group, and adds the new group to the GroupList userGroups array for both the current user the and user they have selected.
    ************************************************************************/
   $scope.createGroup = function(){
-
     userService.createGroup($scope.userName, $scope.email, $scope.myGroupList, $scope.newGroupName, $scope.groupColor).then(function(){
       /* this is to ensure scope gets applied even if query takes a bit too long*/
       $timeout(function(){$scope.$apply()}, 150);
     });
     /* clear text box */
     $scope.newGroupName = '';
-
 
   }
 
@@ -161,7 +263,6 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
     currentUser.set("personalSchedule", $scope.eventArray);
     currentUser.save(null, {
       success: function(object) {
-        
       }
     });
 
@@ -177,3 +278,19 @@ app.controller('ProfileController', ['$scope','groupService','$timeout','userSer
 
 
 }]);
+
+app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
+
+  $scope.items = items;
+  $scope.selected = {
+    item: $scope.items[0]
+  };
+
+  $scope.ok = function () {
+    $modalInstance.close($scope.selected.item);
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+});

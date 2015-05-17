@@ -205,6 +205,28 @@ input
     background: white;
 }
 
+.friendsOptionsBtn
+{
+    background-image: url(images/person.png);
+    height: 45px;
+    width: 45px;
+    background-size:contain;
+    background-repeat: no-repeat;
+    float:right;
+    position: relative; 
+    cursor: pointer;
+    margin-left:15px;
+    top: 10px;
+    transition: height .5s, width .5s;
+}
+
+.friendsOptionsBtn:hover
+{
+    height:47px;
+    width:47px;
+    transition: height .5s, width .5s;
+}
+
 .logoutbtn
 {	
     background-image: url(images/cog.png);
@@ -357,30 +379,23 @@ input
     background:white;
 }
 
-#addGroupBtn:before {
-    content: "+";
-}
-
 #addGroupBtn
 {
     position: relative;
     top: 45px;
-    left: 25px;
+    left: 23px;
     float: left;
-    height: 100px;
-    width: 100px;
-    background: #81BEF7;
-    border-radius: 50px;
-    font-size: 80px;
-    line-height: 96px;
-    text-align: center;
-    font-weight: 700;
-    color: white;
+    height: 105px;
+    width: 107px;
+    background-image: url('images/addGroup.png');
+    background-repeat: no-repeat;
+    border-radius: 50%;
 }
 
 #addGroupBtn:hover {
     cursor: pointer;
-    background: #0080FF;
+    opacity: 0.75;
+    filter: alpha(opacity=50);
 }
 
 #homeView, .singleGroupView
@@ -433,11 +448,36 @@ input
     position:relative;
 }
 
+.btn-group li
+{
+    cursor:pointer;
+}
+
+.btn-group li:hover
+{
+   background:#BBDEFB;
+}
+
 .friend
 {
     background: red;
     width: 10%;
     height: 20px;
     cursor: pointer;
+}
+
+#groupColorSelect
+{
+    list-style: none;
+}
+
+#groupColorSelect li
+{
+    border:solid black 1px;
+    width:25px;
+    height:25px;
+    margin-left:15px;
+    float:left;
+    cursor:pointer;
 }
 

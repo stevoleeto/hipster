@@ -36,6 +36,15 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
       }
     ]
   ];
+    
+$scope.calendarConfig = {
+    calendar:{
+        height: "100%",
+        viewRender: function(view, element) {
+            $log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
+        }
+    }
+};
 
 
 /* Watch to see if single group view is set to true, if it is, pull down group id*/
