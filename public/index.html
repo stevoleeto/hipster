@@ -150,17 +150,19 @@
                             <input ng-show="!singleEvent" for="pEndDate" type="date" class="eventPar" ng-model="newEventEndDate">
                             <br><br>
 
-                            <label for="pStartDate" ng-show="singleEvent">Date</p>
+                            <label for="pStartDate" ng-show="singleEvent">Date</label>
+                            <input ng-init="newSingleEventDate = Date()" ng-show="singleEvent" type="date" class="eventPar" ng-model="newSingleEventDate"><br><br>
+
+                            <label for="pStartDate" ng-show="singleEvent">Date</label>
                             <input ng-init="newSingleEventDate = Date()" ng-show="singleEvent" type="date" class="eventPar" ng-model="newSingleEventDate">
                             <br><br>
                             
                             <label>Start Time</label>
                             <input ng-init="newEventStartTime=Date()" type="time" class="eventPar" ng-model="newEventStartTime">
                             <br><br>
-                            
-                            <label>End Time</label>
-                            <input ng-init="newEventEndTime = Date()" type="time" class="eventPar" ng-model="newEventEndTime">
-                            <br><br>
+
+                            <p>End Time</p>
+                            <input ng-init="newEventEndTime = Date(1)" type="time" class="eventPar" ng-model="newEventEndTime"><br><br>
                             
                             <div ng-click="addEvent()" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
