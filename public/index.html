@@ -303,8 +303,11 @@
                 
                 <div id="membersInfo">
                     <h2>Members</h2>
-                    <div class = "members" ng-repeat="member in memberList track by $index"> {{member.name}} </div>
-                    <br><br><br><br><br><br>
+                    <div class="members" ng-repeat="member in memberList track by $index">
+                    	<div id="memberIcon"></div>
+                    	<p text-align="center">{{member.name}}</p>
+                    </div>
+                    <br><br><br><br><br><br><br><br><br><br>
                     <div ng-click="addMember()" class="btn2" style="margin-top:10px;">Add New Member</div>
                     <input type="text" ng-model="newMemberEmail" placeholder="New Member Email">
                     <br><br>
