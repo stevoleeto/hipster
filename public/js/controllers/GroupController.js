@@ -57,8 +57,8 @@ $scope.addMemberModal = function (size) {
     modalInstance.result.then(function (selectedItem) {
     $scope.selected = selectedItem;
     }, function () {
-//        $log.info('Modal dismissed at: ' + new Date());
-        $scope.myMemberList = groupService.getMemberList();
+        $log.info('Modal dismissed at: ' + new Date());
+        $scope.memberList = groupService.getMemberList();
     });
   };
     
