@@ -133,7 +133,7 @@ $scope.addGroupModal = function (size) {
     modalInstance.result.then(function (selectedItem) {
     $scope.selected = selectedItem;
     }, function () {
-//        $scope.myGroupList = userService.getGroupList();
+        $scope.myGroupList = userService.getGroupList();
         //$log.info('Modal dismissed at: ' + new Date());
         
     });
