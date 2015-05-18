@@ -2,6 +2,15 @@ app.service('groupService', function(){
   
   var currentGroupId;
   var groupColor;
+  var memberList;
+
+  var setMemberList = function(newMemberList){
+    memberList = newMemberList;
+  };
+
+  var getMemberList = function(){
+    return memberList;
+  };
 
   var addGroupId = function (newGroupId){
       currentGroupId = newGroupId;
@@ -23,7 +32,9 @@ app.service('groupService', function(){
       addGroupId: addGroupId,
       getGroupId: getGroupId,
       addGroupColor: addGroupColor,
-      getGroupColor: getGroupColor
+      getGroupColor: getGroupColor,
+      setMemberList : setMemberList,
+      getMemberList : getMemberList
   };
 
 });

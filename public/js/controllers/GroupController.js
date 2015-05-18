@@ -186,6 +186,7 @@ $scope.addMember = function(){
           object[0].save();
           $scope.memberList[$scope.memberList.length] = {name:object[0]._serverData.userName, email:object[0]._serverData.userEmail};
           group[0].save();
+          groupService.setMemberList($scope.memberList);
         },
         error: function(object, error) {
           console.log(error);
