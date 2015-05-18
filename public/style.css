@@ -452,6 +452,7 @@ input
 
 .members
 {
+/*    border:solid black 1px;*/
     float:left;
     margin: 20px;
     text-align: center;
@@ -523,4 +524,24 @@ input
 {
     height:25px;
     transition: height .2s;
+}
+
+#addMemberBtn
+{
+    position: relative;
+    top: 45px;
+    left: 23px;
+    float: left;
+    height: 50px;
+    width: 50px;
+    background-image: url('images/addGroup.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 50%;
+}
+
+#addMemberBtn:hover {
+    cursor: pointer;
+    opacity: 0.75;
+    filter: alpha(opacity=75);
 }

@@ -26,7 +26,7 @@
 
 var currentUser = Parse.User.current();
 
-app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalendarConfig','$log', function($scope, groupService, $timeout, uiCalendarConfig, $log) { 
+app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalendarConfig','$log', '$modal', function($scope, groupService, $timeout, uiCalendarConfig, $log, $modal) { 
 
   $scope.eventSources = [
     [
@@ -37,6 +37,33 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
     ]
   ];
 
+    
+$scope.animationsEnabled = true;    
+    
+$scope.addMemberModal = function (size) {
+
+    var modalInstance = $modal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'addMember.html',
+      controller: 'ModalInstanceCtrl',
+      size: size,
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
+      }
+    });
+     
+    modalInstance.result.then(function (selectedItem) {
+    $scope.selected = selectedItem;
+    }, function () {
+//        $log.info('Modal dismissed at: ' + new Date());
+        $scope.myMemberList = groupService.getMemberList();
+    });
+  };
+    
+    
+        
 // Group Calendar Settings
 // -----------------------
 $scope.uiConfig = {
