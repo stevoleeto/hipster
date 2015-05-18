@@ -142,13 +142,13 @@ body .fc { /* extra precedence to overcome jqui */
 
 .fc-state-default {
 	background-color: #f5f5f5;
-	background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
-	background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
-	background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
-	background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+	background-image: -moz-linear-gradient(top, #3399FF, #99CCFF);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#3399FF), to(#99CCFF));
+	background-image: -webkit-linear-gradient(top, #3399FF, #99CCFF);
+	background-image: -o-linear-gradient(top, #3399FF, #99CCFF);
+	background-image: linear-gradient(to bottom, #3399FF, #99CCFF);
 	background-repeat: repeat-x;
-	border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+	border-color: #99CCFF #99CCFF #bfbfbf;
 	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 	color: #333;
 	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
@@ -160,7 +160,7 @@ body .fc { /* extra precedence to overcome jqui */
 .fc-state-active,
 .fc-state-disabled {
 	color: #333333;
-	background-color: #e6e6e6;
+	background-color: #99CCFF;
 }
 
 .fc-state-hover {
@@ -175,7 +175,7 @@ body .fc { /* extra precedence to overcome jqui */
 
 .fc-state-down,
 .fc-state-active {
-	background-color: #cccccc;
+	background-color: #5882FA;
 	background-image: none;
 	box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
