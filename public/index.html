@@ -96,15 +96,26 @@
                 <div class="modal-body">
                     <label>New UserName</label>
                     <input ng-model="newUserName"><br>
-                    <label>New Email</label>
+                    <label>New Email</label><br>
                     <input ng-model="newEmail"><br>
                     <label>New Password</label>
                     <input type="password" ng-model="newPassword"><br>
+                    
+                    <label for="groupColor">Select a user icon</label>
+                                                
+                    <ul id="groupColorSelect">
+                        <li style = "background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></li>
+                        <li style = "background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></li>
+                        <li style = "background:#FFA6B1;" ng-click="groupColor='#FFA6B1'"></li>
+                        <li style = "background:#FEC12F;" ng-click="groupColor='#FEC12F'"></li>
+                    </ul>
+                    
+                    <br>
                     <label ng-show="saveLabel">Saved!</label>
-                    <button ng-click="settingsSave(); saveLabel = true">Save</button>
+<!--                    <button ng-click="settingsSave(); saveLabel = true">Save</button>-->
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" ng-click="ok()">OK</button>
+                    <button class="btn btn-primary" ng-click="settingSave(); saveLabel = true">OK</button>
                     <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
                 </div>
             </div>
