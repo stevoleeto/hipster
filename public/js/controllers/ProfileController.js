@@ -134,7 +134,7 @@ $scope.addGroupModal = function (size) {
     $scope.selected = selectedItem;
     }, function () {
         $scope.myGroupList = userService.getGroupList();
-        $log.info('Modal dismissed at: ' + new Date());
+        //$log.info('Modal dismissed at: ' + new Date());
         
     });
     };
@@ -277,8 +277,9 @@ $scope.addGroupModal = function (size) {
     $scope.newGroupName = '';
 
   }
+
  /************************************************************************
-   * Name:    addEvent()
+   * Name:    createEvent()
 
    * Purpose:   Allows the user to add an event to their calendar.
 
@@ -286,21 +287,14 @@ $scope.addGroupModal = function (size) {
 
    * Description: Removs all groups found in their GroupList userGroups array.
    ************************************************************************/
-  $scope.addEvent = function(){
-    var newEventStart = "";
-    var newEventEnd = "";
-    console.log($scope.newSingleEventStartDate);
-    console.log($scope.newSingleEventStartTime);
-    newEventStart = $scope.newSingleEventStartDate;
-    newEventEnd = $scope.newSingleEventEndDate;
-    
+  $scope.createEvent = function(){
     $scope.eventArray.push({
-      title  : $scope.newEventName,
-      start  : newEventStart,
-      end    : newEventEnd
+      title  : $scope.eventName,
+      start  : $scope.eventStartTime.setDate($scope.eventStartDate.getDay()),
+      end    : $scope.eventEndDate.setDate($scope.eventStartDate.getDay())
     });
-
-    console.log($scope.eventArray);
+    $scope.eventSources = [$scope.eventArray];
+    console.log($scope.eventSources);
 
     currentUser.set("personalSchedule", $scope.eventArray);
     currentUser.save(null, {
@@ -309,6 +303,7 @@ $scope.addGroupModal = function (size) {
     });
 
   }
+
   //ADDED BY SARA
   $scope.addFriend = function() {
 	var User = Parse.Object.extend("User");

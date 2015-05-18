@@ -149,44 +149,29 @@
                     <div id="createWrapper">
                         <p id="createTitle">Create Event</p>
                         <div class="createEvent">
-                            <label for="pEventName">Event Name</label>
+                            <p >Event Name</p>
                             <input type="text" name="pEventName" class="eventPar" ng-model="newEventName">
                             <br><br>
 
-                            <label for="singleEvent">Single Event</label>
-                            <label for="recurringEvent">Recurring Event</label>
-                            <input type="radio" name="singleEvent" ng-click="singleEvent=true">
-                            <input type="radio" name="recurringEvent" ng-click="singleEvent=false">
+                            <label for="repeatingEvent">Repeating Event</label>
+                            <input ng-init="repeatingEvent=false" type="checkbox" name="repeatingEvent" ng-click="repeatingEvent = !repeatingEvent">
                             <br><br>
 
-                            <label for="pStartTime" ng-show="singleEvent">Single Event Start Date</label>
-                            <input ng-show="singleEvent" name="pStartDate" type="date" class="eventPar" ng-model="newSingleEventStartDate">
+                            <p >Start Date</p>
+                            <input  ng-init="eventStartDate = Date()" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate">
                             <br><br>
                             
-                            <label for="pEndTime" ng-show="singleEvent">Single Event End Date</label>
-                            <input ng-show="singleEvent" for="pEndDate" type="date" class="eventPar" ng-model="newSingleEventEndDate">
+                            <p >End Date</p>
+                            <input ng-init="eventEndDate = Date()"  for="pEndDate" type="date" class="eventPar" ng-model="eventEndDate">
                             <br><br>
 
-                            <p ng-show="singleEvent">Single Event Start Time</p>
-                            <input ng-show="singleEvent" type="time" class="eventPar" ng-model="newSingleEventStartTime"><br><br>
+                            <p >Start Time</p>
+                            <input ng-init="eventStartTime = Date()" type="time" class="eventPar" ng-model="eventStartTime"><br><br>
                             
-                            <p ng-show="singleEvent">Single Event End Time</p>
-                            <input  ng-show="singleEvent" type="time" class="eventPar" ng-model="newSingleEventEndTime"><br><br>
-
-                            <label for="pStartDate" ng-show="!singleEvent">Recurring Start Date</p>
-                            <input  ng-show="!singleEvent" type="date" class="eventPar" ng-model="newRecurringEventStartDate"><br><br>
-
-                            <label for="pEndTime" ng-show="!singleEvent">Recurring End Date</p>
-                            <input  ng-show="!singleEvent" type="date" class="eventPar" ng-model="newRecurringEventEndDate"><br><br>
+                            <p >End Time</p>
+                            <input ng-init="eventEndTime = Date(1)"  type="time" class="eventPar" ng-model="eventEndTime"><br><br>
                             
-                            <p ng-show="!singleEvent">Recurring Start Time</p>
-                            <input ng-show="!singleEvent" type="time" class="eventPar" ng-model="newReccuringEventStartTime"><br><br>
-                            
-                            <p ng-show="!singleEvent">Recurring End Time</p>
-                            <input  ng-show="!singleEvent" type="time" class="eventPar" ng-model="newReccuringEventEndTime"><br><br>
-
-                            
-                            <div ng-click="addEvent()" class="createButton" style="margin-top:10px;">Create</div>
+                            <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
                     </div>
             	</div>
@@ -287,27 +272,34 @@
                 </div>
                 
                 <div id="createWrapper">
-                    <p id="createTitle">Create Event</p>
-                    <div class="createEvent">
-                        <label for="gEventName">Event Name</label>
-                        <input type="text" name="gEventName" class="eventPar" ng-model="newEventName"><br><br>
-                        
-                        <label for="gStartTime">Start Time</label>
-                        <input type="time" name="gStartTime" class="eventPar" ng-model="lol"><br><br>
-                        
-                        <label for="gEndTime">End Time</label>
-                        <input type="time" name="gEndTime" class="eventPar" ng-model="lol2"><br><br>
-                        
-                        <label for="gStartDate">Start Date</label>
-                        <input type="date" name="gStartDate" class="eventPar" ng-model="lol3"><br><br>
-                        
-                        <label for="gEndDate">End Date</label>
-                        <input type="date" name="gEndDate" class="eventPar" ng-model="lol3"><br><br>
-                        
-                        <div ng-click="" class="createButton" style="margin-top:10px;">Create</div>
-                    </div>
+                       <div class="createEvent">
+                            <p >Event Name</p>
+                            <input type="text" name="pEventName" class="eventPar" ng-model="newEventName">
+                            <br><br>
+
+                            <label for="repeatingEvent">Repeating Event</label>
+                            <input ng-init="repeatingEvent=false" type="checkbox" name="repeatingEvent" ng-click="repeatingEvent = !repeatingEvent">
+                            <br><br>
+
+                            <p >Start Date</p>
+                            <input  ng-init="eventStartDate = Date()" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate">
+                            <br><br>
+                            
+                            <p >End Date</p>
+                            <input ng-init="eventEndDate = Date()"  for="pEndDate" type="date" class="eventPar" ng-model="eventEndDate">
+                            <br><br>
+
+                            <p >Start Time</p>
+                            <input ng-init="eventStartTime = Date()" type="time" class="eventPar" ng-model="eventStartTime"><br><br>
+                            
+                            <p >End Time</p>
+                            <input ng-init="eventEndTime = Date(1)"  type="time" class="eventPar" ng-model="eventEndTime"><br><br>
+                            
+                            <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
+                        </div>
+                    
                 </div>
-                    </div>
+                
                 
                 <div id="membersInfo">
                     <h2>Members</h2>

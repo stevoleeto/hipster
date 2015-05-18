@@ -174,6 +174,36 @@ $scope.addMember = function(){
   $timeout(function(){$scope.$apply()}, 5000);
 
 }
+  /* Function: Date
+   * Desciption: Called to get a new date object, offset will offset the hour. Minutes and seconds and milliseconds
+   * 			 set to 0.
+   *
+   */
+  $scope.Date = function(hourOffset){
+     var date =  new Date();
+        date.setMinutes(0);
+        date.setMilliseconds(0);
+        date.setSeconds(0);
+        if(hourOffset){
+            date.setHours(date.getHours() + hourOffset);
+        }
+        
+	  return date;
+  };
+
+ /************************************************************************
+   * Name:    createEvent()
+
+   * Purpose:   Allows the user to add an event to their calendar.
+
+   * Called In:   index.html
+
+   * Description: Removs all groups found in their GroupList userGroups array.
+   ************************************************************************/
+  $scope.createEvent = function(){
+
+
+  }
 
 
 
