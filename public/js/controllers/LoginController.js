@@ -13,8 +13,6 @@ var tips = document.getElementById( 'sTips' );
 var currentUser = Parse.User.current();
 
 
-
-
 app.controller('LoginController', ['$scope', function($scope) { 
 
   $scope.companyName = 'HIPSTERinc';
@@ -25,10 +23,6 @@ app.controller('LoginController', ['$scope', function($scope) {
 
   $scope.validEmail = true;
   $scope.validName = true;
-
-
-
-
 
 
 
@@ -172,7 +166,29 @@ app.controller('LoginController', ['$scope', function($scope) {
 
 
 }]);
-//
+  
+app.controller('CarouselInstanceCtrl', function ($scope) {
+  $scope.interval = 5000;
+  var slides = $scope.slides = [];
+
+  $scope.addSlide = function() {
+    slides.push({
+      image: '../images/ProfileView.png',
+      caption: 'Customize your weekly schedule'
+    });
+    slides.push({
+      image: '../images/Groups.png',
+      caption: 'Add a group to organize events'
+    });
+    slides.push({
+      image: '../images/GroupsView.png',
+      caption: 'Find free time for your events among your group'
+    });
+  }
+
+  $scope.addSlide();
+});
+
 /////////////////////
 //Helper JS functions
 /////////////////////
@@ -192,7 +208,7 @@ app.controller('LoginController', ['$scope', function($scope) {
  var newTip - The string to be displayed in the tip bar.
  ************************************************************************/
 function updateTips( id, newTip ) {
-  var tips = document.getElementById( id );
+  var tips = document.getElementById(id);
   //Change the text displayed to the argument
   tips.innerHTML = newTip;
   //Change the background-color and border color of the tips bar.
@@ -216,8 +232,8 @@ function updateTips( id, newTip ) {
  ************************************************************************/
 function dispTab( tabId ) {
   //Declare any necessary variables
-  var login = document.getElementById( 'login' ), signup = document.getElementById( 'signup' ),
-      sForm = document.getElementById( 'sForm' ), lForm = document.getElementById( 'lForm' );
+  var login = document.getElementById( 'login' ), signup = document.getElementById('signup'),
+      sForm = document.getElementById( 'sForm' ), lForm = document.getElementById('lForm');
 
   //If the user clicked on "Log In" tab
   if ( tabId == 'login' ) {
@@ -239,4 +255,5 @@ function dispTab( tabId ) {
     //Display the text boxes and buttons for the sign up form
     sForm.style.display = 'block';
   }
+
 }

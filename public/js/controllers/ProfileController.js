@@ -150,6 +150,7 @@ $scope.addGroupModal = function (size) {
 								 
   //set users email in service
   userService.setEmail(currentUser.get("username")); 
+  userService.setName($scope.userName);
 								 
   // source for calendar events
   $scope.eventSources = [$scope.eventArray];
@@ -320,21 +321,22 @@ $scope.addGroupModal = function (size) {
   }
 
   $scope.settingsSave = function(){
-    console.log($scope.newUserName);
-    if ($scope.newUserName != ""){
+    if ($scope.newUserName){
       currentUser.set("name", $scope.newUserName);
       $scope.userName = $scope.newUserName;
-      console.log($scope.newUserName);
     }
-    if ($scope.newEmai != ""){ 
-      currentUser.set("username", $scope.newEmai);
-      currentUser.set("email", $scope.newEmai);
-      console.log($scope.newEmail);
+    if ($scope.newEmail){ 
+      currentUser.set("username", $scope.newEmail);
+      currentUser.set("email", $scope.newEmail);
     }
-    if ($scope.newPassword != ""){
+    if ($scope.newPassword){
       currentUser.set("password", $scope.newPassword);
-  }
+    }
   currentUser.save();
+  $scope.newUserName = "";
+  userService.setName($scope.newUserName);
+  $scope.newEmail = "";
+  $scope.newPassword = "";
 }
 
 }]);
@@ -349,11 +351,6 @@ $scope.addGroupModal = function (size) {
    * Description: Modal control
    ************************************************************************/
 app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
-
-  $scope.items = items;
-  $scope.selected = {
-    item: $scope.items[0]
-  };
 
   $scope.ok = function () {
     $modalInstance.close($scope.selected.item);

@@ -12,7 +12,7 @@
 
 
         <!-- Get access to the Parse library -->
-		    <script type="text/javascript" src="https://parse.com/downloads/javascript/parse-1.4.2.js"></script>
+		<script type="text/javascript" src="https://parse.com/downloads/javascript/parse-1.4.2.js"></script>
 
         <!-- Load UI Calendar sources -->
         <link rel="stylesheet" href="lib/bower_components/fullcalendar/dist/fullcalendar.css"/>
@@ -95,12 +95,13 @@
                 </div>
                 <div class="modal-body">
                     <label>New UserName</label>
-                    <input ng-model="newUserName"><br><br>
+                    <input ng-model="newUserName"><br>
                     <label>New Email</label>
-                    <input ng-model="newEmail"><br><br>
+                    <input ng-model="newEmail"><br>
                     <label>New Password</label>
-                    <input ng-model="newPassword"><br><br>
-                    <button ng-click="settingsSave()">Save</button>
+                    <input type="password" ng-model="newPassword"><br>
+                    <label ng-show="saveLabel">Saved!</label>
+                    <button ng-click="settingsSave(); saveLabel = true">Save</button>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" ng-click="ok()">OK</button>
