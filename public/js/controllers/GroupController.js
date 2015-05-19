@@ -187,6 +187,12 @@ $scope.addMember = function(){
           $scope.memberList[$scope.memberList.length] = {name:object[0]._serverData.userName, email:object[0]._serverData.userEmail};
           group[0].save();
           groupService.setMemberList($scope.memberList);
+
+          Parse.Cloud.run('mailGroupAlert', {email: $scope.newMemberEmail, group: $scope.groupName}, {
+            success: function(result) {},
+            error: function(error) {}
+          });
+
         },
         error: function(object, error) {
           console.log(error);

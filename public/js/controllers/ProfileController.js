@@ -338,6 +338,18 @@ $scope.addGroupModal = function (size) {
     
   }
 
+  $scope.parseTest = function(){
+    console.log("Parse Test!");
+
+    Parse.Cloud.run('mailTest', {email: $scope.email}, {
+      success: function(result) {
+      // result is 'Hello world!'
+      },
+      error: function(error) {
+      }
+    });
+  }
+
   $scope.settingsSave = function(){
     if ($scope.newUserName){
       currentUser.set("name", $scope.newUserName);
