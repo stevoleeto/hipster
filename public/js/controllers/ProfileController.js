@@ -270,12 +270,30 @@ $scope.addGroupModal = function (size) {
    * Description: Creates a new group, and adds the new group to the GroupList userGroups array for both the current user the and user they have selected.
    ************************************************************************/
   $scope.createGroup = function(){
-    userService.createGroup($scope.userName, $scope.email, $scope.myGroupList, $scope.newGroupName, $scope.groupColor).then(function(){
+    if ($scope.newGroupName == undefined){
+      var Group = Parse.Object.extend("Group");
+      var query = new Parse.Query(Group);
+      query.get($scope.newGroupCode);
+      query.find().then(function(pulledGroup) {
+        pulledGroup[0]._serverData.memberList.push({name: $scope.userName, email: $scope.email});
+        pulledGroup[0].save();
+
+        userService.queryGroupList($scope.email).then(function(){
+        var queryGroupList = userService.getGroupListQuery();
+        $scope.myGroupList.push({id: pulledGroup[0].id, name: pulledGroup[0]._serverData.name, color: "#B5FBA3"});
+        queryGroupList[0].set("userGroups", $scope.myGroupList);
+        queryGroupList[0].save();
+        console.log(queryGroupList[0]);
+        })
+      });
+    }
+    else{userService.createGroup($scope.userName, $scope.email, $scope.myGroupList, $scope.newGroupName, $scope.groupColor).then(function(){
       /* this is to ensure scope gets applied even if query takes a bit too long*/
       $timeout(function(){$scope.$apply()}, 150);
     });
     /* clear text box */
     $scope.newGroupName = '';
+  }
 
   }
 
