@@ -55,14 +55,13 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
         }
       }
     });
-     
     modalInstance.result.then(function (selectedItem) {
     $scope.selected = selectedItem;
     }, function () {
         $log.info('Modal dismissed at: ' + new Date());
-        /* after enough time, update the memberlist view with new memberlist and the new personal schedule */
-        $timeout(function(){$scope.memberList = groupService.getMemberList()}, 150);
-        $timeout(function(){$scope.eventSources.push(groupService.getNewMember().personalSchedule)}, 500);
+        /* update view after modal is dismissed by addMember() */
+        $scope.memberList = groupService.getMemberList();
+        $scope.eventSources.push(groupService.getNewMember().personalSchedule);
     });
   };
          
@@ -147,9 +146,9 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
    ************************************************************************/
   $scope.addMember = function(){
     groupService.addMember($scope.currentGroupId, $scope.newMemberEmail).then(function(){
-      //  TODO figure out how to use this promise to update view
       //  $scope.memberList = groupService.getMemberList();
       //  $scope.eventSources.push(groupService.getNewMember().personalSchedule);
+      $scope.cancel(); // close the modal
     })
   };
   /* Function: Date

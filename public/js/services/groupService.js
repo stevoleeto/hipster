@@ -25,33 +25,46 @@ app.service('groupService',['$q', function($q){
    ************************************************************************/
   var addMember = function(groupId, newMemberEmail){
     var deferred = $q.defer();
-    deferred.resolve(
+    /* query the group and get its member list and name */
     queryGroup(groupId).then(function(){
       memberList = groupQuery[0].attributes.memberList;
       groupName = groupQuery[0].attributes.name;
 
+      /* make sure the new member is resolved */
+      deferred.resolve(
+      /* query the user get it's data */
       queryUser(newMemberEmail).then(function(){
         newMember = userQuery[0].attributes;
-    console.log(newMember);
-      });
+      })
+      );
 
+      /* make sure the new groupList is resolved */
+      deferred.resolve(
+      /* query the groupList of the new member and do the following:
+       * 1) update the new member's groupList with the new group 
+       * 2) update our working memberlist
+       * 3) update the memberlist of the group */
       queryGroupList(newMemberEmail).then(function(){
-        var tempList = groupListQuery[0]._serverData.userGroups;
-        tempList[tempList.length] = {id: getGroupId(), name: groupName, color: getGroupColor()};
-        groupListQuery[0].set("userGroups", tempList);
+        var newMemberGroupList = groupListQuery[0]._serverData.userGroups;
+        /* set new member's grouplist to have the new group in it */
+        newMemberGroupList[newMemberGroupList.length] = {id: getGroupId(), name: groupName, color: getGroupColor()};
+        /* save the new member's grouplist */
         groupListQuery[0].save();
+        /* add username and email to memberlist */
         memberList[memberList.length] = {name: groupListQuery[0].attributes.userName, email:groupListQuery[0].attributes.userEmail};
+        /* save group to database with updated memberlist */
         groupQuery[0].save();
 
+        /* cloud code call to send an alert to new member */
         Parse.Cloud.run('mailGroupAlert', {email: newMemberEmail, group: groupName}, {
           success: function(result) {},
           error: function(error) {}
         });
 
-      });
-
       })
       );
+
+      })
       return deferred.promise;
       };
 
@@ -110,6 +123,9 @@ app.service('groupService',['$q', function($q){
         );
     return deferred.promise;
   };
+
+  /* SETTERS AND GETTERS */
+  /***********************/
 
   var getNewMember = function(){
       return newMember;
