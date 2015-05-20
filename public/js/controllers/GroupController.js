@@ -42,7 +42,18 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
 
     
   $scope.animationsEnabled = true;    
-    
+  /************************************************************************
+   * Name:        addMemberModal
+
+   * Purpose:     To create a modal for the user to add a new member to a group.
+
+   * Called In:   index.html
+
+   * Description: Creates a modal for the user to enter new member information
+   *              into, so as to add a new member to the group. This function
+   *              is in charge of updating the view with the new members
+   *              schedule and the new members name.
+   ************************************************************************/
   $scope.addMemberModal = function (size) {
     var modalInstance = $modal.open({
       animation: $scope.animationsEnabled,
@@ -65,6 +76,8 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
     });
   };
          
+
+
   /* Group Calendar Settings */
   /* ----------------------- */
   $scope.uiConfig = {
@@ -83,6 +96,10 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
       }
   };
 
+  /* END Group Calendar Settings */
+  /* --------------------------- */
+
+  //TODO convert to service call
   /* Watch to see if single group view is set to true, if it is, pull down group id*/
   $scope.$watch('singleGroupView', function(){
     if($scope.singleGroupView === false){
@@ -132,6 +149,8 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
 
     }
   });
+
+
   /************************************************************************
    * Name:    addMember()
 
@@ -146,11 +165,11 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
    ************************************************************************/
   $scope.addMember = function(){
     groupService.addMember($scope.currentGroupId, $scope.newMemberEmail).then(function(){
-      //  $scope.memberList = groupService.getMemberList();
-      //  $scope.eventSources.push(groupService.getNewMember().personalSchedule);
-      $scope.cancel(); // close the modal
+      $scope.cancel(); // close the modal, which is in charge of updating view
     })
   };
+
+
   /* Function: Date
    * Desciption: Called to get a new date object, offset will offset the hour. Minutes and seconds and milliseconds
    * 			 set to 0.
@@ -171,11 +190,11 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
   /************************************************************************
    * Name:        createEvent()
 
-   * Purpose:     Allows the user to add an event to their calendar.
+   * Purpose:     Allows the user to add an event to the group calendar.
 
    * Called In:   index.html
 
-   * Description: Removs all groups found in their GroupList userGroups array.
+   * Description: Creates an event on the group calendar. TODO
    ************************************************************************/
   $scope.createEvent = function(){
 
