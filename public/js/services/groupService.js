@@ -166,7 +166,6 @@ app.service('groupService',['$q', function($q){
     return currentGroupId;
   };
 
-
   var setGroupColor = function(color){
     groupColor = color;
   };
