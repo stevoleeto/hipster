@@ -68,7 +68,7 @@ body  {
     font-size: 20px;
 }
 
-.carousel-control:hover {
+.carousel-control:hover, .selIcons:hover {
     cursor: pointer;
 }
 
@@ -477,7 +477,6 @@ input
 
 .members
 {
-/*    border:solid black 1px;*/
     float:left;
     margin: 20px;
     text-align: center;
@@ -485,7 +484,7 @@ input
     width: 42px;
 }
 
-.members #memberIcon {
+.memberIcon {
     height: 100%;
     width: 100%;
     background-image: url('images/userIcon.png');
@@ -569,4 +568,29 @@ input
     cursor: pointer;
     opacity: 0.75;
     filter: alpha(opacity=75);
+}
+
+#colIcons {
+    height: 300px;
+    overflow-y: scroll;
+    background: white;
+}
+
+#icons {
+    position: relative;
+    height: 100px;
+    width: 100px;
+    float: left;
+    margin: 15px;
+    text-align: center;
+}
+
+.selIcons {
+    width: 80px;
+    height: 80px;
+}
+
+.selected {
+    box-shadow: 0 0 5px rgba(23, 93, 169, 1);
+    border: 1px solid rgba(23, 93, 169, 1)
 }

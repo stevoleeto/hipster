@@ -372,9 +372,9 @@ $scope.addGroupModal = function (size) {
 }]);
 
  /************************************************************************
-   * Name:    ModalInstanceCtrl
+   * Name:        ModalInstanceCtrl
 
-   * Purpose: Controller for Modal
+   * Purpose:     Controller for Modal
 
    * Called In:   ProfileController and GroupController
 
@@ -388,5 +388,57 @@ app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
 
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
-  };
+};
+});
+
+/************************************************************************
+ * Name:        CollapseInstanceCtrl
+
+ * Purpose:     Collapsibleontroller for Collapsible
+
+ * Called In:   ProfileController
+
+ * Description: This controller holds all the fields and functions
+                associated wth the collapsible. This has fields and
+                functions specifically designed for displaying the user 
+                icons in the account settings modal.
+ ************************************************************************/
+app.controller('CollapseInstanceCtrl', function ($scope) {
+  //Set the collapsible to be hidden initially
+  $scope.isCollapsed = true;
+
+  //Create an array to hold the icon objects. Think of this as an array of structs (c/c++).
+  var icons = $scope.icons = [];
+
+  //Loop through icons, initialize fields, and push onto the array
+  //Note: this pushes the icons into the array in the following pattern: 
+  //Hipster Male 1, Hipster Female 1, Hipster Male 2, Hipster Female 2, Hipster Male 3, ... , Hipster Female 8
+  for (var i = 1; i <= 8; ++i) {
+    icons.push({
+      image: 'images/hipsterMale' + i + '.png',
+      name: 'Hipster Male ' + i,
+      selected: 0
+    });
+    icons.push({
+      image: 'images/hipsterFemale' + i + '.png',
+      name: 'Hipster Female ' + i,
+      selected: 0
+    });
+  }
+
+  //Sets the selected field of all icons except for the one clicked on to 0. Sets selected field of clicked on icon to 1.
+  //Allows ng-class to assign the selected class css to only the icon clicked on.
+  $scope.clearSel = function(event) {
+    //Loops through each element of the array
+    angular.forEach(icons, function(icon) {
+      //Check if the clicked on icon's src attribute is NOT the same as the current iteration of the array's image field
+      if ($(event.target).attr('src') != icon.image) {
+        //Sets selected field to false because this icon in the array is not the one clicked on
+        icon.selected = 0;
+      } else {
+        //Sets selected field to true becuase this icon in the array is the one clicked on.
+        icon.selected = 1;
+      }
+    });
+  }
 });
