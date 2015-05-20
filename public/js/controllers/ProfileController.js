@@ -388,5 +388,35 @@ app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
 
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
-  };
+};
+});
+
+app.controller('CollapseInstanceCtrl', function ($scope) {
+  $scope.isCollapsed = true;
+
+  var icons = $scope.icons = [];
+
+  for (var i = 1; i <= 8; ++i) {
+    icons.push({
+      image: 'images/hipsterMale' + i + '.png',
+      name: 'Hipster Male ' + i,
+      selected: 0
+    });
+    icons.push({
+      image: 'images/hipsterFemale' + i + '.png',
+      name: 'Hipster Female ' + i,
+      selected: 0
+    });
+  }
+
+  $scope.setSelected = function(event, sel) {
+    if ( sel == 1 ) {
+      $(event.target).css('box-shadow','none');
+      $(event.target).css('border','none');
+    } else {
+      $(event.target).css('box-shadow','0 0 5px rgba(23, 93, 169, 1)');
+      $(event.target).css('border','1px solid rgba(23, 93, 169, 1)');
+    }
+  }
+
 });

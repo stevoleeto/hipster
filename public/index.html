@@ -100,22 +100,24 @@
                     <input ng-model="newEmail"><br>
                     <label>New Password</label>
                     <input type="password" ng-model="newPassword"><br>
-                    
-                    <label for="">Select a user icon</label>
-                                                
-                    <ul id="groupColorSelect">
-                        <li style = "background:#B9F5FF;" ng-click=""></li>
-                        <li style = "background:#B5FBA3;" ng-click=""></li>
-                        <li style = "background:#FFA6B1;" ng-click=""></li>
-                        <li style = "background:#FEC12F;" ng-click=""></li>
-                    </ul>
-                    
+                    <br>     
+                    <div ng-controller="CollapseInstanceCtrl">
+                    	<button class="btn btn-default" ng-click="isCollapsed=!isCollapsed">User Icons</button><br><br>
+                    	<div collapse="isCollapsed">
+                    		<div class="well" id="colIcons">
+                    			<h2 text-align="center">Select a user icon</h2>
+	                    		<div id="icons" ng-repeat="icon in icons track by $index" ng-attr-title="{{ icon.name }}">
+	                    			<img class="selIcons" ng-src="{{icon.image}}"
+	                    			     ng-click="icon.selected=!icon.selected;setSelected($event,icon.selected);" />
+	                    		</div>
+                    		</div>
+                    	</div>
+                    </div>
                     <br>
                     <label ng-show="saveLabel">Saved!</label>
-<!--                    <button ng-click="settingsSave(); saveLabel = true">Save</button>-->
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" ng-click="settingSave(); saveLabel = true">OK</button>
+                	<button class="btn btn-primary" ng-click="settingsSave();saveLabel=true">Save</button>
                     <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
                 </div>
             </div>
@@ -183,7 +185,6 @@
                             <p >End Time</p>
                             <input ng-init="eventEndTime = Date(1)"  type="time" class="eventPar" ng-model="eventEndTime"><br><br>
 
-                            
                             <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
                     </div>
@@ -212,30 +213,30 @@
                             <p>{{ group.name | limitTo:12 }}{{ group.name.length >= 12 ? '...' : '' }}</p>
                         </div>
                         <div ng-click="addGroupModal()" id="addGroupBtn"></div>
-                                    <script type="text/ng-template" id="addGroup.html">
-                                        <div ng-controller="ProfileController">
-                                            <div class="modal-header">
-                                                <h3 class="modal-title">Add a Group</h3>
-                                            </div>
-                                            <div class="modal-body">
-                                            <input type="text" ng-model="newGroupName" placeholder="Group Name">
-                                            <br>
-                                            <label for="groupColor">Select a Color</label>
-                                                
-                                            <ul id="groupColorSelect">
-                                                <li style = "background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></li>
-                                                <li style = "background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></li>
-                                                <li style = "background:#FFA6B1;" ng-click="groupColor='#FFA6B1'"></li>
-                                                <li style = "background:#FEC12F;" ng-click="groupColor='#FEC12F'"></li>
-                                            </ul>    
-                                                
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-primary" ng-click="createGroup(); cancel()">OK</button>
-                                                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-                                            </div>
-                                        </div>
-                                    </script>
+                        <script type="text/ng-template" id="addGroup.html">
+                            <div ng-controller="ProfileController">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">Add a Group</h3>
+                                </div>
+                                <div class="modal-body">
+                                <input type="text" ng-model="newGroupName" placeholder="Group Name">
+                                <br>
+                                <label for="groupColor">Select a Color</label>
+                                    
+                                <ul id="groupColorSelect">
+                                    <li style = "background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></li>
+                                    <li style = "background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></li>
+                                    <li style = "background:#FFA6B1;" ng-click="groupColor='#FFA6B1'"></li>
+                                    <li style = "background:#FEC12F;" ng-click="groupColor='#FEC12F'"></li>
+                                </ul>    
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" ng-click="createGroup(); cancel()">OK</button>
+                                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                                </div>
+                            </div>
+                        </script>
                         
                         <script type="text/ng-template" id="addGroup.html">
                             <div ng-controller="ProfileController">
@@ -318,29 +319,27 @@
                     <p>{{currentGroupId}}
                     <h2>Members</h2>
                     <div class="members" ng-repeat="member in memberList track by $index">
-                    	<div id="memberIcon"></div>
+                    	<div class="memberIcon"></div>
                     	<p text-align="center">{{member.name}}</p>
                     </div>
                     <div id = "addMemberBtn" ng-click="addMemberModal()"></div>
-                    
-                        <script type="text/ng-template" id="addMember.html">
-                            <div ng-controller="GroupController">
-                                <div class="modal-header">
-                                    <h3 class="modal-title">Add a Member</h3>
-                                </div>
-                                <div class="modal-body">
-                                <input type="text" ng-model="newMemberEmail" placeholder="New Member Email">
-                                   
-
-                                <br>
-                                    
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-primary" ng-click="addMember(); cancel()">OK</button>
-                                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-                                </div>
+                    <script type="text/ng-template" id="addMember.html">
+                        <div ng-controller="GroupController">
+                            <div class="modal-header">
+                                <h3 class="modal-title">Add a Member</h3>
                             </div>
-                        </script>
+                            <div class="modal-body">
+                            <input type="text" ng-model="newMemberEmail" placeholder="New Member Email">
+                               
+                            <br>
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" ng-click="addMember(); cancel()">OK</button>
+                                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                            </div>
+                        </div>
+                    </script>
         	   </div>
             </div>   
         </div>
