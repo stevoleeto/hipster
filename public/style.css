@@ -480,14 +480,13 @@ input
     float:left;
     margin: 20px;
     text-align: center;
-    height: 70px;
-    width: 42px;
+    height: 80px;
+    width: 80px;
 }
 
 .memberIcon {
     height: 100%;
     width: 100%;
-    background-image: url('images/userIcon.png');
     background-repeat: no-repeat;
     background-size: contain;
 }
@@ -588,6 +587,10 @@ input
 .selIcons {
     width: 80px;
     height: 80px;
+}
+
+.smallIcon {
+    width: 48px;
 }
 
 .selected {
