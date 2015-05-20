@@ -323,24 +323,30 @@ input
     float:right;
     clear:right;
     width: 100%;
-    border:solid black 1.5px;
+/*    border:solid black 1.5px;*/
+    height:auto;
+    padding-top:10px;
+    background: #BEDFFE;
+/*    border-radius:10px;*/
+/*
     background-image: -moz-linear-gradient(top, #3399FF, #99CCFF);
     background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#3399FF), to(#99CCFF));
     background-image: -webkit-linear-gradient(top, #3399FF, #99CCFF);
     background-image: -o-linear-gradient(top, #3399FF, #99CCFF);
-    background-image: linear-gradient(to bottom, #3399FF, #99CCFF);
-    background-repeat: repeat-x;
-    border-color: #99CCFF #99CCFF #bfbfbf;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    color: #333;
-    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-}
+*/
+/*    background-image: linear-gradient(to bottom, #3399FF, #99CCFF);*/
+/*    background-repeat: repeat-x;*/
+/*    border-color: #99CCFF #99CCFF #bfbfbf;*/
+/*    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);*/
+/*    color: #333;*/
+/*    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);*/
+/*    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);*/
 }
 
-.createEvent p
+
+.createEvent p,label
 {
-    font-size: 20px;
+    font-size: 16px;
     margin-left:10px;
 }
 
@@ -348,31 +354,38 @@ input
 {
     font-size: 35px;
     letter-spacing: 3px;
-    background:#9EF699;
+/*    background:#9EF699;*/
     height:60px;
     text-align: center;
     width: 180px;
     margin-right: auto;
     margin-left: auto;
-    transition:width .5s;
+    transition:width .5s, background .4s;
+    margin-bottom: 10px;
+    background:#AAEFAA;
+/*    border:solid grey 1px;*/
 }
 
 .createButton:hover
 {
     cursor:pointer;
-    transition:width .5s;
-    width: 210px;
+    transition:width .5s, background .4s;
+    width: 190px;
     background:#99FF99;
+    border:none;
 }
 
 .eventPar
 {
-    width:80%;
+    width:auto;
     position:relative;
-    margin-left: 20px;
-    border:solid black 1px;
+    margin-left: 10px;
+    font-weight: 400;
+    font-size:16px;
+/*    border:solid black 1px;*/
     border-radius:0px;
     height:35px;
+    border:none;
 }
 
 .btn2
