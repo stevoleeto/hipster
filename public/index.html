@@ -106,9 +106,9 @@
                     	<div collapse="isCollapsed">
                     		<div class="well" id="colIcons">
                     			<h2 text-align="center">Select a user icon</h2>
-	                    		<div id="icons" ng-repeat="icon in icons track by $index" ng-attr-title="{{ icon.name }}">
-	                    			<img class="selIcons" ng-src="{{icon.image}}"
-	                    			     ng-click="icon.selected=!icon.selected;setSelected($event,icon.selected);" />
+	                    		<div id="icons" ng-repeat="icon in icons track by $index" ng-attr-title="{{icon.name}}">
+	                    			<img class="selIcons" ng-src="{{icon.image}}" ng-click="clearSel($event);" 
+                                         ng-class="{'selected': icon.selected}"/>
 	                    		</div>
                     		</div>
                     	</div>
