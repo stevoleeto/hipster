@@ -26,7 +26,8 @@
 
 var currentUser = Parse.User.current();
 
-app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalendarConfig','$log', '$modal', function($scope, groupService, $timeout, uiCalendarConfig, $log, $modal) { 
+app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalendarConfig','$log', '$modal', 
+    function($scope, groupService, $timeout, uiCalendarConfig, $log, $modal) { 
 
   $scope.eventSources = [
     [
@@ -58,7 +59,9 @@ $scope.addMemberModal = function (size) {
     $scope.selected = selectedItem;
     }, function () {
         $log.info('Modal dismissed at: ' + new Date());
-        $scope.memberList = groupService.getMemberList();
+        /* after enough time, update the memberlist view with new memberlist and the new personal schedule */
+        $timeout(function(){$scope.memberList = groupService.getMemberList()}, 150);
+        $timeout(function(){$scope.eventSources.push(groupService.getNewMember().personalSchedule)}, 500);
     });
   };
     
@@ -105,8 +108,6 @@ $scope.$watch('singleGroupView', function(){
         $scope.$apply();
 
 
-        /* set group calendar to weekly view! */
-     //   $timeout(function(){ uiCalendarConfig.calendars['groupCalendar'].
       //    fullCalendar('changeView','agendaWeek')}, 50);
         var User = Parse.Object.extend("User");
         var query = new Parse.Query(User);
@@ -125,8 +126,6 @@ $scope.$watch('singleGroupView', function(){
 
           });
         }
-
-
 
       },
         error: function(group, error){
@@ -152,62 +151,13 @@ $scope.$watch('singleGroupView', function(){
    *				new member and adds the new group to their list.
    ************************************************************************/
 $scope.addMember = function(){
-  var Group = Parse.Object.extend("Group");
-  var query = new Parse.Query(Group);
-  query.equalTo("objectId", $scope.currentGroupId);
-  query.find({
-    success: function(group){
-      $scope.groupName = group[0]._serverData.name;
-      $scope.memberList = group[0]._serverData.memberList;
+  groupService.addMember($scope.currentGroupId, $scope.newMemberEmail).then(function(){
+    //  TODO figure out how to use this promise to update view
+  //  $scope.memberList = groupService.getMemberList();
+  //  $scope.eventSources.push(groupService.getNewMember().personalSchedule);
+  })
+};
 
-      /* get new member's schedule and update view with it */
-      var User = Parse.Object.extend("User");
-      var query = new Parse.Query(User);
-      query.equalTo("username", $scope.newMemberEmail);
-      query.find({
-        success: function(member){
-          $scope.eventSources.push(member[0]._serverData.personalSchedule);
-          $scope.$apply();
-        },
-        error: function(member, error){
-          console.log("MEMBER SCHEDULE UPDATE ERROR");
-        }
-      });
-
-      /* get the grouplist for the new member so we can add this group to it! */
-      var GroupList = Parse.Object.extend("GroupList");
-      var query = new Parse.Query(GroupList);
-      query.equalTo("userEmail", $scope.newMemberEmail);
-      query.find({
-        success: function(object) {
-          var tempList = object[0]._serverData.userGroups;
-          tempList[tempList.length] = {id: groupService.getGroupId(), name: $scope.groupName, color: groupService.getGroupColor()};
-          object[0].set("userGroups", tempList);
-          object[0].save();
-          $scope.memberList[$scope.memberList.length] = {name:object[0]._serverData.userName, email:object[0]._serverData.userEmail};
-          group[0].save();
-          groupService.setMemberList($scope.memberList);
-
-          Parse.Cloud.run('mailGroupAlert', {email: $scope.newMemberEmail, group: $scope.groupName}, {
-            success: function(result) {},
-            error: function(error) {}
-          });
-
-        },
-        error: function(object, error) {
-          console.log(error);
-        }
-      });    
-    },
-      error: function(group, error){
-        console.log("getting group by object id failed");
-      }
-  });
-  $timeout(function(){$scope.$apply()}, 1000);
-  $timeout(function(){$scope.$apply()}, 2000);
-  $timeout(function(){$scope.$apply()}, 5000);
-
-}
   /* Function: Date
    * Desciption: Called to get a new date object, offset will offset the hour. Minutes and seconds and milliseconds
    * 			 set to 0.
