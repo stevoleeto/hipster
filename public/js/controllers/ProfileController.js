@@ -183,8 +183,8 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
   });
 
   $scope.addGroup = function(){	
-    groupService.addGroupId($scope.currentGroupId);
-    groupService.addGroupColor($scope.currentGroupColor);
+    groupService.setGroupId($scope.currentGroupId);
+    groupService.setGroupColor($scope.currentGroupColor);
   }
 
 

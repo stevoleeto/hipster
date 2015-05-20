@@ -1,13 +1,25 @@
+/*
+ * Filename: groupService.js
+ * Purpose: To make database calls and perform business-level logic 
+ *          for the controller.
+ * Description: Has several query functions which are only to be used 
+ *              internally. Also has functions to be called mostly by the
+ *              GroupController:
+ *              1) addMember: adds a member to the currently selected group.
+ *              
+ *              Also has getters and setters for all attributes.
+ *
+ */
 app.service('groupService',['$q', function($q){
 
-  /* attributes */
+  /* attributes - public data fields */
   var currentGroupId;
   var groupColor;
   var groupName;
   var memberList;
   var newMember;
 
-  /* query data fields */
+  /* query data fields - private data fields */
   var groupQuery;
   var userQuery;
   var groupListQuery;
@@ -123,6 +135,9 @@ app.service('groupService',['$q', function($q){
         );
     return deferred.promise;
   };
+  
+  /* END query functions */
+  /*---------------------*/
 
   /* SETTERS AND GETTERS */
   /***********************/
@@ -143,7 +158,7 @@ app.service('groupService',['$q', function($q){
     return memberList;
   };
 
-  var addGroupId = function (newGroupId){
+  var setGroupId = function (newGroupId){
     currentGroupId = newGroupId;
   };
 
@@ -151,7 +166,7 @@ app.service('groupService',['$q', function($q){
     return currentGroupId;
   };
 
-  var addGroupColor = function(color){
+  var setGroupColor = function(color){
     groupColor = color;
   };
 
@@ -161,9 +176,9 @@ app.service('groupService',['$q', function($q){
 
   return {
     addMember : addMember,
-      addGroupId: addGroupId,
+      setGroupId: setGroupId,
       getGroupId: getGroupId,
-      addGroupColor: addGroupColor,
+      setGroupColor: setGroupColor,
       getGroupColor: getGroupColor,
       setMemberList : setMemberList,
       getMemberList : getMemberList,
