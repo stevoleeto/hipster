@@ -15,7 +15,6 @@ var currentUser = Parse.User.current();
 
 app.controller('LoginController', ['$scope', function($scope) { 
 
-  $scope.companyName = 'HIPSTERinc';
   $scope.name = '';
   $scope.email = '';
   $scope.password = '';
