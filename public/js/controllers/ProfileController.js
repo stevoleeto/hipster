@@ -306,19 +306,64 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
    * Description: Removs all groups found in their GroupList userGroups array.
    ************************************************************************/
   $scope.createEvent = function(){
-    $scope.eventArray.push({
-      title  : $scope.eventName,
-      start  : $scope.eventStartTime.setDate($scope.eventStartDate.getDay()),
-      end    : $scope.eventEndDate.setDate($scope.eventStartDate.getDay())
-    });
-    $scope.eventSources = [$scope.eventArray];
-    console.log($scope.eventSources);
 
-    currentUser.set("personalSchedule", $scope.eventArray);
-    currentUser.save(null, {
-      success: function(object) {
-      }
+    //example of how moments and recurence work. THIS IS A TEST. All data hardcoded
+    console.log("Example of Momemnts and Recurrence. It's all Hardcoded.");
+
+    var exampleEventArray = [];
+
+    var myStartDate = "2015-05-20";
+    var myEndDate = "2015-05-30";
+
+    var myStartTime = "9";
+    var myEndTime = "10";
+
+    console.log(myStartDate);
+    console.log(myEndDate);
+    console.log(myStartTime);
+    console.log(myEndTime);
+
+    var myRecurDates = moment().recur({
+      start: myStartDate,
+      end: myEndDate,
+      rules: [
+          { units: {  2 : true }, measure: "days" }
+      ]
     });
+
+    console.log(myRecurDates);
+
+    allDates = myRecurDates.all();
+
+    console.log(allDates);
+
+     for (index = 0; index < allDates.length; index++){
+      exampleEventArray.push({
+         title : "My Event!",
+         start : ((allDates[index].set('hour', 9)).set('minute', 5)).toISOString(),
+         end   : ((allDates[index].set('hour', 10)).set('miute', 10)).toISOString()
+      });
+     }
+
+    console.log("Finished! The produced array is below");
+    console.log(exampleEventArray); 
+
+
+
+
+    // $scope.eventArray.push({
+    //   title  : $scope.eventName,
+    //   start  : $scope.eventStartTime.setDate($scope.eventStartDate.getDay()),
+    //   end    : $scope.eventEndDate.setDate($scope.eventStartDate.getDay())
+    // });
+    // $scope.eventSources = [$scope.eventArray];
+    // console.log($scope.eventSources);
+
+    // currentUser.set("personalSchedule", $scope.eventArray);
+    // currentUser.save(null, {
+    //   success: function(object) {
+    //   }
+    // });
 
   }
 
