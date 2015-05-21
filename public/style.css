@@ -485,12 +485,13 @@ input
     font-size: 35px;
     letter-spacing: 5px;
     font-weight: 500;
+    top:5px;
+    margin-bottom: 20px;
 }
 
 #membersInfo
 {
     clear:both;
-    border-top:solid black 2px;
     width:96%;
     margin-left:auto;
     margin-right:auto;
