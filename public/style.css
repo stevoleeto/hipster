@@ -317,6 +317,7 @@ input
     height: auto;
     background:white;
     padding:5px;
+    margin-bottom: 10px;
 }
 
 #createWrapper
