@@ -161,8 +161,8 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
         color: 'green',
         eventBackgroundColor: 'blue',  // an option!
         textColor: 'white', // an option!
-        overlap: false,
-        rendering: 'inverse-background'
+        overlap: false
+   //     rendering: 'inverse-background'
     }
 
 
