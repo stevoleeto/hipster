@@ -162,11 +162,12 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
         eventBackgroundColor: 'blue',  // an option!
         textColor: 'white', // an option!
         overlap: false
-   //     rendering: 'inverse-background'
+
+        //     rendering: 'inverse-background'
     }
 
 
-  // Profile Calendar Settings
+    // Profile Calendar Settings
   // -----------------------
     $scope.uiConfig = {
       calendar:{
@@ -181,11 +182,16 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
       maxTime: '22:00:00',
       dayClick: function(date, jsEvent, view) {
         console.log("Clicked on " + date.format());
+      },
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay'
       }
       }
-  };
+    };
 
-  /* asks the service to please pull the group list of desire email,
+    /* asks the service to please pull the group list of desire email,
    * then it gets the groupList from the service when its done pulling */
   userService.queryGroupList($scope.email).then(function(){
     $scope.myGroupList = userService.getGroupList();
