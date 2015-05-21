@@ -206,6 +206,8 @@ input
 .selTab
 {
     border-bottom:solid orange 4px;
+    background: #4284F5;
+    width: 140px;
 }
 
 .bttn 
