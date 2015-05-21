@@ -203,7 +203,7 @@
                     </div>
                 	<div ng-click="removeAllGroups()" class="btn2" style="margin-top:10px;">Remove ALL Group</div>
                 	<ul>
-                    	<div ng-repeat="group in myGroupList track by $index" class ="groupSelect"  
+                    	<div ng-repeat="group in myGroupList track by $index" class ="groupSelect card"  
                         ng-click="$parent.profileView=false; 
                                   $parent.groupView=false; 
                                   $parent.$parent.singleGroupView=true; 
