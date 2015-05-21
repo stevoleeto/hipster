@@ -1,3 +1,5 @@
+
+
 body  {
     margin-left: auto;
     margin-right: auto;
@@ -25,6 +27,13 @@ body  {
     line-height: 64px;
 }
 
+.card
+{
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,.12);
+    color:#272727;
+    border-radius:2px;
+}
+
 #busy
 {
     position:relative;
@@ -46,6 +55,7 @@ body  {
     margin-right: auto;
     top: 64px;
     z-index: 1;
+   
 }
 
 #gallery 
@@ -165,11 +175,11 @@ input
 /*    border-right:solid black 1px;*/
     letter-spacing: 2px;
     float:left;
-    width: 150px;
+    width: 135px;
     height: 100%;
     color: white;
-    font-size: 30px;
-    line-height: 64px;
+    font-size: 24px;
+    line-height: 45px;
     display: table-cell;
     vertical-align: middle;
     transition: width .5s;
@@ -179,8 +189,13 @@ input
 {
     cursor: pointer;
     background: #4284F5;
-    width: 165px;
+    width: 140px;
     transition: width .5s;
+}
+
+.selTab
+{
+    border-bottom: solid white 7px;
 }
 
 .bttn 
@@ -204,16 +219,15 @@ input
 #profileWrapper
 {
     width: 100%;
-    height:800px;
+    background-color:#F5F5F5;
 }
-
 
 
 #logoutWrapper 
 {
     width: 100%;
     position: fixed;
-    height: 55px;
+    height: 45px;
 /*    border-bottom: 1px solid black;*/
 /*    border-top: 1px solid black;*/
     z-index: 2;
@@ -225,29 +239,29 @@ input
 {
     background-image: url(images/person.png);
     height: 45px;
-    width: 45px;
+    width: 35px;
     background-size:contain;
     background-repeat: no-repeat;
     float:right;
     position: relative; 
     cursor: pointer;
     margin-left:15px;
-    top: 10px;
+    top:5px;
     transition: height .5s, width .5s;
 }
 
 .friendsOptionsBtn:hover
 {
     height:47px;
-    width:47px;
+    width:37px;
     transition: height .5s, width .5s;
 }
 
 .logoutbtn
 {	
     background-image: url(images/cog.png);
-    height:45px;
-    width: 75px;
+    height:35px;
+    width: 60px;
     background-size:contain;
     background-repeat: no-repeat;
     float:right;
@@ -257,9 +271,9 @@ input
     position: relative; 
     cursor: pointer;
     margin: auto 5px;
-    top: 10px;
+    top:5px;
     transform: rotate(0deg);
-    transform-origin: 37.5px 22.5px;
+    transform-origin: 30px 17.5px;
     transition: transform .5s;
 }
 
@@ -267,13 +281,14 @@ input
 {
     cursor: pointer;
     transform: rotate(180deg);
-    transform-origin: 37.5px 22.5px;
+    transform-origin: 30px 17.5px;
     transition: transform .5s;
 }
 
 #greeting
 {
-    line-height: 64px;
+    line-height: 45px;
+    color:white;
     float:right;
 }
 
@@ -291,6 +306,7 @@ input
     font-size: 1.7em;
     float:left;
     letter-spacing: 3px;
+    top:5px;
 }
 
 .schedule
@@ -299,6 +315,8 @@ input
     clear:left;
     width:100%;
     height: auto;
+    background:white;
+    padding:5px;
 }
 
 #createWrapper
@@ -307,7 +325,7 @@ input
     width: 25%;
     float: right;
     margin-right: 2%;
-
+    
 }
 
 #createTitle
@@ -316,6 +334,7 @@ input
     font-size: 1.7em;
     float:left;
     letter-spacing: 3px;
+    top:5px;
 }
 
 .createEvent
@@ -323,9 +342,10 @@ input
     float:right;
     clear:right;
     width: 100%;
-    border:solid black 1.5px;
+/*    border:solid black 1.5px;*/
     height:auto;
     padding-top:10px;
+    background:white;
 /*    background: #BEDFFE;*/
 /*    border-radius:10px;*/
 /*
@@ -417,9 +437,12 @@ input
 .groupSelect p
 {
     text-align: center;
-    font-size: 16px;
-    border-bottom:solid black 1px;
-    border-top:solid black 1px;
+    font-size: 18px;
+    color:black;
+    position:absolute;
+    bottom:0px;
+    width:100%;
+    height:30%;
     background:white;
 }
 
@@ -445,13 +468,14 @@ input
 #homeView, .singleGroupView
 {
     position: relative;
-    top: 75px;
+    top: 45px;
 }
 
 
 #singleGroupWrapper
 {
     border:solid black 1px;
+    background:#F5F5F5;
 }
 
 #groupName
@@ -463,12 +487,13 @@ input
     font-size: 35px;
     letter-spacing: 5px;
     font-weight: 500;
+    top:5px;
+    margin-bottom: 20px;
 }
 
 #membersInfo
 {
     clear:both;
-    border-top:solid black 2px;
     width:96%;
     margin-left:auto;
     margin-right:auto;

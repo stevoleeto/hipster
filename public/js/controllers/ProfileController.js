@@ -365,7 +365,7 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
       });
     }
 
-    $scope.eventSources = [$scope.eventArray];
+    $scope.eventSources.events = [$scope.eventArray];
 
     currentUser.set("personalSchedule", $scope.eventArray);
     currentUser.save();
