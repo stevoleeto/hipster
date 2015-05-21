@@ -142,8 +142,8 @@
             
             <div id="greeting">Hi, {{ userName }}</div>
             <center>
-                <div ng-click="profileView=true; groupView=false; $parent.singleGroupView=false" class="viewBtn">Profile</div>
-                <div ng-click="groupView=true; profileView=false; $parent.singleGroupView=false" class="viewBtn">Groups</div>
+                <div ng-click="profileView=true; groupView=false; $parent.singleGroupView=false" ng-class="{selTab: profileView}" class="viewBtn">Profile</div>
+                <div ng-click="groupView=true; profileView=false; $parent.singleGroupView=false" ng-class="{selTab: groupView}" class="viewBtn">Groups</div>
             </center>
         </div>
     
@@ -153,7 +153,7 @@
                     <div id="scheduleWrapper">
                         <p id="yourSched">Your Schedule</p>
                 
-                        <div class="schedule">
+                        <div class="schedule card">
                             <!-- TEST UI CALENDAR -->
                             <div  ng-model="eventSources" calendar='userCalendar' ui-calendar="uiConfig.calendar"  ></div>
                             <br><br>
@@ -162,7 +162,7 @@
                     
                     <div id="createWrapper">
                         <p id="createTitle">Create Event</p>
-                        <div class="createEvent">
+                        <div class="createEvent card">
                             <p >Event Name</p>
                             <input type="text" name="pEventName" class="eventPar" ng-model="newEventName">
                             <br><br>
