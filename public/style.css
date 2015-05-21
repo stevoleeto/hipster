@@ -230,7 +230,7 @@ input
     height: 45px;
 /*    border-bottom: 1px solid black;*/
 /*    border-top: 1px solid black;*/
-    z-index: 2;
+    z-index: 10;
     margin-top: 0;
     background: #5B97F5;
 }
