@@ -250,11 +250,8 @@ input
 
 .friendsOptionsBtn:hover
 {
-/*
-    height:47px;
-    width:37px;
+    
     transition: height .5s, width .5s;
-*/
 }
 
 .logoutbtn
