@@ -371,17 +371,17 @@ input
 
 .createButton
 {
-    font-size: 35px;
+    font-size: 30px;
     letter-spacing: 3px;
 /*    background:#9EF699;*/
-    height:60px;
+    height:45px;
     text-align: center;
-    width: 180px;
+    width: 160px;
     margin-right: auto;
     margin-left: auto;
     transition:width .5s, background .4s;
     margin-bottom: 10px;
-    background:#AAEFAA;
+    background:#AAFFAA;
 /*    border:solid grey 1px;*/
 }
 
@@ -413,7 +413,7 @@ input
     position:relative;
     clear:both;
     padding:5px;
-    background-color:coral;
+    background-color:darkorange;
     color:white;
     font-size:20px;
     text-align: center;
