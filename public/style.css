@@ -236,7 +236,7 @@ input
 .friendsOptionsBtn
 {
     background-image: url(images/person.png);
-    height: 45px;
+    height: 35px;
     width: 35px;
     background-size:contain;
     background-repeat: no-repeat;
@@ -250,9 +250,11 @@ input
 
 .friendsOptionsBtn:hover
 {
+/*
     height:47px;
     width:37px;
     transition: height .5s, width .5s;
+*/
 }
 
 .logoutbtn
