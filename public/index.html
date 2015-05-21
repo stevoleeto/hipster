@@ -20,6 +20,7 @@
         <!-- jquery, moment, and angular have to get included before fullcalendar -->
         <script type="text/javascript" src="lib/bower_components/jquery/dist/jquery.js"></script>
         <script type="text/javascript" src="lib/bower_components/moment/moment.js"></script>
+        <script type="text/javascript" src="lib/moment-recur.min.js"></script>
         <script type="text/javascript" src="lib/bower_components/angular/angular.js"></script>
         <script type="text/javascript" src="lib/bower_components/angular-ui-calendar/src/calendar.js"></script>
         <script type="text/javascript" src="lib/bower_components/fullcalendar/dist/fullcalendar.js"></script>
@@ -108,17 +109,16 @@
                     			<h2 text-align="center">Select a user icon</h2>
 	                    		<div id="icons" ng-repeat="icon in icons track by $index" ng-attr-title="{{icon.name}}">
 	                    			<img class="selIcons" ng-src="{{icon.image}}" ng-click="clearSel($event);" 
-                                         ng-class="{'selected': icon.selected}"/>
+                                         ng-class="{'selected': icon.selected, 'smallIcon': icon.name==='Super Hero'}"/>
 	                    		</div>
                     		</div>
                     	</div>
                     </div>
-                    <br>
                     <label ng-show="saveLabel">Saved!</label>
                 </div>
                 <div class="modal-footer">
                 	<button class="btn btn-primary" ng-click="settingsSave();saveLabel=true">Save</button>
-                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                    <button class="btn btn-warning" ng-click="cancel()">Close</button>
                 </div>
             </div>
         </script>
@@ -224,10 +224,10 @@
                                 <label for="groupColor">Select a Color</label>
                                     
                                 <ul id="groupColorSelect">
-                                    <li style = "background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></li>
-                                    <li style = "background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></li>
-                                    <li style = "background:#FFA6B1;" ng-click="groupColor='#FFA6B1'"></li>
-                                    <li style = "background:#FEC12F;" ng-click="groupColor='#FEC12F'"></li>
+                                    <li style="background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></li>
+                                    <li style="background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></li>
+                                    <li style="background:#FFA6B1;" ng-click="groupColor='#FFA6B1'"></li>
+                                    <li style="background:#FEC12F;" ng-click="groupColor='#FEC12F'"></li>
                                 </ul>    
                                     
                                 </div>
@@ -286,40 +286,39 @@
                 </div>
                 
                 <div id="createWrapper">
-                       <div class="createEvent">
-                            <p >Event Name</p>
-                            <input type="text" name="pEventName" class="eventPar" ng-model="newEventName">
-                            <br><br>
+                   <div class="createEvent">
+                        <p >Event Name</p>
+                        <input type="text" name="pEventName" class="eventPar" ng-model="newEventName">
+                        <br><br>
 
-                            <label style="border:none; font-weight:400;" for="repeatingEvent">Repeating Event</label>
-                            <input ng-init="repeatingEvent=false" type="checkbox" name="repeatingEvent" ng-click="repeatingEvent = !repeatingEvent">
-                            <br><br>
+                        <label for="repeatingEvent">Repeating Event</label>
+                        <input ng-init="repeatingEvent=false" type="checkbox" name="repeatingEvent" ng-click="repeatingEvent = !repeatingEvent">
+                        <br><br>
 
-                            <p >Start Date</p>
-                            <input  ng-init="eventStartDate = Date()" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate">
-                            <br><br>
-                            
-                            <p >End Date</p>
-                            <input ng-init="eventEndDate = Date()"  for="pEndDate" type="date" class="eventPar" ng-model="eventEndDate">
-                            <br><br>
+                        <p >Start Date</p>
+                        <input  ng-init="eventStartDate = Date()" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate">
+                        <br><br>
+                        
+                        <p >End Date</p>
+                        <input ng-init="eventEndDate = Date()"  for="pEndDate" type="date" class="eventPar" ng-model="eventEndDate">
+                        <br><br>
 
-                            <p >Start Time</p>
-                            <input ng-init="eventStartTime = Date()" type="time" class="eventPar" ng-model="eventStartTime"><br><br>
-                            
-                            <p >End Time</p>
-                            <input ng-init="eventEndTime = Date(1)"  type="time" class="eventPar" ng-model="eventEndTime"><br><br>
-                            
-                            <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
-                        </div>
-                    
+                        <p >Start Time</p>
+                        <input ng-init="eventStartTime = Date()" type="time" class="eventPar" ng-model="eventStartTime"><br><br>
+                        
+                        <p >End Time</p>
+                        <input ng-init="eventEndTime = Date(1)"  type="time" class="eventPar" ng-model="eventEndTime"><br><br>
+                        
+                        <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
+                    </div>
                 </div>
                 
                 <div id="membersInfo">
                     <h5><strong>Group Code: </strong></h5>
-                    <p>{{currentGroupId}}
+                    <p>{{currentGroupId}}</p>
                     <h2>Members</h2>
                     <div class="members" ng-repeat="member in memberList track by $index">
-                    	<div class="memberIcon"></div>
+                        <img class="memberIcon" ng-src="{{member.icon}}"/>
                     	<p text-align="center">{{member.name}}</p>
                     </div>
                     <div id = "addMemberBtn" ng-click="addMemberModal()"></div>
@@ -329,13 +328,10 @@
                                 <h3 class="modal-title">Add a Member</h3>
                             </div>
                             <div class="modal-body">
-                            <input type="text" ng-model="newMemberEmail" placeholder="New Member Email">
-                               
-                            <br>
-                                
+                                <input type="text" ng-model="newMemberEmail" placeholder="New Member Email"> 
                             </div>
                             <div class="modal-footer">
-                                <button class="btn btn-primary" ng-click="addMember(); cancel()">OK</button>
+                                <button class="btn btn-primary" ng-click="addMember()">OK</button>
                                 <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
                             </div>
                         </div>

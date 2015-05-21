@@ -36,7 +36,7 @@
 //Link to Parse database - accepts application_ID, JavaScript_Key
 Parse.initialize( "t5hvXf3wJOYnL3MMIffsemMdhLM7f4brACcf0eBa", "UhqQaEDIEQr6cxhO8XS4Fl8BcGU4ir9jL9To7PVO" );
 var currentUser = Parse.User.current();
-
+var newIcon = 'images/userIcon.png';
 
 
 app.controller('ProfileController', ['$scope', 'groupService','$timeout','userService','uiCalendarConfig', '$modal', '$log', 
@@ -67,115 +67,114 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
     });
   };
                                          
-$scope.friendsModal = function (size) {
+  $scope.friendsModal = function (size) {
 
-    var modalInstance = $modal.open({
-      animation: $scope.animationsEnabled,
-      templateUrl: 'friendList.html',
-      controller: 'ModalInstanceCtrl',
-      size: size,
-      resolve: {
-        items: function () {
-          return $scope.items;
+      var modalInstance = $modal.open({
+        animation: $scope.animationsEnabled,
+        templateUrl: 'friendList.html',
+        controller: 'ModalInstanceCtrl',
+        size: size,
+        resolve: {
+          items: function () {
+            return $scope.items;
+          }
         }
-      }
-    });
-     
-    modalInstance.result.then(function (selectedItem) {
-    $scope.selected = selectedItem;
-    }, function () {
-        $log.info('Modal dismissed at: ' + new Date());
-    });
-  };
-
-$scope.settingsModal = function (size) {
-
-    var modalInstance = $modal.open({
-      animation: $scope.animationsEnabled,
-      templateUrl: 'settings.html',
-      controller: 'ModalInstanceCtrl',
-      size: size,
-      resolve: {
-        items: function () {
-          return $scope.items;
-        }
-      }
-    });
-     
-    modalInstance.result.then(function (selectedItem) {
-    $scope.selected = selectedItem;
-    }, function () {
-        $log.info('Modal dismissed at: ' + new Date());
-    });
-  };
-
-
-
-$scope.toggleAnimation = function () {
-    $scope.animationsEnabled = !$scope.animationsEnabled;
-};
-    
-                                         
-$scope.addGroupModal = function (size) {
-
-    var modalInstance = $modal.open({
-      animation: $scope.animationsEnabled,
-      templateUrl: 'addGroup.html',
-      controller: 'ModalInstanceCtrl',
-      size: size,
-      resolve: {
-        items: function () {
-          return $scope.items;
-        }
-      }
-    });
-
-    modalInstance.result.then(function (selectedItem) {
-    $scope.selected = selectedItem;
-    }, function () {
-        $scope.myGroupList = userService.getGroupList();
-        //$log.info('Modal dismissed at: ' + new Date());
-        
-    });
+      });
+       
+      modalInstance.result.then(function (selectedItem) {
+      $scope.selected = selectedItem;
+      }, function () {
+          $log.info('Modal dismissed at: ' + new Date());
+      });
     };
 
-                                                                                                                       
-                                         
-  /* user data */
-  $scope.userName = currentUser.get("name");
-  $scope.joinDate = currentUser.createdAt;
-  $scope.email = currentUser.get("username");
-  $scope.eventArray = currentUser.get("personalSchedule");
-  $scope.friendList = currentUser.get("friendList");
-								 
-  //set users email in service
-  userService.setEmail(currentUser.get("username")); 
-  userService.setName($scope.userName);
-								 
-  // source for calendar events
-  $scope.eventSources = [$scope.eventArray];
+  $scope.settingsModal = function (size) {
+
+      var modalInstance = $modal.open({
+        animation: $scope.animationsEnabled,
+        templateUrl: 'settings.html',
+        controller: 'ModalInstanceCtrl',
+        size: size,
+        resolve: {
+          items: function () {
+            return $scope.items;
+          }
+        }
+      });
+       
+      modalInstance.result.then(function (selectedItem) {
+      $scope.selected = selectedItem;
+      }, function () {
+          $log.info('Modal dismissed at: ' + new Date());
+      });
+    };
 
 
-// Profile Calendar Settings
-// -----------------------
-  $scope.uiConfig = {
-    calendar:{
-        height: 795,
-        viewRender: function(view, element) {
-            //$log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
-        },
-		editable: true,
-		defaultView: 'agendaWeek',
-    slotDuration: '00:30:00',
-    minTime: '06:00:00',
-    maxTime: '22:00:00',
-    dayClick: function(date, jsEvent, view) {
-      console.log("Clicked on " + date.format());
-    }
-    }
-};
+
+  $scope.toggleAnimation = function () {
+      $scope.animationsEnabled = !$scope.animationsEnabled;
+  };
+      
+                                           
+  $scope.addGroupModal = function (size) {
+
+      var modalInstance = $modal.open({
+        animation: $scope.animationsEnabled,
+        templateUrl: 'addGroup.html',
+        controller: 'ModalInstanceCtrl',
+        size: size,
+        resolve: {
+          items: function () {
+            return $scope.items;
+          }
+        }
+      });
+
+      modalInstance.result.then(function (selectedItem) {
+      $scope.selected = selectedItem;
+      }, function () {
+          $scope.myGroupList = userService.getGroupList();
+          //$log.info('Modal dismissed at: ' + new Date());
+          
+      });
+      };
+
+                                                                                                                         
+                                           
+    /* user data */
+    $scope.userName = currentUser.get("name");
+    $scope.icon = currentUser.get("userIcon");
+    $scope.joinDate = currentUser.createdAt;
+    $scope.email = currentUser.get("username");
+    $scope.eventArray = currentUser.get("personalSchedule");
+    $scope.friendList = currentUser.get("friendList");
+  								 
+    //set users email in service
+    userService.setEmail(currentUser.get("username")); 
+    userService.setName($scope.userName);
+  								 
+    // source for calendar events
+    $scope.eventSources = [$scope.eventArray];
 
 
+  // Profile Calendar Settings
+  // -----------------------
+    $scope.uiConfig = {
+      calendar:{
+          height: 795,
+          viewRender: function(view, element) {
+              //$log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
+          },
+  		editable: true,
+  		defaultView: 'agendaWeek',
+      slotDuration: '00:30:00',
+      minTime: '06:00:00',
+      maxTime: '22:00:00',
+      dayClick: function(date, jsEvent, view) {
+        console.log("Clicked on " + date.format());
+      }
+      }
+  };
 
   /* asks the service to please pull the group list of desire email,
    * then it gets the groupList from the service when its done pulling */
@@ -184,11 +183,11 @@ $scope.addGroupModal = function (size) {
   });
 
   $scope.addGroup = function(){	
-    groupService.addGroupId($scope.currentGroupId);
-    groupService.addGroupColor($scope.currentGroupColor);
+    groupService.setGroupId($scope.currentGroupId);
+    groupService.setGroupColor($scope.currentGroupColor);
   }
 
-  
+
   /* Function: Date
    * Desciption: Called to get a new date object, offset will offset the hour. Minutes and seconds and milliseconds
    * 			 set to 0.
@@ -203,10 +202,10 @@ $scope.addGroupModal = function (size) {
             date.setHours(date.getHours() + hourOffset);
         }
         
-	  return date;
+    return date;
   };
 
-  
+
 
   /************************************************************************
    * Name:    removeAllGroups()
@@ -297,7 +296,7 @@ $scope.addGroupModal = function (size) {
 
   }
 
- /************************************************************************
+  /************************************************************************
    * Name:    createEvent()
 
    * Purpose:   Allows the user to add an event to their calendar.
@@ -307,33 +306,78 @@ $scope.addGroupModal = function (size) {
    * Description: Removs all groups found in their GroupList userGroups array.
    ************************************************************************/
   $scope.createEvent = function(){
-    $scope.eventArray.push({
-      title  : $scope.eventName,
-      start  : $scope.eventStartTime.setDate($scope.eventStartDate.getDay()),
-      end    : $scope.eventEndDate.setDate($scope.eventStartDate.getDay())
-    });
-    $scope.eventSources = [$scope.eventArray];
-    console.log($scope.eventSources);
 
-    currentUser.set("personalSchedule", $scope.eventArray);
-    currentUser.save(null, {
-      success: function(object) {
-      }
+    //example of how moments and recurence work. THIS IS A TEST. All data hardcoded
+    console.log("Example of Momemnts and Recurrence. It's all Hardcoded.");
+
+    var exampleEventArray = [];
+
+    var myStartDate = "2015-05-20";
+    var myEndDate = "2015-05-30";
+
+    var myStartTime = "9";
+    var myEndTime = "10";
+
+    console.log(myStartDate);
+    console.log(myEndDate);
+    console.log(myStartTime);
+    console.log(myEndTime);
+
+    var myRecurDates = moment().recur({
+      start: myStartDate,
+      end: myEndDate,
+      rules: [
+          { units: {  2 : true }, measure: "days" }
+      ]
     });
+
+    console.log(myRecurDates);
+
+    allDates = myRecurDates.all();
+
+    console.log(allDates);
+
+     for (index = 0; index < allDates.length; index++){
+      exampleEventArray.push({
+         title : "My Event!",
+         start : ((allDates[index].set('hour', 9)).set('minute', 5)).toISOString(),
+         end   : ((allDates[index].set('hour', 10)).set('miute', 10)).toISOString()
+      });
+     }
+
+    console.log("Finished! The produced array is below");
+    console.log(exampleEventArray); 
+
+
+
+
+    // $scope.eventArray.push({
+    //   title  : $scope.eventName,
+    //   start  : $scope.eventStartTime.setDate($scope.eventStartDate.getDay()),
+    //   end    : $scope.eventEndDate.setDate($scope.eventStartDate.getDay())
+    // });
+    // $scope.eventSources = [$scope.eventArray];
+    // console.log($scope.eventSources);
+
+    // currentUser.set("personalSchedule", $scope.eventArray);
+    // currentUser.save(null, {
+    //   success: function(object) {
+    //   }
+    // });
 
   }
 
   //ADDED BY SARA
   $scope.addFriend = function() {
-	var User = Parse.Object.extend("User");
+  var User = Parse.Object.extend("User");
     var query = new Parse.Query(User);
-	query.equalTo("username", $scope.newFriend);
-	query.find().then(function(pulledFriend) {
-		$scope.friendList.push({email: $scope.newFriend, name:pulledFriend[0].attributes.name});
-		console.log($scope.friendList);
-		currentUser.set("friendList", $scope.friendList);
-		currentUser.save();
-	});
+  query.equalTo("username", $scope.newFriend);
+  query.find().then(function(pulledFriend) {
+  	$scope.friendList.push({email: $scope.newFriend, name:pulledFriend[0].attributes.name});
+  	console.log($scope.friendList);
+  	currentUser.set("friendList", $scope.friendList);
+  	currentUser.save();
+  });
     
     
   }
@@ -361,14 +405,14 @@ $scope.addGroupModal = function (size) {
     }
     if ($scope.newPassword){
       currentUser.set("password", $scope.newPassword);
-    }
-  currentUser.save();
-  $scope.newUserName = "";
-  userService.setName($scope.newUserName);
-  $scope.newEmail = "";
-  $scope.newPassword = "";
-}
-
+    };
+    currentUser.set("userIcon", newIcon)
+    currentUser.save();
+    $scope.newUserName = "";
+    userService.setName($scope.newUserName);
+    $scope.newEmail = "";
+    $scope.newPassword = "";
+  }
 }]);
 
  /************************************************************************
@@ -388,7 +432,7 @@ app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
 
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
-};
+  };
 });
 
 /************************************************************************
@@ -410,16 +454,25 @@ app.controller('CollapseInstanceCtrl', function ($scope) {
   //Create an array to hold the icon objects. Think of this as an array of structs (c/c++).
   var icons = $scope.icons = [];
 
-  //Loop through icons, initialize fields, and push onto the array
+  //Add icons to the list by initializing fields and pushing onto the array
+  icons.push({
+    id: 1,
+    image: 'images/userIcon.png',
+    name: 'Super Hero',
+    selected: 1
+  });
+  
   //Note: this pushes the icons into the array in the following pattern: 
   //Hipster Male 1, Hipster Female 1, Hipster Male 2, Hipster Female 2, Hipster Male 3, ... , Hipster Female 8
   for (var i = 1; i <= 8; ++i) {
     icons.push({
+      id: (i + 1),    /* Gives id's 2 - 9 */
       image: 'images/hipsterMale' + i + '.png',
       name: 'Hipster Male ' + i,
       selected: 0
     });
     icons.push({
+      id: (i + 9),    /* Gives id's 10 - 17 */
       image: 'images/hipsterFemale' + i + '.png',
       name: 'Hipster Female ' + i,
       selected: 0
@@ -438,6 +491,7 @@ app.controller('CollapseInstanceCtrl', function ($scope) {
       } else {
         //Sets selected field to true becuase this icon in the array is the one clicked on.
         icon.selected = 1;
+        newIcon = icon.image;
       }
     });
   }

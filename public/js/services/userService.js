@@ -12,7 +12,6 @@ app.service('userService',['$q', function($q){
   var email;
   var name;
   var friendGroupList;
-
   var groupListQuery;
 
   /* Function name: queryGroupList
@@ -32,16 +31,16 @@ app.service('userService',['$q', function($q){
 
     /* this will be resolved before returned promise */
     deferred.resolve(
-        query.find().then(function(pulledList) {
-          if(newEmail === email){
-            groupList = pulledList[0]._serverData.userGroups;
-          }
-          else{
-            friendGroupList = pulledList[0]._serverData.userGroups;
-          }
-          groupListQuery = pulledList;
-        })
-        );
+      query.find().then(function(pulledList) {
+        if(newEmail === email){
+          groupList = pulledList[0]._serverData.userGroups;
+        }
+        else{
+          friendGroupList = pulledList[0]._serverData.userGroups;
+        }
+        groupListQuery = pulledList;
+      })
+    );
     return deferred.promise;
 
   };
@@ -54,15 +53,15 @@ app.service('userService',['$q', function($q){
   }
 
   var getFriendGroupList = function(){
-      return friendGroupList;
+    return friendGroupList;
   }
 
   var setEmail = function(newEmail){
-      email = newEmail;
+    email = newEmail;
   }
 
   var setName = function(newName){
-     name = newName;
+    name = newName;
   }
 
   var createGroup = function(userName, userEmail, userGroupList, newGroupName, newGroupColor){
@@ -105,14 +104,14 @@ app.service('userService',['$q', function($q){
   return {
     // return all functions here so the dependant knows what to call!
     queryGroupList: queryGroupList,
-      getGroupList: getGroupList,
-      getFriendGroupList: getFriendGroupList,
-      getGroupListQuery: getGroupListQuery,
-      createGroup: createGroup,
-      addEvent: addEvent,
-      removeGroup: removeGroup,
-      setEmail : setEmail,
-      setName : setName
+    getGroupList: getGroupList,
+    getFriendGroupList: getFriendGroupList,
+    getGroupListQuery: getGroupListQuery,
+    createGroup: createGroup,
+    addEvent: addEvent,
+    removeGroup: removeGroup,
+    setEmail : setEmail,
+    setName : setName
   };
 
 }]);
