@@ -408,12 +408,31 @@ input
 /*    border:none;*/
 }
 
+#remEvents
+{
+    position:relative;
+    clear:both;
+    padding:5px;
+    background-color:coral;
+    color:white;
+    font-size:20px;
+    text-align: center;
+    cursor:pointer;
+    top:20px;
+}
+
+#remEvents:hover
+{
+    background-color:orange;
+}
+
 .btn2
 {
     background: aqua;
     width:10%;
     height:20px;
     cursor: pointer;
+
 }
 
 .groupSelect
