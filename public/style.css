@@ -51,6 +51,11 @@ input
     text-decoration:underline;
 }
 
+.forgotBtn
+{
+    cursor: pointer;
+}
+
 #content 
 {
     width: 90%;
@@ -261,7 +266,7 @@ input
 }
 
 .logoutbtn
-{	
+{
     background-image: url(images/cog.png);
     height:35px;
     width: 40px;
