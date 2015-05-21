@@ -162,12 +162,12 @@ input
 
 .viewBtn
 {
-    border-right:solid black 1px;
+/*    border-right:solid black 1px;*/
     letter-spacing: 2px;
     float:left;
     width: 150px;
     height: 100%;
-    color: black;
+    color: white;
     font-size: 30px;
     line-height: 64px;
     display: table-cell;
@@ -178,8 +178,8 @@ input
 .viewBtn:hover 
 {
     cursor: pointer;
-    background: #B1E0F0;
-    width: 200px;
+    background: #4284F5;
+    width: 165px;
     transition: width .5s;
 }
 
@@ -213,12 +213,12 @@ input
 {
     width: 100%;
     position: fixed;
-    height: 64px;
-    border-bottom: 1px solid black;
-    border-top: 1px solid black;
+    height: 55px;
+/*    border-bottom: 1px solid black;*/
+/*    border-top: 1px solid black;*/
     z-index: 2;
     margin-top: 0;
-    background: white;
+    background: #5B97F5;
 }
 
 .friendsOptionsBtn
