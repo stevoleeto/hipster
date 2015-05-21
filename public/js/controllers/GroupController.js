@@ -39,7 +39,20 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
       }
     ]
   ];
+    // source for calendar events
+    //$scope.eventSources = [$scope.eventArray];
+    /*
+     * UNCOMMENT this when eventArray is implemented
+    $scope.eventSources = {
+      events: $scope.eventArray,
 
+        color: 'green',
+        eventBackgroundColor: 'blue',  // an option!
+        textColor: 'white', // an option!
+        overlap: false,
+        rendering: 'inverse-background'
+    }
+   */
     
   $scope.animationsEnabled = true;    
   /************************************************************************

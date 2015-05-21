@@ -172,20 +172,21 @@
                             <br><br>
 
                             <p >Start Date</p>
-                            <input  ng-init="eventStartDate = Date()" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate">
+                            <input  ng-init="eventStartDate" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate">
                             <br><br>
                             
                             <p >End Date</p>
-                            <input ng-init="eventEndDate = Date()"  for="pEndDate" type="date" class="eventPar" ng-model="eventEndDate">
+                            <input ng-init="eventEndDate"  for="pEndDate" type="date" class="eventPar" ng-model="eventEndDate">
                             <br><br>
 
                             <p >Start Time</p>
-                            <input ng-init="eventStartTime = Date()" type="time" class="eventPar" ng-model="eventStartTime"><br><br>
+                            <input ng-init="eventStartTime" type="time" class="eventPar" ng-model="eventStartTime"><br><br>
                             
                             <p >End Time</p>
-                            <input ng-init="eventEndTime = Date(1)"  type="time" class="eventPar" ng-model="eventEndTime"><br><br>
+                            <input ng-init="eventEndTime"  type="time" class="eventPar" ng-model="eventEndTime"><br><br>
 
                             <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
+                            <div ng-click="removeAllEvents()">DELETE ALL GROUPS</div>
                         </div>
                     </div>
             	</div>

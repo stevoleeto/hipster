@@ -154,10 +154,20 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
     userService.setName($scope.userName);
   								 
     // source for calendar events
-    $scope.eventSources = [$scope.eventArray];
+    //$scope.eventSources = [$scope.eventArray];
+    $scope.eventSources = {
+      events: $scope.eventArray,
+
+        color: 'green',
+        eventBackgroundColor: 'blue',  // an option!
+        textColor: 'white', // an option!
+        overlap: false
+
+        //     rendering: 'inverse-background'
+    }
 
 
-  // Profile Calendar Settings
+    // Profile Calendar Settings
   // -----------------------
     $scope.uiConfig = {
       calendar:{
@@ -172,11 +182,16 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
       maxTime: '22:00:00',
       dayClick: function(date, jsEvent, view) {
         console.log("Clicked on " + date.format());
+      },
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay'
       }
       }
-  };
+    };
 
-  /* asks the service to please pull the group list of desire email,
+    /* asks the service to please pull the group list of desire email,
    * then it gets the groupList from the service when its done pulling */
   userService.queryGroupList($scope.email).then(function(){
     $scope.myGroupList = userService.getGroupList();
@@ -307,46 +322,55 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
    ************************************************************************/
   $scope.createEvent = function(){
 
-    //example of how moments and recurence work. THIS IS A TEST. All data hardcoded
-    console.log("Example of Momemnts and Recurrence. It's all Hardcoded.");
+    
+    //Generates All Variables to Moments. Easier to follow through code.
+    var myStartDate = moment($scope.eventStartDate.toISOString()).dateOnly(); //moments
+    var myStartHour = moment($scope.eventStartTime.toISOString()).hour();
+    var myStartMin = moment($scope.eventStartTime.toISOString()).minute();
+    var myEndHour = moment($scope.eventEndTime.toISOString()).hour(); 
+    var myEndMin = moment($scope.eventEndTime.toISOString()).minute();
+    var myEndDate = moment($scope.eventEndDate.toISOString()).dateOnly();
+    var myName = $scope.newEventName;
 
-    var exampleEventArray = [];
-
-    var myStartDate = "2015-05-20";
-    var myEndDate = "2015-05-30";
-
-    var myStartTime = "9";
-    var myEndTime = "10";
-
-    console.log(myStartDate);
-    console.log(myEndDate);
-    console.log(myStartTime);
-    console.log(myEndTime);
-
-    var myRecurDates = moment().recur({
-      start: myStartDate,
-      end: myEndDate,
-      rules: [
-          { units: {  2 : true }, measure: "days" }
-      ]
-    });
-
-    console.log(myRecurDates);
-
-    allDates = myRecurDates.all();
-
-    console.log(allDates);
-
-     for (index = 0; index < allDates.length; index++){
-      exampleEventArray.push({
-         title : "My Event!",
-         start : ((allDates[index].set('hour', 9)).set('minute', 5)).toISOString(),
-         end   : ((allDates[index].set('hour', 10)).set('miute', 10)).toISOString()
+    //If repeating, hardcoded now as once weekly.
+    if($scope.repeatingEvent){
+      
+      var myRecurDates = moment().recur({
+        start: myStartDate,
+        end: myEndDate,
+        rules: [
+            { units: {  1 : true }, measure: "weeks" }
+        ]
       });
-     }
 
-    console.log("Finished! The produced array is below");
-    console.log(exampleEventArray); 
+      allDates = myRecurDates.all();
+
+       for (index = 0; index < allDates.length; index++){
+        $scope.eventArray.push({
+           title : myName,
+           start : ((allDates[index].set('hour', myStartHour)).set('minute', myStartMin)).toISOString(),
+           end   : ((allDates[index].set('hour', myEndHour)).set('miute', myEndMin)).toISOString()
+        });
+       }
+
+       
+    }
+    
+    //If not repeating, treat as single event.
+    else{
+      $scope.eventArray.push({
+        title : myName,
+        start : ((myStartDate.set('hour', myStartHour)).set('minute', myStartMin)).toISOString(),
+        end   : ((myEndDate.set('hour', myEndHour)).set('minute', myEndMin)).toISOString()
+      });
+    }
+
+    $scope.eventSources.events = [$scope.eventArray];
+
+    currentUser.set("personalSchedule", $scope.eventArray);
+    currentUser.save();
+
+    $scope.eventName = '';
 
 
 
@@ -367,6 +391,13 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
 
   }
 
+  $scope.removeAllEvents = function(){
+    $scope.eventArray = [];
+    currentUser.set("personalSchedule", $scope.eventArray);
+    currentUser.save();
+    console.log("All events removed");
+  }
+
   //ADDED BY SARA
   $scope.addFriend = function() {
   var User = Parse.Object.extend("User");
@@ -380,18 +411,6 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
   });
     
     
-  }
-
-  $scope.parseTest = function(){
-    console.log("Parse Test!");
-
-    Parse.Cloud.run('mailTest', {email: $scope.email}, {
-      success: function(result) {
-      // result is 'Hello world!'
-      },
-      error: function(error) {
-      }
-    });
   }
 
   $scope.settingsSave = function(){
