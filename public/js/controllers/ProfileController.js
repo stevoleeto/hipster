@@ -154,7 +154,16 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
     userService.setName($scope.userName);
   								 
     // source for calendar events
-    $scope.eventSources = [$scope.eventArray];
+    //$scope.eventSources = [$scope.eventArray];
+    $scope.eventSources = {
+      events: $scope.eventArray,
+
+        color: 'green',
+        eventBackgroundColor: 'blue',  // an option!
+        textColor: 'white', // an option!
+        overlap: false,
+        rendering: 'inverse-background'
+    }
 
 
   // Profile Calendar Settings
