@@ -195,7 +195,7 @@ input
 
 .selTab
 {
-    border-bottom: solid white 7px;
+    border-bottom:solid orange 4px;
 }
 
 .bttn 
@@ -452,11 +452,12 @@ input
     top: 45px;
     left: 23px;
     float: left;
-    height: 105px;
-    width: 107px;
+    height: 85px;
+    width: 87px;
     background-image: url('images/addGroup.png');
     background-repeat: no-repeat;
     border-radius: 50%;
+    background-size: contain;
 }
 
 #addGroupBtn:hover {
