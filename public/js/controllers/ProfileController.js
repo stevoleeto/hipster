@@ -152,6 +152,16 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
     //set users email in service
     userService.setEmail(currentUser.get("username")); 
     userService.setName($scope.userName);
+
+    $scope.dayRepeat = {
+      monday : false,
+      tuesday : false,
+      wednesday : false,
+      thursday : false,
+      friday : false,
+      saturday : false,
+      sunday : false
+    };
   								 
     // source for calendar events
     //$scope.eventSources = [$scope.eventArray];
@@ -331,64 +341,63 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
     var myEndMin = moment($scope.eventEndTime.toISOString()).minute();
     var myEndDate = moment($scope.eventEndDate.toISOString()).dateOnly();
     var myName = $scope.newEventName;
+    var repeatTheseDays = [];
 
-    //If repeating, hardcoded now as once weekly.
     if($scope.repeatingEvent){
       
-      var myRecurDates = moment().recur({
-        start: myStartDate,
-        end: myEndDate,
-        rules: [
-            { units: {  1 : true }, measure: "weeks" }
-        ]
-      });
+      var myRecurRules = (moment(myStartDate)).recur(myEndDate);
+      console.log(myRecurRules);
 
-      allDates = myRecurDates.all();
-
-       for (index = 0; index < allDates.length; index++){
-        $scope.eventArray.push({
-           title : myName,
-           start : ((allDates[index].set('hour', myStartHour)).set('minute', myStartMin)).toISOString(),
-           end   : ((allDates[index].set('hour', myEndHour)).set('miute', myEndMin)).toISOString()
-        });
-       }
-
-       
-    }
+      if ($scope.dayRepeat.monday === true){
+        repeatTheseDays.push(1);
+      }
+      if ($scope.dayRepeat.tuesday === true){
+        repeatTheseDays.push(2);
+      }
+      if ($scope.dayRepeat.wednesday === true){
+        repeatTheseDays.push(3);
+      }
+      if ($scope.dayRepeat.thursday === true){
+        repeatTheseDays.push(4);
+      }
+      if ($scope.dayRepeat.friday === true){
+        repeatTheseDays.push(5);
+      }
+      if ($scope.dayRepeat.saturday === true){
+        repeatTheseDays.push(6);
+      }
+      if ($scope.dayRepeat.sunday === true){
+        repeatTheseDays.push(0); 
+      }
     
-    //If not repeating, treat as single event.
+
+       myRecurRules = (myRecurRules.every(repeatTheseDays)).daysOfWeek();
+       allDates = myRecurRules.all();
+
+        for (index = 0; index < allDates.length; index++){
+         $scope.eventArray.push({
+            title : myName,
+            start : ((allDates[index].set('hour', myStartHour)).set('minute', myStartMin)).toISOString(),
+            end   : ((allDates[index].set('hour', myEndHour)).set('miute', myEndMin)).toISOString()
+         });
+        }
+    }    
+     //If not repeating, treat as single event.
     else{
-      $scope.eventArray.push({
-        title : myName,
-        start : ((myStartDate.set('hour', myStartHour)).set('minute', myStartMin)).toISOString(),
-        end   : ((myEndDate.set('hour', myEndHour)).set('minute', myEndMin)).toISOString()
-      });
+       $scope.eventArray.push({
+         title : myName,
+         start : ((myStartDate.set('hour', myStartHour)).set('minute', myStartMin)).toISOString(),
+         end   : ((myEndDate.set('hour', myEndHour)).set('minute', myEndMin)).toISOString()
+       });
     }
 
-    $scope.eventSources.events = [$scope.eventArray];
+     $scope.eventSources.events = [$scope.eventArray];
 
-    currentUser.set("personalSchedule", $scope.eventArray);
-    currentUser.save();
+     console.log($scope.eventArray);
+     currentUser.set("personalSchedule", $scope.eventArray);
+     currentUser.save();
 
-    $scope.eventName = '';
-
-
-
-
-    // $scope.eventArray.push({
-    //   title  : $scope.eventName,
-    //   start  : $scope.eventStartTime.setDate($scope.eventStartDate.getDay()),
-    //   end    : $scope.eventEndDate.setDate($scope.eventStartDate.getDay())
-    // });
-    // $scope.eventSources = [$scope.eventArray];
-    // console.log($scope.eventSources);
-
-    // currentUser.set("personalSchedule", $scope.eventArray);
-    // currentUser.save(null, {
-    //   success: function(object) {
-    //   }
-    // });
-
+     $scope.eventName = '';
   }
 
   $scope.removeAllEvents = function(){
