@@ -41,7 +41,7 @@
     </head>
     <!-- Here is where we tell angular to expect angularJS implementation in
          this HTML block  -->
-    <body >
+    <body style="background:#FCFAF8;">
         <div id="header">
             <p>
                 <span id="busy">BUSY</span>
@@ -50,6 +50,7 @@
         </div>
         <!-- here is a block that will be controlled by the "MainController
              controller -->
+<!--
         <div id="content">
             <div id="gallery" ng-controller="CarouselInstanceCtrl">
                 <div style="height:400px;width:700px">
@@ -66,11 +67,12 @@
                     <a href="../contact/index.html">Official Documents</a>
                 </p>
             </div>
+-->
             
-            <div name="myForm" id="getInWrapper">
+            <div name="myForm" id="getInWrapper" class="card">
                 <div id="options">
-                    <div id="login" onclick="dispTab('login')">Log In</div>
-                    <div id="signup" onclick="dispTab('signup')" style="background:#D8D8D8;">Sign Up</div>
+                    <div id="login" onclick="dispTab('login')" style="background:white;">Login</div>
+                    <div id="signup" onclick="dispTab('signup')" style="background:#D8D8D8">Sign Up</div>
                 </div>
                 <center><br><br>
                     <div id="lForm" style="display:block;position:relative;top:20px;">
@@ -84,8 +86,8 @@
 
                             <!-- hidden submit button! -->
                             <input type="submit" style="position:absolute;left:-9999px;width:1px;height:1px;"/>
-                            <div ng-click="login()" class="bttn" style="margin-top:10px;">Log In</div><br>
-                            <div ng-click="forgotPassword()" class="btn4">Forgot Password</div>
+                            <div ng-click="login()" class="bttn" style="margin-top:10px;">Login</div><br>
+                            <div ng-click="forgotPassword()" class="forgotBtn">Forgot Password</div>
                         </form>
                     </div>
                     

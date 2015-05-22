@@ -166,8 +166,18 @@ app.controller('LoginController', ['$scope', function($scope) {
 
 }]);
   
+  /************************************************************************
+   * Name:		logout()
+
+   * Purpose:		Allows the user to logout.
+
+   * Called In:   main()
+
+   * Description:	Calls Parse's logout function. 
+   ************************************************************************/
+
 app.controller('CarouselInstanceCtrl', function ($scope) {
-  $scope.interval = 5000;
+  $scope.interval = 3000;
   var slides = $scope.slides = [];
 
   $scope.addSlide = function() {

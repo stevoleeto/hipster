@@ -168,7 +168,7 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
     $scope.eventSources = {
       events: $scope.eventArray,
 
-        color: 'green',
+        color: 'blue',
         eventBackgroundColor: 'blue',  // an option!
         textColor: 'white', // an option!
         overlap: false

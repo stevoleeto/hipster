@@ -1,5 +1,5 @@
-<html ng-app="myApp" >
-    <head>
+<html ng-app="myApp" style="background:#FCFAF8;">
+    <head style="background: #FCFAF8;">
         <!-- Information about the document goes here. This includes the encoding, title, css files, and JS files -->
         <link rel="stylesheet" type="text/css" href="./style.css">
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.0/angular-material.min.css">
@@ -54,7 +54,7 @@
         </script> 
     </head>
     
-    <body>
+    <body style="background: #FCFAF8;">
       <!-- PROFILE CONTROLLER -->
       <div ng-controller="ProfileController"> 
         
@@ -126,17 +126,17 @@
         <div id="logoutWrapper">
             <div class="btn-group" dropdown>
                 <div class="logoutbtn" ng-show="homeView" dropdown-toggle></div>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><div ng-click="settingsModal('lg')">Account Settings</div></li>
-                        <li><div ng-click="logout()">Logout</div></li>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                        <li><a ng-click="settingsModal('lg')">Account Settings</a></li>
+                        <li><a ng-click="logout()">Logout</a></li>
                     </ul>
             </div>
             
             <div class="btn-group" dropdown>
                 <div class = "friendsOptionsBtn" ng-show="homeView" dropdown-toggle></div>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><div ng-click="open('lg')">Add Friend</div></li>
-                        <li><div ng-click="friendsModal('lg')">View Friends List</div></li>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                        <li><a ng-click="open('lg')">Add Friend</a></li>
+                        <li><a ng-click="friendsModal('lg')">View Friends List</a></li>
                     </ul>
             </div>
             
@@ -163,8 +163,8 @@
                     <div id="createWrapper">
                         <p id="createTitle">Create Event</p>
                         <div class="createEvent card">
-                            <p >Event Name</p>
-                            <input type="text" name="pEventName" class="eventPar" ng-model="newEventName">
+<!--                            <p >Event Name</p>-->
+                            <input placeholder="Event Name" type="text" name="pEventName" class="eventPar" ng-model="newEventName">
                             <br><br>
 
                             <label for="repeatingEvent" class="eventPar" style="border:none">Repeat Weekly</label>
@@ -196,8 +196,9 @@
                             <input ng-init="eventEndTime"  type="time" class="eventPar" ng-model="eventEndTime"><br><br>
 
                             <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
-                            <div ng-click="removeAllEvents()">DELETE ALL GROUPS</div>
+                            
                         </div>
+                        <div ng-click="removeAllEvents()" id = "remEvents">Remove All Events</div>
                     </div>
             	</div>
         	</div>
@@ -213,7 +214,7 @@
                     </div>
                 	<div ng-click="removeAllGroups()" class="btn2" style="margin-top:10px;">Remove ALL Group</div>
                 	<ul>
-                    	<div ng-repeat="group in myGroupList track by $index" class ="groupSelect"  
+                    	<div ng-repeat="group in myGroupList track by $index" class ="groupSelect card"  
                         ng-click="$parent.profileView=false; 
                                   $parent.groupView=false; 
                                   $parent.$parent.singleGroupView=true; 
@@ -221,7 +222,7 @@
                                   $parent.currentGroupColor = group.color;
                                   addGroup();" ng-attr-title="{{ group.name }}" 
                     	ng-style="{background:group.color}">
-                            <p>{{ group.name | limitTo:12 }}{{ group.name.length >= 12 ? '...' : '' }}</p>
+                            <p>{{ group.name | limitTo:14 }}{{ group.name.length > 14 ? '...' : '' }}</p>
                         </div>
                         <div ng-click="addGroupModal()" id="addGroupBtn"></div>
                         <script type="text/ng-template" id="addGroup.html">
@@ -298,8 +299,8 @@
                 
                 <div id="createWrapper">
                    <div class="createEvent card">
-                        <p >Event Name</p>
-                        <input type="text" name="pEventName" class="eventPar" ng-model="newEventName">
+<!--                        <p >Event Name</p>-->
+                        <input type="text" placeholder="Event Name" name="pEventName" class="eventPar" ng-model="newEventName">
                         <br><br>
 
                         <label for="repeatingEvent">Repeating Event</label>
