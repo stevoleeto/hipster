@@ -188,12 +188,19 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
               //$log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
           },
   		editable: true,
+      selectable: true,
   		defaultView: 'agendaWeek',
       slotDuration: '01:00:00',
       minTime: '06:00:00',
       maxTime: '22:00:00',
       dayClick: function(date, jsEvent, view) {
-        console.log("Clicked on " + date.format());
+        //Saved for future use
+      },
+      select: function(start, end, jsEvent, view){
+        $scope.eventStartDate = (start.local()).toDate();
+        $scope.eventEndDate =  (end.local()).toDate();
+        $scope.eventStartTime = ((start.local()).toDate());
+        $scope.eventEndTime = ((end.local()).toDate());
       },
       header: {
         left: 'prev,next today',
