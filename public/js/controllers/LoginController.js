@@ -248,8 +248,10 @@ function dispTab( tabId ) {
   if ( tabId == 'login' ) {
     //Change the background of "Sign Up" tab gray
     signup.style.background = '#D8D8D8';
+    signup.style.color = "grey";
     //Change the background of "Log In" tab white
     login.style.background = 'white';
+    login.style.color = "#2B98F0"
     //Hide the text boxes and buttons for the sign up form
     sForm.style.display = 'none';
     //Display the text boxes and the buttons for the log in form
@@ -257,8 +259,10 @@ function dispTab( tabId ) {
   } else {
     //Change the background of "Log In" tab gray
     login.style.background = '#D8D8D8';
+    login.style.color = "grey"
     //Change the background of "Sign Up" tab white
     signup.style.background = 'white';
+    signup.style.color = "#2B98F0";
     //Hide the text boxes and buttons for the log in form
     lForm.style.display = 'none';
     //Display the text boxes and buttons for the sign up form
