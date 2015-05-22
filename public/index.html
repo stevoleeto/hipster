@@ -286,71 +286,74 @@
         <!-- GROUP CONTROLLER -->
         <div class="singleGroupView" ng-init="singleGroupView=false" ng-show="singleGroupView">
             <div id="profileWrapper" ng-controller="GroupController">
-                <p id = "groupName" ng-style="{background:groupColor}">{{ groupName }}</p>
+                <div id="groupHeader" ng-style="{background:groupColor}">
+                    <p id="groupName">{{ groupName }}</p>
+                    <button class="btn btn-info">Members</button>
+                </div>
                 <div style="clear:both;">
-                <div id="scheduleWrapper" >
-            
-                    <div class="schedule card">
-                        <!-- TEST group UI CALENDAR -->
-                         <div  ng-model="eventSources" calendar='groupCalendar' ui-calendar="uiConfig.calendar"  ></div> 
-                        <br><br>
-                    </div>
-                </div>
-                
-                <div id="createWrapper">
-                   <div class="createEvent card">
-<!--                        <p >Event Name</p>-->
-                        <input type="text" placeholder="Event Name" name="pEventName" class="eventPar" ng-model="newEventName">
-                        <br><br>
-
-                        <label for="repeatingEvent">Repeating Event</label>
-                        <input ng-init="repeatingEvent=false" type="checkbox" name="repeatingEvent" ng-click="repeatingEvent = !repeatingEvent">
-                        <br><br>
-
-                        <p >Start Date</p>
-                        <input  ng-init="eventStartDate = Date()" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate">
-                        <br><br>
-                        
-                        <p >End Date</p>
-                        <input ng-init="eventEndDate = Date()"  for="pEndDate" type="date" class="eventPar" ng-model="eventEndDate">
-                        <br><br>
-
-                        <p >Start Time</p>
-                        <input ng-init="eventStartTime = Date()" type="time" class="eventPar" ng-model="eventStartTime"><br><br>
-                        
-                        <p >End Time</p>
-                        <input ng-init="eventEndTime = Date(1)"  type="time" class="eventPar" ng-model="eventEndTime"><br><br>
-                        
-                        <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
-                    </div>
-                </div>
-                
-                <div id="membersInfo">
-                    <h5><strong>Group Code: </strong></h5>
-                    <p>{{currentGroupId}}</p>
-                    <h2>Members</h2>
-                    <div class="members" ng-repeat="member in memberList track by $index">
-                        <img class="memberIcon" ng-src="{{member.icon}}"/>
-                    	<p text-align="center">{{member.name}}</p>
-                    </div>
-                    <div id = "addMemberBtn" ng-click="addMemberModal()"></div>
-                    <script type="text/ng-template" id="addMember.html">
-                        <div ng-controller="GroupController">
-                            <div class="modal-header">
-                                <h3 class="modal-title">Add a Member</h3>
-                            </div>
-                            <div class="modal-body">
-                                <input type="text" ng-model="newMemberEmail" placeholder="New Member Email"> 
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-primary" ng-click="addMember()">OK</button>
-                                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-                            </div>
+                    <div id="scheduleWrapper" >
+                        <div class="schedule card">
+                            <!-- TEST group UI CALENDAR -->
+                            <div  ng-model="eventSources" calendar='groupCalendar' ui-calendar="uiConfig.calendar"  ></div> 
+                            <br><br>
                         </div>
-                    </script>
-        	   </div>
-            </div>   
+                    </div>
+                
+                    <div id="createWrapper">
+                        <div class="createEvent card">
+                            <!-- <p >Event Name</p> -->
+                            <input type="text" placeholder="Event Name" name="pEventName" class="eventPar" ng-model="newEventName">
+                            <br><br>
+
+                            <label for="repeatingEvent">Repeating Event</label>
+                            <input ng-init="repeatingEvent=false" type="checkbox" name="repeatingEvent" ng-click="repeatingEvent = !repeatingEvent">
+                            <br><br>
+
+                            <p >Start Date</p>
+                            <input  ng-init="eventStartDate = Date()" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate">
+                            <br><br>
+                            
+                            <p >End Date</p>
+                            <input ng-init="eventEndDate = Date()"  for="pEndDate" type="date" class="eventPar" ng-model="eventEndDate">
+                            <br><br>
+
+                            <p >Start Time</p>
+                            <input ng-init="eventStartTime = Date()" type="time" class="eventPar" ng-model="eventStartTime"><br><br>
+                            
+                            <p >End Time</p>
+                            <input ng-init="eventEndTime = Date(1)"  type="time" class="eventPar" ng-model="eventEndTime"><br><br>
+                            
+                            <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
+                        </div>
+                    </div>
+                
+                    <div id="membersInfo">
+                        <h5><strong>Group Code: </strong></h5>
+                        <p>{{currentGroupId}}</p>
+                        <h2>Members</h2>
+                        <div class="members" ng-repeat="member in memberList track by $index">
+                            <img class="memberIcon" ng-src="{{member.icon}}"/>
+                    	   <p text-align="center">{{member.name}}</p>
+                        </div>
+                        <div id = "addMemberBtn" ng-click="addMemberModal()"></div>
+                        <script type="text/ng-template" id="addMember.html">
+                            <div ng-controller="GroupController">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">Add a Member</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="text" ng-model="newMemberEmail" placeholder="New Member Email"> 
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" ng-click="addMember()">OK</button>
+                                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                                </div>
+                            </div>
+                        </script>
+                    </div>  
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
     </body>
 </html>
