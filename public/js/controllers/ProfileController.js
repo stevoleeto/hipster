@@ -189,7 +189,7 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
           },
   		editable: true,
   		defaultView: 'agendaWeek',
-      slotDuration: '00:30:00',
+      slotDuration: '01:00:00',
       minTime: '06:00:00',
       maxTime: '22:00:00',
       dayClick: function(date, jsEvent, view) {

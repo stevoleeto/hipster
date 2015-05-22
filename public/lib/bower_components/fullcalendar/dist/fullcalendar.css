@@ -764,7 +764,7 @@ a.fc-more:hover {
 /* a "rigid" row will take up a constant amount of height because content-skeleton is absolute */
 
 .fc-row.fc-rigid {
-	overflow: hidden;
+	overflow: scroll;
 }
 
 .fc-row.fc-rigid .fc-content-skeleton {
@@ -822,7 +822,7 @@ a.fc-more:hover {
 }
 
 .fc-agenda-view .fc-day-grid .fc-row {
-	min-height: 3em; /* all-day section will never get shorter than this */
+	min-height: 2em; /* all-day section will never get shorter than this */
 }
 
 .fc-agenda-view .fc-day-grid .fc-row .fc-content-skeleton {
@@ -909,7 +909,7 @@ a.fc-more:hover {
 --------------------------------------------------------------------------------------------------*/
 
 .fc-time-grid .fc-slats td {
-	height: 1.5em;
+	height: 3em;
 	border-bottom: 0; /* each cell is responsible for its top border */
 }
 
@@ -1059,3 +1059,4 @@ be a descendant of the grid when it is being dragged.
 .fc-time-grid-event .fc-resizer:after {
 	content: "=";
 }
+
