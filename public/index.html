@@ -167,9 +167,19 @@
                             <input type="text" name="pEventName" class="eventPar" ng-model="newEventName">
                             <br><br>
 
-                            <label for="repeatingEvent" class="eventPar" style="border:none">Repeating Event</label>
+                            <label for="repeatingEvent" class="eventPar" style="border:none">Repeat Weekly</label>
                             <input ng-init="repeatingEvent=false" type="checkbox" name="repeatingEvent" ng-click="repeatingEvent = !repeatingEvent">
                             <br><br>
+
+                        <div ng-show="repeatingEvent" class="btn-group">
+                            <label class="btn btn-primary" ng-model="dayRepeat.monday" btn-checkbox>Monday</label>
+                            <label class="btn btn-primary" ng-model="dayRepeat.tuesday" btn-checkbox>Tuesday</label>
+                            <label class="btn btn-primary" ng-model="dayRepeat.wednesday" btn-checkbox>Wednesday</label>
+                            <label class="btn btn-primary" ng-model="dayRepeat.thursday" btn-checkbox>Thursday</label>
+                            <label class="btn btn-primary" ng-model="dayRepeat.friday" btn-checkbox>Friday</label>
+                            <label class="btn btn-primary" ng-model="dayRepeat.saturday" btn-checkbox>Saturday</label>
+                            <label class="btn btn-primary" ng-model="dayRepeat.sunday" btn-checkbox>Sunday</label>
+                        </div>
 
                             <p >Start Date</p>
                             <input  ng-init="eventStartDate" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate">
