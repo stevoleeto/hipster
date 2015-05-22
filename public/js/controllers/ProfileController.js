@@ -148,6 +148,7 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
     $scope.email = currentUser.get("username");
     $scope.eventArray = currentUser.get("personalSchedule");
     $scope.friendList = currentUser.get("friendList");
+    $scope.eventColor = '#B9F5FF';
   								 
     //set users email in service
     userService.setEmail(currentUser.get("username")); 
@@ -168,7 +169,6 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
      $scope.eventSources = [{
        events: $scope.eventArray,
 
-         color: 'green',
          eventBackgroundColor: 'blue',  // an option!
          textColor: 'white', // an option!
          overlap: false
@@ -390,6 +390,7 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
             title : myName,
             start : ((allDates[index].set('hour', myStartHour)).set('minute', myStartMin)).toISOString(),
             end   : ((allDates[index].set('hour', myEndHour)).set('miute', myEndMin)).toISOString(),
+            color : $scope.eventColor,
             stick : true
          });
         }
@@ -400,6 +401,7 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
          title : myName,
          start : ((myStartDate.set('hour', myStartHour)).set('minute', myStartMin)).toISOString(),
          end   : ((myEndDate.set('hour', myEndHour)).set('minute', myEndMin)).toISOString(),
+         color : $scope.eventColor,
          stick : true
        });
     }
@@ -418,7 +420,7 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
 
   $scope.removeAllEvents = function(){
     $scope.eventSources[0].events.length = 0;
-    currentUser.set("personalSchedule", $scope.eventSources.events);
+    currentUser.set("personalSchedule", $scope.eventSources[0].events);
     currentUser.save();
   }
 
