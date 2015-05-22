@@ -177,7 +177,7 @@ app.controller('LoginController', ['$scope', function($scope) {
    ************************************************************************/
 
 app.controller('CarouselInstanceCtrl', function ($scope) {
-  $scope.interval = 5000;
+  $scope.interval = 3000;
   var slides = $scope.slides = [];
 
   $scope.addSlide = function() {
@@ -247,18 +247,18 @@ function dispTab( tabId ) {
   //If the user clicked on "Log In" tab
   if ( tabId == 'login' ) {
     //Change the background of "Sign Up" tab gray
-    signup.style.background = 'white';
+    signup.style.background = '#D8D8D8';
     //Change the background of "Log In" tab white
-    login.style.background = '#D8D8D8';
+    login.style.background = 'white';
     //Hide the text boxes and buttons for the sign up form
     sForm.style.display = 'none';
     //Display the text boxes and the buttons for the log in form
     lForm.style.display = 'block';
   } else {
     //Change the background of "Log In" tab gray
-    login.style.background = 'white';
+    login.style.background = '#D8D8D8';
     //Change the background of "Sign Up" tab white
-    signup.style.background = '#D8D8D8';
+    signup.style.background = 'white';
     //Hide the text boxes and buttons for the log in form
     lForm.style.display = 'none';
     //Display the text boxes and buttons for the sign up form
