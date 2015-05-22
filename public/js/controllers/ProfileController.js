@@ -389,7 +389,8 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
          $scope.eventSources[0].events.push({
             title : myName,
             start : ((allDates[index].set('hour', myStartHour)).set('minute', myStartMin)).toISOString(),
-            end   : ((allDates[index].set('hour', myEndHour)).set('miute', myEndMin)).toISOString()
+            end   : ((allDates[index].set('hour', myEndHour)).set('miute', myEndMin)).toISOString(),
+            stick : true
          });
         }
     }    
@@ -398,7 +399,8 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
        $scope.eventSources[0].events.push({
          title : myName,
          start : ((myStartDate.set('hour', myStartHour)).set('minute', myStartMin)).toISOString(),
-         end   : ((myEndDate.set('hour', myEndHour)).set('minute', myEndMin)).toISOString()
+         end   : ((myEndDate.set('hour', myEndHour)).set('minute', myEndMin)).toISOString(),
+         stick : true
        });
     }
 
@@ -415,11 +417,9 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
   }
 
   $scope.removeAllEvents = function(){
-    //$scope.eventSources[0].events.length = 0;
-    //currentUser.set("personalSchedule", $scope.eventSources.events);
-    //currentUser.save();
-
-    console.log($scope.eventSources[0].events);
+    $scope.eventSources[0].events.length = 0;
+    currentUser.set("personalSchedule", $scope.eventSources.events);
+    currentUser.save();
   }
 
   //ADDED BY SARA
