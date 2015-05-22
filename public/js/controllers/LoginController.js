@@ -166,6 +166,16 @@ app.controller('LoginController', ['$scope', function($scope) {
 
 }]);
   
+  /************************************************************************
+   * Name:		logout()
+
+   * Purpose:		Allows the user to logout.
+
+   * Called In:   main()
+
+   * Description:	Calls Parse's logout function. 
+   ************************************************************************/
+
 app.controller('CarouselInstanceCtrl', function ($scope) {
   $scope.interval = 5000;
   var slides = $scope.slides = [];
@@ -237,18 +247,18 @@ function dispTab( tabId ) {
   //If the user clicked on "Log In" tab
   if ( tabId == 'login' ) {
     //Change the background of "Sign Up" tab gray
-    signup.style.background = '#D8D8D8';
+    signup.style.background = 'white';
     //Change the background of "Log In" tab white
-    login.style.background = 'white';
+    login.style.background = '#D8D8D8';
     //Hide the text boxes and buttons for the sign up form
     sForm.style.display = 'none';
     //Display the text boxes and the buttons for the log in form
     lForm.style.display = 'block';
   } else {
     //Change the background of "Log In" tab gray
-    login.style.background = '#D8D8D8';
+    login.style.background = 'white';
     //Change the background of "Sign Up" tab white
-    signup.style.background = 'white';
+    signup.style.background = '#D8D8D8';
     //Hide the text boxes and buttons for the log in form
     lForm.style.display = 'none';
     //Display the text boxes and buttons for the sign up form
