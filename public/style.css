@@ -374,6 +374,22 @@ input
 
 }
 
+.repDays label{
+    position: relative;
+    width: 14.29%;
+    margin: 0;
+    padding: 6px 5px;
+    border-radius: 0;
+}
+
+.repDays label:first-child {
+    border-radius: 4px 0 0 4px;
+}
+
+.repDays label:last-child {
+    border-radius: 0 4px 4px 0;
+}
+
 
 .createEvent p,label
 {
@@ -611,8 +627,8 @@ input
 
 .btn-group
 {
-    float:right;
-    position:relative;
+    position: relative;
+    float: right;
 }
 
 .btn-group li
