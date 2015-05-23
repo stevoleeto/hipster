@@ -160,7 +160,9 @@
             <center>
                 <div ng-click="profileView=true; groupView=false; $parent.singleGroupView=false" ng-class="{selTab: profileView}" class="viewBtn">Personal</div>
                 <div ng-click="groupView=true; profileView=false; $parent.singleGroupView=false" ng-class="{selTab: groupView}" class="viewBtn">Groups</div>
-                <div ng-click="profileView=false; groupView=false; $parent.singleGroupView=true;" class="viewBtn" ng-class="{selTab: $parent.singleGroupView}" ng-hide="!singleGroupName">{{ singleGroupName | limitTo:8 }}{{ singleGroupName.length > 8 ? '...' : '' }}</div>
+                <div ng-hover="" ng-click="profileView=false; groupView=false; $parent.singleGroupView=true;" class="viewBtn" ng-class="{selTab: $parent.singleGroupView}" ng-hide="!singleGroupName">
+                    {{ singleGroupName | limitTo:8 }}{{ singleGroupName.length > 8 ? '...' : '' }}
+                </div>
             </center>
         </div>
     
@@ -263,7 +265,8 @@
                                     <p>{{ group.name | limitTo:12 }}{{ group.name.length > 12 ? '...' : '' }}</p>
                                 </div>
                                 <div ng-controller="PopoverInstanceCtrl">
-                                <center><p Popover-animation="true" popover-template="confirmRemove.templateUrl" popover-placement="bottom" id="minus" popover-title="Confirm Remove"></p></center>
+                                <p Popover-animation="true" id="pencil"></p> 
+                                <p Popover-animation="true" popover-template="confirmRemove.templateUrl" popover-placement="bottom" id="minus" popover-title="Confirm Remove"></p>
                                 <script type="text/ng-template" id="confirmRemove.html">
                                     <button class="btn btn-danger" ng-click="removeGroup(group.id);">Delete</button>
                                 </script>
@@ -281,12 +284,12 @@
                                 <br><br>
                                 <label for="groupColor">Select a Color</label>
                                     
-                                <ul id="groupColorSelect">
-                                    <li style="background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></li>
-                                    <li style="background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></li>
-                                    <li style="background:#FFA6B1;" ng-click="groupColor='#FFA6B1'"></li>
-                                    <li style="background:#FEC12F;" ng-click="groupColor='#FEC12F'"></li>
-                                </ul>    
+                                <div id="groupColorSelect">
+                                    <div style="background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></div>
+                                    <div style="background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></div>
+                                    <div style="background:#FFA6B1;" ng-click="groupColor='#FFA6B1'"></div>
+                                    <div style="background:#FEC12F;" ng-click="groupColor='#FEC12F'"></div>
+                                </div>    
                                 <br><br>
                                 </div>
                                 <div class="modal-footer">
@@ -378,6 +381,5 @@
                     </div>
                 </div>
             </div>
-        </div>
     </body>
 </html>
