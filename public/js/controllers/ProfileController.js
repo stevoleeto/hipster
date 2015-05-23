@@ -39,8 +39,8 @@ var currentUser = Parse.User.current();
 var newIcon = 'images/userIcon.png';
 
 
-app.controller('ProfileController', ['$scope', 'groupService','$timeout','userService','uiCalendarConfig', '$modal', '$log', 
-                                     function($scope, groupService, $timeout, userService, uiCalendarConfig, $modal,$log) {
+app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '$timeout','userService','uiCalendarConfig', '$modal', '$log', 
+                                     function($scope, groupService, eventService, $timeout, userService, uiCalendarConfig, $modal,$log) {
     
   $scope.items = ['item1', 'item2', 'item3'];
 
@@ -341,85 +341,63 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
    * Description: Removs all groups found in their GroupList userGroups array.
    ************************************************************************/
   $scope.createEvent = function(){
-
-    
-    //Generates All Variables to Moments. Easier to follow through code.
-    var myStartDate = moment($scope.eventStartDate.toISOString()).dateOnly(); //moments
-    var myStartHour = moment($scope.eventStartTime.toISOString()).hour();
-    var myStartMin = moment($scope.eventStartTime.toISOString()).minute();
-    var myEndHour = moment($scope.eventEndTime.toISOString()).hour(); 
-    var myEndMin = moment($scope.eventEndTime.toISOString()).minute();
-    var myEndDate = moment($scope.eventEndDate.toISOString()).dateOnly();
-    var myName = $scope.newEventName;
     var repeatTheseDays = [];
-
-    console.log($scope.newEventName);
+    var repeat = false;
+    
     if (!$scope.newEventName){
       alert("Enter a event name!");
       return;
     }
-
+    
     if($scope.repeatingEvent){
-      
-      var myRecurRules = (moment(myStartDate)).recur(myEndDate);
-      console.log(myRecurRules);
+      repeat = true;
 
-      if ($scope.dayRepeat.monday === true){
+      if ($scope.dayRepeat.monday){
         repeatTheseDays.push(1);
       }
-      if ($scope.dayRepeat.tuesday === true){
+      if ($scope.dayRepeat.tuesday){
         repeatTheseDays.push(2);
       }
-      if ($scope.dayRepeat.wednesday === true){
+      if ($scope.dayRepeat.wednesday){
         repeatTheseDays.push(3);
       }
-      if ($scope.dayRepeat.thursday === true){
+      if ($scope.dayRepeat.thursday){
         repeatTheseDays.push(4);
       }
-      if ($scope.dayRepeat.friday === true){
+      if ($scope.dayRepeat.friday){
         repeatTheseDays.push(5);
       }
-      if ($scope.dayRepeat.saturday === true){
+      if ($scope.dayRepeat.saturday){
         repeatTheseDays.push(6);
       }
-      if ($scope.dayRepeat.sunday === true){
+      if ($scope.dayRepeat.sunday){
         repeatTheseDays.push(0); 
       }
-    
-      var myID = (moment().local()).unix();
-       myRecurRules = (myRecurRules.every(repeatTheseDays)).daysOfWeek();
-       allDates = myRecurRules.all();
-
-        for (index = 0; index < allDates.length; index++){
-         $scope.eventSources[0].events.push({
-            id : myID,
-            title : myName,
-            start : ((allDates[index].set('hour', myStartHour)).set('minute', myStartMin)).toISOString(),
-            end   : ((allDates[index].set('hour', myEndHour)).set('miute', myEndMin)).toISOString(),
-            color : $scope.eventColor,
-            stick : true
-         });
-        }
     }    
-     //If not repeating, treat as single event.
-    else{
-       $scope.eventSources[0].events.push({
-         id : (moment().local()).unix(),
-         title : myName,
-         start : ((myStartDate.set('hour', myStartHour)).set('minute', myStartMin)).toISOString(),
-         end   : ((myEndDate.set('hour', myEndHour)).set('minute', myEndMin)).toISOString(),
-         color : $scope.eventColor,
-         stick : true
-       });
-    }
+     
+     eventService.createEvent($scope.newEventName, //event name
+        $scope.eventColor, //event color
+        (moment($scope.eventStartDate.toISOString()).dateOnly()), //start date
+        (moment($scope.eventStartTime.toISOString()).hour()), //start hour
+        (moment($scope.eventStartTime.toISOString()).minute()), //start min
+        (moment($scope.eventEndDate.toISOString()).dateOnly()), //end date
+        (moment($scope.eventEndTime.toISOString()).hour()), //end hour
+        (moment($scope.eventEndTime.toISOString()).minute()), //end min
+        repeat, //does this event repeat?
+        repeatTheseDays); //what does does this event repeat on
+
+     newEvents = eventService.getEvents();
+     
+     for (index = 0; index < newEvents.length; index++){
+        $scope.eventSources[0].events.push(newEvents[index]); 
+     }
+     
      currentUser.set("personalSchedule", $scope.eventSources[0].events);
      currentUser.save();
 
      $scope.newEventName = "";
 
-
-     //$('#calendar').fullCalendar('render');
-     //$scope.eventSources.$dirty;
+     eventService.clearEvents();
   }
 
   $scope.removeAllEvents = function(){
