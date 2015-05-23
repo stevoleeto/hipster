@@ -147,7 +147,7 @@
             <center>
                 <div ng-click="profileView=true; groupView=false; $parent.singleGroupView=false" ng-class="{selTab: profileView}" class="viewBtn">Personal</div>
                 <div ng-click="groupView=true; profileView=false; $parent.singleGroupView=false" ng-class="{selTab: groupView}" class="viewBtn">Groups</div>
-                <div ng-click="profileView=false; groupView=false; $parent.singleGroupView=true;" class="viewBtn" ng-class="{selTab: $parent.singleGroupView}" ng-hide="!singleGroupName">{{ singleGroupName | limitTo:9 }}{{ singleGroupName.length > 9 ? '...' : '' }}</div>
+                <div ng-click="profileView=false; groupView=false; $parent.singleGroupView=true;" class="viewBtn" ng-class="{selTab: $parent.singleGroupView}" ng-hide="!singleGroupName">{{ singleGroupName | limitTo:8 }}{{ singleGroupName.length > 8 ? '...' : '' }}</div>
             </center>
         </div>
     
@@ -228,7 +228,7 @@
                                       $parent.currentGroupId = group.id; 
                                       $parent.currentGroupColor = group.color;
                                       addGroup(); $parent.updateSingleGroupTab(group.name)" ng-attr-title="{{ group.name }}" >
-                                    <p>{{ group.name | limitTo:14 }}{{ group.name.length > 14 ? '...' : '' }}</p>
+                                    <p>{{ group.name | limitTo:12 }}{{ group.name.length > 12 ? '...' : '' }}</p>
                                 </div>
                                 <p id="minus" ng-click="removeGroup(group.id)"></p>
                             </div>

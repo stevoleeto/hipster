@@ -212,7 +212,6 @@ input
     background: #4284F5;
     width: 160px;
     transition: width .5s;
-    overflow: hidden;
 }
 
 .selTab
@@ -220,6 +219,7 @@ input
     border-bottom:solid orange 4px;
     background: #4284F5;
     width: 140px;
+    overflow: hidden;
 }
 
 .bttn 
@@ -460,6 +460,9 @@ input
     position: relative;
     top:20px;
     height:35px;
+    line-height: 35px;
+    letter-spacing: 2px;
+    overflow: hidden;
 }
 
 .groupSelect
