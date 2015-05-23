@@ -243,10 +243,6 @@ app.service('groupService',['$q', function($q){
   var getGroupColor = function(){
     return groupColor;
   };
-    
- var getGroupName = function(){
-    return "Single";
- }
 
   var getMemberEventArray = function(){
     return memberEventArray;
