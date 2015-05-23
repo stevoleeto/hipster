@@ -26,6 +26,7 @@ app.service('groupService',['$q', function($q){
   /* Event Id's */
   var freeId = 999;
   var busyId = 1000;
+  var groupEventArray;
 
   /* query data fields - private data fields */
   var groupQuery;
@@ -207,6 +208,10 @@ app.service('groupService',['$q', function($q){
   /* SETTERS AND GETTERS */
   /***********************/
 
+  var getEventsArray = function(){
+      return groupQuery[0].get("groupSchedule");
+  }
+
   var getNewMember = function(){
     return newMember;
   };
@@ -238,6 +243,10 @@ app.service('groupService',['$q', function($q){
   var getGroupColor = function(){
     return groupColor;
   };
+    
+ var getGroupName = function(){
+    return "Single";
+ }
 
   var getMemberEventArray = function(){
     return memberEventArray;
@@ -249,18 +258,20 @@ app.service('groupService',['$q', function($q){
 
   return {
     addMember : addMember,
-              setGroupId: setGroupId,
-              getGroupId: getGroupId,
-              setGroupColor: setGroupColor,
-              getGroupColor: getGroupColor,
-              setMemberList : setMemberList,
-              getMemberList : getMemberList,
-              getNewMember : getNewMember,
-              getGroupName : getGroupName,
 
-              initGroup : initGroup,
-              getMemberEventArray : getMemberEventArray,
-              clearMemberArray : clearMemberArray
+      setGroupId: setGroupId,
+      getGroupId: getGroupId,
+      setGroupColor: setGroupColor,
+      getGroupColor: getGroupColor,
+      setMemberList : setMemberList,
+      getMemberList : getMemberList,
+      getNewMember : getNewMember,
+      getGroupName : getGroupName,
+
+      initGroup : initGroup,
+      getMemberEventArray : getMemberEventArray,
+      clearMemberArray : clearMemberArray
+
   };
 
 }]);

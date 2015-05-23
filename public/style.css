@@ -229,13 +229,14 @@ input
     color: white;
     font-size: 30px;
     line-height: 40px;
-
+    transition:background .5s;
 }
 
 .bttn:hover 
 {
     cursor: pointer;
     background: #235Ff6;
+    transition:background .5s;
 }
 
 #profileWrapper
@@ -339,6 +340,7 @@ input
     background:white;
     padding:5px;
     margin-bottom: 10px;
+/*    border:solid black 1px;*/
 }
 
 #createWrapper
@@ -466,9 +468,9 @@ input
     width:150px;
     height: 150px;
     float: left;
-    margin-right: 30px;
+    margin-left: 40px;
     /*background: #FDA7B2;*/
-    margin-top:20px;
+    margin-top:40px;
     z-index:0;
 }
 
@@ -494,6 +496,9 @@ input
 
 #minus
 {
+    background-image:url(images/minus.png);
+    background-size: contain;
+    background-repeat: no-repeat;
     position:relative;
     width:30px;
     height:30px;
@@ -514,8 +519,8 @@ input
 #addGroupBtn
 {
     position: relative;
-    top: 45px;
-    left: 23px;
+    top: 70px;
+    left: 50px;
     float: left;
     height: 85px;
     width: 87px;
@@ -523,12 +528,15 @@ input
     background-repeat: no-repeat;
     border-radius: 50%;
     background-size: contain;
+    opacity:.75;
+    transition:opacity .3s;
 }
 
 #addGroupBtn:hover {
     cursor: pointer;
-    opacity: 0.75;
-    filter: alpha(opacity=75);
+    opacity: 1;
+    opacity=1;
+    transition:opacity .3s;
 }
 
 #homeView, .singleGroupView
