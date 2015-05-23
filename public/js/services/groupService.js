@@ -180,7 +180,7 @@ app.service('groupService',['$q', function($q){
   };
     
  var getGroupName = function(){
-    return groupName;
+    return "Single";
  }
 
   return {
@@ -191,7 +191,8 @@ app.service('groupService',['$q', function($q){
       getGroupColor: getGroupColor,
       setMemberList : setMemberList,
       getMemberList : getMemberList,
-      getNewMember : getNewMember
+      getNewMember : getNewMember,
+      getGroupName : getGroupName
   };
 
 }]);
