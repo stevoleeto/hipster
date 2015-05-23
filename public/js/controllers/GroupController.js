@@ -85,20 +85,13 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
         /* update view after modal is dismissed by addMember() */
         $scope.memberList = groupService.getMemberList();
         var tempSched = groupService.getNewMember().personalSchedule;
-        var tempSchedBlack = JSON.parse(JSON.stringify(groupService.getNewMember().personalSchedule));
         for(index = 0; index < tempSched.length; index++){
-          tempSched[index].rendering = "inverse-background";
-          tempSched[index]._id = freeId;
-          tempSched[index].__id = freeId;
-          tempSched[index].color = freeTimeColor;
-
-          tempSchedBlack[index].rendering = "background";
-          tempSchedBlack[index]._id = busyId;
-          tempSchedBlack[index].__id = busyId;
-          tempSchedBlack[index].color = busyTimeColor;
+          tempSched[index].rendering = "background";
+          tempSched[index]._id = busyId;
+          tempSched[index].__id = busyId;
+          tempSched[index].color = busyTimeColor;
         }
-        var combinedSched = tempSched.concat(tempSchedBlack);
-        $scope.eventSources.push(combinedSched);
+        $scope.eventSources.push(tempSched);
     });
   };
 
