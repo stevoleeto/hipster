@@ -148,6 +148,7 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
     $scope.email = currentUser.get("username");
     $scope.eventArray = currentUser.get("personalSchedule");
     $scope.friendList = currentUser.get("friendList");
+    $scope.eventColor = '#B9F5FF';
   								 
     //set users email in service
     userService.setEmail(currentUser.get("username")); 
@@ -165,16 +166,17 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
   								 
     // source for calendar events
     //$scope.eventSources = [$scope.eventArray];
-    $scope.eventSources = {
-      events: $scope.eventArray,
+     $scope.eventSources = [{
+       events: $scope.eventArray,
 
-        color: 'blue',
-        eventBackgroundColor: 'blue',  // an option!
-        textColor: 'white', // an option!
-        overlap: false
+         eventBackgroundColor: 'blue',  // an option!
+         textColor: 'white', // an option!
+         overlap: false
 
-        //     rendering: 'inverse-background'
-    }
+         //     rendering: 'inverse-background'
+     }];
+
+     console.log($scope.eventSources);
 
 
     // Profile Calendar Settings
@@ -186,12 +188,19 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
               //$log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
           },
   		editable: true,
+      selectable: true,
   		defaultView: 'agendaWeek',
       slotDuration: '01:00:00',
       minTime: '06:00:00',
       maxTime: '22:00:00',
       dayClick: function(date, jsEvent, view) {
-        console.log("Clicked on " + date.format());
+        //Saved for future use
+      },
+      select: function(start, end, jsEvent, view){
+        $scope.eventStartDate = (start.local()).toDate();
+        $scope.eventEndDate =  (end.local()).toDate();
+        $scope.eventStartTime = ((start.local()).toDate());
+        $scope.eventEndTime = ((end.local()).toDate());
       },
       header: {
         left: 'prev,next today',
@@ -316,6 +325,8 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
     });
     /* clear text box */
     $scope.newGroupName = '';
+
+     $('#calendar').fullCalendar('render');
   }
 
   }
@@ -374,36 +385,42 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
        allDates = myRecurRules.all();
 
         for (index = 0; index < allDates.length; index++){
-         $scope.eventArray.push({
+         $scope.eventSources[0].events.push({
             title : myName,
             start : ((allDates[index].set('hour', myStartHour)).set('minute', myStartMin)).toISOString(),
-            end   : ((allDates[index].set('hour', myEndHour)).set('miute', myEndMin)).toISOString()
+            end   : ((allDates[index].set('hour', myEndHour)).set('miute', myEndMin)).toISOString(),
+            color : $scope.eventColor,
+            stick : true
          });
         }
     }    
      //If not repeating, treat as single event.
     else{
-       $scope.eventArray.push({
+       $scope.eventSources[0].events.push({
          title : myName,
          start : ((myStartDate.set('hour', myStartHour)).set('minute', myStartMin)).toISOString(),
-         end   : ((myEndDate.set('hour', myEndHour)).set('minute', myEndMin)).toISOString()
+         end   : ((myEndDate.set('hour', myEndHour)).set('minute', myEndMin)).toISOString(),
+         color : $scope.eventColor,
+         stick : true
        });
     }
 
-     $scope.eventSources.events = [$scope.eventArray];
 
-     console.log($scope.eventArray);
-     currentUser.set("personalSchedule", $scope.eventArray);
+    console.log($scope.eventSources[0].events);
+     currentUser.set("personalSchedule", $scope.eventSources[0].events);
      currentUser.save();
 
      $scope.eventName = '';
+
+
+     //$('#calendar').fullCalendar('render');
+     //$scope.eventSources.$dirty;
   }
 
   $scope.removeAllEvents = function(){
-    $scope.eventArray = [];
-    currentUser.set("personalSchedule", $scope.eventArray);
+    $scope.eventSources[0].events.length = 0;
+    currentUser.set("personalSchedule", $scope.eventSources[0].events);
     currentUser.save();
-    console.log("All events removed");
   }
 
   //ADDED BY SARA
