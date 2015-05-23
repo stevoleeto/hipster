@@ -37,6 +37,7 @@
         <!-- Services -->
     	<script src="js/services/userService.js"></script>
     	<script src="js/services/groupService.js"></script>
+        <script src="js/services/eventService.js"></script>
 
         <!-- Inline JS goes here -->
         <script> 
@@ -197,10 +198,14 @@
                             <br><br>
 
                             <p >Start Time</p>
-                            <input ng-init="eventStartTime" type="time" class="eventPar" ng-model="eventStartTime"><br><br>
+                            <!-- <input ng-init="eventStartTime" type="time" class="eventPar" ng-model="eventStartTime">--> 
+                           <timepicker ng-init ="eventStartTime" class= "eventPar" ng-model="eventStartTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+
                             
                             <p >End Time</p>
-                            <input ng-init="eventEndTime"  type="time" class="eventPar" ng-model="eventEndTime"><br><br>
+                            <!-- <input ng-init="eventEndTime"  type="time" class="eventPar" ng-model="eventEndTime">-->
+                            <timepicker ng-init ="eventEndTime" class= "eventPar" ng-model="eventEndTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+
 
                             <ul id="groupColorSelect">
                                 <li style="background:#B9F5FF;" ng-click="eventColor='#B9F5FF'"></li>
@@ -329,10 +334,12 @@
                             <br><br>
 
                             <p >Start Time</p>
-                            <input ng-init="eventStartTime = Date()" type="time" class="eventPar" ng-model="eventStartTime"><br><br>
-                            
+                            <!-- <input ng-init="eventStartTime = Date()" type="time" class="eventPar" ng-model="eventStartTime"> --> 
+                            <timepicker ng-init ="eventStartTime" class= "eventPar" ng-model="eventStartTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+
                             <p >End Time</p>
-                            <input ng-init="eventEndTime = Date(1)"  type="time" class="eventPar" ng-model="eventEndTime"><br><br>
+                            <!-- <input ng-init="eventEndTime = Date(1)"  type="time" class="eventPar" ng-model="eventEndTime"> -->
+                            <timepicker ng-init ="eventEndTime" class= "eventPar" ng-model="eventEndTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
                             
                             <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
