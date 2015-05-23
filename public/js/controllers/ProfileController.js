@@ -571,3 +571,12 @@ app.controller('CollapseInstanceCtrl', function ($scope) {
     });
   }
 });
+
+app.controller('PopoverInstanceCtrl', function ($scope) {
+  $scope.repDays = {
+    templateUrl: 'repDays.html'
+  };
+  $scope.confirmRemove = {
+    templateUrl: 'confirmRemove.html'
+  };
+});
