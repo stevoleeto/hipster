@@ -266,12 +266,10 @@
         <!-- GROUP CONTROLLER -->
         <div class="singleGroupView" ng-init="singleGroupView=false" ng-show="singleGroupView">
             <div id="profileWrapper" ng-controller="GroupController">
-                <div id="groupHeader" ng-style="{background:groupColor}">
-                    <p id="groupName">{{ groupName }}</p>
-                    <button class="btn btn-info">Members</button>
-                </div>
+                
                 <div style="clear:both;">
                     <div id="scheduleWrapper" >
+                        <p id="yourSched">Group Schedule</p>
                         <div class="schedule card">
                             <!-- TEST group UI CALENDAR -->
                             <div  ng-model="eventSources" calendar='groupCalendar' ui-calendar="uiConfig.calendar"  ></div> 
@@ -280,6 +278,7 @@
                     </div>
                 
                     <div id="createWrapper">
+                        <p id="createTitle">Create Group Event</p>
                         <div class="createEvent card">
                             <!-- <p >Event Name</p> -->
                             <input type="text" placeholder="Event Name" name="pEventName" class="eventPar" ng-model="newEventName">
