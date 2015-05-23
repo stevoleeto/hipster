@@ -466,9 +466,9 @@ input
     width:150px;
     height: 150px;
     float: left;
-    margin-right: 30px;
+    margin-left: 40px;
     /*background: #FDA7B2;*/
-    margin-top:20px;
+    margin-top:40px;
     z-index:0;
 }
 
@@ -514,8 +514,8 @@ input
 #addGroupBtn
 {
     position: relative;
-    top: 45px;
-    left: 23px;
+    top: 70px;
+    left: 50px;
     float: left;
     height: 85px;
     width: 87px;

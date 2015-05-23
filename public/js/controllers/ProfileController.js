@@ -183,7 +183,7 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
   // -----------------------
     $scope.uiConfig = {
       calendar:{
-          height: 795,
+          height: '100%',
           viewRender: function(view, element) {
               //$log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
           },
@@ -206,7 +206,8 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
         left: 'prev,next today',
         center: 'title',
         right: 'month,agendaWeek,agendaDay'
-      }
+      },
+        allDaySlot:false
       }
     };
 
