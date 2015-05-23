@@ -195,6 +195,19 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
       maxTime: '22:00:00',
       eventClick: function(event, jsEvent, view) {
         console.log(event.id);
+        console.log(event);
+        $scope.eventClickedP = event.id;
+        var modalInstance = $modal.open({
+          animation: $scope.animationsEnabled,
+          templateUrl: 'editEvent.html',
+          controller: 'ModalInstanceCtrl',
+          size: "lg",
+          resolve: {
+            items: function () {
+              return $scope.items;
+            }
+          }
+        });
       },
       select: function(start, end, jsEvent, view){
         $scope.eventStartDate = (start.local()).toDate();
@@ -358,8 +371,17 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
       return;
     }
     
-    if($scope.repeatingEvent){
+    if ($scope.dayRepeat.monday || 
+      $scope.dayRepeat.tuesday || 
+      $scope.dayRepeat.wednesday ||
+       $scope.dayRepeat.thursday ||
+        $scope.dayRepeat.friday ||
+         $scope.dayRepeat.saturday ||
+          $scope.dayRepeat.sunday){
       repeat = true;
+    }
+
+    if(repeat){
 
       if ($scope.dayRepeat.monday){
         repeatTheseDays.push(1);
