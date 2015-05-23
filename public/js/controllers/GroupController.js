@@ -148,63 +148,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
         }
       console.log("CURRENT event Sources");
       console.log($scope.eventSources);
-
       })
-      /*
-      $scope.currentGroupId = groupService.getGroupId();
-      $scope.groupColor = groupService.getGroupColor();
-
-      var Group = Parse.Object.extend("Group");
-      var query = new Parse.Query(Group);
-      query.equalTo("objectId", $scope.currentGroupId);
-      query.find({
-        success: function(group){
-          $scope.groupName = group[0]._serverData.name;
-          $scope.memberList = group[0]._serverData.memberList;
-          $scope.$apply();
-
-
-          var User = Parse.Object.extend("User");
-          var query = new Parse.Query(User);
-          for(i= 0; i< $scope.memberList.length; i++){
-
-            query.equalTo("username", $scope.memberList[i].email);
-            query.find({
-              success: function(member){
-                var tempSched = member[0]._serverData.personalSchedule;
-                var tempSchedBlack = JSON.parse(JSON.stringify(member[0]._serverData.personalSchedule));
-
-                for (index = 0; index < tempSched.length; index++){
-                    tempSched[index].rendering = "inverse-background";
-                    tempSched[index]._id = freeId;
-                    tempSched[index].__id = freeId;
-                    tempSched[index].color = freeTimeColor;
-
-                    tempSchedBlack[index].rendering = "background";
-                    tempSchedBlack[index]._id = busyId;
-                    tempSchedBlack[index].__id = busyId;
-                    tempSchedBlack[index].color = busyTimeColor;
-                }
-                var combinedArray = tempSched.concat(tempSchedBlack);
-                if(combinedArray.length !== 0){
-                  $scope.eventSources.push(combinedArray);
-                }
-                $scope.$apply();
-              },
-              error: function(member, error){
-                console.log("MEMBER SCHEDULE UPDATE ERROR");
-              }
-
-
-            });
-          }
-        },
-          error: function(group, error){
-            console.log("getting group by object id failed");
-          }
-      });
-
-*/
     }
   });
 
@@ -298,13 +242,17 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
      eventService.clearEvents();
   }
 
-  //timepicker
+  /*
+   * Time Picker
+   *
+   *
+   *
+   *
+   */
 
    
-   $scope.eventStartTime = new Date();
-   $scope.eventEndTime = new Date();
-
-
+  $scope.eventStartTime = new Date();
+  $scope.eventEndTime = new Date();
 
   $scope.hstep = 1;
   $scope.mstep = 1;
