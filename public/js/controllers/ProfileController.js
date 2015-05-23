@@ -195,6 +195,19 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
       maxTime: '22:00:00',
       eventClick: function(event, jsEvent, view) {
         console.log(event.id);
+        console.log(event);
+        $scope.eventClickedP = event.id;
+        var modalInstance = $modal.open({
+          animation: $scope.animationsEnabled,
+          templateUrl: 'editEvent.html',
+          controller: 'ModalInstanceCtrl',
+          size: "lg",
+          resolve: {
+            items: function () {
+              return $scope.items;
+            }
+          }
+        });
       },
       select: function(start, end, jsEvent, view){
         $scope.eventStartDate = (start.local()).toDate();
