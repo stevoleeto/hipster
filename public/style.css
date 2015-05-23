@@ -229,13 +229,14 @@ input
     color: white;
     font-size: 30px;
     line-height: 40px;
-
+    transition:background .5s;
 }
 
 .bttn:hover 
 {
     cursor: pointer;
     background: #235Ff6;
+    transition:background .5s;
 }
 
 #profileWrapper
@@ -339,6 +340,7 @@ input
     background:white;
     padding:5px;
     margin-bottom: 10px;
+    border:solid black 1px;
 }
 
 #createWrapper
