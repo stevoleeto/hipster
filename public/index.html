@@ -159,7 +159,7 @@
             <center>
                 <div ng-click="profileView=true; groupView=false; $parent.singleGroupView=false" ng-class="{selTab: profileView}" class="viewBtn">Personal</div>
                 <div ng-click="groupView=true; profileView=false; $parent.singleGroupView=false" ng-class="{selTab: groupView}" class="viewBtn">Groups</div>
-                <div ng-click="profileView=false; groupView=false; $parent.singleGroupView=true;" class="viewBtn" ng-class="{selTab: group}">{{ singleGroupName }}</div>
+                <div ng-click="profileView=false; groupView=false; $parent.singleGroupView=true;" class="viewBtn" ng-class="{selTab: $parent.singleGroupView}" ng-hide="!singleGroupName">{{ singleGroupName | limitTo:8 }}{{ singleGroupName.length > 8 ? '...' : '' }}</div>
             </center>
         </div>
     
@@ -183,26 +183,24 @@
                             <input placeholder="Event Name" type="text" name="pEventName" class="eventPar" ng-model="newEventName">
                             <br><br>
 
-                            <label for="repeatingEvent" class="eventPar" style="border:none">Repeat Weekly</label>
-                            <input ng-init="repeatingEvent=false" type="checkbox" name="repeatingEvent" ng-click="repeatingEvent = !repeatingEvent">
-                            <br><br>
-
-                        <div ng-show="repeatingEvent" class="btn-group">
-                            <label class="btn btn-primary" ng-model="dayRepeat.monday" btn-checkbox>Monday</label>
-                            <label class="btn btn-primary" ng-model="dayRepeat.tuesday" btn-checkbox>Tuesday</label>
-                            <label class="btn btn-primary" ng-model="dayRepeat.wednesday" btn-checkbox>Wednesday</label>
-                            <label class="btn btn-primary" ng-model="dayRepeat.thursday" btn-checkbox>Thursday</label>
-                            <label class="btn btn-primary" ng-model="dayRepeat.friday" btn-checkbox>Friday</label>
-                            <label class="btn btn-primary" ng-model="dayRepeat.saturday" btn-checkbox>Saturday</label>
-                            <label class="btn btn-primary" ng-model="dayRepeat.sunday" btn-checkbox>Sunday</label>
-                        </div>
+                            <div ng-controller="PopoverInstanceCtrl">
+                                <center><button Popover-animation="true" popover-template="repDays.templateUrl" popover-placement="bottom" class="btn btn-default" popover-title="Select Repeating Days">Set Repeating</button></center>
+                                <script type="text/ng-template" id="repDays.html">
+                                    <div class="repDays">
+                                        <label class="btn btn-primary" ng-model="dayRepeat.monday" btn-checkbox>Mon</label><label class="btn btn-primary" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</label><label class="btn btn-primary" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</label><label class="btn btn-primary" ng-model="dayRepeat.thursday" btn-checkbox>Thu</label><label class="btn btn-primary" ng-model="dayRepeat.friday" btn-checkbox>Fri</label><label class="btn btn-primary" ng-model="dayRepeat.saturday" btn-checkbox>Sat</label><label class="btn btn-primary" ng-model="dayRepeat.sunday" btn-checkbox>Sun</label>
+                                    </div>
+                                </script>
+                            </div>
+                            <!-- <label for="repeatingEvent" class="eventPar" style="border:none">Repeat Weekly</label>
+                            <input ng-init="repeatingEvent=false" type="checkbox" name="repeatingEvent" ng-click="repeatingEvent = !repeatingEvent"> -->
+                            <br>
 
                             <p >Start Date <input  ng-init="eventStartDate" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate"></p>
                             
                             <br>
                             
                             <p >End Date  <input ng-init="eventEndDate"  for="pEndDate" type="date" class="eventPar" ng-model="eventEndDate"></p>
-                           
+                            
                             <br>
 
                             <p >Start Time</p>
@@ -210,7 +208,6 @@
 
                             <p >End Time</p>
                             <timepicker ng-init ="eventEndTime"  ng-model="eventEndTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
-
 
                             <ul id="groupColorSelect">
                                 <li style="background:#B9F5FF;" ng-click="eventColor='#B9F5FF'"></li>
@@ -222,7 +219,7 @@
                             <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
                             
                         </div>
-                        <div ng-click="removeAllEvents()" id = "remEvents">Remove All Events</div>
+                        <div ng-click="removeAllEvents()" id="remEvents">Remove All Events</div>
                     </div>
             	</div>
         	</div>
@@ -240,9 +237,14 @@
                                       $parent.currentGroupId = group.id; 
                                       $parent.currentGroupColor = group.color;
                                       addGroup(); $parent.updateSingleGroupTab(group.name)" ng-attr-title="{{ group.name }}" >
-                                    <p>{{ group.name | limitTo:14 }}{{ group.name.length > 14 ? '...' : '' }}</p>
+                                    <p>{{ group.name | limitTo:12 }}{{ group.name.length > 12 ? '...' : '' }}</p>
                                 </div>
-                                <p id="minus" ng-click="removeGroup(group.id)"></p>
+                                <div ng-controller="PopoverInstanceCtrl">
+                                <center><p Popover-animation="true" popover-template="confirmRemove.templateUrl" popover-placement="bottom" id="minus" popover-title="Confirm Remove"></p></center>
+                                <script type="text/ng-template" id="confirmRemove.html">
+                                    <button class="btn btn-danger" ng-click="removeGroup(group.id);">Delete</button>
+                                </script>
+                            </div>
                             </div>
         
                         <div ng-click="addGroupModal()" id="addGroupBtn"></div>
@@ -278,12 +280,10 @@
         <!-- GROUP CONTROLLER -->
         <div class="singleGroupView" ng-init="singleGroupView=false" ng-show="singleGroupView">
             <div id="profileWrapper" ng-controller="GroupController">
-                <div id="groupHeader" ng-style="{background:groupColor}">
-                    <p id="groupName">{{ groupName }}</p>
-                    <button class="btn btn-info">Members</button>
-                </div>
+                
                 <div style="clear:both;">
                     <div id="scheduleWrapper" >
+                        <p id="yourSched">Group Schedule</p>
                         <div class="schedule card">
                             <!-- TEST group UI CALENDAR -->
                             <div  ng-model="eventSources" calendar='groupCalendar' ui-calendar="uiConfig.calendar"  ></div> 
@@ -292,25 +292,21 @@
                     </div>
                 
                     <div id="createWrapper">
+                        <p id="createTitle">Create Group Event</p>
                         <div class="createEvent card">
                             <!-- <p >Event Name</p> -->
                             <input type="text" placeholder="Event Name" name="pEventName" class="eventPar" ng-model="newEventName">
                             <br><br>
 
-                            <label for="repeatingEvent" class="eventPar" style="border:none">Repeat Weekly</label>
-                            <input ng-init="repeatingEvent=false" type="checkbox" name="repeatingEvent" ng-click="repeatingEvent = !repeatingEvent">
-                            <br><br>
-
-                        <div ng-show="repeatingEvent" class="btn-group">
-                            <label class="btn btn-primary" ng-model="dayRepeat.monday" btn-checkbox>Monday</label>
-                            <label class="btn btn-primary" ng-model="dayRepeat.tuesday" btn-checkbox>Tuesday</label>
-                            <label class="btn btn-primary" ng-model="dayRepeat.wednesday" btn-checkbox>Wednesday</label>
-                            <label class="btn btn-primary" ng-model="dayRepeat.thursday" btn-checkbox>Thursday</label>
-                            <label class="btn btn-primary" ng-model="dayRepeat.friday" btn-checkbox>Friday</label>
-                            <label class="btn btn-primary" ng-model="dayRepeat.saturday" btn-checkbox>Saturday</label>
-                            <label class="btn btn-primary" ng-model="dayRepeat.sunday" btn-checkbox>Sunday</label>
-                        </div>
-
+                            <div ng-controller="PopoverInstanceCtrl">
+                                <center><button Popover-animation="true" popover-template="repDays.templateUrl" popover-placement="bottom" class="btn btn-default" popover-title="Select Repeating Days">Set Repeating</button></center>
+                                <script type="text/ng-template" id="repDays.html">
+                                    <div class="repDays">
+                                    <label class="btn btn-primary" ng-model="dayRepeat.monday" btn-checkbox>Mon</label><label class="btn btn-primary" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</label><label class="btn btn-primary" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</label><label class="btn btn-primary" ng-model="dayRepeat.thursday" btn-checkbox>Thu</label><label class="btn btn-primary" ng-model="dayRepeat.friday" btn-checkbox>Fri</label><label class="btn btn-primary" ng-model="dayRepeat.saturday" btn-checkbox>Sat</label><label class="btn btn-primary" ng-model="dayRepeat.sunday" btn-checkbox>Sun</label>
+                                    </div>
+                                </script>
+                            </div>
+                            <br>
 
                             <p >Start Date <input  ng-init="eventStartDate = Date()" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate"></p>
                             

@@ -210,7 +210,7 @@ input
 {
     cursor: pointer;
     background: #4284F5;
-    width: 145px;
+    width: 160px;
     transition: width .5s;
 }
 
@@ -219,6 +219,7 @@ input
     border-bottom:solid orange 4px;
     background: #4284F5;
     width: 140px;
+    overflow: hidden;
 }
 
 .bttn 
@@ -373,6 +374,22 @@ input
 
 }
 
+.repDays label{
+    position: relative;
+    width: 14.29%;
+    margin: 0;
+    padding: 6px 5px;
+    border-radius: 0;
+}
+
+.repDays label:first-child {
+    border-radius: 4px 0 0 4px;
+}
+
+.repDays label:last-child {
+    border-radius: 0 4px 4px 0;
+}
+
 
 .createEvent p,label
 {
@@ -459,6 +476,9 @@ input
     position: relative;
     top:20px;
     height:35px;
+    line-height: 35px;
+    letter-spacing: 2px;
+    overflow: hidden;
 }
 
 .groupSelect
@@ -607,8 +627,8 @@ input
 
 .btn-group
 {
-    float:right;
-    position:relative;
+    position: relative;
+    float: right;
 }
 
 .btn-group li
