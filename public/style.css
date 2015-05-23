@@ -210,8 +210,9 @@ input
 {
     cursor: pointer;
     background: #4284F5;
-    width: 145px;
+    width: 160px;
     transition: width .5s;
+    overflow: hidden;
 }
 
 .selTab
