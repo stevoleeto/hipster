@@ -46,7 +46,7 @@ body .fc { /* extra precedence to overcome jqui */
 }
 
 .fc-unthemed .fc-today {
-	background: #fcf8e3;
+	background: white;
 }
 
 .fc-highlight { /* when user is selecting cells */
@@ -57,7 +57,7 @@ body .fc { /* extra precedence to overcome jqui */
 
 .fc-bgevent { /* default look for background events */
 	background: rgb(143, 223, 130);
-	opacity: .3;
+	opacity: 1;
 	filter: alpha(opacity=30); /* for IE */
 }
 

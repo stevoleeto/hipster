@@ -196,7 +196,7 @@ input
 /*    border-right:solid black 1px;*/
     letter-spacing: 2px;
     float:left;
-    width: 135px;
+    width: 140px;
     height: 100%;
     color: white;
     font-size: 24px;
@@ -210,7 +210,7 @@ input
 {
     cursor: pointer;
     background: #4284F5;
-    width: 140px;
+    width: 145px;
     transition: width .5s;
 }
 
