@@ -212,8 +212,7 @@
             
         	<div ng-init="groupView=false" ng-show="groupView" id="groupView">
             	<div>
-                	<div ng-click="removeAllGroups()" class="btn2" style="margin-top:10px;">Remove ALL Group</div>
-                    
+                	<div ng-click="removeAllGroups()" class="btn2">Remove ALL Group</div>
                 	<ul>
                     	<div ng-repeat="group in myGroupList track by $index" class ="groupSelect card"  
                     	   ng-style="{background:group.color}">

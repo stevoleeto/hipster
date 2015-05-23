@@ -253,7 +253,6 @@ input
 /*    border-bottom: 1px solid black;*/
 /*    border-top: 1px solid black;*/
     z-index: 10;
-    margin-top: 0;
     background: #5B97F5;
 }
 
@@ -497,7 +496,8 @@ input
     width:30px;
     height:30px;
     float:right;
-    bottom:0px;
+    right:5px;
+    bottom:5px;
     border-radius:50%;
     cursor:pointer;
 }
