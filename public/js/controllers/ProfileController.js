@@ -220,6 +220,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
   $scope.addGroup = function(){	
     groupService.setGroupId($scope.currentGroupId);
     groupService.setGroupColor($scope.currentGroupColor);
+    $scope.updateSingleGroupTab();
   }
   
   $scope.updateSingleGroupTab = function(){
