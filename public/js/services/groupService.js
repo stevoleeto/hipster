@@ -18,6 +18,7 @@ app.service('groupService',['$q', function($q){
   var groupName;
   var memberList;
   var newMember;
+  var groupEventArray;
 
   /* query data fields - private data fields */
   var groupQuery;
@@ -142,6 +143,10 @@ app.service('groupService',['$q', function($q){
   /* SETTERS AND GETTERS */
   /***********************/
 
+  var getEventsArray = function(){
+      return groupQuery[0].get("groupSchedule");
+  }
+
   var getNewMember = function(){
       return newMember;
   };
@@ -177,6 +182,8 @@ app.service('groupService',['$q', function($q){
  var getGroupName = function(){
     return groupName;
  }
+
+  var 
 
   return {
     addMember : addMember,

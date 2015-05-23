@@ -26,8 +26,8 @@
 
 var currentUser = Parse.User.current();
 
-app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalendarConfig','$log', '$modal', 
-    function($scope, groupService, $timeout, uiCalendarConfig, $log, $modal) { 
+app.controller('GroupController', ['$scope','groupService', 'eventService', '$timeout', 'uiCalendarConfig','$log', '$modal', 
+    function($scope, groupService, eventService, $timeout, uiCalendarConfig, $log, $modal) { 
 
 
     /* DEFAULT COLORS */
@@ -36,12 +36,9 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
     /* Event Id's */
       var freeId = 999;
       var busyId = 1000;
-
-
- 
+      
       /* Initialize event sources to be an array */
-  $scope.eventSources = [
-  ];
+    $scope.eventSources = [(groupService.getEventsArray())];
 
 
   /* Color Blind color mode */
@@ -230,8 +227,63 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
    * Description: Creates an event on the group calendar. TODO
    ************************************************************************/
   $scope.createEvent = function(){
+    var repeatTheseDays = [];
+    var repeat = false;
+    
+    if (!$scope.newEventName){
+      alert("Enter a event name!");
+      return;
+    }
+    
+    if($scope.repeatingEvent){
+      repeat = true;
 
+      if ($scope.dayRepeat.monday){
+        repeatTheseDays.push(1);
+      }
+      if ($scope.dayRepeat.tuesday){
+        repeatTheseDays.push(2);
+      }
+      if ($scope.dayRepeat.wednesday){
+        repeatTheseDays.push(3);
+      }
+      if ($scope.dayRepeat.thursday){
+        repeatTheseDays.push(4);
+      }
+      if ($scope.dayRepeat.friday){
+        repeatTheseDays.push(5);
+      }
+      if ($scope.dayRepeat.saturday){
+        repeatTheseDays.push(6);
+      }
+      if ($scope.dayRepeat.sunday){
+        repeatTheseDays.push(0); 
+      }
+    }    
+     
+     eventService.createEvent($scope.newEventName, //event name
+        $scope.eventColor, //event color
+        (moment($scope.eventStartDate.toISOString()).dateOnly()), //start date
+        (moment($scope.eventStartTime.toISOString()).hour()), //start hour
+        (moment($scope.eventStartTime.toISOString()).minute()), //start min
+        (moment($scope.eventEndDate.toISOString()).dateOnly()), //end date
+        (moment($scope.eventEndTime.toISOString()).hour()), //end hour
+        (moment($scope.eventEndTime.toISOString()).minute()), //end min
+        repeat, //does this event repeat?
+        repeatTheseDays); //what does does this event repeat on
 
+     newEvents = eventService.getEvents();
+     
+     for (index = 0; index < newEvents.length; index++){
+        $scope.eventSources.push(newEvents[index]); 
+     }
+     
+     //currentUser.set("personalSchedule", $scope.eventSources[0].events);
+     //currentUser.save();
+
+     $scope.newEventName = "";
+
+     eventService.clearEvents();
   }
 
   //timepicker
