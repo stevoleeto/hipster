@@ -30,29 +30,31 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
     function($scope, groupService, $timeout, uiCalendarConfig, $log, $modal) { 
 
 
- 
-  $scope.eventSources = [
-    [
-      {
-        title: 'Event1',
-        start: '2015-05-13'
-      }
-    ]
-  ];
-    // source for calendar events
-    //$scope.eventSources = [$scope.eventArray];
-    /*
-     * UNCOMMENT this when eventArray is implemented
-    $scope.eventSources = {
-      events: $scope.eventArray,
+    /* DEFAULT COLORS */
+      var freeTimeColor = 'green';
+      var busyTimeColor = 'black';
+    /* Event Id's */
+      var freeId = 999;
+      var busyId = 1000;
 
-        color: 'green',
-        eventBackgroundColor: 'blue',  // an option!
-        textColor: 'white', // an option!
-        overlap: false,
-        rendering: 'inverse-background'
-    }
-   */
+
+ 
+      /* Initialize event sources to be an array */
+  $scope.eventSources = [
+  ];
+
+
+  /* Color Blind color mode */
+  $scope.colorBlindMode = function(){
+      freeTimeColor = 'blue';
+      busyTimeColor = 'red';
+  }
+
+  /* Default Calendar color mode */
+  $scope.defaultColorMode = function(){
+      freeTimeColor = 'green';
+      busyTimeColor = 'pink';
+  }
     
   $scope.animationsEnabled = true;    
   /************************************************************************
@@ -85,9 +87,25 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
         $log.info('Modal dismissed at: ' + new Date());
         /* update view after modal is dismissed by addMember() */
         $scope.memberList = groupService.getMemberList();
-        $scope.eventSources.push(groupService.getNewMember().personalSchedule);
+        var tempSched = groupService.getNewMember().personalSchedule;
+        var tempSchedBlack = JSON.parse(JSON.stringify(groupService.getNewMember().personalSchedule));
+        for(index = 0; index < tempSched.length; index++){
+          tempSched[index].rendering = "inverse-background";
+          tempSched[index]._id = freeId;
+          tempSched[index].__id = freeId;
+          tempSched[index].color = freeTimeColor;
+
+          tempSchedBlack[index].rendering = "background";
+          tempSchedBlack[index]._id = busyId;
+          tempSchedBlack[index].__id = busyId;
+          tempSchedBlack[index].color = busyTimeColor;
+        }
+        var combinedSched = tempSched.concat(tempSchedBlack);
+        $scope.eventSources.push(combinedSched);
     });
   };
+
+
          
 
 
@@ -143,7 +161,24 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
             query.equalTo("username", $scope.memberList[i].email);
             query.find({
               success: function(member){
-                $scope.eventSources.push(member[0]._serverData.personalSchedule);
+                var tempSched = member[0]._serverData.personalSchedule;
+                var tempSchedBlack = JSON.parse(JSON.stringify(member[0]._serverData.personalSchedule));
+
+                for (index = 0; index < tempSched.length; index++){
+                    tempSched[index].rendering = "inverse-background";
+                    tempSched[index]._id = freeId;
+                    tempSched[index].__id = freeId;
+                    tempSched[index].color = freeTimeColor;
+
+                    tempSchedBlack[index].rendering = "background";
+                    tempSchedBlack[index]._id = busyId;
+                    tempSchedBlack[index].__id = busyId;
+                    tempSchedBlack[index].color = busyTimeColor;
+                }
+                var combinedArray = tempSched.concat(tempSchedBlack);
+                if(combinedArray.length !== 0){
+                  $scope.eventSources.push(combinedArray);
+                }
                 $scope.$apply();
               },
               error: function(member, error){
@@ -153,6 +188,7 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
 
             });
           }
+          console.log($scope.eventSources);
         },
           error: function(group, error){
             console.log("getting group by object id failed");
@@ -183,22 +219,6 @@ app.controller('GroupController', ['$scope','groupService', '$timeout', 'uiCalen
   };
 
 
-  /* Function: Date
-   * Desciption: Called to get a new date object, offset will offset the hour. Minutes and seconds and milliseconds
-   * 			 set to 0.
-   *
-   */
-  $scope.Date = function(hourOffset){
-    var date =  new Date();
-    date.setMinutes(0);
-    date.setMilliseconds(0);
-    date.setSeconds(0);
-    if(hourOffset){
-      date.setHours(date.getHours() + hourOffset);
-    }
-
-    return date;
-  };
 
   /************************************************************************
    * Name:        createEvent()
