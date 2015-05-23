@@ -26,6 +26,8 @@ body  {
     line-height: 64px;
 }
 
+
+
 #login
 {
     border:0;
@@ -443,6 +445,21 @@ input
 
 }
 
+#groupClick
+{
+/*    border:solid black 1px;*/
+    width:100%;
+    height:80%;
+    cursor:pointer;
+}
+
+#groupClick p
+{
+    position: relative;
+    top:20px;
+    height:35px;
+}
+
 .groupSelect
 {
     position:relative;
@@ -452,10 +469,10 @@ input
     float: left;
     margin-right: 30px;
     /*background: #FDA7B2;*/
-    cursor:pointer;
     margin-top:20px;
     z-index:0;
 }
+
 
 .groupSelect:hover
 {
@@ -466,11 +483,23 @@ input
     text-align: center;
     font-size: 18px;
     color:black;
-    position:absolute;
-    bottom:0px;
+/*    position:absolute;*/
     width:100%;
-    height:30%;
+    height:auto;
+/*    border:solid black 1px;*/
     background:white;
+/*    bottom:10px;*/
+}
+
+#minus
+{
+    position:relative;
+    width:30px;
+    height:30px;
+    float:right;
+    bottom:0px;
+    border-radius:50%;
+    cursor:pointer;
 }
 
 #addGroupBtn
