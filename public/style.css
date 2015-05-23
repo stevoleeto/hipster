@@ -656,7 +656,7 @@ input
     list-style: none;
 }
 
-#groupColorSelect li
+#groupColorSelect div
 {
     border:solid black 1px;
     width:25px;

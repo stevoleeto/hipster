@@ -210,13 +210,21 @@
                             <p >End Time</p>
                             <timepicker ng-init ="eventEndTime"  ng-model="eventEndTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
 
-                            <ul id="groupColorSelect">
-                                <li style="background:#B9F5FF;" ng-click="eventColor='#B9F5FF'"></li>
-                                <li style="background:#B5FBA3;" ng-click="eventColor='#B5FBA3'"></li>
-                                <li style="background:#FFA6B1;" ng-click="eventColor='#FFA6B1'"></li>
-                                <li style="background:#FEC12F;" ng-click="eventColor='#FEC12F'"></li>
-                            </ul>
-                            <br>
+                            <div ng-controller="PopoverInstanceCtrl">
+                                <center><button Popover-animation="true" popover-template="groupColorSelect.templateUrl" popover-placement="top" class="btn btn-default" popover-title="Select Color">Choose Event Color</button></center>
+                                <script type="text/ng-template" id="groupColorSelect.html">
+                                    <div id="groupColorSelect">
+                                        <div style="background:#B9F5FF;" ng-click="eventColor='#B9F5FF'"></div>
+                                        <div style="background:#B5FBA3;" ng-click="eventColor='#B5FBA3'"></div>
+                                        <div style="background:#FFA6B1;" ng-click="eventColor='#FFA6B1'"></div>
+                                        <div style="background:#FEC12F;" ng-click="eventColor='#FEC12F'"></div>
+                                        <br>
+                                    </div>
+                                </script>
+                            </div>
+                            
+                          
+                                
                             <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
                             
                         </div>
