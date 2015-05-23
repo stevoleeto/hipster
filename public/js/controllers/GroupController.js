@@ -38,7 +38,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
       var busyId = 1000;
       
       /* Initialize event sources to be an array */
-    $scope.eventSources = [(groupService.getEventsArray())];
+    $scope.eventSources = [];
 
 
   /* Color Blind color mode */
@@ -185,7 +185,6 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
 
             });
           }
-          console.log($scope.eventSources);
         },
           error: function(group, error){
             console.log("getting group by object id failed");

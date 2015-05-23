@@ -183,8 +183,6 @@ app.service('groupService',['$q', function($q){
     return groupName;
  }
 
-  var 
-
   return {
     addMember : addMember,
       setGroupId: setGroupId,
