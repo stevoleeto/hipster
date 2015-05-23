@@ -473,8 +473,10 @@ input
 }
 
 
-.groupSelect:hover
+.groupSelect:hover #minus
 {
+    opacity: 1;
+    transition: opacity .5s;
 }
 
 .groupSelect p
@@ -500,6 +502,13 @@ input
     bottom:5px;
     border-radius:50%;
     cursor:pointer;
+    opacity: 0;
+    transition: opacity .5s;
+}
+
+#minus:hover
+{
+    background:#FED966;
 }
 
 #addGroupBtn
