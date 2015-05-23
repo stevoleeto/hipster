@@ -60,12 +60,14 @@
       <div ng-controller="ProfileController"> 
         
         <script type="text/ng-template" id="myModalContent.html">
+<!--
             <div class="modal-header">
                 <h3 class="modal-title">Add a Friend</h3>
+-->
             </div>
             <div class="modal-body">
-            	<label for="friendEmail">Friend&#39;s Email</label>
-            	<input type="text" name="friendEmail">
+<!--            	<label for="friendEmail">Friend&#39;s Email</label>-->
+            	<input placeholder = "Enter Friend's Email" type="text" name="friendEmail">
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary" ng-click="ok()">OK</button>
@@ -97,14 +99,14 @@
                 </div>
                 <div class="modal-body">
 <!--                    <label>New UserName</label>-->
-                    <input style="margin-bottom:15px;" placeholder="New UserName" ng-model="newUserName"><br>
+                    <input style="margin-bottom:15px;" placeholder="Enter New UserName" ng-model="newUserName"><br>
 <!--                    <label>New Email</label><br>-->
-                    <input style="margin-bottom:15px;" placeholder="New Email" ng-model="newEmail"><br>
+                    <input style="margin-bottom:15px;" placeholder="Enter New Email" ng-model="newEmail"><br>
 <!--                    <label>New Password</label>-->
-                    <input style="margin-bottom:15px;" placeholder="New Password" type="password" ng-model="newPassword"><br>
+                    <input style="margin-bottom:15px;" placeholder="Enter New Password" type="password" ng-model="newPassword"><br>
                     <br>     
                     <div ng-controller="CollapseInstanceCtrl">
-                    	<button class="btn btn-default" ng-click="isCollapsed=!isCollapsed">User Icons</button><br><br>
+                    	<button class="btn btn-default" ng-click="isCollapsed=!isCollapsed">Choose User Icons</button><br><br>
                     	<div collapse="isCollapsed">
                     		<div class="well" id="colIcons">
                     			<h2 text-align="center">Select a user icon</h2>
@@ -238,8 +240,8 @@
                                     <h3 class="modal-title">Add a Group</h3>
                                 </div>
                                 <div class="modal-body">
-                                <input type="text" ng-model="newGroupName" placeholder="Group Name">
-                                <br>
+                                <input type="text" ng-model="newGroupName" placeholder="Enter Group Name">
+                                <br><br>
                                 <label for="groupColor">Select a Color</label>
                                     
                                 <ul id="groupColorSelect">
@@ -248,36 +250,7 @@
                                     <li style="background:#FFA6B1;" ng-click="groupColor='#FFA6B1'"></li>
                                     <li style="background:#FEC12F;" ng-click="groupColor='#FEC12F'"></li>
                                 </ul>    
-                                    
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-primary" ng-click="createGroup(); cancel()">OK</button>
-                                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-                                </div>
-                            </div>
-                        </script>
-                        
-                        <script type="text/ng-template" id="addGroup.html">
-                            <div ng-controller="ProfileController">
-                                <div class="modal-header">
-                                    <h3 class="modal-title">Add a Group</h3>
-                                </div>
-                                <div class="modal-body">
-                                <input type="text" ng-model="newGroupName" placeholder="Group Name">
-                                <br>
-                                <br>
-                                <label for="groupColor">Select a Color</label>
-
-                                <ul id="groupColorSelect">
-                                    <li style = "background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></li>
-                                    <li style = "background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></li>
-                                    <li style = "background:#FFA6B1;" ng-click="groupColor='#FFA6B1'"></li>
-                                    <li style = "background:#FEC12F;" ng-click="groupColor='#FEC12F'"></li>
-                                </ul>    
-
-                                <br>
-                                <label>OR enter Group Code here</label>
-                                <input type="text" ng-model="newGroupCode" placeholder="Group Code">
+                                <br><br>
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-primary" ng-click="createGroup(); cancel()">OK</button>
@@ -362,7 +335,7 @@
                                     <h3 class="modal-title">Add a Member</h3>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="text" ng-model="newMemberEmail" placeholder="New Member Email"> 
+                                    <input type="text" ng-model="newMemberEmail" placeholder="Add New Member Email"> 
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-primary" ng-click="addMember()">OK</button>
