@@ -204,6 +204,7 @@ input
     display: table-cell;
     vertical-align: middle;
     transition: width .5s;
+    overflow:hidden;
 }
 
 .viewBtn:hover 
@@ -212,6 +213,7 @@ input
     background: #4284F5;
     width: 160px;
     transition: width .5s;
+    overflow:hidden;
 }
 
 .selTab
