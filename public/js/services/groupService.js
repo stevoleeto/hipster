@@ -21,8 +21,8 @@ app.service('groupService',['$q', function($q){
   var memberEventArray = [];
 
   /* DEFAULT COLORS */
-  var freeTimeColor = 'green';
-  var busyTimeColor = 'black';
+  var freeTimeColor = 'white';
+  var busyTimeColor = '#D2D2CD';
   /* Event Id's */
   var freeId = 999;
   var busyId = 1000;
@@ -77,7 +77,7 @@ app.service('groupService',['$q', function($q){
             tempSchedBlack[index].color = busyTimeColor;
           } // end inner for
           if(tempSched.length > 0 || tempSchedBlack.length > 0){
-            memberEventArray.push(tempSched.concat(tempSchedBlack));
+            memberEventArray.push(tempSchedBlack);
           }
           
 
