@@ -371,8 +371,17 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
       return;
     }
     
-    if($scope.repeatingEvent){
+    if ($scope.dayRepeat.monday || 
+      $scope.dayRepeat.tuesday || 
+      $scope.dayRepeat.wednesday ||
+       $scope.dayRepeat.thursday ||
+        $scope.dayRepeat.friday ||
+         $scope.dayRepeat.saturday ||
+          $scope.dayRepeat.sunday){
       repeat = true;
+    }
+
+    if(repeat){
 
       if ($scope.dayRepeat.monday){
         repeatTheseDays.push(1);
