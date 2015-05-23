@@ -268,12 +268,11 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
 
    * Description: Removs all groups found in their GroupList userGroups array.
    ************************************************************************/
-  $scope.removeGroup = function(){
-    userService.removeGroup($scope.removedGroup);
+  $scope.removeGroup = function(groupId){
+    userService.removeGroup(groupId);
     for (i = 0; i < $scope.myGroupList.length; i++){
-      if($scope.myGroupList[i]['id'] === $scope.removedGroup){
+      if($scope.myGroupList[i]['id'] === groupId){
         $scope.myGroupList.splice(i, 1);
-        $scope.removedGroup = '';
         break;
       }
     }

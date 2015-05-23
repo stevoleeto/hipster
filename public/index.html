@@ -212,25 +212,24 @@
             
         	<div ng-init="groupView=false" ng-show="groupView" id="groupView">
             	<div>
-                    <div>
-                        <label for="removedGroup">Selected group to remove:</label>
-                        <select id="removedGroup" ng-model="removedGroup">
-                            <option ng-repeat="group in myGroupList track by $index" value={{group.id}}>{{group.name}}</option>
-                        </select>
-                        <div ng-click="removeGroup()" class="btn2" style="margin-top:10px;">Remove Group</div>
-                    </div>
                 	<div ng-click="removeAllGroups()" class="btn2" style="margin-top:10px;">Remove ALL Group</div>
+                    
                 	<ul>
                     	<div ng-repeat="group in myGroupList track by $index" class ="groupSelect card"  
-                        ng-click="$parent.profileView=false; 
+                    	   ng-style="{background:group.color}">
+                            
+                            <div id = "groupClick"
+                                 ng-click="$parent.profileView=false; 
                                   $parent.groupView=false; 
                                   $parent.$parent.singleGroupView=true; 
                                   $parent.currentGroupId = group.id; 
                                   $parent.currentGroupColor = group.color;
-                                  addGroup();" ng-attr-title="{{ group.name }}" 
-                    	ng-style="{background:group.color}">
-                            <p>{{ group.name | limitTo:14 }}{{ group.name.length > 14 ? '...' : '' }}</p>
+                                  addGroup();" ng-attr-title="{{ group.name }}" >
+                                <p>{{ group.name | limitTo:14 }}{{ group.name.length > 14 ? '...' : '' }}</p>
+                            </div>
+                            <p id="minus" ng-click="removeGroup(group.id)">-</p>
                         </div>
+        
                         <div ng-click="addGroupModal()" id="addGroupBtn"></div>
                         <script type="text/ng-template" id="addGroup.html">
                             <div ng-controller="ProfileController">
