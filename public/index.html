@@ -96,12 +96,12 @@
                     <h3 class="modal-title">Account Settings</h3>
                 </div>
                 <div class="modal-body">
-                    <label>New UserName</label>
-                    <input ng-model="newUserName"><br>
-                    <label>New Email</label><br>
-                    <input ng-model="newEmail"><br>
-                    <label>New Password</label>
-                    <input type="password" ng-model="newPassword"><br>
+<!--                    <label>New UserName</label>-->
+                    <input style="margin-bottom:15px;" placeholder="New UserName" ng-model="newUserName"><br>
+<!--                    <label>New Email</label><br>-->
+                    <input style="margin-bottom:15px;" placeholder="New Email" ng-model="newEmail"><br>
+<!--                    <label>New Password</label>-->
+                    <input style="margin-bottom:15px;" placeholder="New Password" type="password" ng-model="newPassword"><br>
                     <br>     
                     <div ng-controller="CollapseInstanceCtrl">
                     	<button class="btn btn-default" ng-click="isCollapsed=!isCollapsed">User Icons</button><br><br>
@@ -143,7 +143,7 @@
             
             <div id="greeting">Hi, {{ userName }}</div>
             <center>
-                <div ng-click="profileView=true; groupView=false; $parent.singleGroupView=false" ng-class="{selTab: profileView}" class="viewBtn">Profile</div>
+                <div ng-click="profileView=true; groupView=false; $parent.singleGroupView=false" ng-class="{selTab: profileView}" class="viewBtn">Personal</div>
                 <div ng-click="groupView=true; profileView=false; $parent.singleGroupView=false" ng-class="{selTab: groupView}" class="viewBtn">Groups</div>
             </center>
         </div>
@@ -156,13 +156,13 @@
                 
                         <div class="schedule card">
                             <!-- TEST UI CALENDAR -->
-                            <div  ng-model="eventSources" calendar='userCalendar' ui-calendar="uiConfig.calendar"  ></div>
+                            <div  ng-model="eventSources" calendar='userCalendar' ui-calendar="uiConfig.calendar" style="fc-today:white;"></div>
                             <br><br>
                         </div>
                     </div>
                     
                     <div id="createWrapper">
-                        <p id="createTitle">Create Event</p>
+                        <p id="createTitle">Create Personal Event</p>
                         <div class="createEvent card">
 <!--                            <p >Event Name</p>-->
                             <input placeholder="Event Name" type="text" name="pEventName" class="eventPar" ng-model="newEventName">
@@ -213,23 +213,21 @@
             
         	<div ng-init="groupView=false" ng-show="groupView" id="groupView">
             	<div>
-                	<div ng-click="removeAllGroups()" class="btn2" style="margin-top:10px;">Remove ALL Group</div>
-                    
-                	<ul>
-                    	<div ng-repeat="group in myGroupList track by $index" class ="groupSelect card"  
-                    	   ng-style="{background:group.color}">
-                            
-                            <div id = "groupClick"
-                                 ng-click="$parent.profileView=false; 
-                                  $parent.groupView=false; 
-                                  $parent.$parent.singleGroupView=true; 
-                                  $parent.currentGroupId = group.id; 
-                                  $parent.currentGroupColor = group.color;
-                                  addGroup();" ng-attr-title="{{ group.name }}" >
-                                <p>{{ group.name | limitTo:14 }}{{ group.name.length > 14 ? '...' : '' }}</p>
+<!--                	<div ng-click="removeAllGroups()" class="btn2">Remove ALL Group</div>-->
+                            <div ng-repeat="group in myGroupList track by $index" class ="groupSelect card"  
+                               ng-style="{background:group.color}">
+
+                                <div id = "groupClick"
+                                     ng-click="$parent.profileView=false; 
+                                      $parent.groupView=false; 
+                                      $parent.$parent.singleGroupView=true; 
+                                      $parent.currentGroupId = group.id; 
+                                      $parent.currentGroupColor = group.color;
+                                      addGroup();" ng-attr-title="{{ group.name }}" >
+                                    <p>{{ group.name | limitTo:14 }}{{ group.name.length > 14 ? '...' : '' }}</p>
+                                </div>
+                                <p id="minus" ng-click="removeGroup(group.id)"></p>
                             </div>
-                            <p id="minus" ng-click="removeGroup(group.id)">-</p>
-                        </div>
         
                         <div ng-click="addGroupModal()" id="addGroupBtn"></div>
                         <script type="text/ng-template" id="addGroup.html">
@@ -285,7 +283,7 @@
                                 </div>
                             </div>
                         </script>
-                	</ul>
+
             	</div>
         	</div>
         </div> 

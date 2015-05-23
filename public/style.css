@@ -253,7 +253,6 @@ input
 /*    border-bottom: 1px solid black;*/
 /*    border-top: 1px solid black;*/
     z-index: 10;
-    margin-top: 0;
     background: #5B97F5;
 }
 
@@ -467,15 +466,17 @@ input
     width:150px;
     height: 150px;
     float: left;
-    margin-right: 30px;
+    margin-left: 40px;
     /*background: #FDA7B2;*/
-    margin-top:20px;
+    margin-top:40px;
     z-index:0;
 }
 
 
-.groupSelect:hover
+.groupSelect:hover #minus
 {
+    opacity: 1;
+    transition: opacity .5s;
 }
 
 .groupSelect p
@@ -493,20 +494,31 @@ input
 
 #minus
 {
+    background-image:url(images/minus.png);
+    background-size: contain;
+    background-repeat: no-repeat;
     position:relative;
     width:30px;
     height:30px;
     float:right;
-    bottom:0px;
+    right:5px;
+    bottom:5px;
     border-radius:50%;
     cursor:pointer;
+    opacity: 0;
+    transition: opacity .5s;
+}
+
+#minus:hover
+{
+    background-color: lightgoldenrodyellow;
 }
 
 #addGroupBtn
 {
     position: relative;
-    top: 45px;
-    left: 23px;
+    top: 70px;
+    left: 50px;
     float: left;
     height: 85px;
     width: 87px;
@@ -514,12 +526,15 @@ input
     background-repeat: no-repeat;
     border-radius: 50%;
     background-size: contain;
+    opacity:.75;
+    transition:opacity .3s;
 }
 
 #addGroupBtn:hover {
     cursor: pointer;
-    opacity: 0.75;
-    filter: alpha(opacity=75);
+    opacity: 1;
+    opacity=1;
+    transition:opacity .3s;
 }
 
 #homeView, .singleGroupView
