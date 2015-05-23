@@ -225,7 +225,7 @@
                                       addGroup();" ng-attr-title="{{ group.name }}" >
                                     <p>{{ group.name | limitTo:14 }}{{ group.name.length > 14 ? '...' : '' }}</p>
                                 </div>
-                                <p id="minus" ng-click="removeGroup(group.id)">-</p>
+                                <p id="minus" ng-click="removeGroup(group.id)"></p>
                             </div>
         
                         <div ng-click="addGroupModal()" id="addGroupBtn"></div>

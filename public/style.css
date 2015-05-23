@@ -494,6 +494,9 @@ input
 
 #minus
 {
+    background-image:url(images/minus.png);
+    background-size: contain;
+    background-repeat: no-repeat;
     position:relative;
     width:30px;
     height:30px;
