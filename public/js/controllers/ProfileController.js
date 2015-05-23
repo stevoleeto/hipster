@@ -183,7 +183,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
   // -----------------------
     $scope.uiConfig = {
       calendar:{
-          height: '100%',
+          height: 'auto',
           viewRender: function(view, element) {
               //$log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
           },

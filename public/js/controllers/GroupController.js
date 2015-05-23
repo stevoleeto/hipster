@@ -103,7 +103,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
   /* ----------------------- */
   $scope.uiConfig = {
       calendar:{
-          height: 795,
+          height: 'auto',
           viewRender: function(view, element) {
               //$log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
           },
