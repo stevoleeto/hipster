@@ -18,12 +18,77 @@ app.service('groupService',['$q', function($q){
   var groupName;
   var memberList;
   var newMember;
+  var memberEventArray = [];
+
+  /* DEFAULT COLORS */
+  var freeTimeColor = 'green';
+  var busyTimeColor = 'black';
+  /* Event Id's */
+  var freeId = 999;
+  var busyId = 1000;
   var groupEventArray;
 
   /* query data fields - private data fields */
   var groupQuery;
   var userQuery;
   var groupListQuery;
+
+  var clearMemberArray = function(){
+    memberEventArray.length = 0;
+  }
+
+  /************************************************************************
+   * Name:    initGroup()
+
+   * Purpose:  Initialize the current group information when user switches to 
+   *           single group.
+
+   * Called In:   GroupController
+
+   * Description: In charge of initializing all group data so the controller
+   *              can grab the information for the necessary single group.
+   * Outcome:     mergedMemberEvents has an array of arrays of events of all
+   *                  members.
+   *              groupName has group's name
+   *              memberList variable has groups member list
+   ************************************************************************/
+  var initGroup = function(){
+    var deferred = $q.defer();
+    queryGroup(currentGroupId).then(function(){
+      groupName = groupQuery[0].get("name");
+      memberList = groupQuery[0].get("memberList");
+      /* iterate over memberList to pull all their data into */
+      for(index = 0; index < memberList.length; index ++){
+      deferred.resolve(
+        queryUser(memberList[index].email).then(function(){
+          var tempSched = userQuery[0].get("personalSchedule");
+          var tempSchedBlack = JSON.parse(JSON.stringify(tempSched));
+          /* iterate over all events and change half to be displayed in
+           * the background and have to be displayed in the foreground */
+          for (index = 0; index < tempSched.length; index++){
+            tempSched[index].rendering = "inverse-background";
+            tempSched[index]._id = freeId;
+            tempSched[index].__id = freeId;
+            tempSched[index].color = freeTimeColor;
+
+            tempSchedBlack[index].rendering = "background";
+            tempSchedBlack[index]._id = busyId;
+            tempSchedBlack[index].__id = busyId;
+            tempSchedBlack[index].color = busyTimeColor;
+          } // end inner for
+          if(tempSched.length > 0 || tempSchedBlack.length > 0){
+            memberEventArray.push(tempSched.concat(tempSchedBlack));
+          }
+          
+
+        }))
+        } //end outer for
+        
+        })
+      return deferred.promise;
+  
+  };
+
 
   /************************************************************************
    * Name:    addMember()
@@ -45,18 +110,18 @@ app.service('groupService',['$q', function($q){
 
       /* make sure the new member is resolved */
       deferred.resolve(
-      /* query the user get it's data */
-      queryUser(newMemberEmail).then(function(){
-        newMember = userQuery[0].attributes;
-      })
-      );
+        /* query the user get it's data */
+        queryUser(newMemberEmail).then(function(){
+          newMember = userQuery[0].attributes;
+        })
+        );
 
       /* make sure the new groupList is resolved */
       deferred.resolve(
-      /* query the groupList of the new member and do the following:
-       * 1) update the new member's groupList with the new group 
-       * 2) update our working memberlist
-       * 3) update the memberlist of the group */
+        /* query the groupList of the new member and do the following:
+         * 1) update the new member's groupList with the new group 
+         * 2) update our working memberlist
+         * 3) update the memberlist of the group */
       queryGroupList(newMemberEmail).then(function(){
         var newMemberGroupList = groupListQuery[0]._serverData.userGroups;
         /* set new member's grouplist to have the new group in it */
@@ -75,11 +140,11 @@ app.service('groupService',['$q', function($q){
         });
 
       })
-      );
+    );
 
-      })
-      return deferred.promise;
-      };
+    })
+    return deferred.promise;
+  };
 
 
 
@@ -136,7 +201,7 @@ app.service('groupService',['$q', function($q){
         );
     return deferred.promise;
   };
-  
+
   /* END query functions */
   /*---------------------*/
 
@@ -148,7 +213,7 @@ app.service('groupService',['$q', function($q){
   }
 
   var getNewMember = function(){
-      return newMember;
+    return newMember;
   };
 
   var getGroupList = function(){
@@ -183,8 +248,17 @@ app.service('groupService',['$q', function($q){
     return "Single";
  }
 
+  var getMemberEventArray = function(){
+    return memberEventArray;
+  };
+
+  var getGroupName = function(){
+    return groupName;
+  };
+
   return {
     addMember : addMember,
+
       setGroupId: setGroupId,
       getGroupId: getGroupId,
       setGroupColor: setGroupColor,
@@ -192,7 +266,12 @@ app.service('groupService',['$q', function($q){
       setMemberList : setMemberList,
       getMemberList : getMemberList,
       getNewMember : getNewMember,
-      getGroupName : getGroupName
+      getGroupName : getGroupName,
+
+      initGroup : initGroup,
+      getMemberEventArray : getMemberEventArray,
+      clearMemberArray : clearMemberArray
+
   };
 
 }]);

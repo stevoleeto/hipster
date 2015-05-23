@@ -134,9 +134,23 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
       /* clear current group data */
       $scope.groupName = '';
       $scope.eventSources.length = 0;
+      groupService.clearMemberArray();
     }
     if($scope.singleGroupView === true){
-      /* get the groupId from service */
+      $scope.currentGroupId = groupService.getGroupId();
+      $scope.groupColor = groupService.getGroupColor();
+      groupService.initGroup().then(function(){
+        $scope.groupName = groupService.getGroupName();
+        $scope.memberList = groupService.getMemberList();
+        var memberEventArray = groupService.getMemberEventArray();
+        for(index = 0; index < memberEventArray.length; index++){
+            $scope.eventSources.push(memberEventArray[index]);
+        }
+      console.log("CURRENT event Sources");
+      console.log($scope.eventSources);
+
+      })
+      /*
       $scope.currentGroupId = groupService.getGroupId();
       $scope.groupColor = groupService.getGroupColor();
 
@@ -150,7 +164,6 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
           $scope.$apply();
 
 
-          /* set group calendar to weekly view! */
           var User = Parse.Object.extend("User");
           var query = new Parse.Query(User);
           for(i= 0; i< $scope.memberList.length; i++){
@@ -191,7 +204,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
           }
       });
 
-
+*/
     }
   });
 
