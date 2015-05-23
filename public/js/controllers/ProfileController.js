@@ -170,7 +170,7 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
        events: $scope.eventArray,
 
          eventBackgroundColor: 'blue',  // an option!
-         textColor: 'white', // an option!
+         textColor: 'black', // an option!
          overlap: false
 
          //     rendering: 'inverse-background'
@@ -187,14 +187,14 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
           viewRender: function(view, element) {
               //$log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
           },
-  		editable: true,
+  		editable: false,
       selectable: true,
   		defaultView: 'agendaWeek',
       slotDuration: '01:00:00',
       minTime: '06:00:00',
       maxTime: '22:00:00',
-      dayClick: function(date, jsEvent, view) {
-        //Saved for future use
+      eventClick: function(event, jsEvent, view) {
+        console.log(event.id);
       },
       select: function(start, end, jsEvent, view){
         $scope.eventStartDate = (start.local()).toDate();
@@ -354,6 +354,12 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
     var myName = $scope.newEventName;
     var repeatTheseDays = [];
 
+    console.log($scope.newEventName);
+    if (!$scope.newEventName){
+      alert("Enter a event name!");
+      return;
+    }
+
     if($scope.repeatingEvent){
       
       var myRecurRules = (moment(myStartDate)).recur(myEndDate);
@@ -381,12 +387,13 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
         repeatTheseDays.push(0); 
       }
     
-
+      var myID = (moment().local()).unix();
        myRecurRules = (myRecurRules.every(repeatTheseDays)).daysOfWeek();
        allDates = myRecurRules.all();
 
         for (index = 0; index < allDates.length; index++){
          $scope.eventSources[0].events.push({
+            id : myID,
             title : myName,
             start : ((allDates[index].set('hour', myStartHour)).set('minute', myStartMin)).toISOString(),
             end   : ((allDates[index].set('hour', myEndHour)).set('miute', myEndMin)).toISOString(),
@@ -398,6 +405,7 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
      //If not repeating, treat as single event.
     else{
        $scope.eventSources[0].events.push({
+         id : (moment().local()).unix(),
          title : myName,
          start : ((myStartDate.set('hour', myStartHour)).set('minute', myStartMin)).toISOString(),
          end   : ((myEndDate.set('hour', myEndHour)).set('minute', myEndMin)).toISOString(),
@@ -405,13 +413,10 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
          stick : true
        });
     }
-
-
-    console.log($scope.eventSources[0].events);
      currentUser.set("personalSchedule", $scope.eventSources[0].events);
      currentUser.save();
 
-     $scope.eventName = '';
+     $scope.newEventName = "";
 
 
      //$('#calendar').fullCalendar('render');

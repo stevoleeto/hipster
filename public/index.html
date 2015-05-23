@@ -195,6 +195,13 @@
                             <p >End Time</p>
                             <input ng-init="eventEndTime"  type="time" class="eventPar" ng-model="eventEndTime"><br><br>
 
+                            <ul id="groupColorSelect">
+                                <li style="background:#B9F5FF;" ng-click="eventColor='#B9F5FF'"></li>
+                                <li style="background:#B5FBA3;" ng-click="eventColor='#B5FBA3'"></li>
+                                <li style="background:#FFA6B1;" ng-click="eventColor='#FFA6B1'"></li>
+                                <li style="background:#FEC12F;" ng-click="eventColor='#FEC12F'"></li>
+                            </ul>
+                            <br><br>
                             <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
                             
                         </div>
