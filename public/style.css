@@ -662,8 +662,14 @@ input
     width:25px;
     height:25px;
     margin-left:15px;
+    margin-bottom: 20px;
     float:left;
     cursor:pointer;
+}
+
+#groupColorSelect div:hover
+{
+    border:solid blue 2px;
 }
 
 #removeGroupBtn
