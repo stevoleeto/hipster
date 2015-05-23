@@ -32,7 +32,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
 
     /* DEFAULT COLORS */
       var freeTimeColor = 'green';
-      var busyTimeColor = 'black';
+      var busyTimeColor = '#D2D2CD';
     /* Event Id's */
       var freeId = 999;
       var busyId = 1000;
