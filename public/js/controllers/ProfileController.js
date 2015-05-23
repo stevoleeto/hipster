@@ -220,11 +220,11 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
   $scope.addGroup = function(){	
     groupService.setGroupId($scope.currentGroupId);
     groupService.setGroupColor($scope.currentGroupColor);
-    $scope.updateSingleGroupTab();
   }
   
-  $scope.updateSingleGroupTab = function(){
-    $scope.singleGroupName = groupService.getGroupName();
+  $scope.updateSingleGroupTab = function(name){
+    $scope.singleGroupName = name;
+    console.log($scope.singleGroupName);
   }
 
 
@@ -282,6 +282,9 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
         break;
       }
     }
+
+
+
   }
 
   /************************************************************************

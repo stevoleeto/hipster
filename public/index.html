@@ -227,7 +227,7 @@
                                       $parent.$parent.singleGroupView=true; 
                                       $parent.currentGroupId = group.id; 
                                       $parent.currentGroupColor = group.color;
-                                      addGroup();" ng-attr-title="{{ group.name }}" >
+                                      addGroup(); $parent.updateSingleGroupTab(group.name)" ng-attr-title="{{ group.name }}" >
                                     <p>{{ group.name | limitTo:14 }}{{ group.name.length > 14 ? '...' : '' }}</p>
                                 </div>
                                 <p id="minus" ng-click="removeGroup(group.id)"></p>
