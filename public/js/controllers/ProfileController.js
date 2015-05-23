@@ -221,6 +221,10 @@ app.controller('ProfileController', ['$scope', 'groupService','$timeout','userSe
     groupService.setGroupId($scope.currentGroupId);
     groupService.setGroupColor($scope.currentGroupColor);
   }
+  
+  $scope.updateSingleGroupTab = function(){
+    $scope.singleGroupName = groupService.getGroupName();
+  }
 
 
   /* Function: Date
