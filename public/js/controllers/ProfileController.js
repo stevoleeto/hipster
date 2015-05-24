@@ -649,6 +649,6 @@ app.controller('PopoverInstanceCtrl', function ($scope) {
     templateUrl: 'confirmRemove.html'
   };
     $scope.groupColorSelect = {
-     templateUrl: 'groupColorSelect.html'   
+     templateUrl: 'groupColorSelect.html',
     };
 });

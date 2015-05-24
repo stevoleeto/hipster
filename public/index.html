@@ -205,11 +205,12 @@
                             <input ng-init="repeatingEvent=false" type="checkbox" name="repeatingEvent" ng-click="repeatingEvent = !repeatingEvent"> -->
                             <br>
 
-                            <p >Start Date <input  ng-init="eventStartDate" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate"></p>
+                            <input ng-init="eventStartDate" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate" 
+                                   placeholder="Start Date">
                             
                             <br>
                             
-                            <p >End Date<input ng-init="eventEndDate"  for="pEndDate" type="date" class="eventPar" ng-model="eventEndDate"></p>
+                            <input ng-init="eventEndDate"  for="pEndDate" type="date" class="eventPar" ng-model="eventEndDate" placeholder="End Date">
                             
                             <br>
 
@@ -273,8 +274,8 @@
                                 </div>
                                 <div ng-controller="PopoverInstanceCtrl">
                                 <div Popover-animation="true" id="pencil"></div> 
-                                <button Popover-animation="true" popover-template="confirmRemove.templateUrl" popover-trigger="focus" 
-                                     popover-placement="bottom" id="minus" popover-title="Confirm Remove"></button>
+                                <div Popover-animation="true" popover-template="confirmRemove.templateUrl" popover-trigger="focus" 
+                                     popover-placement="bottom" id="minus" popover-title="Confirm Remove" tabindex="0"></div>
                                 <script type="text/ng-template" id="confirmRemove.html">
                                     <button class="btn btn-danger" ng-click="removeGroup(group.id);">Delete</button>
                                 </script>
