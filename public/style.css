@@ -404,7 +404,7 @@ input
 
 .createEvent p,label
 {
-    font-size: 16px;
+    font-size: 14px;
     margin-left:10px;
 }
 
@@ -439,7 +439,7 @@ input
     position:relative;
     margin-left: 10px;
     font-weight: 400;
-    font-size:16px;
+    font-size:14px;
     border:none;
     border-bottom: solid black 1px;
     border-radius:0px;
