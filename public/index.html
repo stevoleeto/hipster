@@ -101,6 +101,16 @@
                         <h3 class="modal-title">{{ eventClicked.title }}</h3>
                     </div>
                     <div class="modal-body">
+                        <label>Event Name Edit</label>
+                        <input type="text" ng-model="editEventName" placeholder={{eventClicked.title}}>
+                        <label>Start Date Edit</label><br>
+                        <input type="text" ng-model="editEventStartDate" placeholder={{eventClicked.start}}>
+                        <label>End Date Edit</label><br>
+                        <input type="text" ng-model="editEventEndDate" placeholder={{eventClicked.end}}>
+                        <label>Start Time Edit</label><br>
+                        <input type="text" ng-model="editEventStartTime" placeholder={{eventClicked.start}}>
+                        <label>End Time Edit</label><br>
+                        <input type="text" ng-model="editEventEndTime" placeholder={{eventClicked.end}}>
                         <div>{{ eventClicked.start.format("hh:mm a")}} to {{ eventClicked.end.format("hh:mm a")}}</div>
                     </div>
                     <div class="modal-footer">

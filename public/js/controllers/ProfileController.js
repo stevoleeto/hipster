@@ -234,7 +234,6 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
       maxTime: '22:00:00',
       eventClick: function(event, jsEvent, view) {
         eventService.setSelectedEvent(event);
-        console.log(event);
         
         var modalInstance = $modal.open({
           animation: $scope.animationsEnabled,
@@ -495,16 +494,23 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
   }
 
   $scope.deleteEvent = function(){
-    for(index = 0; index < $scope.eventArray.length; index++){
-      if($scope.eventClicked.id === $scope.eventArray[index].id){
-        while(index < $scope.eventArray.length && $scope.eventClicked.id === $scope.eventArray[index].id){
-          $scope.eventArray.splice(index, 1);
-        }
+
+    var tempArray = [];
+    while($scope.eventArray.length != 0){
+      if($scope.eventClicked.id == $scope.eventArray[$scope.eventArray.length - 1].id){
+        $scope.eventArray.length = ($scope.eventArray.length) - 1;
+      }
+      else{
+        console.log("Entered else");
+        tempArray[tempArray.length] = $scope.eventArray[$scope.eventArray.length - 1];
       }
     }
 
-    currentUser.set("personalSchedule", $scope.eventArray);
-    currentUser.save();  
+    for (index = 0; index < tempArray.length; index++){
+      $scope.eventArray[$scope.eventArray.length] = tempArray[index];
+    }
+
+    currentUser.save();
   }
 
   $scope.settingsSave = function(){
