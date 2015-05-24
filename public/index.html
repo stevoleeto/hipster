@@ -207,11 +207,11 @@
                             <br>
 
                             <p >Start Time</p>
-                            <timepicker ng-init ="eventStartTime" ng-model="eventStartTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+                            <center><timepicker ng-init ="eventStartTime" ng-model="eventStartTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker></center>
 
                             <p >End Time</p>
-                            <timepicker ng-init ="eventEndTime"  ng-model="eventEndTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
-
+                            <center><timepicker ng-init ="eventEndTime"  ng-model="eventEndTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker></center>
+                            <br>
                             <div ng-controller="PopoverInstanceCtrl">
                                 <center><button Popover-animation="true" popover-template="groupColorSelect.templateUrl" popover-placement="top" class="btn btn-default" popover-title="Select Color">Choose Event Color</button></center>
                                 <script type="text/ng-template" id="groupColorSelect.html">
