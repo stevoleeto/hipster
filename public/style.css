@@ -30,18 +30,18 @@ body  {
 {
     position:absolute;
     height:100vh;
-/*    border:solid red 2px;*/
+/*    border:solid red 1px;*/
     overflow:scroll;
-    top:-50px;
+    top:-45px;
 }
 
 .singleGroupView
 {
     position:absolute;
     height:100vh;
-/*    border:solid red 2px;*/
+/*    border:solid red 1px;*/
     overflow:scroll;
-    top:-50px;
+    top:-45px;
 }
 
 #login
@@ -335,12 +335,15 @@ input
 #scheduleWrapper
 {
     position:relative;
-    top:48px;
-    height:auto;
+    top:45px;
+    height: calc(100% - 45px);
     width:70%;
     float:left;
     margin-left: 2%;
 /*    border:solid black 1px;*/
+    overflow:scroll;
+    padding-left:5px;
+    padding-right:5px;
 }
 
 #yourSched
@@ -376,11 +379,13 @@ input
 #createWrapper
 {
     position:relative;
-    height: calc(100% - 64px);
+    height: calc(100% - 45px);
     width: 25%;
     float: right;
     margin-right: 2%;
-    top:48px;
+    top:45px;
+    padding-left:5px;
+    padding-right:5px;
 /*    border:solid black 1px;*/
     overflow:scroll;
 }
