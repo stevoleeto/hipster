@@ -194,7 +194,7 @@
                             <br><br>
 
                             <div ng-controller="PopoverInstanceCtrl">
-                                <center><button Popover-animation="true" popover-template="repDays.templateUrl" popover-placement="bottom" class="btn btn-default" popover-trigger="focus" popover-title="Select Repeating Days">Set Repeating</button></center>
+                                <center><button Popover-animation="true" popover-template="repDays.templateUrl" popover-placement="top" class="btn btn-default" popover-title="Select Repeating Days">Set Repeating</button></center>
                                 <script type="text/ng-template" id="repDays.html">
                                     <div class="repDays">
                                         <label class="btn btn-primary" ng-model="dayRepeat.monday" btn-checkbox>Mon</label><label class="btn btn-primary" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</label><label class="btn btn-primary" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</label><label class="btn btn-primary" ng-model="dayRepeat.thursday" btn-checkbox>Thu</label><label class="btn btn-primary" ng-model="dayRepeat.friday" btn-checkbox>Fri</label><label class="btn btn-primary" ng-model="dayRepeat.saturday" btn-checkbox>Sat</label><label class="btn btn-primary" ng-model="dayRepeat.sunday" btn-checkbox>Sun</label>
@@ -315,12 +315,14 @@
         <!-- GROUP CONTROLLER -->
         <div class="singleGroupView" ng-init="singleGroupView=false" ng-show="singleGroupView">
             <div id="profileWrapper" ng-controller="GroupController">
+<!--
                 <div id="groupHeader" ng-style="{background:groupColor}">
                     <p id="groupName">{{ groupName }}</p>
                     <button class="btn btn-info">Members</button>
                 </div>
+-->
                 <div style="clear:both;">
-                    <div id="scheduleWrapper" >
+                    <div id="scheduleWrapper" style="top:0px;">
                         <p id="yourSched">Group Schedule</p>
                         <div class="schedule card">
                             <!-- TEST group UI CALENDAR -->
@@ -329,7 +331,7 @@
                         </div>
                     </div>
                 
-                    <div id="createWrapper">
+                    <div id="createWrapper" style="top:0px;">
                         <p id="createTitle">Create Group Event</p>
                         <div class="createEvent card">
                             <!-- <p >Event Name</p> -->
