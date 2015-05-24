@@ -130,18 +130,21 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
       $scope.eventSources.length = 0;
       groupService.clearMemberArray();
     }
+    /* if we have switched to single group view */
     if($scope.singleGroupView === true){
       $scope.currentGroupId = groupService.getGroupId();
       $scope.groupColor = groupService.getGroupColor();
-      groupService.initGroup().then(function(){
+
+      /* initialize group data and get an array of the member's events 
+       * through a callback */
+      groupService.initGroup().then(function(returnedEvents){
         $scope.groupName = groupService.getGroupName();
         $scope.memberList = groupService.getMemberList();
-        var memberEventArray = groupService.getMemberEventArray();
-        for(index = 0; index < memberEventArray.length; index++){
-            $scope.eventSources.push(memberEventArray[index]);
+        /* iterate through the returned events array and push all events 
+         * into our source */
+        for(index = 0; index < returnedEvents.length; index++){
+            $scope.eventSources.push(returnedEvents[index]);
         }
-      console.log("CURRENT event Sources");
-      console.log($scope.eventSources);
       })
     }
   });
