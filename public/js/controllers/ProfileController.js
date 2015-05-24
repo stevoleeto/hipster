@@ -365,6 +365,8 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
   $scope.createEvent = function(){
     var repeatTheseDays = [];
     var repeat = false;
+
+    console.log($scope.dayRepeat);
     
     if (!$scope.newEventName){
       alert("Enter a event name!");
@@ -429,6 +431,10 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
      $scope.newEventName = "";
 
      eventService.clearEvents();
+
+     for(index = 0; index < $scope.dayRepeat.length; index++){
+      $scope.dayRepeat[i] = false;
+     }
   }
 
   $scope.removeAllEvents = function(){
