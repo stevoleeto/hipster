@@ -54,7 +54,7 @@ input
 {
     position:relative;
     left:10px; 
-    background:#B8FCBC; 
+    background-color:#B8FCBC; 
     padding: 4px;
 }
 
@@ -227,7 +227,7 @@ input
 .bttn 
 {
     width: 100%;
-    background:#3495f3;
+    background-color:#3495f3;
     height: 40px;
     color: white;
     font-size: 30px;
@@ -245,7 +245,7 @@ input
 #profileWrapper
 {
     width: 100%;
-    background:#F5F5F5;
+    background-color:#F5F5F5;
 }
 
 
@@ -427,10 +427,10 @@ input
 
 .createButton:hover
 {
-    cursor: pointer;
-    transition: background .4s;
-    background: #55EE55;
-    border: none;
+    cursor:pointer;
+    transition:background .4s;
+    background:#55EE55;
+    border:none;
 }
 
 .eventPar
@@ -452,7 +452,7 @@ input
     position:relative;
     clear:both;
     padding:5px;
-    background: #FEC005;
+    background-color:#FEC005;
     color:white;
     font-size:20px;
     text-align: center;
@@ -462,7 +462,7 @@ input
 
 #remEvents:hover
 {
-    background: orange;
+    background-color:orange;
 }
 
 .btn2
@@ -531,7 +531,7 @@ input
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    background: white;
+    background-color: white;
     position:relative;
     width:50%;
     height:30px;
@@ -544,7 +544,7 @@ input
 
 #minus:hover
 {
-    background: #ccc;
+    background-color: #ccc;
     opacity: .8;
 }
 
@@ -554,7 +554,7 @@ input
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    background: white;
+    background-color: white;
     position:relative;
     width:50%;
     height:30px;
@@ -566,7 +566,7 @@ input
 
 #pencil:hover
 {
-    background: #ccc;
+    background-color: #ccc;
     opacity: .8;
 }
 
