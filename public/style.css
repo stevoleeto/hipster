@@ -408,6 +408,10 @@ input
     margin-left:10px;
 }
 
+#colorBtn {
+    transition: background .5s;
+}
+
 .createButton
 {
     font-size: 30px;
