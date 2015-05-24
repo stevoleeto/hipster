@@ -41,6 +41,7 @@ var newIcon = 'images/userIcon.png';
 
 app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '$timeout','userService','uiCalendarConfig', '$modal', '$log', 
                                      function($scope, groupService, eventService, $timeout, userService, uiCalendarConfig, $modal,$log) {
+
   $scope.animationsEnabled = true;
 
   /* user data */
@@ -57,15 +58,15 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
   userService.setEmail(currentUser.get("username")); 
   userService.setName($scope.userName);
 
-  $scope.eventSources = [{
-       events: $scope.eventArray,
+  // $scope.eventSources = [{
+  //      events: $scope.eventArray,
 
-         eventBackgroundColor: 'blue',  // an option!
-         textColor: 'black', // an option!
-         overlap: false
+  //        eventBackgroundColor: 'blue',  // an option!
+  //        textColor: 'black', // an option!
+  //        overlap: false
 
-         //     rendering: 'inverse-background'
-  }];
+  //        //     rendering: 'inverse-background'
+  // }];
 
   $scope.open = function (size) {
 
@@ -193,11 +194,29 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
       saturday : false,
       sunday : false
     };
-  								 
-    // source for calendar events
-    //$scope.eventSources = [$scope.eventArray];
-     
 
+    $scope.eventSources = [$scope.eventArray];
+    /* GOOGLE CALENDAR TEST */
+    /*
+    userService.setGoogleCalendar('jmdeon@gmail.com').then(function(){
+      var googleCalendar = userService.getGoogleCalendar();
+      $scope.eventSources.push(googleCalendar);
+      console.log(googleCalendar);
+        
+    });
+    */
+    /*
+
+     $scope.eventSources = [{
+       events: $scope.eventArray,
+
+         eventBackgroundColor: 'blue',  // an option!
+         textColor: 'black', // an option!
+         overlap: false
+
+         //     rendering: 'inverse-background'
+     }];
+     */
 
     // Profile Calendar Settings
   // -----------------------
@@ -367,8 +386,6 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
     });
     /* clear text box */
     $scope.newGroupName = '';
-
-     $('#calendar').fullCalendar('render');
   }
 
   }
@@ -440,10 +457,9 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
      newEvents = eventService.getEvents();
      
      for (index = 0; index < newEvents.length; index++){
-        $scope.eventSources[0].events.push(newEvents[index]); 
+        $scope.eventArray.push(newEvents[index]); 
      }
      
-     currentUser.set("personalSchedule", $scope.eventSources[0].events);
      currentUser.save();
 
      $scope.newEventName = "";
@@ -456,38 +472,33 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
   }
 
   $scope.removeAllEvents = function(){
-    $scope.eventSources[0].events.length = 0;
-    currentUser.set("personalSchedule", $scope.eventSources[0].events);
+    $scope.eventSources.length = 0;
+    currentUser.set("personalSchedule", []);
     currentUser.save();
   }
 
-  //ADDED BY SARA
   $scope.addFriend = function() {
-  var User = Parse.Object.extend("User");
+    var User = Parse.Object.extend("User");
     var query = new Parse.Query(User);
-  query.equalTo("username", $scope.newFriend);
-  query.find().then(function(pulledFriend) {
-  	$scope.friendList.push({email: $scope.newFriend, name:pulledFriend[0].attributes.name});
-  	console.log($scope.friendList);
-  	currentUser.set("friendList", $scope.friendList);
-  	currentUser.save();
-  });
-    
-    
+    query.equalTo("username", $scope.newFriend);
+    query.find().then(function(pulledFriend) {
+      $scope.friendList.push({email: $scope.newFriend, name:pulledFriend[0].attributes.name});
+      console.log($scope.friendList);
+      currentUser.set("friendList", $scope.friendList);
+      currentUser.save();
+    });
   }
 
   $scope.deleteEvent = function(){
-    for(index = 0; index < $scope.eventSources[0].events.length; index++){
-      if($scope.eventClicked.id === $scope.eventSources[0].events[index].id){
-        $scope.eventSources[0].events.splice(index, 1);
+    for(index = 0; index < $scope.eventArray.length; index++){
+      if($scope.eventClicked.id === $scope.eventArray[index].id){
+        $scope.eventArray.splice(index, 1);
       }
     }
 
-    currentUser.set("personalSchedule", $scope.eventSources[0].events);
+    currentUser.set("personalSchedule", $scope.eventArray);
     currentUser.save();  
   }
-
-
 
   $scope.settingsSave = function(){
     if ($scope.newUserName){
