@@ -6,13 +6,15 @@
  */
 
 
-app.service('userService',['$q', function($q){
+app.service('userService',['$q','dataBaseService', function($q, dataBaseService){
 
   var groupList;
   var email;
   var name;
   var friendGroupList;
   var groupListQuery;
+
+  var googleCalendar = []; // initialize calendar to an empty array
 
   /* Function name: queryGroupList
    * Description: pulls the group list of the desired email, if it already has
@@ -95,9 +97,32 @@ app.service('userService',['$q', function($q){
      });
   }
 
-  var addEvent = function(){
+  var setGoogleCalendar = function(calendarID){
+    return dataBaseService.queryGoogleCalendar(calendarID).then(function(){
+      var googleCalendarQuery = dataBaseService.getGoogleCalendar();
+      console.log(googleCalendarQuery);
+      /* iterate over items in googleCal */
+      for(index = 0; index<googleCalendarQuery.items.length; index++){
+        var startTime = googleCalendarQuery.items[index].start.dateTime;
+        var endTime = googleCalendarQuery.items[index].end.dateTime;
+        if(startTime && endTime){
+          var newEvent = {
+           textColor: 'white',
+           title: googleCalendarQuery.items[index].summary + "\nGoogle Calendar",
+           id: 9,
+           start: startTime,
+           end: endTime,
+           color: 'green'
+          }
+          googleCalendar.push(newEvent);
+        }
+      }
+    });
+  };
+  var getGoogleCalendar = function(){
+    return googleCalendar;
+  };
 
-  }
 
 
 
@@ -108,10 +133,11 @@ app.service('userService',['$q', function($q){
     getFriendGroupList: getFriendGroupList,
     getGroupListQuery: getGroupListQuery,
     createGroup: createGroup,
-    addEvent: addEvent,
     removeGroup: removeGroup,
     setEmail : setEmail,
-    setName : setName
+    setName : setName,
+    getGoogleCalendar : getGoogleCalendar,
+    setGoogleCalendar : setGoogleCalendar
   };
 
 }]);
