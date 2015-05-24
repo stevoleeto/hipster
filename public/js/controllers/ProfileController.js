@@ -492,7 +492,9 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
   $scope.deleteEvent = function(){
     for(index = 0; index < $scope.eventArray.length; index++){
       if($scope.eventClicked.id === $scope.eventArray[index].id){
-        $scope.eventArray.splice(index, 1);
+        while($scope.eventClicked.id === $scope.eventArray[index].id){
+          $scope.eventArray.splice(index, 1);
+        }
       }
     }
 
