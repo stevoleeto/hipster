@@ -36,7 +36,7 @@
 //Link to Parse database - accepts application_ID, JavaScript_Key
 Parse.initialize( "t5hvXf3wJOYnL3MMIffsemMdhLM7f4brACcf0eBa", "UhqQaEDIEQr6cxhO8XS4Fl8BcGU4ir9jL9To7PVO" );
 var currentUser = Parse.User.current();
-var newIcon = 'images/userIcon.png';
+var newIcon = '';
 
 
 app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '$timeout','userService','uiCalendarConfig', '$modal', '$log', 
@@ -514,23 +514,42 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
   }
 
   $scope.settingsSave = function(){
+    var good = false;
     if ($scope.newUserName){
       currentUser.set("name", $scope.newUserName);
       $scope.userName = $scope.newUserName;
+      good = true;
     }
     if ($scope.newEmail){ 
       currentUser.set("username", $scope.newEmail);
       currentUser.set("email", $scope.newEmail);
+      good = true;
     }
     if ($scope.newPassword){
       currentUser.set("password", $scope.newPassword);
-    };
-    currentUser.set("userIcon", newIcon)
+      good = true;
+    }
+    if (newIcon){
+      currentUser.set("userIcon", newIcon);
+      good = true;
+    }
+
+    if (good) {
+      $scope.saveLabel = true;
+    } else {
+      $scope.errLabel = true;
+    }
+
     currentUser.save();
     $scope.newUserName = "";
     userService.setName($scope.newUserName);
     $scope.newEmail = "";
     $scope.newPassword = "";
+
+    setTimeout(function(){
+      $scope.saveLabel = false;
+      $scope.errLabel = false;
+    }, 2000);
   }
 
   //timepicker
@@ -614,7 +633,7 @@ app.controller('CollapseInstanceCtrl', function ($scope) {
     id: 1,
     image: 'images/userIcon.png',
     name: 'Super Hero',
-    selected: 1
+    selected: 0
   });
   
   //Note: this pushes the icons into the array in the following pattern: 

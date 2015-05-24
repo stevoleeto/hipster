@@ -325,6 +325,24 @@ input
     transition: transform .5s;
 }
 
+#lblSave {
+    box-sizing: border-box;
+    color: #3C763D;
+    background: #DFF0D8;
+    border-color: #D6E9C6;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#lblError {
+    box-sizing: border-box;
+    color: #A94442;
+    background: #F2DEDE;
+    border-color: #EBCCD1;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
 #greeting
 {
     line-height: 45px;
