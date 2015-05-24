@@ -531,7 +531,7 @@ input
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: #CCCFD4;
+    background-color: white;
     position:relative;
     width:50%;
     height:30px;
@@ -539,12 +539,12 @@ input
     cursor:pointer;
     opacity: 0;
     transition: opacity .5s;
-    border-left:solid white 1px;
+    border-left:solid grey 1px;
 }
 
 #minus:hover
 {
-    background-color: white;
+    background-color: #ccc;
     opacity: .8;
 }
 
@@ -554,7 +554,7 @@ input
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: #CCCFD4;
+    background-color: white;
     position:relative;
     width:50%;
     height:30px;
@@ -566,7 +566,7 @@ input
 
 #pencil:hover
 {
-    background-color: white;
+    background-color: #ccc;
     opacity: .8;
 }
 
