@@ -334,6 +334,15 @@ input
     top:5px;
 }
 
+#groupOptions
+{
+    position:relative;
+    float:right;
+    height 20px;
+    width 20px;
+    border:solid black 1px;
+}
+
 .schedule
 {
     float:left;
@@ -412,15 +421,15 @@ input
     transition:width .5s, background .4s;
     margin-bottom: 10px;
     background:#AAFFAA;
+    border-radius:5px;
 /*    border:solid grey 1px;*/
 }
 
 .createButton:hover
 {
     cursor:pointer;
-    transition:width .5s, background .4s;
-    width: 170px;
-    background:#99FF99;
+    transition:background .4s;
+    background:#55EE55;
     border:none;
 }
 

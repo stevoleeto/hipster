@@ -113,7 +113,8 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
       maxTime: '22:00:00',
       dayClick: function(date, jsEvent, view) {
         console.log("Clicked on " + date.format());
-      }
+      },
+          allDaySlot:false
       }
   };
 
