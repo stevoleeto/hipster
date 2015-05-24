@@ -205,23 +205,22 @@
                             <input ng-init="repeatingEvent=false" type="checkbox" name="repeatingEvent" ng-click="repeatingEvent = !repeatingEvent"> -->
                             <br>
 
-                            <input ng-init="eventStartDate" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate" 
-                                   placeholder="Start Date">
+                            <p>Start Date: <input  ng-init="eventStartDate=Date()" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate"></p>
                             
                             <br>
                             
-                            <input ng-init="eventEndDate"  for="pEndDate" type="date" class="eventPar" ng-model="eventEndDate" placeholder="End Date">
+                            <p>End Date: <input ng-init="eventEndDate=Date()" for="pEndDate" type="date" class="eventPar" ng-model="eventEndDate">
                             
                             <br>
 
-                            <p >Start Time</p>
+                            <p>Start Time: </p>
                             <center><timepicker ng-init ="eventStartTime" ng-model="eventStartTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker></center>
 
-                            <p >End Time</p>
+                            <p>End Time: </p>
                             <center><timepicker ng-init ="eventEndTime"  ng-model="eventEndTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker></center>
                             <br>
                             <div ng-controller="PopoverInstanceCtrl">
-                                <center><button Popover-animation="true" popover-template="groupColorSelect.templateUrl" popover-placement="top" class="btn btn-default" popover-title="Select Color">Choose Event Color</button></center>
+                                <center><button Popover-animation="true" popover-template="groupColorSelect.templateUrl" popover-placement="top" class="btn btn-default" ng-style="{'background':eventColor.mine}" ng-init="eventColor.mine='#fff'" popover-trigger="focus" popover-title="Select Color" id="colorBtn">Choose A Color</button></center>
                                 <script type="text/ng-template" id="groupColorSelect.html">
                                     <div id="groupColorSelect">
                                         <div style="background:#B9F5FF;" ng-click="eventColor.mine='#B9F5FF'"></div>
@@ -339,7 +338,7 @@
                             <br><br>
 
                             <div ng-controller="PopoverInstanceCtrl">
-                                <center><button Popover-animation="true" popover-template="repDays.templateUrl" popover-placement="bottom" class="btn btn-default" popover-trigger="focus" popover-title="Select Repeating Days">Set Repeating</button></center>
+                                <center><button Popover-animation="true" popover-template="repDays.templateUrl" popover-placement="bottom" class="btn btn-default" popover-title="Select Repeating Days">Set Repeating</button></center>
                                 <script type="text/ng-template" id="repDays.html">
                                     <div class="repDays">
                                     <label class="btn btn-primary" ng-model="dayRepeat.monday" btn-checkbox>Mon</label><label class="btn btn-primary" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</label><label class="btn btn-primary" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</label><label class="btn btn-primary" ng-model="dayRepeat.thursday" btn-checkbox>Thu</label><label class="btn btn-primary" ng-model="dayRepeat.friday" btn-checkbox>Fri</label><label class="btn btn-primary" ng-model="dayRepeat.saturday" btn-checkbox>Sat</label><label class="btn btn-primary" ng-model="dayRepeat.sunday" btn-checkbox>Sun</label>
@@ -348,11 +347,11 @@
                             </div>
                             <br>
 
-                            <p >Start Date <input  ng-init="eventStartDate = Date()" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate"></p>
+                            <p>Start Date: <input  ng-init="eventStartDate=Date()" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate"></p>
                             
                             <br>
                             
-                            <p >End Date <input ng-init="eventEndDate = Date()"  for="pEndDate" type="date" class="eventPar" ng-model="eventEndDate"></p>
+                            <p>End Date: <input ng-init="eventEndDate=Date()" for="pEndDate" type="date" class="eventPar" ng-model="eventEndDate"></p>
                             
                             <br>
 
