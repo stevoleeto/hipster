@@ -508,7 +508,7 @@ input
 
 .groupSelect:hover #minus
 {
-    opacity: 1;
+    opacity: .5;
     transition: opacity .5s;
 }
 
@@ -530,21 +530,22 @@ input
     background-image:url(images/minus.png);
     background-size: contain;
     background-repeat: no-repeat;
+    background-position: center;
+    background-color: #CCCFD4;
     position:relative;
-    width:30px;
+    width:50%;
     height:30px;
     float:right;
-    right:5px;
-    bottom:5px;
-    border-radius:50%;
     cursor:pointer;
     opacity: 0;
     transition: opacity .5s;
+    border-left:solid white 1px;
 }
 
 #minus:hover
 {
-    background-color: lightgoldenrodyellow;
+    background-color: white;
+    opacity: .8;
 }
 
 #pencil
@@ -552,13 +553,12 @@ input
     background-image:url(images/pencil.png);
     background-size: contain;
     background-repeat: no-repeat;
+    background-position: center;
+    background-color: #CCCFD4;
     position:relative;
-    width:30px;
+    width:50%;
     height:30px;
     float:left;
-    left:5px;
-    bottom:5px;
-    border-radius:50%;
     cursor:pointer;
     opacity: 0;
     transition: opacity .5s;
@@ -566,12 +566,13 @@ input
 
 #pencil:hover
 {
-    background-color: lightgoldenrodyellow;
+    background-color: white;
+    opacity: .8;
 }
 
 .groupSelect:hover #pencil
 {
-    opacity: 1;
+    opacity: .5;
     transition: opacity .5s;
 }
 

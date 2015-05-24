@@ -265,8 +265,8 @@
                                     <p>{{ group.name | limitTo:12 }}{{ group.name.length > 12 ? '...' : '' }}</p>
                                 </div>
                                 <div ng-controller="PopoverInstanceCtrl">
-                                <p Popover-animation="true" id="pencil"></p> 
-                                <p Popover-animation="true" popover-template="confirmRemove.templateUrl" popover-placement="bottom" id="minus" popover-title="Confirm Remove"></p>
+                                <div Popover-animation="true" id="pencil"></div> 
+                                <div Popover-animation="true" popover-template="confirmRemove.templateUrl" popover-placement="bottom" id="minus" popover-title="Confirm Remove"></div>
                                 <script type="text/ng-template" id="confirmRemove.html">
                                     <button class="btn btn-danger" ng-click="removeGroup(group.id);">Delete</button>
                                 </script>
