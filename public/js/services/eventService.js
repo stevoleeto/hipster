@@ -7,6 +7,7 @@
 
  app.service('eventService',['$q', function($q){
  	var eventsToAdd = [];
+ 	var currentSelectedEvent = '';
 
  	var createEvent = function(eventName, eventColor, startDate, startHour, startMin, endDate, endHour, endMin, repeating, repeatingDays){
  		var eventID = (moment().local()).unix();
@@ -47,9 +48,21 @@
  		eventsToAdd.length = 0;
  	}
 
+ 	var getSelectedEvent = function(){
+ 		return currentSelectedEvent;
+ 	}
+
+ 	var setSelectedEvent = function(eventSelected){
+ 		currentSelectedEvent = eventSelected;
+ 	}
+
+
+
  	return {
  		createEvent : createEvent,
  		clearEvents : clearEvents,
- 		getEvents : getEvents 
+ 		getEvents : getEvents,
+ 		getSelectedEvent : getSelectedEvent,
+ 		setSelectedEvent : setSelectedEvent
  	}
  }]);

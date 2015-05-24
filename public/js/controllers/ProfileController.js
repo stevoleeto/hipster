@@ -41,10 +41,31 @@ var newIcon = 'images/userIcon.png';
 
 app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '$timeout','userService','uiCalendarConfig', '$modal', '$log', 
                                      function($scope, groupService, eventService, $timeout, userService, uiCalendarConfig, $modal,$log) {
-    
-  $scope.items = ['item1', 'item2', 'item3'];
-
   $scope.animationsEnabled = true;
+
+  /* user data */
+  $scope.userName = currentUser.get("name");
+  $scope.icon = currentUser.get("userIcon");
+  $scope.joinDate = currentUser.createdAt;
+  $scope.email = currentUser.get("username");
+  $scope.eventArray = currentUser.get("personalSchedule");
+  $scope.friendList = currentUser.get("friendList");
+  $scope.eventColor = {mine : '#B9F5FF'};
+  $scope.eventClicked = eventService.getSelectedEvent();
+                 
+  //set users email in service
+  userService.setEmail(currentUser.get("username")); 
+  userService.setName($scope.userName);
+
+  $scope.eventSources = [{
+       events: $scope.eventArray,
+
+         eventBackgroundColor: 'blue',  // an option!
+         textColor: 'black', // an option!
+         overlap: false
+
+         //     rendering: 'inverse-background'
+  }];
 
   $scope.open = function (size) {
 
@@ -114,6 +135,26 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
   $scope.toggleAnimation = function () {
       $scope.animationsEnabled = !$scope.animationsEnabled;
   };
+
+  $scope.eventDetailModal = function(){
+    var modalInstance = $modal.open({
+      animation: $scope.animationsEnabled,
+      templateUrl: 'eventDetail.html',
+      controller: 'ModalInstanceCtrl',
+      size: lg,
+      resolve: {
+        items: function(){
+          return scope.items;
+        }
+      }
+    });
+
+    modalInstance.result.then(function(selectedItem){
+      $scope.selected = selectedItem;
+    }, function(){
+      //$scope.
+    });
+  };
       
                                            
   $scope.addGroupModal = function (size) {
@@ -141,18 +182,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 
                                                                                                                          
                                            
-    /* user data */
-    $scope.userName = currentUser.get("name");
-    $scope.icon = currentUser.get("userIcon");
-    $scope.joinDate = currentUser.createdAt;
-    $scope.email = currentUser.get("username");
-    $scope.eventArray = currentUser.get("personalSchedule");
-    $scope.friendList = currentUser.get("friendList");
-    $scope.eventColor = {mine : '#B9F5FF'};
-  								 
-    //set users email in service
-    userService.setEmail(currentUser.get("username")); 
-    userService.setName($scope.userName);
+   
 
     $scope.dayRepeat = {
       monday : false,
@@ -166,17 +196,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
   								 
     // source for calendar events
     //$scope.eventSources = [$scope.eventArray];
-     $scope.eventSources = [{
-       events: $scope.eventArray,
-
-         eventBackgroundColor: 'blue',  // an option!
-         textColor: 'black', // an option!
-         overlap: false
-
-         //     rendering: 'inverse-background'
-     }];
-
-     console.log($scope.eventSources);
+     
 
 
     // Profile Calendar Settings
@@ -194,9 +214,9 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
       minTime: '06:00:00',
       maxTime: '22:00:00',
       eventClick: function(event, jsEvent, view) {
-        console.log(event.id);
+        eventService.setSelectedEvent(event);
         console.log(event);
-        $scope.eventClickedP = event.id;
+        
         var modalInstance = $modal.open({
           animation: $scope.animationsEnabled,
           templateUrl: 'editEvent.html',
@@ -365,8 +385,6 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
   $scope.createEvent = function(){
     var repeatTheseDays = [];
     var repeat = false;
-
-    console.log($scope.eventColor.mine);
     
     if (!$scope.newEventName){
       alert("Enter a event name!");
@@ -458,6 +476,16 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
     
   }
 
+  $scope.deleteEvent = function(){
+    for(index = 0; index < $scope.eventSources[0].events.length; index++){
+      if($scope.eventClicked.id === $scope.eventSources[0].events[index].id){
+        $scope.eventSources[0].events.splice(index, 1);
+      }
+    }
+
+    currentUser.set("personalSchedule", $scope.eventSources[0].events);
+    currentUser.save();  
+  }
 
 
 
