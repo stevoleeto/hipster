@@ -148,7 +148,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
     $scope.email = currentUser.get("username");
     $scope.eventArray = currentUser.get("personalSchedule");
     $scope.friendList = currentUser.get("friendList");
-    $scope.eventColor = '#B9F5FF';
+    $scope.eventColor = {mine : '#B9F5FF'};
   								 
     //set users email in service
     userService.setEmail(currentUser.get("username")); 
@@ -366,7 +366,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
     var repeatTheseDays = [];
     var repeat = false;
 
-    console.log($scope.dayRepeat);
+    console.log($scope.eventColor.mine);
     
     if (!$scope.newEventName){
       alert("Enter a event name!");
@@ -409,7 +409,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
     }    
      
      eventService.createEvent($scope.newEventName, //event name
-        $scope.eventColor, //event color
+        $scope.eventColor.mine, //event color
         (moment($scope.eventStartDate.toISOString()).dateOnly()), //start date
         (moment($scope.eventStartTime.toISOString()).hour()), //start hour
         (moment($scope.eventStartTime.toISOString()).minute()), //start min
