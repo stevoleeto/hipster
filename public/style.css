@@ -26,7 +26,23 @@ body  {
     line-height: 64px;
 }
 
+#profileView
+{
+    position:absolute;
+    height:100vh;
+/*    border:solid red 1px;*/
+    overflow:scroll;
+    top:-45px;
+}
 
+.singleGroupView
+{
+    position:absolute;
+    height:100vh;
+/*    border:solid red 1px;*/
+    overflow:scroll;
+    top:-45px;
+}
 
 #login
 {
@@ -318,17 +334,22 @@ input
 
 #scheduleWrapper
 {
-    height:auto;
+    position:relative;
+    top:45px;
+    height: calc(100% - 45px);
     width:70%;
     float:left;
     margin-left: 2%;
 /*    border:solid black 1px;*/
+/*    overflow:scroll;*/
+    padding-left:5px;
+    padding-right:5px;
 }
 
 #yourSched
 {
     position:relative;
-    font-size: 1.7em;
+    font-size: 20px;
     float:left;
     letter-spacing: 3px;
     top:5px;
@@ -348,7 +369,7 @@ input
     float:left;
     clear:left;
     width:100%;
-    height: auto;
+    height: calc(100% - 45px);
     background:white;
     padding:5px;
     margin-bottom: 10px;
@@ -357,17 +378,22 @@ input
 
 #createWrapper
 {
-    height: auto;
+    position:relative;
+    height: calc(100% - 45px);
     width: 25%;
     float: right;
     margin-right: 2%;
+    top:45px;
+    padding-left:5px;
+    padding-right:5px;
 /*    border:solid black 1px;*/
+/*    overflow:scroll;*/
 }
 
 #createTitle
 {
     position:relative;
-    font-size: 1.7em;
+    font-size: 20px;
     float:left;
     letter-spacing: 3px;
     top:5px;
@@ -406,6 +432,10 @@ input
 {
     font-size: 14px;
     margin-left:10px;
+}
+
+#colorBtn {
+    transition: background .5s;
 }
 
 .createButton
@@ -457,7 +487,7 @@ input
     font-size:20px;
     text-align: center;
     cursor:pointer;
-    top:20px;
+/*    top:20px;*/
 }
 
 #remEvents:hover
@@ -610,6 +640,7 @@ input
 {
     border:solid black 1px;
     background:#F5F5F5;
+    
 }
 
 #groupHeader {

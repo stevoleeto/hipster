@@ -407,6 +407,11 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
       alert("Enter a event name!");
       return;
     }
+
+    if ($scope.eventColor.mine == '#fff') {
+      alert("Choose a color for your event!");
+      return;
+    }
     
     if ($scope.dayRepeat.monday || 
       $scope.dayRepeat.tuesday || 
@@ -650,6 +655,6 @@ app.controller('PopoverInstanceCtrl', function ($scope) {
     templateUrl: 'confirmRemove.html'
   };
     $scope.groupColorSelect = {
-     templateUrl: 'groupColorSelect.html',
+     templateUrl: 'groupColorSelect.html'
     };
 });

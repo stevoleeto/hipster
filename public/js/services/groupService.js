@@ -57,24 +57,24 @@ app.service('groupService',['$q', function($q){
       groupName = groupQuery[0].get("name");
       memberList = groupQuery[0].get("memberList");
       /* iterate over memberList to pull all their data into */
+      var queriesLeft = memberList.length;
       for(index = 0; index < memberList.length; index ++){
-      deferred.resolve(
         queryUser(memberList[index].email).then(function(){
           var tempSched = userQuery[0].get("personalSchedule");
           /* iterate over all events and change half to be displayed in
            * the background and have to be displayed in the foreground */
-          for (index = 0; index < tempSched.length; index++){
-            tempSched[index].rendering = "background";
-            tempSched[index]._id = freeId;
-            tempSched[index].__id = freeId;
-            tempSched[index].color = busyTimeColor;
+          for (indexInner = 0; indexInner < tempSched.length; indexInner++){
+            tempSched[indexInner].rendering = "background";
+            tempSched[indexInner]._id = freeId;
+            tempSched[indexInner].__id = freeId;
+            tempSched[indexInner].color = busyTimeColor;
           } // end inner for
-          if(tempSched.length > 0){
             memberEventArray.push(tempSched);
-          }
-          
-
-        }))
+            queriesLeft--; // decrement calls to make
+            if(queriesLeft <= 0){
+              deferred.resolve(memberEventArray); // resolve after last call!
+            }
+        })
         } //end outer for
         
         })
@@ -147,52 +147,40 @@ app.service('groupService',['$q', function($q){
   var queryGroupList = function(newEmail){
     /* $q is a promise service, we can ask it to wait until something is done
      * then return a promise */
-    var deferred = $q.defer();
     var GroupList = Parse.Object.extend("GroupList");
     var query = new Parse.Query(GroupList);
     query.equalTo("userEmail", newEmail);
 
     /* this will be resolved before returned promise */
-    deferred.resolve(
-        query.find().then(function(pulledList) {
+        return query.find().then(function(pulledList) {
           groupListQuery = pulledList;
         })
-        );
-    return deferred.promise;
   };
 
   var queryGroup = function(groupId){
     /* $q is a promise service, we can ask it to wait until something is done
      * then return a promise */
-    var deferred = $q.defer();
     var Group = Parse.Object.extend("Group");
     var query = new Parse.Query(Group);
     query.equalTo("objectId", groupId);
 
     /* this will be resolved before returned promise */
-    deferred.resolve(
-        query.find().then(function(pulledGroup) {
+        return query.find().then(function(pulledGroup) {
           groupQuery = pulledGroup;
         })
-        );
-    return deferred.promise;
   };
 
   var queryUser = function(userEmail){
     /* $q is a promise service, we can ask it to wait until something is done
      * then return a promise */
-    var deferred = $q.defer();
     var User = Parse.Object.extend("User");
     var query = new Parse.Query(User);
     query.equalTo("username", userEmail);
 
     /* this will be resolved before returned promise */
-    deferred.resolve(
-        query.find().then(function(pulledUser) {
+        return query.find().then(function(pulledUser) {
           userQuery = pulledUser;
         })
-        );
-    return deferred.promise;
   };
 
   /* END query functions */
