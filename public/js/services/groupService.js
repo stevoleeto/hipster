@@ -21,7 +21,6 @@ app.service('groupService',['$q', function($q){
   var memberEventArray = [];
 
   /* DEFAULT COLORS */
-  var freeTimeColor = 'white';
   var busyTimeColor = '#D2D2CD';
   /* Event Id's */
   var freeId = 999;
@@ -62,22 +61,16 @@ app.service('groupService',['$q', function($q){
       deferred.resolve(
         queryUser(memberList[index].email).then(function(){
           var tempSched = userQuery[0].get("personalSchedule");
-          var tempSchedBlack = JSON.parse(JSON.stringify(tempSched));
           /* iterate over all events and change half to be displayed in
            * the background and have to be displayed in the foreground */
           for (index = 0; index < tempSched.length; index++){
-            tempSched[index].rendering = "inverse-background";
+            tempSched[index].rendering = "background";
             tempSched[index]._id = freeId;
             tempSched[index].__id = freeId;
-            tempSched[index].color = freeTimeColor;
-
-            tempSchedBlack[index].rendering = "background";
-            tempSchedBlack[index]._id = busyId;
-            tempSchedBlack[index].__id = busyId;
-            tempSchedBlack[index].color = busyTimeColor;
+            tempSched[index].color = busyTimeColor;
           } // end inner for
-          if(tempSched.length > 0 || tempSchedBlack.length > 0){
-            memberEventArray.push(tempSchedBlack);
+          if(tempSched.length > 0){
+            memberEventArray.push(tempSched);
           }
           
 

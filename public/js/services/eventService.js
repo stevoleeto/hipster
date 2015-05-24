@@ -23,7 +23,8 @@
  					start : ((allDates[index].set('hour', startHour)).set('minute', startMin)).toISOString(),
  					end   : ((allDates[index].set('hour', endHour)).set('minute', endMin)).toISOString(),
  					color : eventColor,
- 					stick : true
+ 					stick : true,
+          textColor: "black"
  				});
  			}
  		}
@@ -34,7 +35,8 @@
  				start : ((startDate.set('hour', startHour)).set('minute', startMin)).toISOString(),
  				end   : ((endDate.set('hour', endHour)).set('minute', endMin)).toISOString(),
  				color : eventColor,
- 				stick : true
+ 				stick : true,
+        textColor: "black"
  			});
  		}
  	}
