@@ -340,7 +340,7 @@ input
     width:70%;
     float:left;
     margin-left: 2%;
-    border:solid black 1px;
+/*    border:solid black 1px;*/
 /*    overflow:scroll;*/
     padding-left:5px;
     padding-right:5px;
@@ -373,7 +373,7 @@ input
     background:white;
     padding:5px;
     margin-bottom: 10px;
-    border:solid black 1px;
+/*    border:solid black 1px;*/
 }
 
 #createWrapper
@@ -386,7 +386,7 @@ input
     top:45px;
     padding-left:5px;
     padding-right:5px;
-    border:solid black 1px;
+/*    border:solid black 1px;*/
 /*    overflow:scroll;*/
 }
 
