@@ -26,7 +26,23 @@ body  {
     line-height: 64px;
 }
 
+#profileView
+{
+    position:absolute;
+    height:100vh;
+/*    border:solid red 2px;*/
+    overflow:scroll;
+    top:-50px;
+}
 
+.singleGroupView
+{
+    position:absolute;
+    height:100vh;
+/*    border:solid red 2px;*/
+    overflow:scroll;
+    top:-50px;
+}
 
 #login
 {
@@ -318,6 +334,8 @@ input
 
 #scheduleWrapper
 {
+    position:relative;
+    top:48px;
     height:auto;
     width:70%;
     float:left;
@@ -328,7 +346,7 @@ input
 #yourSched
 {
     position:relative;
-    font-size: 1.7em;
+    font-size: 1.5em;
     float:left;
     letter-spacing: 3px;
     top:5px;
@@ -357,17 +375,20 @@ input
 
 #createWrapper
 {
-    height: auto;
+    position:relative;
+    height: calc(100% - 64px);
     width: 25%;
     float: right;
     margin-right: 2%;
+    top:48px;
 /*    border:solid black 1px;*/
+    overflow:scroll;
 }
 
 #createTitle
 {
     position:relative;
-    font-size: 1.7em;
+    font-size: 1.5em;
     float:left;
     letter-spacing: 3px;
     top:5px;
@@ -457,7 +478,7 @@ input
     font-size:20px;
     text-align: center;
     cursor:pointer;
-    top:20px;
+/*    top:20px;*/
 }
 
 #remEvents:hover
@@ -610,6 +631,7 @@ input
 {
     border:solid black 1px;
     background:#F5F5F5;
+    
 }
 
 #groupHeader {
