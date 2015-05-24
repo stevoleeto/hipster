@@ -150,7 +150,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
     $scope.email = currentUser.get("username");
     $scope.eventArray = currentUser.get("personalSchedule");
     $scope.friendList = currentUser.get("friendList");
-    $scope.eventColor = '#B9F5FF';
+    $scope.eventColor = {mine : '#B9F5FF'};
   								 
     //set users email in service
     userService.setEmail(currentUser.get("username")); 
@@ -198,7 +198,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
   // -----------------------
     $scope.uiConfig = {
       calendar:{
-          height: '100%',
+          height: 'auto',
           viewRender: function(view, element) {
               //$log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
           },
@@ -210,6 +210,19 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
       maxTime: '22:00:00',
       eventClick: function(event, jsEvent, view) {
         console.log(event.id);
+        console.log(event);
+        $scope.eventClickedP = event.id;
+        var modalInstance = $modal.open({
+          animation: $scope.animationsEnabled,
+          templateUrl: 'editEvent.html',
+          controller: 'ModalInstanceCtrl',
+          size: "lg",
+          resolve: {
+            items: function () {
+              return $scope.items;
+            }
+          }
+        });
       },
       select: function(start, end, jsEvent, view){
         $scope.eventStartDate = (start.local()).toDate();
@@ -365,14 +378,25 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
   $scope.createEvent = function(){
     var repeatTheseDays = [];
     var repeat = false;
+
+    console.log($scope.eventColor.mine);
     
     if (!$scope.newEventName){
       alert("Enter a event name!");
       return;
     }
     
-    if($scope.repeatingEvent){
+    if ($scope.dayRepeat.monday || 
+      $scope.dayRepeat.tuesday || 
+      $scope.dayRepeat.wednesday ||
+       $scope.dayRepeat.thursday ||
+        $scope.dayRepeat.friday ||
+         $scope.dayRepeat.saturday ||
+          $scope.dayRepeat.sunday){
       repeat = true;
+    }
+
+    if(repeat){
 
       if ($scope.dayRepeat.monday){
         repeatTheseDays.push(1);
@@ -398,7 +422,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
     }    
      
      eventService.createEvent($scope.newEventName, //event name
-        $scope.eventColor, //event color
+        $scope.eventColor.mine, //event color
         (moment($scope.eventStartDate.toISOString()).dateOnly()), //start date
         (moment($scope.eventStartTime.toISOString()).hour()), //start hour
         (moment($scope.eventStartTime.toISOString()).minute()), //start min
@@ -419,6 +443,10 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
      $scope.newEventName = "";
 
      eventService.clearEvents();
+
+     for(index = 0; index < $scope.dayRepeat.length; index++){
+      $scope.dayRepeat[i] = false;
+     }
   }
 
   $scope.removeAllEvents = function(){
@@ -577,4 +605,16 @@ app.controller('CollapseInstanceCtrl', function ($scope) {
       }
     });
   }
+});
+
+app.controller('PopoverInstanceCtrl', function ($scope) {
+  $scope.repDays = {
+    templateUrl: 'repDays.html'
+  };
+  $scope.confirmRemove = {
+    templateUrl: 'confirmRemove.html'
+  };
+    $scope.groupColorSelect = {
+     templateUrl: 'groupColorSelect.html'   
+    };
 });

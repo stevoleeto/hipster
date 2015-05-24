@@ -204,14 +204,16 @@ input
     display: table-cell;
     vertical-align: middle;
     transition: width .5s;
+    overflow:hidden;
 }
 
 .viewBtn:hover 
 {
     cursor: pointer;
     background: #4284F5;
-    width: 145px;
+    width: 160px;
     transition: width .5s;
+    overflow:hidden;
 }
 
 .selTab
@@ -219,6 +221,7 @@ input
     border-bottom:solid orange 4px;
     background: #4284F5;
     width: 140px;
+    overflow: hidden;
 }
 
 .bttn 
@@ -331,6 +334,15 @@ input
     top:5px;
 }
 
+#groupOptions
+{
+    position:relative;
+    float:right;
+    height 20px;
+    width 20px;
+    border:solid black 1px;
+}
+
 .schedule
 {
     float:left;
@@ -373,10 +385,26 @@ input
 
 }
 
+.repDays label{
+    position: relative;
+    width: 14.29%;
+    margin: 0;
+    padding: 6px 5px;
+    border-radius: 0;
+}
+
+.repDays label:first-child {
+    border-radius: 4px 0 0 4px;
+}
+
+.repDays label:last-child {
+    border-radius: 0 4px 4px 0;
+}
+
 
 .createEvent p,label
 {
-    font-size: 16px;
+    font-size: 14px;
     margin-left:10px;
 }
 
@@ -393,15 +421,15 @@ input
     transition:width .5s, background .4s;
     margin-bottom: 10px;
     background:#AAFFAA;
+    border-radius:5px;
 /*    border:solid grey 1px;*/
 }
 
 .createButton:hover
 {
     cursor:pointer;
-    transition:width .5s, background .4s;
-    width: 170px;
-    background:#99FF99;
+    transition:background .4s;
+    background:#55EE55;
     border:none;
 }
 
@@ -411,7 +439,7 @@ input
     position:relative;
     margin-left: 10px;
     font-weight: 400;
-    font-size:16px;
+    font-size:14px;
     border:none;
     border-bottom: solid black 1px;
     border-radius:0px;
@@ -459,6 +487,9 @@ input
     position: relative;
     top:20px;
     height:35px;
+    line-height: 35px;
+    letter-spacing: 2px;
+    overflow: hidden;
 }
 
 .groupSelect
@@ -477,7 +508,7 @@ input
 
 .groupSelect:hover #minus
 {
-    opacity: 1;
+    opacity: .5;
     transition: opacity .5s;
 }
 
@@ -499,21 +530,50 @@ input
     background-image:url(images/minus.png);
     background-size: contain;
     background-repeat: no-repeat;
+    background-position: center;
+    background-color: white;
     position:relative;
-    width:30px;
+    width:50%;
     height:30px;
     float:right;
-    right:5px;
-    bottom:5px;
-    border-radius:50%;
+    cursor:pointer;
+    opacity: 0;
+    transition: opacity .5s;
+    border-left:solid grey 1px;
+}
+
+#minus:hover
+{
+    background-color: #ccc;
+    opacity: .8;
+}
+
+#pencil
+{
+    background-image:url(images/pencil.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: white;
+    position:relative;
+    width:50%;
+    height:30px;
+    float:left;
     cursor:pointer;
     opacity: 0;
     transition: opacity .5s;
 }
 
-#minus:hover
+#pencil:hover
 {
-    background-color: lightgoldenrodyellow;
+    background-color: #ccc;
+    opacity: .8;
+}
+
+.groupSelect:hover #pencil
+{
+    opacity: .5;
+    transition: opacity .5s;
 }
 
 #addGroupBtn
@@ -557,6 +617,7 @@ input
     width: 100%;
     height: 50px;
     margin-bottom: 10px;
+    margin-top:10px;
 }
 
 #groupHeader button {
@@ -607,8 +668,8 @@ input
 
 .btn-group
 {
-    float:right;
-    position:relative;
+    position: relative;
+    float: right;
 }
 
 .btn-group li
@@ -634,14 +695,20 @@ input
     list-style: none;
 }
 
-#groupColorSelect li
+#groupColorSelect div
 {
     border:solid black 1px;
     width:25px;
     height:25px;
     margin-left:15px;
+    margin-bottom: 20px;
     float:left;
     cursor:pointer;
+}
+
+#groupColorSelect div:hover
+{
+    border:solid blue 2px;
 }
 
 #removeGroupBtn
