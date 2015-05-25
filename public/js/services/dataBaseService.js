@@ -7,14 +7,12 @@ app.service('dataBaseService',['$q', '$http', function($q, $http){
     var calendarURL =" https://www.googleapis.com/calendar/v3/calendars/"
                 + calendarID + "/events?key=" + gcalApiKey;
     var deferred = $q.defer();
-    deferred.resolve(
       $http.get(calendarURL).success( function(data, status, headers, config){
         googleCalendar = data;
-
+        deferred.resolve(googleCalendar);
       }).error( function(data, status, headers, config){
         console.log("Error retieving Google Calendar");
       })
-    );
     return deferred.promise;
   };
 
