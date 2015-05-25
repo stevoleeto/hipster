@@ -325,7 +325,20 @@ input
     transition: transform .5s;
 }
 
-#lblSave {
+.modal-body {
+    padding: 0 15px 15px 15px;
+}
+
+.modal-body h3 {
+    letter-spacing: 3px;
+}
+
+.modal-body hr {
+    color: black;
+    border-color: #000;
+}
+
+#lblSuccess {
     box-sizing: border-box;
     color: #3C763D;
     background: #DFF0D8;
@@ -378,8 +391,8 @@ input
 {
     position:relative;
     float:right;
-    height 20px;
-    width 20px;
+    height: 20px;
+    width: 20px;
     border:solid black 1px;
 }
 
@@ -644,8 +657,8 @@ input
 #addGroupBtn:hover {
     cursor: pointer;
     opacity: 1;
-    opacity=1;
-    transition:opacity .3s;
+    opacity: 1;
+    transition: opacity .3s;
 }
 
 #homeView, .singleGroupView
