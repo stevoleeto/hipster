@@ -391,8 +391,8 @@ input
 {
     position:relative;
     float:right;
-    height 20px;
-    width 20px;
+    height: 20px;
+    width: 20px;
     border:solid black 1px;
 }
 
@@ -657,8 +657,8 @@ input
 #addGroupBtn:hover {
     cursor: pointer;
     opacity: 1;
-    opacity=1;
-    transition:opacity .3s;
+    opacity: 1;
+    transition: opacity .3s;
 }
 
 #homeView, .singleGroupView

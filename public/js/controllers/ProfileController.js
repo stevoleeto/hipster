@@ -740,3 +740,8 @@ app.controller('PopoverInstanceCtrl', function ($scope) {
      templateUrl: 'eventEditColor.html'
     };
 });
+
+app.controller('DragAngDropCtrl', function ($scope){
+  $scope.oldGroupList = {};
+  $scope.newGroupList = {};
+});
