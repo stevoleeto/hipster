@@ -227,7 +227,7 @@ input
 {
     cursor: pointer;
     background: #4284F5;
-    width: 160px;
+    width: 145px;
     transition: width .5s;
     overflow:hidden;
 }

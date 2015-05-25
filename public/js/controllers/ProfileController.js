@@ -182,8 +182,29 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
       });
       };
 
-                                                                                                                         
-                                           
+$scope.editGroupModal = function (size) {
+
+  var modalInstance = $modal.open({
+    animation: $scope.animationsEnabled,
+    templateUrl: 'editGroup.html',
+    controller: 'ModalInstanceCtrl',
+    size: size,
+    resolve: {
+      items: function () {
+        return $scope.items;
+      }
+    }
+  });
+
+  modalInstance.result.then(function (selectedItem) {
+  $scope.selected = selectedItem;
+  }, function () {
+      $scope.myGroupList = userService.getGroupList();
+      //$log.info('Modal dismissed at: ' + new Date());
+
+  });
+  };                                                                                                                     
+
    
 
     $scope.dayRepeat = {

@@ -519,6 +519,11 @@ temporary rendered events).
     cursor:pointer;
 }
 
+.fc-event:hover
+{
+    border-width:4px;
+}
+
 .fc-event[href],
 .fc-event.fc-draggable {
 	cursor: pointer; /* give events with links and draggable events a hand mouse pointer */
