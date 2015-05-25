@@ -124,8 +124,9 @@
                 </div>
                 <div class="modal-body">
                     <center>
-                        <div id="lblSave" ng-show="saveLabel">Your settings saved successfully!</div>
-                        <div id="lblError" ng-show="errLabel">Error saving settings!</div>
+                        <div id="lblSave" ng-show="saveLabel">Your settings saved successfully :]</div>
+                        <div id="lblError" ng-show="errLabel">Error saving settings :[</div>
+                        <div id="remEvents" ng-show="remLabel">All events removed!</div>
                     </center>
 <!--                <label>New UserName</label>-->
                     <input style="margin-bottom:15px;" placeholder="Enter New UserName" ng-model="newUserName"><br>
@@ -146,6 +147,10 @@
                     		</div>
                     	</div>
                     </div>
+                    <p>Please type the following to clear all your events: "clear my events!"</p>
+                    <input ng-model="clearEvents" placeholder="clear my events!" ng-pattern="clear my events!" ng-style="( clearEvents.length == 0 || clearEvents == null ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (clearEvents) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )">
+                    <br><br>
+                    <div ng-click="removeAllEvents()" id="remEvents">Remove All Personal Events</div>
                 </div>
                 <div class="modal-footer">
                 	<button class="btn btn-primary" ng-click="settingsSave();">Save</button>
@@ -259,7 +264,6 @@
                             <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
                             
                         </div>
-                        <div ng-click="removeAllEvents()" id="remEvents">Remove All Events</div>
                     </div>
             	</div>
         	</div>

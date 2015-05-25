@@ -476,9 +476,15 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
   }
 
   $scope.removeAllEvents = function(){
-    $scope.eventSources.length = 0;
-    currentUser.set("personalSchedule", []);
-    currentUser.save();
+    if (clearEvents) {
+      $scope.eventSources.length = 0;
+      currentUser.set("personalSchedule", []);
+      currentUser.save();
+
+      setTimeout(function(){
+      $scope.remLabel = false;
+    }, 2000);
+    }
   }
 
   $scope.addFriend = function() {
