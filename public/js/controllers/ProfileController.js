@@ -199,9 +199,11 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
     /* GOOGLE CALENDAR TEST */
     if(currentUser.get("googleCalendarID")){
       userService.setGoogleCalendar(currentUser.get("googleCalendarID")).then(function(){
-        var googleCalendar = userService.getGoogleCalendar();
-        $scope.eventSources.push(googleCalendar);
-        console.log(googleCalendar);
+        var newCalendar = userService.getGoogleCalendar();
+        if(newCalendar){
+          var googleCalendar = newCalendar;
+          $scope.eventSources.push(googleCalendar);
+        }
 
       });
     }
@@ -333,8 +335,6 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
         break;
       }
     }
-
-
 
   }
 
