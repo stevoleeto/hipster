@@ -31,7 +31,7 @@ body  {
     position:absolute;
     height:100vh;
 /*    border:solid red 1px;*/
-    overflow:scroll;
+/*    overflow:scroll;*/
     top:-45px;
 }
 
@@ -40,7 +40,7 @@ body  {
     position:absolute;
     height:100vh;
 /*    border:solid red 1px;*/
-    overflow:scroll;
+/*    overflow:scroll;*/
     top:-45px;
 }
 
@@ -402,11 +402,6 @@ input
     float: right;
     margin-right: 2%;
     top:45px;
-/*    padding-left:5px;*/
-/*    padding-right:5px;*/
-/*    background:white;*/
-/*    border:solid black 1px;*/
-/*    overflow:scroll;*/
 }
 
 #createTitle
