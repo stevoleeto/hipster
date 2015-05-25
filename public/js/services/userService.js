@@ -99,8 +99,6 @@ app.service('userService',['$q','dataBaseService', function($q, dataBaseService)
 
   var setGoogleCalendar = function(calendarID){
     return dataBaseService.queryGoogleCalendar(calendarID).then(function(newCal){
-      console.log(newCal);
-      console.log(googleCalendar);
       /* iterate over items in googleCal */
       if(googleCalendar.length === 0){ //make sure we don't have it already
         for(index = 0; index< newCal.items.length; index++){

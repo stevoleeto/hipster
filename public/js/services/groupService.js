@@ -56,9 +56,9 @@ app.service('groupService',['$q','dataBaseService', function($q,dataBaseService)
         queryGroup(currentGroupId).then(function(){
             groupName = groupQuery[0].get("name");
             memberList = groupQuery[0].get("memberList");
-            /* iterate over memberList to pull all their data into */
             var queriesLeft = memberList.length;
             var googleCalQueriesLeft = memberList.length;
+            /* iterate over memberList to pull all their data into */
             for(index = 0; index < memberList.length; index ++){
                 queryUser(memberList[index].email).then(function(){
                     var tempSched = userQuery[0].get("personalSchedule");
