@@ -52,6 +52,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
   $scope.eventArray = currentUser.get("personalSchedule");
   $scope.friendList = currentUser.get("friendList");
   $scope.eventColor = {mine : '#B9F5FF'};
+  $scope.eventEditColor = {mine : '#B9F5FF' };
   $scope.eventClicked = eventService.getSelectedEvent();
                  
   //set users email in service
@@ -514,9 +515,11 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
   }
 
   $scope.editEvent = function(){
+    console.log($scope.eventEditColor.mine);
     for(index = 0; index < $scope.eventArray.length; index++){
       if($scope.eventClicked.id == $scope.eventArray[index].id){
         $scope.eventArray[index].title = $scope.editEventName;
+        $scope.eventArray[index].color = $scope.eventEditColor.mine;
       }
     }
 
@@ -539,6 +542,10 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
     }
     if ($scope.newPassword){
       currentUser.set("password", $scope.newPassword);
+      good = true;
+    }
+    if ($scope.googleCalendarID){
+      currentUser.set("googleCalendarID", $scope.googleCalendarID)
       good = true;
     }
     if (newIcon){
@@ -692,5 +699,9 @@ app.controller('PopoverInstanceCtrl', function ($scope) {
   };
     $scope.groupColorSelect = {
      templateUrl: 'groupColorSelect.html'
+    };
+
+    $scope.eventEditColor = {
+     templateUrl: 'eventEditColor.html'
     };
 });
