@@ -101,7 +101,7 @@
         <script type="text/ng-template" id="editEvent.html">
             <div ng-controller="ProfileController">
                 <div>
-                    <div  style="background-color:{{ eventClicked.color}}" class="modal-header">
+                    <div style="background-color:{{ eventClicked.color}}" class="modal-header">
                         <h3 class="modal-title">{{ eventClicked.title }}</h3>
                     </div>
                     <div class="modal-body">
@@ -132,7 +132,6 @@
                             <div style="background:#90A4AE;" ng-click="eventEditColor.mine='#90A4AE'"></div>
                             <br>
                         </div>
-                
                     <div class="modal-footer">
                         <button class="btn btn-primary" ng-click="editEvent();saveLabel=true;cancel()">Save</button>
                         <button class="btn btn-primary" ng-click="deleteEvent();cancel()">Delete</button>
@@ -206,13 +205,29 @@
                 </div>
             </div>
         </script>
+
+        <script type="text/ng-template" id="groupSettings.html">
+            <div ng-controller="ProfileController">
+                <div>
+                    <div style="background:{{ groupColor }}" class="modal-header">
+                        <h3>this modal does not function yet</h3>
+                    </div>
+                    <div class="modal-body">
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-warning" ng-click="cancel()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </script>
           
         <div id="logoutWrapper">
             <div class="btn-group" dropdown>
                 <div class="logoutbtn" ng-show="homeView" dropdown-toggle></div>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                         <li><a ng-click="settingsModal('lg')">Account Settings</a></li>
-                        <li ng-show="singleGroupView"><a>Group Settings</a></li>
+                        <li ng-show="singleGroupView"><a ng-click="groupSettingsModal('lg')">Group Settings</a></li>
                         <li><a ng-click="logout()">Logout</a></li>
                     </ul>
             </div>
