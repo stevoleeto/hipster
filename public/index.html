@@ -347,17 +347,20 @@
                                     <h3 class="modal-title">Add a Group</h3>
                                 </div>
                                 <div class="modal-body">
-                                <input type="text" ng-model="newGroupName" placeholder="Enter Group Name">
-                                <br><br>
-                                <label for="groupColor">Select a Color</label>
-                                    
-                                <div id="groupColorSelect">
-                                    <div style="background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></div>
-                                    <div style="background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></div>
-                                    <div style="background:#FFA6B1;" ng-click="groupColor='#FFA6B1'"></div>
-                                    <div style="background:#FEC12F;" ng-click="groupColor='#FEC12F'"></div>
-                                </div>    
-                                <br><br>
+                                    <input type="text" ng-model="newGroupName" placeholder="Enter Group Name">
+                                    <br><br>
+                                    <label for="groupColor">Select a Color</label>
+                                        
+                                    <div id="groupColorSelect">
+                                        <div style="background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></div>
+                                        <div style="background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></div>
+                                        <div style="background:#FFA6B1;" ng-click="groupColor='#FFA6B1'"></div>
+                                        <div style="background:#FEC12F;" ng-click="groupColor='#FEC12F'"></div>
+                                    </div>    
+                                    <br><br>
+                                    <div>
+                                        <input type="text" ng-model="newGroupCode" placeholder="Enter another Groups Group Code">
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-primary" ng-click="createGroup(); cancel()">OK</button>
