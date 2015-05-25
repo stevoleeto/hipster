@@ -482,7 +482,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
       currentUser.save();
 
       $scope.remLabel = true;
-      
+
       setTimeout(function(){
       $scope.remLabel = false;
     }, 2000);
@@ -632,10 +632,12 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
 
   $scope.ok = function () {
+    $scope.$apply();
     $modalInstance.close($scope.selected.item);
   };
 
   $scope.cancel = function () {
+    $scope.$apply();
     $modalInstance.dismiss('cancel');
   };
 });

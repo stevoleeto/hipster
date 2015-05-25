@@ -325,6 +325,19 @@ input
     transition: transform .5s;
 }
 
+.modal-body {
+    padding: 0 15px 15px 15px;
+}
+
+.modal-body h3 {
+    letter-spacing: 3px;
+}
+
+.modal-body hr {
+    color: black;
+    border-color: #000;
+}
+
 #lblSuccess {
     box-sizing: border-box;
     color: #3C763D;
