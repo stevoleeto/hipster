@@ -418,7 +418,7 @@ input
     float:right;
     clear:right;
     width: 100%;
-    height: calc(100% - 45px);
+    height: auto;
 /*    border:solid black 1.5px;*/
 /*    height: auto;*/
     padding-top:10px;
