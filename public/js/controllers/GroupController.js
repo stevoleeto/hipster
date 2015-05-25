@@ -134,7 +134,9 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
         /* iterate through the returned events array and push all events 
          * into our source */
         for(index = 0; index < returnedEvents.length; index++){
-            $scope.eventSources.push(returnedEvents[index]);
+            if(returnedEvents[index].length !== 0){
+                $scope.eventSources.push(returnedEvents[index]);
+            }
         }
       })
     }
