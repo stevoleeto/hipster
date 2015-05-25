@@ -513,6 +513,18 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
     currentUser.save();
   }
 
+  $scope.editEvent = function(){
+    for(index = 0; index < $scope.eventArray.length; index++){
+      if($scope.eventClicked.id == $scope.eventArray[index].id){
+        $scope.eventArray[index].title = $scope.editEventName;
+      }
+    }
+
+    console.log($scope.eventArray);
+
+    currentUser.save();
+  }
+
   $scope.settingsSave = function(){
     var good = false;
     if ($scope.newUserName){
