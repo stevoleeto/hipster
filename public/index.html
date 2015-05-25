@@ -329,7 +329,7 @@
                                     <p>{{ group.name | limitTo:12 }}{{ group.name.length > 12 ? '...' : '' }}</p>
                                 </div>
                                 <div ng-controller="PopoverInstanceCtrl">
-                                <div Popover-animation="true" id="pencil"></div> 
+                                <div ng-click="editGroupModal()" id="pencil"></div> 
                                 <div Popover-animation="true" popover-template="confirmRemove.templateUrl" popover-trigger="focus" 
                                      popover-placement="bottom" id="minus" popover-title="Confirm Remove" tabindex="0"></div>
                                 <script type="text/ng-template" id="confirmRemove.html">
@@ -339,6 +339,33 @@
                             </div>
     
                         <div ng-click="addGroupModal()" id="addGroupBtn"></div>
+                    
+                        <script type="text/ng-template" id="editGroup.html">
+                            <div ng-controller="ProfileController">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">Edit This Group</h3>
+                                </div>
+                                <div class="modal-body">
+                                <input type="text" ng-model="newGroupName" placeholder="New Group Name">
+                                <br><br>
+                                <label for="groupColor">Select a Color</label>
+                                    
+                                <div id="groupColorSelect">
+                                    <div style="background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></div>
+                                    <div style="background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></div>
+                                    <div style="background:#FFA6B1;" ng-click="groupColor='#FFA6B1'"></div>
+                                    <div style="background:#FEC12F;" ng-click="groupColor='#FEC12F'"></div>
+                                </div>    
+                                <br><br>
+                                </div>
+                                <h1>this modal does not function yet</h1>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" ng-click="">OK</button>
+                                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                                </div>
+                            </div>
+                        </script>
+                    
                         <script type="text/ng-template" id="addGroup.html">
                             <div ng-controller="ProfileController">
                                 <div class="modal-header">
