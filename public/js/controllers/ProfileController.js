@@ -541,6 +541,10 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
       currentUser.set("password", $scope.newPassword);
       good = true;
     }
+    if ($scope.googleCalendarID){
+      currentUser.set("googleCalendarID", $scope.googleCalendarID)
+      good = true;
+    }
     if (newIcon){
       currentUser.set("userIcon", newIcon);
       good = true;
