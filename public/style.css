@@ -325,7 +325,7 @@ input
     transition: transform .5s;
 }
 
-#lblSave {
+#lblSuccess {
     box-sizing: border-box;
     color: #3C763D;
     background: #DFF0D8;

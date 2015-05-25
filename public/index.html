@@ -67,14 +67,12 @@
       <div ng-controller="ProfileController"> 
         
         <script type="text/ng-template" id="myModalContent.html">
-<!--
             <div class="modal-header">
                 <h3 class="modal-title">Add a Friend</h3>
--->
-<!--            </div>-->
+            </div>
             <div class="modal-body">
-<!--            	<label for="friendEmail">Friend&#39;s Email</label>-->
-            	<input placeholder = "Enter Friend's Email" type="text" name="friendEmail">
+            	<p>Friend&#39;s Email</p>
+            	<input placeholder="Enter Friend's Email" type="text">
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary" ng-click="ok()">OK</button>
@@ -149,18 +147,18 @@
                     <h3 class="modal-title">Account Settings</h3>
                 </div>
                 <div class="modal-body">
-                    <tabset>
+                    <tabset ng-controller="ProfileController">
                         <tab heading="Profile">
                             <br>
                             <center>
-                                <div id="lblSave" ng-show="saveLabel">Your settings saved successfully :]</div>
+                                <div id="lblSuccess" ng-show="saveLabel">Your settings saved successfully :]</div>
                                 <div id="lblError" ng-show="errLabel">Error saving settings :[</div>
                             </center>
                             <input style="margin-bottom:15px;" placeholder="Enter New UserName" ng-model="newUserName"><br>
                             <input style="margin-bottom:15px;" placeholder="Enter New Email" ng-model="newEmail"><br>
                             <input style="margin-bottom:15px;" placeholder="Enter New Password" type="password" ng-model="newPassword"><br><br>
                             <div ng-controller="CollapseInstanceCtrl">
-                                <button class="btn btn-default" ng-click="isCollapsed=!isCollapsed">Choose User Icons</button><br><br>
+                                <button class="btn btn-default" ng-click="isCollapsed=!isCollapsed">User Icons</button><br><br>
                                 <div collapse="isCollapsed">
                                     <div class="well" id="colIcons">
                                         <h2 text-align="center">Select a user icon</h2>
@@ -198,13 +196,13 @@
                                 </accordion>
                             </div>
                         </tab>
-                        <tab heading="Remove All Events">
+                        <tab heading="Remove All Personal Events">
                             <br>
-                            <center><div id="remEvents" ng-show="remLabel">All events removed!</div></center>
-                            <p>Please type the following to clear all your events: "clear my events!"</p>
-                            <input ng-model="clearEvents" placeholder="clear my events!" ng-pattern="clear my events!" ng-style="( clearEvents.length == 0 || !clearEvents ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (clearEvents) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )">
+                            <center><div id="lblSuccess" ng-show="remLabel">All events removed!</div></center>
+                            <p>Please type "Clear my events!" into the text box</p>
+                            <input ng-model="clearEvents" placeholder="clear my events!" ng-pattern="'clear my events!'" ng-style="( clearEvents.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (clearEvents) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )">
                             <br><br>
-                            <div ng-click="removeAllEvents()" id="remEvents">Remove All Personal Events</div>
+                            <button ng-click="removeAllEvents()" ng-disabled="!clearEvents" id="remEvents">Remove All Personal Events</button>
                         </tab>
                     </tabset><br>
                 </div>

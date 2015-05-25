@@ -477,15 +477,15 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
   }
 
   $scope.removeAllEvents = function(){
-    if (clearEvents) {
       $scope.eventSources.length = 0;
       currentUser.set("personalSchedule", []);
       currentUser.save();
 
+      $scope.remLabel = true;
+      
       setTimeout(function(){
       $scope.remLabel = false;
     }, 2000);
-    }
   }
 
   $scope.addFriend = function() {
@@ -558,6 +558,12 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
       currentUser.set("userIcon", newIcon);
       good = true;
     }
+
+    console.log('name: ' + $scope.newUserName);
+    console.log('email: ' + $scope.newEmail);
+    console.log('password: ' + $scope.newPassword);
+    console.log('calId: ' + $scope.googleCalendarID);
+    console.log('icon: ' + $scope.newUserName);
 
     if (good) {
       $scope.saveLabel = true;
