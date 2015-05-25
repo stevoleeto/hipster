@@ -71,7 +71,9 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
         $log.info('Modal dismissed at: ' + new Date());
         /* update view after modal is dismissed by addMember() */
         $scope.memberList = groupService.getMemberList();
-        var tempSched = groupService.getNewMember().personalSchedule;
+        var newMember = groupService.getNewMember();
+        if(newMember){
+        var tempSched = newMember.personalSchedule;
         for(index = 0; index < tempSched.length; index++){
           tempSched[index].rendering = "background";
           tempSched[index]._id = busyId;
@@ -79,6 +81,10 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
           tempSched[index].color = busyTimeColor;
         }
         $scope.eventSources.push(tempSched);
+        }
+        else{
+          console.log("New Member not found");
+        }
     });
   };
 
