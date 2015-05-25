@@ -212,6 +212,7 @@
                 <div class="logoutbtn" ng-show="homeView" dropdown-toggle></div>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                         <li><a ng-click="settingsModal('lg')">Account Settings</a></li>
+                        <li ng-show="singleGroupView"><a>Group Settings</a></li>
                         <li><a ng-click="logout()">Logout</a></li>
                     </ul>
             </div>
@@ -388,10 +389,11 @@
                                     <h3 class="modal-title">Add a Group</h3>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="text" ng-model="newGroupName" placeholder="Enter Group Name">
+                                    <input type="text" ng-model="newGroupName" placeholder="Enter Group Name" ng-disabled="newGroupCode.length > 0">
                                     <br><br>
-                                    <label for="groupColor">Select a Color</label>
-                                        
+                                    <input type="text" ng-model="newGroupCode" placeholder="Enter A Group Code" ng-disabled="newGroupName.length > 0">
+                                    <br><br>
+                                    <label for="groupColor">Select a Color</label>   
                                     <div id="groupColorSelect">
                                         <div style="background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></div>
                                         <div style="background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></div>
@@ -412,10 +414,7 @@
                                         <div style="background:#BDBDBD;" ng-click="groupColor='#BDBDBD'"></div>
                                         <div style="background:#90A4AE;" ng-click="groupColor='#90A4AE'"></div>
                                     </div>    
-                                    <br><br>
-                                    <div>
-                                        <input type="text" ng-model="newGroupCode" placeholder="Enter another Groups Group Code">
-                                    </div>
+                                    <br><br><br>
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-primary" ng-click="createGroup(); cancel()">OK</button>
