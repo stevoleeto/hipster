@@ -107,9 +107,28 @@
                         <input type="text" ng-model="editEventName" placeholder={{eventClicked.title}}>
                         <label>Modify Color</label>
                         <input type="text" ng-model="editEventColor" placeholder={{eventClicked.color}}>
-                    
-                        
-                    </div>
+                        <div id="groupColorSelect">
+                            <div style="background:#B9F5FF;" ng-click="eventEditColor.mine='#B9F5FF'"></div>
+                            <div style="background:#B5FBA3;" ng-click="eventEditColor.mine='#B5FBA3'"></div>
+                            <div style="background:#FFA6B1;" ng-click="eventEditColor.mine='#FFA6B1'"></div>
+                            <div style="background:#FEC12F;" ng-click="eventEditColor.mine='#FEC12F'"></div>
+                            <div style="background:#F06292;" ng-click="eventEditColor.mine='#F06292'"></div>
+                            <div style="background:#CE93D8;" ng-click="eventEditColor.mine='#CE93D8'"></div>
+                            <div style="background:#9575CD;" ng-click="eventEditColor.mine='#9575CD'"></div>
+                            <div style="background:#7986CB;" ng-click="eventEditColor.mine='#7986CB'"></div>
+                            <div style="background:#81D4FA;" ng-click="eventEditColor.mine='#81D4FA'"></div>
+                            <div style="background:#4DD0E1;" ng-click="eventEditColor.mine='#4DD0E1'"></div>
+                            <div style="background:#4DB6AC;" ng-click="eventEditColor.mine='#4DB6AC'"></div>
+                            <div style="background:#D4E157;" ng-click="eventEditColor.mine='#D4E157'"></div>
+                            <div style="background:#FFF176;" ng-click="eventEditColor.mine='#FFF176'"></div>
+                            <div style="background:#FFD54F;" ng-click="eventEditColor.mine='#FFD54F'"></div>
+                            <div style="background:#FFA726;" ng-click="eventEditColor.mine='#FFA726'"></div>
+                            <div style="background:#FD8964;" ng-click="eventEditColor.mine='#FD8964'"></div>
+                            <div style="background:#BDBDBD;" ng-click="eventEditColor.mine='#BDBDBD'"></div>
+                            <div style="background:#90A4AE;" ng-click="eventEditColor.mine='#90A4AE'"></div>
+                            <br>
+                        </div>
+                
                     <div class="modal-footer">
                         <button class="btn btn-primary" ng-click="editEvent();saveLabel=true;cancel()">Save</button>
                         <button class="btn btn-primary" ng-click="deleteEvent();cancel()">Delete</button>
@@ -158,10 +177,7 @@
                         4)In the "Calendar Address" section of the screen, you will see your Calendar ID. It will look something like "abcd1234@group.calendar.google.com".
                         
                     </p> <br>
-                    <input style="margin-bottom:15px;" placeholder="Enter Google Calendar ID" ng-model="googleCalendarID"><br>
-<!--                    
-                        
-
+                    <input style="margin-bottom:15px;" placeholder="Enter Google Calendar ID" ng-model="googleCalendarID"><br>              
                     <div ng-controller="CollapseInstanceCtrl">
                     	<button class="btn btn-default" ng-click="isCollapsed=!isCollapsed">Choose User Icons</button><br><br>
                     	<div collapse="isCollapsed">
