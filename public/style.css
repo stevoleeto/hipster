@@ -31,7 +31,7 @@ body  {
     position:absolute;
     height:100vh;
 /*    border:solid red 1px;*/
-    overflow:scroll;
+/*    overflow:scroll;*/
     top:-45px;
 }
 
@@ -40,7 +40,7 @@ body  {
     position:absolute;
     height:100vh;
 /*    border:solid red 1px;*/
-    overflow:scroll;
+/*    overflow:scroll;*/
     top:-45px;
 }
 
@@ -227,7 +227,7 @@ input
 {
     cursor: pointer;
     background: #4284F5;
-    width: 160px;
+    width: 145px;
     transition: width .5s;
     overflow:hidden;
 }
@@ -354,7 +354,8 @@ input
 {
     position:relative;
     top:45px;
-    height: calc(100% - 45px);
+/*    height: calc(100% - 45px);*/
+    height:auto;
     width:70%;
     float:left;
     margin-left: 2%;
@@ -387,7 +388,8 @@ input
     float:left;
     clear:left;
     width:100%;
-    height: calc(100% - 45px);
+/*    height: calc(100% - 45px);*/
+    height:auto;
     background:white;
     padding:5px;
     margin-bottom: 10px;
@@ -397,15 +399,12 @@ input
 #createWrapper
 {
     position:relative;
-    height: calc(100% - 45px);
+/*    height: calc(100% - 45px);*/
+    height:auto;
     width: 25%;
     float: right;
     margin-right: 2%;
     top:45px;
-    padding-left:5px;
-    padding-right:5px;
-/*    border:solid black 1px;*/
-/*    overflow:scroll;*/
 }
 
 #createTitle
@@ -422,11 +421,11 @@ input
     float:right;
     clear:right;
     width: 100%;
+    height: auto;
 /*    border:solid black 1.5px;*/
-    height:auto;
+/*    height: auto;*/
     padding-top:10px;
     background:white;
-
 }
 
 .repDays label{
@@ -505,6 +504,8 @@ input
     font-size:20px;
     text-align: center;
     cursor:pointer;
+/*    border:solid black 1px;*/
+    width:100%;
 /*    top:20px;*/
 }
 

@@ -519,6 +519,11 @@ temporary rendered events).
     cursor:pointer;
 }
 
+.fc-event:hover
+{
+    border-width:4px;
+}
+
 .fc-event[href],
 .fc-event.fc-draggable {
 	cursor: pointer; /* give events with links and draggable events a hand mouse pointer */
@@ -912,7 +917,7 @@ a.fc-more:hover {
 --------------------------------------------------------------------------------------------------*/
 
 .fc-time-grid .fc-slats td {
-	height: 2.2em;
+	height: 2.8em;
 	border-bottom: 0; /* each cell is responsible for its top border */
 }
 
