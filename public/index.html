@@ -209,11 +209,12 @@
         <script type="text/ng-template" id="groupSettings.html">
             <div ng-controller="ProfileController">
                 <div>
-                    <div style="background:{{ groupColor }}" class="modal-header">
-                        <h3>this modal does not function yet</h3>
+                    <div class="modal-header">
+
                     </div>
                     <div class="modal-body">
-                        
+                        <h3>this modal does not function yet</h3>
+
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-warning" ng-click="cancel()">Close</button>
@@ -366,9 +367,9 @@
                                 <div class="modal-body">
                                 <input type="text" ng-model="newGroupName" placeholder="New Group Name">
                                 <br><br>
-                                <label for="groupColor">Select a Color</label>
+                                <label for="groupSelColor">Select a Color</label>
                                     
-                                <div id="groupColorSelect">
+                                <div id="groupColorSelect" name="groupSelColor">
                                     <div style="background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></div>
                                     <div style="background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></div>
                                     <div style="background:#FFA6B1;" ng-click="groupColor='#FFA6B1'"></div>
@@ -503,7 +504,7 @@
                         <p>{{currentGroupId}}</p>
                         <h2>Members</h2>
                         <div class="members" ng-repeat="member in memberList track by $index">
-                            <img class="memberIcon" ng-src="{{member.icon}}"/>
+                            <img class="memberIcon" ng-src="images/hipsterMale1.png"/>
                     	   <p text-align="center">{{member.name}}</p>
                         </div>
                         <div id = "addMemberBtn" ng-click="addMemberModal()"></div>
