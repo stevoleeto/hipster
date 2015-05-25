@@ -182,8 +182,29 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
       });
       };
 
-                                                                                                                         
-                                           
+$scope.editGroupModal = function (size) {
+
+  var modalInstance = $modal.open({
+    animation: $scope.animationsEnabled,
+    templateUrl: 'editGroup.html',
+    controller: 'ModalInstanceCtrl',
+    size: size,
+    resolve: {
+      items: function () {
+        return $scope.items;
+      }
+    }
+  });
+
+  modalInstance.result.then(function (selectedItem) {
+  $scope.selected = selectedItem;
+  }, function () {
+      $scope.myGroupList = userService.getGroupList();
+      //$log.info('Modal dismissed at: ' + new Date());
+
+  });
+  };                                                                                                                     
+
    
 
     $scope.dayRepeat = {
@@ -477,9 +498,15 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
   }
 
   $scope.removeAllEvents = function(){
-    $scope.eventSources.length = 0;
-    currentUser.set("personalSchedule", []);
-    currentUser.save();
+      $scope.eventSources.length = 0;
+      currentUser.set("personalSchedule", []);
+      currentUser.save();
+
+      $scope.remLabel = true;
+
+      setTimeout(function(){
+      $scope.remLabel = false;
+    }, 2000);
   }
 
   $scope.addFriend = function() {
@@ -553,6 +580,12 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
       good = true;
     }
 
+    console.log('name: ' + $scope.newUserName);
+    console.log('email: ' + $scope.newEmail);
+    console.log('password: ' + $scope.newPassword);
+    console.log('calId: ' + $scope.googleCalendarID);
+    console.log('icon: ' + $scope.newUserName);
+
     if (good) {
       $scope.saveLabel = true;
     } else {
@@ -620,10 +653,12 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
 
   $scope.ok = function () {
+    $scope.$apply();
     $modalInstance.close($scope.selected.item);
   };
 
   $scope.cancel = function () {
+    $scope.$apply();
     $modalInstance.dismiss('cancel');
   };
 });
@@ -704,4 +739,9 @@ app.controller('PopoverInstanceCtrl', function ($scope) {
     $scope.eventEditColor = {
      templateUrl: 'eventEditColor.html'
     };
+});
+
+app.controller('DragAngDropCtrl', function ($scope){
+  $scope.oldGroupList = {};
+  $scope.newGroupList = {};
 });
