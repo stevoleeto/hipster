@@ -10,7 +10,7 @@
  *              Also has getters and setters for all attributes.
  *
  */
-app.service('groupService',['$q', function($q){
+app.service('groupService',['$q','dataBaseService', function($q,dataBaseService){
 
   /* attributes - public data fields */
   var currentGroupId;
@@ -58,6 +58,7 @@ app.service('groupService',['$q', function($q){
       memberList = groupQuery[0].get("memberList");
       /* iterate over memberList to pull all their data into */
       var queriesLeft = memberList.length;
+      var googleCalQueriesLeft = memberList.length;
       for(index = 0; index < memberList.length; index ++){
         queryUser(memberList[index].email).then(function(){
           var tempSched = userQuery[0].get("personalSchedule");
@@ -71,11 +72,55 @@ app.service('groupService',['$q', function($q){
           } // end inner for
             memberEventArray.push(tempSched);
             queriesLeft--; // decrement calls to make
-            if(queriesLeft <= 0){
-              deferred.resolve(memberEventArray); // resolve after last call!
-            }
+
+
+            /* get the user's google calendar data! */
+          var googleCalendarID = userQuery[0].get("googleCalendarID");
+          if( googleCalendarID){
+            dataBaseService.queryGoogleCalendar(googleCalendarID).then(function(newCal){
+              console.log(newCal);
+              googleCalQueriesLeft--;
+              var tempSched = [];
+              for (indexInner = 0; indexInner < newCal.items.length; indexInner++){
+                var startTime;
+                var endTime;
+                if(newCal.items[indexInner].start){
+                  startTime = newCal.items[indexInner].start.dateTime;
+                }
+                if(newCal.items[indexInner].end){
+                  endTime = newCal.items[indexInner].end.dateTime;
+                }
+                if(startTime && endTime){
+                  var newEvent = {
+                    textColor: 'white',
+                    title: newCal.items[indexInner].summary + "\nGoogle Calendar",
+                    id: 9,
+                    start: startTime,
+                    end: endTime,
+                    color: '#d2d2cd',
+                    rendering: "background"
+                  }
+                  tempSched.push(newEvent);
+                }
+              } // end inner for
+              memberEventArray.push(tempSched);
+              if(googleCalQueriesLeft <= 0 && queriesLeft <= 0){
+                  deferred.resolve(memberEventArray);
+              }
+            })
+          }
+          /* if no calID, decrement queries anyway and check if we should resolve*/
+          else{
+              googleCalQueriesLeft--;
+              if(googleCalQueriesLeft <= 0 && queriesLeft <= 0){
+                  deferred.resolve(memberEventArray);
+              }
+          }
+
         })
         } //end outer for
+
+
         
         })
       return deferred.promise;
