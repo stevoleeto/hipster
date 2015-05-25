@@ -4,6 +4,7 @@
         <link rel="stylesheet" type="text/css" href="./style.css">
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.0/angular-material.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+        <link rel="stylesheet" media="all" type="text/css" href="./lib/bower_components/loadingBar/src/loading-bar.css">
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <meta charset="utf-8">
@@ -25,8 +26,10 @@
         <script type="text/javascript" src="lib/bower_components/angular/angular.js"></script>
         <script type="text/javascript" src="lib/bower_components/angular-ui-calendar/src/calendar.js"></script>
         <script type="text/javascript" src="lib/bower_components/fullcalendar/dist/fullcalendar.js"></script>
-        <script type="text/javascript" src="lib/bower_components/fullcalendar/dist/gcal.js"></script>
+        <script type="text/javascript" src="lib/bower_components/loadingBar/src/loading-bar.js"></script>
+<!--        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-animate.min.js"></script>-->
 
+        
         <!-- Load BootStrap -->
         <script type="text/javascript" src="lib/ui-bootstrap-tpls-0.13.0.min.js"></script>
 
@@ -67,14 +70,12 @@
       <div ng-controller="ProfileController"> 
         
         <script type="text/ng-template" id="myModalContent.html">
-<!--
             <div class="modal-header">
                 <h3 class="modal-title">Add a Friend</h3>
--->
-<!--            </div>-->
+            </div>
             <div class="modal-body">
-<!--            	<label for="friendEmail">Friend&#39;s Email</label>-->
-            	<input placeholder = "Enter Friend's Email" type="text" name="friendEmail">
+            	<p>Friend&#39;s Email</p>
+            	<input placeholder="Enter Friend's Email" type="text">
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary" ng-click="ok()">OK</button>
@@ -102,7 +103,7 @@
         <script type="text/ng-template" id="editEvent.html">
             <div ng-controller="ProfileController">
                 <div>
-                    <div  style="background-color:{{ eventClicked.color}}" class="modal-header">
+                    <div style="background-color:{{ eventClicked.color}}" class="modal-header">
                         <h3 class="modal-title">{{ eventClicked.title }}</h3>
                     </div>
                     <div class="modal-body">
@@ -133,7 +134,6 @@
                             <div style="background:#90A4AE;" ng-click="eventEditColor.mine='#90A4AE'"></div>
                             <br>
                         </div>
-                
                     <div class="modal-footer">
                         <button class="btn btn-primary" ng-click="editEvent();saveLabel=true;cancel()">Save</button>
                         <button class="btn btn-primary" ng-click="deleteEvent();cancel()">Delete</button>
@@ -149,58 +149,78 @@
                     <h3 class="modal-title">Account Settings</h3>
                 </div>
                 <div class="modal-body">
+                    <h3>Profile</h3>
                     <center>
-                        <div id="lblSave" ng-show="saveLabel">Your settings saved successfully!</div>
+                        <div id="lblSuccess" ng-show="saveLabel">Your settings saved successfully!</div>
                         <div id="lblError" ng-show="errLabel">Error saving settings!</div>
                     </center>
-<!--                <label>New UserName</label>-->
                     <input style="margin-bottom:15px;" placeholder="Enter New UserName" ng-model="newUserName"><br>
-<!--                    <label>New Email</label><br>-->
                     <input style="margin-bottom:15px;" placeholder="Enter New Email" ng-model="newEmail"><br>
-<!--                    <label>New Password</label>-->
                     <input style="margin-bottom:15px;" placeholder="Enter New Password" type="password" ng-model="newPassword"><br>
-                    <br>
-                    <label>Import Google Calendar</label><br>
                     <input style="margin-bottom:15px;" placeholder="Enter Google Calendar ID" ng-model="googleCalendarID"><br>
                     <div>
-                     <accordion close-others="oneAtATime">
-                        <accordion-group heading="Retrieve Calendar ID Instructions">
-                            <p> Please follow the following instructions to import your Google Calendar.<br>                            
-                                Make your Google Calendar public:
-                                <ol>
-                                    <li>In the Google Calendar interface, locate the "My calendars" area on the left.</li>
-                                    <li>Hover over the calendar you need and click the downward arrow. </li>
-                                    <li>A menu will appear. Click "Share this Calendar".</li>
-                                    <li>Check "Make this calendar public".</li>
-                                    <li>Make sure "Share only my free/busy information" is unchecked.</li>
-                                    <li>Click "Save".</li>
-                                </ol>
-                                Obtain your Google Calendar ID:<br>
-                                <ol>
-                                    <li>In the Google Calendar interface, locate the "My calendars" area on the left.</li>
-                                    <li>Hover over the calendar you need and click the downward arrow.</li> 
-                                    <li>A menu will appear. Click "Calendar settings".</li>
-                                    <li>In the "Calendar Address" section of the screen, you will see your Calendar ID. It will look something like "abcd1234@group.calendar.google.com".</li>              
-                            </p> <br>
-                        </accordion-group>
-                     </accordion>
-                    </div>    
-                    <div ng-controller="CollapseInstanceCtrl">
-                    	<button class="btn btn-default" ng-click="isCollapsed=!isCollapsed">Choose User Icons</button><br><br>
-                    	<div collapse="isCollapsed">
-                    		<div class="well" id="colIcons">
-                    			<h2 text-align="center">Select a user icon</h2>
-	                    		<div id="icons" ng-repeat="icon in icons track by $index" ng-attr-title="{{icon.name}}">
-	                    			<img class="selIcons" ng-src="{{icon.image}}" ng-click="clearSel($event);" 
-                                         ng-class="{'selected': icon.selected, 'smallIcon': icon.name==='Super Hero'}"/>
-	                    		</div>
-                    		</div>
-                    	</div>
+                        <accordion close-others="oneAtATime">
+                            <accordion-group heading="How to Get Your Google Calendar ID">
+                                <p>Make your Google Calendar public:
+                                    <ol>
+                                        <li>In the <a target="_blank" href="http://calendar.google.com">Google Calendar</a> interface, locate the "My calendars" area on the left.</li>
+                                        <li>Hover over the calendar you need and click the downward arrow. </li>
+                                        <li>A menu will appear. Click "Share this Calendar".</li>
+                                        <li>Check "Make this calendar public".</li>
+                                        <li>Make sure "Share only my free/busy information" is unchecked.</li>
+                                        <li>Click "Save".</li>
+                                    </ol>
+                                    Obtain your Google Calendar ID:<br>
+                                    <ol>
+                                        <li>In the Google Calendar interface, locate the "My calendars" area on the left.</li>
+                                        <li>Hover over the calendar you need and click the downward arrow.</li> 
+                                        <li>A menu will appear. Click "Calendar settings".</li>
+                                        <li>In the "Calendar Address" section of the screen, you will see your Calendar ID. It will look something like "abcd1234@group.calendar.google.com".</li>              
+                                </p><br>
+                            </accordion-group>
+                        </accordion>
                     </div>
+                    <div ng-controller="CollapseInstanceCtrl">
+                        <button class="btn btn-default" ng-click="isCollapsed=!isCollapsed">User Icons</button><br><br>
+                        <div collapse="isCollapsed">
+                            <div class="well" id="colIcons">
+                                <h4 text-align="center">Select a user icon</h4>
+                                <div id="icons" ng-repeat="icon in icons track by $index" ng-attr-title="{{icon.name}}">
+                                    <img class="selIcons" ng-src="{{icon.image}}" ng-click="clearSel($event);" 
+                                         ng-class="{'selected': icon.selected, 'smallIcon': icon.name==='Super Hero'}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" ng-click="settingsSave();">Update Profile</button>
+                    <hr>
+                    <h3>Remove All Events</h3><br>
+                    <center><div id="lblSuccess" ng-show="remLabel">All events removed!</div></center>
+                    <p>Please type "Clear my events!" below:</p>
+                    <input type="text" ng-model="clearEvents" ng-pattern="'Clear my events!'" placeholder="Clear my events!" ng-init="clearEvents=''" ng-style="( clearEvents.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (clearEvents) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )">
+                    <br><br>
+                    <center><button class="btn btn-danger" ng-click="removeAllEvents()" ng-disabled="!clearEvents">Remove All Personal Events</button></center>
+                    <br>
                 </div>
                 <div class="modal-footer">
-                	<button class="btn btn-primary" ng-click="settingsSave();">Save</button>
                     <button class="btn btn-warning" ng-click="cancel()">Close</button>
+                </div>
+            </div>
+        </script>
+
+        <script type="text/ng-template" id="groupSettings.html">
+            <div ng-controller="ProfileController">
+                <div>
+                    <div class="modal-header">
+
+                    </div>
+                    <div class="modal-body">
+                        <h3>this modal does not function yet</h3>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-warning" ng-click="cancel()">Close</button>
+                    </div>
                 </div>
             </div>
         </script>
@@ -210,6 +230,7 @@
                 <div class="logoutbtn" ng-show="homeView" dropdown-toggle></div>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                         <li><a ng-click="settingsModal('lg')">Account Settings</a></li>
+                        <li ng-show="singleGroupView"><a ng-click="groupSettingsModal('lg')">Group Settings</a></li>
                         <li><a ng-click="logout()">Logout</a></li>
                     </ul>
             </div>
@@ -325,13 +346,13 @@
                                       $parent.$parent.singleGroupView=true; 
                                       $parent.currentGroupId = group.id; 
                                       $parent.currentGroupColor = group.color;
-                                      addGroup(); $parent.updateSingleGroupTab(group.name)" ng-attr-title="{{ group.name }}" >
+                                      addGroup(); $parent.updateSingleGroupTab(group.name)" ng-attr-title="{{ group.name }}">
                                     <p>{{ group.name | limitTo:12 }}{{ group.name.length > 12 ? '...' : '' }}</p>
                                 </div>
                                 <div ng-controller="PopoverInstanceCtrl">
                                 <div ng-click="editGroupModal()" id="pencil"></div> 
-                                <div Popover-animation="true" popover-template="confirmRemove.templateUrl" popover-trigger="focus" 
-                                     popover-placement="bottom" id="minus" popover-title="Confirm Remove" tabindex="0"></div>
+                                <div Popover-animation="true" popover-template="confirmRemove.templateUrl" popover-trigger="focus"  
+                                     popover-placement="top" id="minus" popover-title="Confirm Remove" tabindex="0"></div>
                                 <script type="text/ng-template" id="confirmRemove.html">
                                     <button class="btn btn-danger" ng-click="removeGroup(group.id);">Delete</button>
                                 </script>
@@ -348,13 +369,27 @@
                                 <div class="modal-body">
                                 <input type="text" ng-model="newGroupName" placeholder="New Group Name">
                                 <br><br>
-                                <label for="groupColor">Select a Color</label>
+                                <label for="groupSelColor">Select a Color</label>
                                     
-                                <div id="groupColorSelect">
+                                <div id="groupColorSelect" name="groupSelColor">
                                     <div style="background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></div>
                                     <div style="background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></div>
                                     <div style="background:#FFA6B1;" ng-click="groupColor='#FFA6B1'"></div>
                                     <div style="background:#FEC12F;" ng-click="groupColor='#FEC12F'"></div>
+                                    <div style="background:#F06292;" ng-click="groupColor='#F06292'"></div>
+                                    <div style="background:#CE93D8;" ng-click="groupColor='#CE93D8'"></div>
+                                    <div style="background:#9575CD;" ng-click="groupColor='#9575CD'"></div>
+                                    <div style="background:#7986CB;" ng-click="groupColor='#7986CB'"></div>
+                                    <div style="background:#81D4FA;" ng-click="groupColor='#81D4FA'"></div>
+                                    <div style="background:#4DD0E1;" ng-click="groupColor='#4DD0E1'"></div>
+                                    <div style="background:#4DB6AC;" ng-click="groupColor='#4DB6AC'"></div>
+                                    <div style="background:#D4E157;" ng-click="groupColor='#D4E157'"></div>
+                                    <div style="background:#FFF176;" ng-click="groupColor='#FFF176'"></div>
+                                    <div style="background:#FFD54F;" ng-click="groupColor='#FFD54F'"></div>
+                                    <div style="background:#FFA726;" ng-click="groupColor='#FFA726'"></div>
+                                    <div style="background:#FD8964;" ng-click="groupColor='#FD8964'"></div>
+                                    <div style="background:#BDBDBD;" ng-click="groupColor='#BDBDBD'"></div>
+                                    <div style="background:#90A4AE;" ng-click="groupColor='#90A4AE'"></div>
                                 </div>    
                                 <br><br>
                                 </div>
@@ -372,17 +407,32 @@
                                     <h3 class="modal-title">Add a Group</h3>
                                 </div>
                                 <div class="modal-body">
-                                <input type="text" ng-model="newGroupName" placeholder="Enter Group Name">
-                                <br><br>
-                                <label for="groupColor">Select a Color</label>
-                                    
-                                <div id="groupColorSelect">
-                                    <div style="background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></div>
-                                    <div style="background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></div>
-                                    <div style="background:#FFA6B1;" ng-click="groupColor='#FFA6B1'"></div>
-                                    <div style="background:#FEC12F;" ng-click="groupColor='#FEC12F'"></div>
-                                </div>    
-                                <br><br>
+                                    <input type="text" ng-model="newGroupName" placeholder="Enter Group Name" ng-disabled="newGroupCode.length > 0">
+                                    <br><br>
+                                    <input type="text" ng-model="newGroupCode" placeholder="Enter A Group Code" ng-disabled="newGroupName.length > 0">
+                                    <br><br>
+                                    <label for="groupColor">Select a Color</label>   
+                                    <div id="groupColorSelect">
+                                        <div style="background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></div>
+                                        <div style="background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></div>
+                                        <div style="background:#FFA6B1;" ng-click="groupColor='#FFA6B1'"></div>
+                                        <div style="background:#FEC12F;" ng-click="groupColor='#FEC12F'"></div>
+                                        <div style="background:#F06292;" ng-click="groupColor='#F06292'"></div>
+                                        <div style="background:#CE93D8;" ng-click="groupColor='#CE93D8'"></div>
+                                        <div style="background:#9575CD;" ng-click="groupColor='#9575CD'"></div>
+                                        <div style="background:#7986CB;" ng-click="groupColor='#7986CB'"></div>
+                                        <div style="background:#81D4FA;" ng-click="groupColor='#81D4FA'"></div>
+                                        <div style="background:#4DD0E1;" ng-click="groupColor='#4DD0E1'"></div>
+                                        <div style="background:#4DB6AC;" ng-click="groupColor='#4DB6AC'"></div>
+                                        <div style="background:#D4E157;" ng-click="groupColor='#D4E157'"></div>
+                                        <div style="background:#FFF176;" ng-click="groupColor='#FFF176'"></div>
+                                        <div style="background:#FFD54F;" ng-click="groupColor='#FFD54F'"></div>
+                                        <div style="background:#FFA726;" ng-click="groupColor='#FFA726'"></div>
+                                        <div style="background:#FD8964;" ng-click="groupColor='#FD8964'"></div>
+                                        <div style="background:#BDBDBD;" ng-click="groupColor='#BDBDBD'"></div>
+                                        <div style="background:#90A4AE;" ng-click="groupColor='#90A4AE'"></div>
+                                    </div>    
+                                    <br><br><br>
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-primary" ng-click="createGroup(); cancel()">OK</button>
@@ -456,7 +506,7 @@
                         <p>{{currentGroupId}}</p>
                         <h2>Members</h2>
                         <div class="members" ng-repeat="member in memberList track by $index">
-                            <img class="memberIcon" ng-src="{{member.icon}}"/>
+                            <img class="memberIcon" ng-src="images/hipsterMale1.png"/>
                     	   <p text-align="center">{{member.name}}</p>
                         </div>
                         <div id = "addMemberBtn" ng-click="addMemberModal()"></div>
