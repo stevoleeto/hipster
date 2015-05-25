@@ -325,6 +325,24 @@ input
     transition: transform .5s;
 }
 
+#lblSave {
+    box-sizing: border-box;
+    color: #3C763D;
+    background: #DFF0D8;
+    border-color: #D6E9C6;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#lblError {
+    box-sizing: border-box;
+    color: #A94442;
+    background: #F2DEDE;
+    border-color: #EBCCD1;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
 #greeting
 {
     line-height: 45px;
@@ -349,7 +367,7 @@ input
 #yourSched
 {
     position:relative;
-    font-size: 1.5em;
+    font-size: 20px;
     float:left;
     letter-spacing: 3px;
     top:5px;
@@ -369,7 +387,7 @@ input
     float:left;
     clear:left;
     width:100%;
-    height: auto;
+    height: calc(100% - 45px);
     background:white;
     padding:5px;
     margin-bottom: 10px;
@@ -393,7 +411,7 @@ input
 #createTitle
 {
     position:relative;
-    font-size: 1.5em;
+    font-size: 20px;
     float:left;
     letter-spacing: 3px;
     top:5px;
