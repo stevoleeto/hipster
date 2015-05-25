@@ -498,7 +498,7 @@ input
 
 #remEvents
 {
-    position:absolute;
+    position:relative;
     clear:both;
     padding:5px;
     background-color:#FEC005;
@@ -508,7 +508,6 @@ input
     cursor:pointer;
 /*    border:solid black 1px;*/
     width:100%;
-    bottom:30px;
 /*    top:20px;*/
 }
 
