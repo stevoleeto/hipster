@@ -198,7 +198,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
     $scope.eventSources = [$scope.eventArray];
     /* GOOGLE CALENDAR TEST */
     if(currentUser.get("googleCalendarID")){
-      userService.setGoogleCalendar('jmdeon@gmail.com').then(function(){
+      userService.setGoogleCalendar(currentUser.get("googleCalendarID")).then(function(){
         var googleCalendar = userService.getGoogleCalendar();
         $scope.eventSources.push(googleCalendar);
         console.log(googleCalendar);

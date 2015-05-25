@@ -102,8 +102,15 @@ app.service('userService',['$q','dataBaseService', function($q, dataBaseService)
       console.log(newCal);
       /* iterate over items in googleCal */
       for(index = 0; index< newCal.items.length; index++){
-        var startTime = newCal.items[index].start.dateTime;
-        var endTime = newCal.items[index].end.dateTime;
+        var startTime;
+        var endTime;
+
+        if(newCal.items[index].start){
+          startTime = newCal.items[index].start.dateTime;
+        }
+        if(newCal.items[index].end){
+          endTime = newCal.items[index].end.dateTime;
+        }
         if(startTime && endTime){
           var newEvent = {
            textColor: 'white',
