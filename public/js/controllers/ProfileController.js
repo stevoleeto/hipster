@@ -197,21 +197,21 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 
     $scope.eventSources = [$scope.eventArray];
     /* GOOGLE CALENDAR TEST */
-    /*
-    userService.setGoogleCalendar('jmdeon@gmail.com').then(function(){
-      var googleCalendar = userService.getGoogleCalendar();
-      $scope.eventSources.push(googleCalendar);
-      console.log(googleCalendar);
-        
-    });
-    */
+    if(currentUser.get("googleCalendarID")){
+      userService.setGoogleCalendar('jmdeon@gmail.com').then(function(){
+        var googleCalendar = userService.getGoogleCalendar();
+        $scope.eventSources.push(googleCalendar);
+        console.log(googleCalendar);
+
+      });
+    }
     /*
 
-     $scope.eventSources = [{
+       $scope.eventSources = [{
        events: $scope.eventArray,
 
-         eventBackgroundColor: 'blue',  // an option!
-         textColor: 'black', // an option!
+       eventBackgroundColor: 'blue',  // an option!
+       textColor: 'black', // an option!
          overlap: false
 
          //     rendering: 'inverse-background'

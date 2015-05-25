@@ -40,19 +40,6 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
       /* Initialize event sources to be an array */
     $scope.eventSources = [];
 
-
-  /* Color Blind color mode */
-  $scope.colorBlindMode = function(){
-      freeTimeColor = 'blue';
-      busyTimeColor = 'red';
-  }
-
-  /* Default Calendar color mode */
-  $scope.defaultColorMode = function(){
-      freeTimeColor = 'green';
-      busyTimeColor = 'pink';
-  }
-    
   $scope.animationsEnabled = true;    
   /************************************************************************
    * Name:        addMemberModal
@@ -96,9 +83,6 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
   };
 
 
-         
-
-
   /* Group Calendar Settings */
   /* ----------------------- */
   $scope.uiConfig = {
@@ -121,7 +105,6 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
   /* END Group Calendar Settings */
   /* --------------------------- */
 
-  //TODO convert to service call
   /* Watch to see if single group view is set to true, if it is, pull down group id*/
   $scope.$watch('singleGroupView', function(){
     if($scope.singleGroupView === false){
@@ -138,6 +121,8 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
       /* initialize group data and get an array of the member's events 
        * through a callback */
       groupService.initGroup().then(function(returnedEvents){
+        console.log("RETURNED EVENTS");
+        console.log(returnedEvents);
         $scope.groupName = groupService.getGroupName();
         $scope.memberList = groupService.getMemberList();
         /* iterate through the returned events array and push all events 
