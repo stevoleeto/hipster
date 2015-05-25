@@ -402,8 +402,9 @@ input
     float: right;
     margin-right: 2%;
     top:45px;
-    padding-left:5px;
-    padding-right:5px;
+/*    padding-left:5px;*/
+/*    padding-right:5px;*/
+/*    background:white;*/
 /*    border:solid black 1px;*/
 /*    overflow:scroll;*/
 }
@@ -422,11 +423,11 @@ input
     float:right;
     clear:right;
     width: 100%;
+    height: calc(100% - 45px);
 /*    border:solid black 1.5px;*/
-    height:auto;
+/*    height: auto;*/
     padding-top:10px;
     background:white;
-
 }
 
 .repDays label{
@@ -505,6 +506,8 @@ input
     font-size:20px;
     text-align: center;
     cursor:pointer;
+/*    border:solid black 1px;*/
+    width:100%;
 /*    top:20px;*/
 }
 
