@@ -663,15 +663,9 @@ app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
         $modalInstance.close($scope.selected.item);
     };
 
-<<<<<<< HEAD
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
-=======
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
->>>>>>> be6f8f780c7f06b778f3d506aefe87b749d8f301
 });
 
 /************************************************************************
