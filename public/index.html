@@ -27,7 +27,9 @@
         <script type="text/javascript" src="lib/bower_components/angular-ui-calendar/src/calendar.js"></script>
         <script type="text/javascript" src="lib/bower_components/fullcalendar/dist/fullcalendar.js"></script>
         <script type="text/javascript" src="lib/bower_components/loadingBar/src/loading-bar.js"></script>
+<!--        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-animate.min.js"></script>-->
 
+        
         <!-- Load BootStrap -->
         <script type="text/javascript" src="lib/ui-bootstrap-tpls-0.13.0.min.js"></script>
 
@@ -99,7 +101,7 @@
         <script type="text/ng-template" id="editEvent.html">
             <div ng-controller="ProfileController">
                 <div>
-                    <div  style="background-color:{{ eventClicked.color}}" class="modal-header">
+                    <div style="background-color:{{ eventClicked.color}}" class="modal-header">
                         <h3 class="modal-title">{{ eventClicked.title }}</h3>
                     </div>
                     <div class="modal-body">
@@ -130,7 +132,6 @@
                             <div style="background:#90A4AE;" ng-click="eventEditColor.mine='#90A4AE'"></div>
                             <br>
                         </div>
-                
                     <div class="modal-footer">
                         <button class="btn btn-primary" ng-click="editEvent();saveLabel=true;">Save</button>
                         <button class="btn btn-primary" ng-click="deleteEvent();cancel()">Delete</button>
@@ -204,12 +205,30 @@
                 </div>
             </div>
         </script>
+
+        <script type="text/ng-template" id="groupSettings.html">
+            <div ng-controller="ProfileController">
+                <div>
+                    <div class="modal-header">
+
+                    </div>
+                    <div class="modal-body">
+                        <h3>this modal does not function yet</h3>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-warning" ng-click="cancel()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </script>
           
         <div id="logoutWrapper">
             <div class="btn-group" dropdown>
                 <div class="logoutbtn" ng-show="homeView" dropdown-toggle></div>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                         <li><a ng-click="settingsModal('lg')">Account Settings</a></li>
+                        <li ng-show="singleGroupView"><a ng-click="groupSettingsModal('lg')">Group Settings</a></li>
                         <li><a ng-click="logout()">Logout</a></li>
                     </ul>
             </div>
@@ -348,9 +367,9 @@
                                 <div class="modal-body">
                                 <input type="text" ng-model="newGroupName" placeholder="New Group Name">
                                 <br><br>
-                                <label for="groupColor">Select a Color</label>
+                                <label for="groupSelColor">Select a Color</label>
                                     
-                                <div id="groupColorSelect">
+                                <div id="groupColorSelect" name="groupSelColor">
                                     <div style="background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></div>
                                     <div style="background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></div>
                                     <div style="background:#FFA6B1;" ng-click="groupColor='#FFA6B1'"></div>
@@ -386,10 +405,11 @@
                                     <h3 class="modal-title">Add a Group</h3>
                                 </div>
                                 <div class="modal-body">
-                                    <input type="text" ng-model="newGroupName" placeholder="Enter Group Name">
+                                    <input type="text" ng-model="newGroupName" placeholder="Enter Group Name" ng-disabled="newGroupCode.length > 0">
                                     <br><br>
-                                    <label for="groupColor">Select a Color</label>
-                                        
+                                    <input type="text" ng-model="newGroupCode" placeholder="Enter A Group Code" ng-disabled="newGroupName.length > 0">
+                                    <br><br>
+                                    <label for="groupColor">Select a Color</label>   
                                     <div id="groupColorSelect">
                                         <div style="background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></div>
                                         <div style="background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></div>
@@ -410,10 +430,7 @@
                                         <div style="background:#BDBDBD;" ng-click="groupColor='#BDBDBD'"></div>
                                         <div style="background:#90A4AE;" ng-click="groupColor='#90A4AE'"></div>
                                     </div>    
-                                    <br><br>
-                                    <div>
-                                        <input type="text" ng-model="newGroupCode" placeholder="Enter another Groups Group Code">
-                                    </div>
+                                    <br><br><br>
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-primary" ng-click="createGroup(); cancel()">OK</button>
@@ -487,7 +504,7 @@
                         <p>{{currentGroupId}}</p>
                         <h2>Members</h2>
                         <div class="members" ng-repeat="member in memberList track by $index">
-                            <img class="memberIcon" ng-src="{{member.icon}}"/>
+                            <img class="memberIcon" ng-src="images/hipsterMale1.png"/>
                     	   <p text-align="center">{{member.name}}</p>
                         </div>
                         <div id = "addMemberBtn" ng-click="addMemberModal()"></div>

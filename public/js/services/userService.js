@@ -99,32 +99,34 @@ app.service('userService',['$q','dataBaseService', function($q, dataBaseService)
 
   var setGoogleCalendar = function(calendarID){
     return dataBaseService.queryGoogleCalendar(calendarID).then(function(newCal){
-      console.log(newCal);
       /* iterate over items in googleCal */
-      for(index = 0; index< newCal.items.length; index++){
-        var startTime;
-        var endTime;
+      if(googleCalendar.length === 0){ //make sure we don't have it already
+        for(index = 0; index< newCal.items.length; index++){
+          var startTime;
+          var endTime;
 
-        if(newCal.items[index].start){
-          startTime = newCal.items[index].start.dateTime;
-        }
-        if(newCal.items[index].end){
-          endTime = newCal.items[index].end.dateTime;
-        }
-        if(startTime && endTime){
-          var newEvent = {
-           textColor: 'white',
+          if(newCal.items[index].start){
+            startTime = newCal.items[index].start.dateTime;
+          }
+          if(newCal.items[index].end){
+            endTime = newCal.items[index].end.dateTime;
+          }
+          if(startTime && endTime){
+            var newEvent = {
+              textColor: 'white',
            title: newCal.items[index].summary + "\nGoogle Calendar",
            id: 9,
            start: startTime,
            end: endTime,
            color: 'green'
+            }
+            googleCalendar.push(newEvent);
           }
-          googleCalendar.push(newEvent);
         }
       }
     });
   };
+
   var getGoogleCalendar = function(){
     return googleCalendar;
   };
