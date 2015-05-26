@@ -172,9 +172,23 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
       alert("Enter a event name!");
       return;
     }
-    
-    if($scope.repeatingEvent){
+
+    if ($scope.eventColor.mine == '#fff') {
+      alert("Choose a color for your event!");
+      return;
+    }
+
+    if ($scope.dayRepeat.monday || 
+      $scope.dayRepeat.tuesday || 
+      $scope.dayRepeat.wednesday ||
+       $scope.dayRepeat.thursday ||
+        $scope.dayRepeat.friday ||
+         $scope.dayRepeat.saturday ||
+          $scope.dayRepeat.sunday){
       repeat = true;
+    }
+    
+    if(repeat){
 
       if ($scope.dayRepeat.monday){
         repeatTheseDays.push(1);
