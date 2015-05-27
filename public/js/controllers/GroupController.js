@@ -289,13 +289,20 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
   };
 
   $scope.getMemberIcon = function(email) {
+    //reference variable to the memberList variable in this class
     var members = $scope.memberList;
+    //Create a new query in the User table of the database
     var User = Parse.Object.extend("User");
     var query = new Parse.Query(User);
+    //Get record where email column is eqaul to the argument of this function which is member.email in ng-repeat
     query.equalTo("email", email);
+    //Issue the query to the database and call a function passing in the record that was found
     query.find().then(function(pulledMember) {
+      //Loop through "memberList"
       for (var index = 0; index < members.length; ++index) {
+        //Add in an icon field into the correct inner array of member list.
         if (members[index].email == email) {
+          //Ternary operator to set a default icon if undefined is found in record's userIcon field.
           members[index]["icon"] = (pulledMember[0]._serverData.userIcon == undefined) ? ("images/userIcon.png") : (pulledMember[0]._serverData.userIcon);
         }
       }
