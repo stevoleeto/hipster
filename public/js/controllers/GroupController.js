@@ -131,6 +131,8 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
         console.log(returnedEvents);
         $scope.groupName = groupService.getGroupName();
         $scope.memberList = groupService.getMemberList();
+        console.log("MEMBER LIST");
+        console.log($scope.memberList);
         /* iterate through the returned events array and push all events 
          * into our source */
         for(index = 0; index < returnedEvents.length; index++){
@@ -286,4 +288,14 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
   $scope.clear = function() {
     $scope.mytime = null;
   };
-    }]);
+
+  $scope.getMemberIcon = function(email) {
+    var User = Parse.Object.extend("User");
+    var query = new Parse.Query(User);
+    query.equalTo("email", email);
+    query.find().then(function(member) {
+      //alert( email + "'s icon: " + member[0]._serverData.userIcon);
+      return member[0]._serverData.userIcon;
+    });
+  }
+}]);
