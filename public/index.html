@@ -65,6 +65,12 @@
     </head>
     
     <body style="background: #FCFAF8;">
+        <div ng-if="false">
+ 
+    <div id = "loading">
+    </div>
+ 
+</div>
       <!-- PROFILE CONTROLLER -->
       <div ng-controller="ProfileController"> 
         
@@ -284,7 +290,7 @@
                 
                         <div class="schedule card">
                             <!-- TEST UI CALENDAR -->
-                            <div  ng-model="eventSources" calendar='userCalendar' ui-calendar="uiConfig.calendar"></div>
+                            <div  ng-model="eventSources" calendar='userCalendar' calendar-watch-event="color" ui-calendar="uiConfig.calendar"></div>
                         </div>
                     </div>
                     
