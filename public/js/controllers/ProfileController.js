@@ -544,20 +544,20 @@ $scope.deleteEvent = function(){
 }
 
   $scope.editEvent = function(){
-    console.log($scope.eventArray);
+    //iterates through all events.
     for(index = 0; index < $scope.eventArray.length; index++){
+      //IF an event in the array matches the CLICKED EVENT id
       if($scope.eventClicked.id == $scope.eventArray[index].id){
-        console.log(index);
+        //If the editEventName field is NOT undefined
         if($scope.editEventName != undefined){
           $scope.eventArray[index].title = $scope.editEventName;
         } 
+        //If the editEventColor field is NOT undefined
         if($scope.eventEditColor != undefined){
           $scope.eventArray[index].color = $scope.eventEditColor.mine;
         }
-        console.log($scope.eventArray[index]);
       }
     }
-    console.log($scope.eventArray);
     currentUser.save();
 }
 
