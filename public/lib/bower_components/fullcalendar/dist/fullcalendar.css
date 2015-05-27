@@ -3,8 +3,6 @@
  * Docs & License: http://fullcalendar.io/
  * (c) 2015 Adam Shaw
  */
-
-
 .fc {
 	direction: ltr;
 	text-align: left;
@@ -16,6 +14,7 @@
 
 body .fc { /* extra precedence to overcome jqui */
 	font-size: 1em;
+/*    border: solid black 1px;*/
 }
 
 
@@ -432,7 +431,7 @@ hr.fc-divider {
 
 .fc-row .fc-bgevent-skeleton table,
 .fc-row .fc-highlight-skeleton table {
-	height: 100%; /* stretch skeleton to bottom of row */
+	height: 0; /* stretch skeleton to bottom of row */
 }
 
 .fc-row .fc-highlight-skeleton td,
@@ -871,7 +870,7 @@ a.fc-more:hover {
 }
 
 .fc-time-grid {
-	min-height: 100%; /* so if height setting is 'auto', .fc-bg stretches to fill height */
+	min-height: 0; /* so if height setting is 'auto', .fc-bg stretches to fill height */
 }
 
 .fc-time-grid table { /* don't put outer borders on slats/bg/content/etc */

@@ -39,8 +39,8 @@ var currentUser = Parse.User.current();
 var newIcon = '';
 
 
-app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '$timeout','userService','uiCalendarConfig', '$modal', '$log', 
-        function($scope, groupService, eventService, $timeout, userService, uiCalendarConfig, $modal,$log) {
+app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '$timeout','userService','uiCalendarConfig', '$modal', '$log', '$window', 
+        function($scope, groupService, eventService, $timeout, userService, uiCalendarConfig, $modal,$log, $window) {
 
             $scope.animationsEnabled = true;
 
@@ -243,9 +243,14 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 
 // Profile Calendar Settings
 // -----------------------
+var getCalendarHeight = function()
+{
+   return $window.innerHeight - 100;
+}
+
 $scope.uiConfig = {
     calendar:{
-        height: 'auto',
+        height: getCalendarHeight(),
         viewRender: function(view, element) {
             //$log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
         },
