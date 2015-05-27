@@ -41,6 +41,7 @@
         <!-- Controllers -->
     	<script src="js/controllers/ProfileController.js"></script>
         <script src="js/controllers/GroupController.js"></script>
+        <script src="js/controllers/EditEventController.js"></script>
         <!-- Services -->
         <script src="js/services/googleCalendarService.js"></script>
         <script src="js/services/dataBaseService.js"></script>
@@ -105,46 +106,45 @@
            	</div>
         </script>
 
-        <script type="text/ng-template" id="editEvent.html">
-            <div ng-controller="ProfileController">
+
+        <script type="text/ng-template" id="editMyEvent.html">
                 <div>
-                    <div style="background-color:{{ eventClicked.color}}" class="modal-header">
-                        <h3 class="modal-title">{{ eventClicked.title }}</h3>
+                    <div style="background-color:{{ myEvent.color}}" class="modal-header">
+                        <h3 class="modal-title">{{ myEvent.title }}</h3>
                     </div>
                     <div class="modal-body">
-                        <div>{{ eventClicked.start.format("MMMM DD, YYYY")}} to {{ eventClicked.end.format("MMMM DD, YYYY")}}</div>
-                        <div>{{ eventClicked.start.format("hh:mm a")}} to {{ eventClicked.end.format("hh:mm a")}}</div>
+                        <div>{{ myEvent.start.format("MMMM DD, YYYY")}} to {{ myEvent.end.format("MMMM DD, YYYY")}}</div>
+                        <div>{{ myEvent.start.format("hh:mm a")}} to {{ myEvent.end.format("hh:mm a")}}</div>
                         <label>Modify Event Name</label>
-                        <input type="text" ng-model="editEventName" placeholder={{eventClicked.title}}>
+                        <input type="text" ng-model="myEvent.title" placeholder={{myEvent.title}}>
                         <label>Modify Color</label>
                         <div id="groupColorSelect">
-                            <div style="background:#B9F5FF;" ng-click="eventEditColor.mine='#B9F5FF'"></div>
-                            <div style="background:#B5FBA3;" ng-click="eventEditColor.mine='#B5FBA3'"></div>
-                            <div style="background:#FFA6B1;" ng-click="eventEditColor.mine='#FFA6B1'"></div>
-                            <div style="background:#FEC12F;" ng-click="eventEditColor.mine='#FEC12F'"></div>
-                            <div style="background:#F06292;" ng-click="eventEditColor.mine='#F06292'"></div>
-                            <div style="background:#CE93D8;" ng-click="eventEditColor.mine='#CE93D8'"></div>
-                            <div style="background:#9575CD;" ng-click="eventEditColor.mine='#9575CD'"></div>
-                            <div style="background:#7986CB;" ng-click="eventEditColor.mine='#7986CB'"></div>
-                            <div style="background:#81D4FA;" ng-click="eventEditColor.mine='#81D4FA'"></div>
-                            <div style="background:#4DD0E1;" ng-click="eventEditColor.mine='#4DD0E1'"></div>
-                            <div style="background:#4DB6AC;" ng-click="eventEditColor.mine='#4DB6AC'"></div>
-                            <div style="background:#D4E157;" ng-click="eventEditColor.mine='#D4E157'"></div>
-                            <div style="background:#FFF176;" ng-click="eventEditColor.mine='#FFF176'"></div>
-                            <div style="background:#FFD54F;" ng-click="eventEditColor.mine='#FFD54F'"></div>
-                            <div style="background:#FFA726;" ng-click="eventEditColor.mine='#FFA726'"></div>
-                            <div style="background:#FD8964;" ng-click="eventEditColor.mine='#FD8964'"></div>
-                            <div style="background:#BDBDBD;" ng-click="eventEditColor.mine='#BDBDBD'"></div>
-                            <div style="background:#90A4AE;" ng-click="eventEditColor.mine='#90A4AE'"></div>
+                            <div style="background:#B9F5FF;" ng-click="myEvent.color='#B9F5FF'"></div>
+                            <div style="background:#B5FBA3;" ng-click="myEvent.color='#B5FBA3'"></div>
+                            <div style="background:#FFA6B1;" ng-click="myEvent.color='#FFA6B1'"></div>
+                            <div style="background:#FEC12F;" ng-click="myEvent.color='#FEC12F'"></div>
+                            <div style="background:#F06292;" ng-click="myEvent.color='#F06292'"></div>
+                            <div style="background:#CE93D8;" ng-click="myEvent.color='#CE93D8'"></div>
+                            <div style="background:#9575CD;" ng-click="myEvent.color='#9575CD'"></div>
+                            <div style="background:#7986CB;" ng-click="myEvent.color='#7986CB'"></div>
+                            <div style="background:#81D4FA;" ng-click="myEvent.color='#81D4FA'"></div>
+                            <div style="background:#4DD0E1;" ng-click="myEvent.color='#4DD0E1'"></div>
+                            <div style="background:#4DB6AC;" ng-click="myEvent.color='#4DB6AC'"></div>
+                            <div style="background:#D4E157;" ng-click="myEvent.color='#D4E157'"></div>
+                            <div style="background:#FFF176;" ng-click="myEvent.color='#FFF176'"></div>
+                            <div style="background:#FFD54F;" ng-click="myEvent.color='#FFD54F'"></div>
+                            <div style="background:#FFA726;" ng-click="myEvent.color='#FFA726'"></div>
+                            <div style="background:#FD8964;" ng-click="myEvent.color='#FD8964'"></div>
+                            <div style="background:#BDBDBD;" ng-click="myEvent.color='#BDBDBD'"></div>
+                            <div style="background:#90A4AE;" ng-click="myEvent.color='#90A4AE'"></div>
                             <br>
                         </div>
                     <div class="modal-footer">
-                        <button class="btn btn-primary" ng-click="editEvent();saveLabel=true;">Save</button>
-                        <button class="btn btn-primary" ng-click="deleteEvent();cancel()">Delete</button>
+                        <button class="btn btn-primary" ng-click="save();">Save</button>
+                        <button class="btn btn-primary" ng-click="deleteEvent();">Delete</button>
                         <button class="btn btn-warning" ng-click="cancel()">Close</button>
                     </div>
                 </div>
-            </div>
         </script>
 
         <script type="text/ng-template" id="settings.html">

@@ -262,15 +262,24 @@ $scope.uiConfig = {
 
             var modalInstance = $modal.open({
                 animation: $scope.animationsEnabled,
-                templateUrl: 'editEvent.html',
-                controller: 'ModalInstanceCtrl',
+                templateUrl: 'editMyEvent.html',
+                controller: 'EditEventController',
                 size: "lg",
                 resolve: {
-                    items: function () {
-                        return $scope.items;
+                    myEvent: function () {
+                        return event;
                     }
                 }
             });
+               modalInstance.result.then(function (newEvent) {
+                   console.log(newEvent);
+                   event.color = newEvent.color;
+                   event.title = newEvent.title;
+                   $scope.eventClicked = event;
+                   $scope.editEvent();
+               }, function () {
+                   $log.info('Modal dismissed at: ' + new Date());
+               });
         },
         select: function(start, end, jsEvent, view){
             $scope.eventStartDate = (start.local()).toDate();
@@ -543,21 +552,24 @@ $scope.deleteEvent = function(){
     currentUser.save();
 }
 
-  $scope.editEvent = function(){
-    console.log($scope.eventArray);
+$scope.editEvent = function(){
+    var tempArray = [];
+    $scope.eventSources.length = 0;
+
     for(index = 0; index < $scope.eventArray.length; index++){
-      if($scope.eventClicked.id == $scope.eventArray[index].id){
-        console.log(index);
-        if($scope.editEventName != undefined){
-          $scope.eventArray[index].title = $scope.editEventName;
-        } 
-        if($scope.eventEditColor != undefined){
-          $scope.eventArray[index].color = $scope.eventEditColor.mine;
+        if($scope.eventClicked.id == $scope.eventArray[index].id){
+            $scope.eventArray[index].color = $scope.eventClicked.color;
+            $scope.eventArray[index].title = $scope.eventClicked.title;
+            console.log($scope.eventArray[index]);
         }
-        console.log($scope.eventArray[index]);
-      }
     }
-    console.log($scope.eventArray);
+
+    for(index = 0; index < $scope.eventArray.length; index++){
+        tempArray.push($scope.eventArray[index]);
+    }
+
+    $scope.eventSources.push(tempArray);
+    currentUser.set("personalSchedule", tempArray);
     currentUser.save();
 }
 
@@ -713,6 +725,7 @@ app.controller('CollapseInstanceCtrl', function ($scope) {
 
     //Sets the selected field of all icons except for the one clicked on to 0. Sets selected field of clicked on icon to 1.
     //Allows ng-class to assign the selected class css to only the icon clicked on.
+    console.log(myEvent);
     $scope.clearSel = function(event) {
         //Loops through each element of the array
         angular.forEach(icons, function(icon) {
