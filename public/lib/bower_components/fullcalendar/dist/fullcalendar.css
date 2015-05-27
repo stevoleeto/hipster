@@ -352,10 +352,11 @@ hr.fc-divider {
 
 .fc-bg {
 	bottom: 0; /* strech bg to bottom edge */
+    
 }
 
 .fc-bg table {
-	height: 100%; /* strech bg to bottom edge */
+	height: 0px; /* strech bg to bottom edge fuck change to 100% */
 }
 
 
@@ -870,7 +871,8 @@ a.fc-more:hover {
 }
 
 .fc-time-grid {
-	min-height: 0; /* so if height setting is 'auto', .fc-bg stretches to fill height */
+	min-height: 100%; 
+    /* so if height setting is 'auto', .fc-bg stretches to fill height */
 }
 
 .fc-time-grid table { /* don't put outer borders on slats/bg/content/etc */

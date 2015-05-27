@@ -243,14 +243,9 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 
 // Profile Calendar Settings
 // -----------------------
-var getCalendarHeight = function()
-{
-   return $window.innerHeight - 100;
-}
-
 $scope.uiConfig = {
     calendar:{
-        height: getCalendarHeight(),
+        height: 'auto',
         viewRender: function(view, element) {
             //$log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
         },
