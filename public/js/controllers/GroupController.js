@@ -26,8 +26,8 @@
 
 var currentUser = Parse.User.current();
 
-app.controller('GroupController', ['$scope','groupService', 'eventService', '$timeout', 'uiCalendarConfig','$log', '$modal', 
-    function($scope, groupService, eventService, $timeout, uiCalendarConfig, $log, $modal) { 
+app.controller('GroupController', ['$scope','groupService', 'eventService', '$timeout', 'uiCalendarConfig','$log', '$modal', '$window', 
+    function($scope, groupService, eventService, $timeout, uiCalendarConfig, $log, $modal, $window) { 
 
 
     /* DEFAULT COLORS */
@@ -87,7 +87,6 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
         }
     });
   };
-
 
   /* Group Calendar Settings */
   /* ----------------------- */

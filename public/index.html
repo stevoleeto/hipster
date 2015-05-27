@@ -476,12 +476,12 @@
                 </div>
 -->
                 <div style="clear:both;">
-                    <div id="scheduleWrapper" style="top:0px;background-color:{{">
+                    <div id="scheduleWrapper" style="top:0;">
                         <p id="yourSched">{{groupName}}'s Schedule</p>
                         <div class="schedule card">
                             <!-- TEST group UI CALENDAR -->
                             <div  ng-model="eventSources" calendar='groupCalendar' ui-calendar="uiConfig.calendar"  ></div> 
-                            <br><br>
+                            
                         </div>
                     </div>
                 
@@ -520,10 +520,9 @@
                             
                             <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
-                    </div>
-                
-                    <div id="membersInfo">
-                    </div>  
+                        <span style="float:left;clear:both;"><strong>Group Code: </strong></span><br>
+                        <p style="float:left;clear:both;">{{currentGroupId}}</p> 
+                    </div> 
                 </div>
             </div>
         </div>

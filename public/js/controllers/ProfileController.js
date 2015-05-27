@@ -39,8 +39,8 @@ var currentUser = Parse.User.current();
 var newIcon = '';
 
 
-app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '$timeout','userService','uiCalendarConfig', '$modal', '$log', 
-        function($scope, groupService, eventService, $timeout, userService, uiCalendarConfig, $modal,$log) {
+app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '$timeout','userService','uiCalendarConfig', '$modal', '$log', '$window', 
+        function($scope, groupService, eventService, $timeout, userService, uiCalendarConfig, $modal,$log, $window) {
 
             $scope.animationsEnabled = true;
 
