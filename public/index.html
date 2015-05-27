@@ -65,6 +65,12 @@
     </head>
     
     <body style="background: #FCFAF8;">
+        <div ng-if="false">
+ 
+    <div id = "loading">
+    </div>
+ 
+</div>
       <!-- PROFILE CONTROLLER -->
       <div ng-controller="ProfileController"> 
         
@@ -218,7 +224,8 @@
                         <h3>Members</h3>
                         <div style="overflow-y:scroll;height:150px;">
                             <div class="members" ng-repeat="member in memberList track by $index">
-                                <img class="memberIcon" ng-src="" ng-init="memberIcon=getMemberIcon(member.email);"/>
+                                <img class="memberIcon" ng-src="{{member.icon}}" ng-init="getMemberIcon(member.email);"
+                                     ng-class="{'smallIcon': member.icon === 'images/userIcon.png'}"/>
                                 <p text-align="center">{{member.name}}</p>
                             </div>
                             <div id="addMemberBtn" ng-click="addMemberModal()"></div>
@@ -283,7 +290,7 @@
                 
                         <div class="schedule card">
                             <!-- TEST UI CALENDAR -->
-                            <div  ng-model="eventSources" calendar='userCalendar' ui-calendar="uiConfig.calendar"></div>
+                            <div  ng-model="eventSources" calendar='userCalendar' calendar-watch-event="color" ui-calendar="uiConfig.calendar"></div>
                         </div>
                     </div>
                     

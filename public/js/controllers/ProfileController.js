@@ -52,7 +52,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             $scope.eventArray = currentUser.get("personalSchedule");
             $scope.friendList = currentUser.get("friendList");
             $scope.eventColor = {mine : '#B9F5FF'};
-            $scope.eventEditColor = {mine : '#B9F5FF' };
+            $scope.eventEditColor = {mine : eventService.getSelectedEvent().color };
             $scope.eventClicked = eventService.getSelectedEvent();
 
             //set users email in service
@@ -547,17 +547,17 @@ $scope.deleteEvent = function(){
     console.log($scope.eventArray);
     for(index = 0; index < $scope.eventArray.length; index++){
       if($scope.eventClicked.id == $scope.eventArray[index].id){
+        console.log(index);
         if($scope.editEventName != undefined){
           $scope.eventArray[index].title = $scope.editEventName;
         } 
         if($scope.eventEditColor != undefined){
           $scope.eventArray[index].color = $scope.eventEditColor.mine;
         }
-        console.log(moment(($scope.eventArray[index]).start).local());
-        $scope.eventArray[index].start = moment(($scope.eventArray[index]).start).local();
-        $scope.eventArray[index].end = moment(($scope.eventArray[index]).end).local();
+        console.log($scope.eventArray[index]);
       }
     }
+    console.log($scope.eventArray);
     currentUser.save();
 }
 
