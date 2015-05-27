@@ -10,7 +10,7 @@
  *              Also has getters and setters for all attributes.
  *
  */
-app.service('groupService',['$q','googleCalendarService', function($q,googleCalendarService){
+app.service('groupService',['$q','googleCalendarService','dataBaseService', function($q,googleCalendarService,dataBaseService){
 
     /* attributes - public data fields */
     var currentGroupId;
@@ -53,14 +53,14 @@ app.service('groupService',['$q','googleCalendarService', function($q,googleCale
      ************************************************************************/
     var initGroup = function(){
         var deferred = $q.defer();
-        queryGroup(currentGroupId).then(function(){
+        dataBaseService.queryGroup(currentGroupId).then(function(groupQuery){
             groupName = groupQuery[0].get("name");
             memberList = groupQuery[0].get("memberList");
             var queriesLeft = memberList.length;
             var googleCalQueriesLeft = memberList.length;
             /* iterate over memberList to pull all their data into */
             for(index = 0; index < memberList.length; index ++){
-                queryUser(memberList[index].email).then(function(){
+                dataBaseService.queryUser(memberList[index].email).then(function(userQuery){
                     var tempSched = userQuery[0].get("personalSchedule");
                     /* iterate over all events and change half to be displayed in
                      * the background and have to be displayed in the foreground */
@@ -78,9 +78,9 @@ app.service('groupService',['$q','googleCalendarService', function($q,googleCale
                     var googleCalendarID = userQuery[0].get("googleCalendarID");
                     if( googleCalendarID){
                         googleCalendarService.queryGoogleCalendar(googleCalendarID).then(function(newCal){
-                            console.log(newCal);
                             googleCalQueriesLeft--;
                             var tempSched = [];
+                            // iterate through the newly pulled google calendar
                             for (indexInner = 0; indexInner < newCal.items.length; indexInner++){
                                 var startTime;
                                 var endTime;
@@ -142,14 +142,14 @@ app.service('groupService',['$q','googleCalendarService', function($q,googleCale
     var addMember = function(groupId, newMemberEmail){
         var deferred = $q.defer();
         /* query the group and get its member list and name */
-        queryGroup(groupId).then(function(){
+        dataBaseService.queryGroup(groupId).then(function(groupQuery){
             memberList = groupQuery[0].attributes.memberList;
             groupName = groupQuery[0].attributes.name;
 
             /* make sure the new member is resolved */
             deferred.resolve(
                 /* query the user get it's data */
-                queryUser(newMemberEmail).then(function(){
+                dataBaseService.queryUser(newMemberEmail).then(function(userQuery){
                     if(userQuery[0]){
                         newMember = userQuery[0].attributes;
                     }
@@ -162,7 +162,7 @@ app.service('groupService',['$q','googleCalendarService', function($q,googleCale
                  * 1) update the new member's groupList with the new group 
                  * 2) update our working memberlist
                  * 3) update the memberlist of the group */
-            queryGroupList(newMemberEmail).then(function(){
+            dataBaseService.queryGroupList(newMemberEmail).then(function(groupListQuery){
                 if(groupListQuery[0]){
                     var newMemberGroupList = groupListQuery[0]._serverData.userGroups;
                     /* set new member's grouplist to have the new group in it */
@@ -192,57 +192,9 @@ app.service('groupService',['$q','googleCalendarService', function($q,googleCale
 
 
 
-    /* QUERY FUNCTIONS */
-    /*******************/
-
-    var queryGroupList = function(newEmail){
-        /* $q is a promise service, we can ask it to wait until something is done
-         * then return a promise */
-        var GroupList = Parse.Object.extend("GroupList");
-        var query = new Parse.Query(GroupList);
-        query.equalTo("userEmail", newEmail);
-
-        /* this will be resolved before returned promise */
-        return query.find().then(function(pulledList) {
-            groupListQuery = pulledList;
-        })
-    };
-
-    var queryGroup = function(groupId){
-        /* $q is a promise service, we can ask it to wait until something is done
-         * then return a promise */
-        var Group = Parse.Object.extend("Group");
-        var query = new Parse.Query(Group);
-        query.equalTo("objectId", groupId);
-
-        /* this will be resolved before returned promise */
-        return query.find().then(function(pulledGroup) {
-            groupQuery = pulledGroup;
-        })
-    };
-
-    var queryUser = function(userEmail){
-        /* $q is a promise service, we can ask it to wait until something is done
-         * then return a promise */
-        var User = Parse.Object.extend("User");
-        var query = new Parse.Query(User);
-        query.equalTo("username", userEmail);
-
-        /* this will be resolved before returned promise */
-        return query.find().then(function(pulledUser) {
-            userQuery = pulledUser;
-        })
-    };
-
-    /* END query functions */
-    /*---------------------*/
 
     /* SETTERS AND GETTERS */
     /***********************/
-
-    var getEventsArray = function(){
-        return groupQuery[0].get("groupSchedule");
-    }
 
     var getNewMember = function(){
         return newMember;
