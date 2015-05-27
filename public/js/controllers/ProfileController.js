@@ -39,8 +39,8 @@ var currentUser = Parse.User.current();
 var newIcon = '';
 
 
-app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '$timeout','userService','uiCalendarConfig', '$modal', '$log', 
-        function($scope, groupService, eventService, $timeout, userService, uiCalendarConfig, $modal,$log) {
+app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '$timeout','userService','uiCalendarConfig', '$modal', '$log', '$window', 
+        function($scope, groupService, eventService, $timeout, userService, uiCalendarConfig, $modal,$log, $window) {
 
             $scope.animationsEnabled = true;
 
@@ -518,16 +518,19 @@ $scope.addFriend = function() {
 
 $scope.deleteEvent = function(){
 
+    console.log($scope.eventClicked);
+    console.log($scope.eventArray);
     var tempArray = [];
     while($scope.eventArray.length != 0){
-        if($scope.eventClicked.id == $scope.eventArray[$scope.eventArray.length - 1].id){
-            $scope.eventArray.length = ($scope.eventArray.length) - 1;
-        }
-        else{
-            console.log("Entered else");
-            tempArray[tempArray.length] = $scope.eventArray[$scope.eventArray.length - 1];
-        }
+      if($scope.eventClicked.id == $scope.eventArray[$scope.eventArray.length - 1].id){
+        $scope.eventArray.length = ($scope.eventArray.length) - 1;
+      }
+      else{
+        tempArray[tempArray.length] = $scope.eventArray[$scope.eventArray.length - 1];
+        $scope.eventArray.length = ($scope.eventArray.length) - 1;
+      }
     }
+
 
     for (index = 0; index < tempArray.length; index++){
         $scope.eventArray[$scope.eventArray.length] = tempArray[index];
@@ -536,17 +539,21 @@ $scope.deleteEvent = function(){
     currentUser.save();
 }
 
-$scope.editEvent = function(){
-    console.log($scope.eventEditColor.mine);
-    for(index = 0; index < $scope.eventArray.length; index++){
-        if($scope.eventClicked.id == $scope.eventArray[index].id){
-            $scope.eventArray[index].title = $scope.editEventName;
-            $scope.eventArray[index].color = $scope.eventEditColor.mine;
-        }
-    }
-
+  $scope.editEvent = function(){
     console.log($scope.eventArray);
-
+    for(index = 0; index < $scope.eventArray.length; index++){
+      if($scope.eventClicked.id == $scope.eventArray[index].id){
+        if($scope.editEventName != undefined){
+          $scope.eventArray[index].title = $scope.editEventName;
+        } 
+        if($scope.eventEditColor != undefined){
+          $scope.eventArray[index].color = $scope.eventEditColor.mine;
+        }
+        console.log(moment(($scope.eventArray[index]).start).local());
+        $scope.eventArray[index].start = moment(($scope.eventArray[index]).start).local();
+        $scope.eventArray[index].end = moment(($scope.eventArray[index]).end).local();
+      }
+    }
     currentUser.save();
 }
 
@@ -601,12 +608,12 @@ $scope.settingsSave = function(){
 
 //timepicker
 
-$scope.eventStartTime = new Date();
-$scope.eventEndTime = new Date();
+//$scope.eventStartTime = new Date();
+//$scope.eventEndTime = new Date();
 
 
-$scope.hstep = 1;
-$scope.mstep = 1;
+//$scope.hstep = 1;
+//$scope.mstep = 1;
 
 $scope.options = {
     hstep: [1, 2, 3],
