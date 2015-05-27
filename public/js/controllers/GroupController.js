@@ -294,13 +294,9 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
     var query = new Parse.Query(User);
     query.equalTo("email", email);
     query.find().then(function(pulledMember) {
-      if (pulledMember[0]._serverData.userIcon == ""){
-        pulledMember[0]._serverData.userIcon == "images/userIcon.png";
-      }
-      
       for (var index = 0; index < members.length; ++index) {
         if (members[index].email == email) {
-          members[index]["icon"] = pulledMember[0]._serverData.userIcon;
+          members[index]["icon"] = (pulledMember[0]._serverData.userIcon == undefined) ? ("images/userIcon.png") : (pulledMember[0]._serverData.userIcon);
         }
       }
     });
