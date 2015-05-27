@@ -122,10 +122,10 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 });
             };
 
-            $scope.groupSettingsModal = function (size) {
+            $scope.groupInfoModal = function (size) {
                 var modalInstance = $modal.open({
                     animation: $scope.animationsEnabled,
-                    templateUrl: 'groupSettings.html',
+                    templateUrl: 'groupInfo.html',
                     controller: 'ModalInstanceCtrl',
                     size: size,
                     resolve: {
@@ -739,9 +739,4 @@ app.controller('PopoverInstanceCtrl', function ($scope) {
     $scope.eventEditColor = {
         templateUrl: 'eventEditColor.html'
     };
-});
-
-app.controller('DragAngDropCtrl', function ($scope){
-    $scope.oldGroupList = {};
-    $scope.newGroupList = {};
 });
