@@ -564,6 +564,10 @@ $scope.editEvent = function(){
 
         }
     }
+    for(index = 0; index < $scope.eventArray.length; index++){
+        tempArray.push($scope.eventArray[index]);
+    }
+
 
     $scope.eventSources.push(tempArray);
     currentUser.set("personalSchedule", tempArray);
