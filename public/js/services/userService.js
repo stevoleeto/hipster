@@ -6,7 +6,7 @@
  */
 
 
-app.service('userService',['$q','googleCalendarService', function($q, googleCalendarService){
+app.service('userService',['$q','googleCalendarService', 'dataBaseService' ,function($q, googleCalendarService, dataBaseService){
 
   var groupList;
   var email;
@@ -23,31 +23,13 @@ app.service('userService',['$q','googleCalendarService', function($q, googleCale
    *         be used to do something after the query has been done.
    *
    */
-  var queryGroupList = function(newEmail){
-    /* $q is a promise service, we can ask it to wait until something is done
-     * then return a promise */
+
+  var getGroupList = function(newEmail){
     var deferred = $q.defer();
-    var GroupList = Parse.Object.extend("GroupList");
-    var query = new Parse.Query(GroupList);
-    query.equalTo("userEmail", newEmail);
-
-    /* this will be resolved before returned promise */
-    deferred.resolve(
-      query.find().then(function(pulledList) {
-        if(newEmail === email){
-          groupList = pulledList[0]._serverData.userGroups;
-        }
-        else{
-          friendGroupList = pulledList[0]._serverData.userGroups;
-        }
-        groupListQuery = pulledList;
-      })
-    );
+    dataBaseService.queryGroupList(newEmail).then(function(groupListQuery){
+        deferred.resolve(groupListQuery[0].get("userGroups"));   
+    });
     return deferred.promise;
-
-  };
-  var getGroupList = function(){
-    return groupList;
   };
 
   var getGroupListQuery = function(){
@@ -77,14 +59,14 @@ app.service('userService',['$q','googleCalendarService', function($q, googleCale
         }
       });
 
-      return queryGroupList(userEmail).then(function(){
+      return dataBaseService.queryGroupList(userEmail).then(function(groupListQuery){
         groupListQuery[0].set("userGroups", userGroupList);
         groupListQuery[0].save();
       });
   };
 
   var removeGroup = function(groupToRemove){
-     queryGroupList(email).then(function(){
+     dataBaseService.queryGroupList(email).then(function(groupListQuery){
         var groupsList = groupListQuery[0]._serverData.userGroups;
         for (i = 0; i < groupsList.length; i++){
           if(groupsList[i]['id'] === groupToRemove){
@@ -127,6 +109,13 @@ app.service('userService',['$q','googleCalendarService', function($q, googleCale
     });
   };
 
+  var clearGroupList = function(email){
+      dataBaseService.queryGroupList().then(function(groupListQuery){
+        groupListQuery[0].set("userGroups", []);
+        groupListQuery[0].save();
+      });
+  };
+
   var getGoogleCalendar = function(){
     return googleCalendar;
   };
@@ -136,10 +125,8 @@ app.service('userService',['$q','googleCalendarService', function($q, googleCale
 
   return {
     // return all functions here so the dependant knows what to call!
-    queryGroupList: queryGroupList,
     getGroupList: getGroupList,
     getFriendGroupList: getFriendGroupList,
-    getGroupListQuery: getGroupListQuery,
     createGroup: createGroup,
     removeGroup: removeGroup,
     setEmail : setEmail,

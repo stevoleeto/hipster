@@ -287,8 +287,8 @@ $scope.uiConfig = {
 
 /* asks the service to please pull the group list of desire email,
  * then it gets the groupList from the service when its done pulling */
-userService.queryGroupList($scope.email).then(function(){
-    $scope.myGroupList = userService.getGroupList();
+userService.getGroupList($scope.email).then(function(groupList){
+    $scope.myGroupList = groupList;
 });
 
 $scope.addGroup = function(){	
@@ -332,11 +332,7 @@ $scope.Date = function(hourOffset){
  ************************************************************************/
 $scope.removeAllGroups = function(){
     $scope.myGroupList = []; 
-    userService.queryGroupList($scope.email).then(function(){
-        var queryGroupList = userService.getGroupListQuery();
-        queryGroupList[0].set("userGroups", $scope.myGroupList);
-        queryGroupList[0].save();
-    });
+    userService.clearGroupList($scope.email);
 }
 
 /************************************************************************
