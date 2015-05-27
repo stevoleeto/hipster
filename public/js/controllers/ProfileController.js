@@ -561,11 +561,8 @@ $scope.editEvent = function(){
             $scope.eventArray[index].color = $scope.eventClicked.color;
             $scope.eventArray[index].title = $scope.eventClicked.title;
             console.log($scope.eventArray[index]);
-        }
-    }
 
-    for(index = 0; index < $scope.eventArray.length; index++){
-        tempArray.push($scope.eventArray[index]);
+        }
     }
 
     $scope.eventSources.push(tempArray);
