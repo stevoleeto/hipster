@@ -176,15 +176,17 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                     size: size,
                     resolve: {
                         items: function () {
-                            return $scope.items;
+                            return $scope.myGroupList;
                         }
                     }
                 });
 
-                modalInstance.result.then(function (selectedItem) {
+                modalInstance.result.then(function (groupList) {
                     $scope.selected = selectedItem;
-                }, function () {
-                    $scope.myGroupList = userService.getGroupList();
+                }, function (groupList) {
+                    console.log("OUTPUT OF MODAL");
+                    console.log(groupList);
+                    $scope.myGroupList = userService.getNewGroupList();
                     //$log.info('Modal dismissed at: ' + new Date());
 
                 });
@@ -207,7 +209,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 modalInstance.result.then(function (selectedItem) {
                     $scope.selected = selectedItem;
                 }, function () {
-                    $scope.myGroupList = userService.getGroupList();
+                    $scope.myGroupList = userService.getNewGroupList();
                     //$log.info('Modal dismissed at: ' + new Date());
 
                 });
@@ -398,6 +400,8 @@ $scope.createGroup = function(){
     }
     else{userService.createGroup($scope.userName, $scope.email, $scope.myGroupList, $scope.newGroupName, $scope.groupColor).then(function(){
         /* this is to ensure scope gets applied even if query takes a bit too long*/
+        console.log("IN CONTROLLER");
+        console.log($scope.email);
         $timeout(function(){$scope.$apply()}, 150);
     });
     /* clear text box */
@@ -655,7 +659,7 @@ $scope.clear = function() {
 app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
 
     $scope.ok = function () {
-        $modalInstance.close($scope.selected.item);
+        $modalInstance.close("Hello");
     };
 
     $scope.cancel = function () {

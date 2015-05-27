@@ -24,17 +24,20 @@ app.service('userService',['$q','googleCalendarService', 'dataBaseService' ,func
    *
    */
 
+  var getNewGroupList = function(){
+    return groupList;
+  };
+
   var getGroupList = function(newEmail){
     var deferred = $q.defer();
     dataBaseService.queryGroupList(newEmail).then(function(groupListQuery){
+        console.log("IN SERVICE");
+        console.log(groupListQuery);
+        groupList = groupListQuery[0].get("userGroups");
         deferred.resolve(groupListQuery[0].get("userGroups"));   
     });
     return deferred.promise;
   };
-
-  var getGroupListQuery = function(){
-    return groupListQuery;
-  }
 
   var getFriendGroupList = function(){
     return friendGroupList;
@@ -126,6 +129,7 @@ app.service('userService',['$q','googleCalendarService', 'dataBaseService' ,func
   return {
     // return all functions here so the dependant knows what to call!
     getGroupList: getGroupList,
+    getNewGroupList: getNewGroupList,
     getFriendGroupList: getFriendGroupList,
     createGroup: createGroup,
     removeGroup: removeGroup,
