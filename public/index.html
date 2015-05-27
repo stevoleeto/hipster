@@ -218,7 +218,8 @@
                         <h3>Members</h3>
                         <div style="overflow-y:scroll;height:150px;">
                             <div class="members" ng-repeat="member in memberList track by $index">
-                                <img class="memberIcon" ng-src="" ng-init="memberIcon=getMemberIcon(member.email);"/>
+                                <img class="memberIcon" ng-src="{{member.icon}}" ng-init="getMemberIcon(member.email);"
+                                     ng-class="{'smallIcon': member.icon === 'images/userIcon.png'}"/>
                                 <p text-align="center">{{member.name}}</p>
                             </div>
                             <div id="addMemberBtn" ng-click="addMemberModal()"></div>

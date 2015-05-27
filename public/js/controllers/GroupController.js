@@ -289,12 +289,16 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
   };
 
   $scope.getMemberIcon = function(email) {
+    var members = $scope.memberList;
     var User = Parse.Object.extend("User");
     var query = new Parse.Query(User);
     query.equalTo("email", email);
-    query.find().then(function(member) {
-      //alert( email + "'s icon: " + member[0]._serverData.userIcon);
-      return member[0]._serverData.userIcon;
+    query.find().then(function(pulledMember) {
+      for (var index = 0; index < members.length; ++index) {
+        if (members[index].email == email) {
+          members[index]["icon"] = pulledMember[0]._serverData.userIcon;
+        }
+      }
     });
   }
 }]);
