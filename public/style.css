@@ -37,7 +37,7 @@ body  {
 {
     position:absolute;
     height:100vh;
-/*    border:solid red 1px;*/
+/*    border:solid red 1px;t*/
 /*    overflow:scroll;*/
     top:-45px;
 }
@@ -45,7 +45,7 @@ body  {
 .singleGroupView
 {
     position:absolute;
-    height:100vh;
+    height:calc(100vh - 45px);
 /*    border:solid red 1px;*/
 /*    overflow:scroll;*/
 }
