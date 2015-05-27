@@ -6,7 +6,7 @@
  */
 
 
-app.service('userService',['$q','dataBaseService', function($q, dataBaseService){
+app.service('userService',['$q','googleCalendarService', function($q, googleCalendarService){
 
   var groupList;
   var email;
@@ -98,7 +98,7 @@ app.service('userService',['$q','dataBaseService', function($q, dataBaseService)
   }
 
   var setGoogleCalendar = function(calendarID){
-    return dataBaseService.queryGoogleCalendar(calendarID).then(function(newCal){
+    return googleCalendarService.queryGoogleCalendar(calendarID).then(function(newCal){
       /* iterate over items in googleCal */
       if(googleCalendar.length === 0){ //make sure we don't have it already
         for(index = 0; index< newCal.items.length; index++){

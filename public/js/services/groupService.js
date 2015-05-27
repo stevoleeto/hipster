@@ -10,7 +10,7 @@
  *              Also has getters and setters for all attributes.
  *
  */
-app.service('groupService',['$q','dataBaseService', function($q,dataBaseService){
+app.service('groupService',['$q','googleCalendarService', function($q,googleCalendarService){
 
     /* attributes - public data fields */
     var currentGroupId;
@@ -77,7 +77,7 @@ app.service('groupService',['$q','dataBaseService', function($q,dataBaseService)
                     /* get the user's google calendar data! */
                     var googleCalendarID = userQuery[0].get("googleCalendarID");
                     if( googleCalendarID){
-                        dataBaseService.queryGoogleCalendar(googleCalendarID).then(function(newCal){
+                        googleCalendarService.queryGoogleCalendar(googleCalendarID).then(function(newCal){
                             console.log(newCal);
                             googleCalQueriesLeft--;
                             var tempSched = [];

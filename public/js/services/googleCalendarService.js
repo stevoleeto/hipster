@@ -1,4 +1,4 @@
-app.service('dataBaseService',['$q', '$http', function($q, $http){
+app.service('googleCalendarService',['$q', '$http', function($q, $http){
   var googleCalendar;
 
   var gcalApiKey = 'AIzaSyD3uC93ko7eXfGaBdnugIEvQ9QDo6--zK8';
