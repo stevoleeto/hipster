@@ -122,10 +122,10 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 });
             };
 
-            $scope.groupSettingsModal = function (size) {
+            $scope.groupInfoModal = function (size) {
                 var modalInstance = $modal.open({
                     animation: $scope.animationsEnabled,
-                    templateUrl: 'groupSettings.html',
+                    templateUrl: 'groupInfo.html',
                     controller: 'ModalInstanceCtrl',
                     size: size,
                     resolve: {
@@ -243,14 +243,9 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 
 // Profile Calendar Settings
 // -----------------------
-var getCalendarHeight = function()
-{
-   return $window.innerHeight - 100;
-}
-
 $scope.uiConfig = {
     calendar:{
-        height: getCalendarHeight(),
+        height: 'auto',
         viewRender: function(view, element) {
             //$log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
         },
@@ -292,8 +287,8 @@ $scope.uiConfig = {
 
 /* asks the service to please pull the group list of desire email,
  * then it gets the groupList from the service when its done pulling */
-userService.queryGroupList($scope.email).then(function(){
-    $scope.myGroupList = userService.getGroupList();
+userService.getGroupList($scope.email).then(function(groupList){
+    $scope.myGroupList = groupList;
 });
 
 $scope.addGroup = function(){	
@@ -337,11 +332,7 @@ $scope.Date = function(hourOffset){
  ************************************************************************/
 $scope.removeAllGroups = function(){
     $scope.myGroupList = []; 
-    userService.queryGroupList($scope.email).then(function(){
-        var queryGroupList = userService.getGroupListQuery();
-        queryGroupList[0].set("userGroups", $scope.myGroupList);
-        queryGroupList[0].save();
-    });
+    userService.clearGroupList($scope.email);
 }
 
 /************************************************************************
@@ -748,9 +739,4 @@ app.controller('PopoverInstanceCtrl', function ($scope) {
     $scope.eventEditColor = {
         templateUrl: 'eventEditColor.html'
     };
-});
-
-app.controller('DragAngDropCtrl', function ($scope){
-    $scope.oldGroupList = {};
-    $scope.newGroupList = {};
 });

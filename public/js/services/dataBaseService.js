@@ -1,28 +1,61 @@
-app.service('dataBaseService',['$q', '$http', function($q, $http){
-  var googleCalendar;
+app.service('dataBaseService',['$q', function($q){
+    /* QUERY FUNCTIONS */
+    /*******************/
 
-  var gcalApiKey = 'AIzaSyD3uC93ko7eXfGaBdnugIEvQ9QDo6--zK8';
-  
-  var queryGoogleCalendar = function(calendarID){
-    var calendarURL =" https://www.googleapis.com/calendar/v3/calendars/"
-                + calendarID + "/events?key=" + gcalApiKey;
-    var deferred = $q.defer();
-      $http.get(calendarURL).success( function(data, status, headers, config){
-        googleCalendar = data;
-        deferred.resolve(googleCalendar);
-      }).error( function(data, status, headers, config){
-        console.log("Error retieving Google Calendar");
-      })
-    return deferred.promise;
-  };
+    var queryGroupList = function(newEmail){
+        /* $q is a promise service, we can ask it to wait until something is done
+         * then return a promise */
+        var deferred = $q.defer();
+        var GroupList = Parse.Object.extend("GroupList");
+        var query = new Parse.Query(GroupList);
+        query.equalTo("userEmail", newEmail);
 
-  var getGoogleCalendar = function() {
-    return googleCalendar;
-  };
+        /* this will be resolved before returned promise */
+        query.find().then(function(pulledList) {
+            deferred.resolve(pulledList);
+        })
+        return deferred.promise;
+    };
 
-  return {
-    queryGoogleCalendar : queryGoogleCalendar,
-      getGoogleCalendar : getGoogleCalendar
-  };
+    var queryGroup = function(groupId){
+        /* $q is a promise service, we can ask it to wait until something is done
+         * then return a promise */
+        var deferred = $q.defer();
+        var Group = Parse.Object.extend("Group");
+        var query = new Parse.Query(Group);
+        query.equalTo("objectId", groupId);
+
+        /* this will be resolved before returned promise */
+        query.find().then(function(pulledGroup) {
+            deferred.resolve(pulledGroup);
+        })
+        return deferred.promise;
+    };
+
+    var queryUser = function(userEmail){
+        /* $q is a promise service, we can ask it to wait until something is done
+         * then return a promise */
+        var deferred = $q.defer();
+        var User = Parse.Object.extend("User");
+        var query = new Parse.Query(User);
+        query.equalTo("username", userEmail);
+
+        /* this will be resolved before returned promise */
+        query.find().then(function(pulledUser) {
+            deferred.resolve(pulledUser);
+        })
+        return deferred.promise;
+    };
+
+    /* END query functions */
+    /*---------------------*/
+    return {
+        queryGroup : queryGroup,
+        queryUser : queryUser,
+        queryGroupList : queryGroupList
+
+    };
+
+
 
 }]);

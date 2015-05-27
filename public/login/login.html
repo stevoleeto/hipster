@@ -52,8 +52,6 @@
                 <span id="blocks">BLOCKS</span>
             </p>
         </div>
-        <!-- here is a block that will be controlled by the "MainController
-             controller -->
 <!--
         <div id="content">
             <div id="gallery" ng-controller="CarouselInstanceCtrl">
@@ -71,55 +69,54 @@
                     <a href="../contact/index.html">Official Documents</a>
                 </p>
             </div>
+        </div>
 -->
-            
-            <div name="myForm" id="getInWrapper" class="card">
-                <div id="options">
-                    <div id="login" onclick="dispTab('login')" style="background:white;">Login</div>
-                    <div id="signup" onclick="dispTab('signup')" style="background:#D8D8D8; color:grey">Sign Up</div>
-                </div>
-                <center><br><br>
-                    <div id="lForm" style="display:block;position:relative;top:20px;">
-                        <div id="lTips" class="tips">Please fill in the following fields</div><br>
-                        <form novalidate ng-submit="login()">
-                            <!--<label style="color:red" ng-show ="!email">Please Enter a Valid Email.</label>-->
-                            <input id="lEmail" type="email" ng-model="email" ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" placeholder="Email"><br><br>
-
-                            <!--<label style="color:red" ng-show ="!password">Password must be greater than four characters.</label>-->
-                            <input id="lPass" type="password" ng-model="password" ng-minlength="5" placeholder="Password"><br><br>
-
-                            <!-- hidden submit button! -->
-                            <input type="submit" style="position:absolute;left:-9999px;width:1px;height:1px;"/>
-                            <div ng-click="login()" class="bttn" style="margin-top:10px;">Login</div><br>
-                            <div ng-click="forgotPassword()" class="forgotBtn">Forgot Password</div>
-                        </form>
-                    </div>
-                    
-                    <div name="sForm "id="sForm" style="display:none;position:relative;top:20px;">
-                        <div id="sTips" class="tips">Please fill in the following fields</div><br>
-
-                        <!-- ng-submit tells the hidden submit button what to call on enter -->
-                        <form novalidate ng-submit="signUp(); setValidEmail(); setValidName()">
-
-                            <input name="sname" id="sName" type="text" ng-model="name" required ng-pattern="/^[a-z']([a-z'_\s])+$/i" placeholder="Name"
-                                 ng-style="( name.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (name) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )"><br><br>
-
-                            <input id="sEmail" type="email" ng-model="email" required ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" 
-                                 ng-style="( email.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (email) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )" placeholder="Email"><br><br>
-
-                            <input id="sPass" type="password" ng-model="password" ng-minlength="5" placeholder="Password"
-                                 ng-style="( password.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (password) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )"><br><br>
-
-                            <input id="sPass" type="password" ng-model="repassword" placeholder="Confirm Password"
-                                 ng-style="( repassword.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (repassword == password) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )">
-
-                            <!-- hidden submit button! -->
-                            <input type="submit" style="position: absolute;opacity: 0; width: 1px; height: 1px;"/>
-                        </form>
-                        <div ng-click= "signUp()" ng-disabled="!email" class="bttn">Sign Up</div>
-                    </div>
-                </center>
+        <div name="myForm" id="getInWrapper" class="card">
+            <div id="options">
+                <div id="login" onclick="dispTab('login')" style="background:white;">Login</div>
+                <div id="signup" onclick="dispTab('signup')" style="background:#D8D8D8; color:grey">Sign Up</div>
             </div>
+            <center><br><br>
+                <div id="lForm" style="display:block;position:relative;top:20px;">
+                    <div id="lTips" class="tips">Please fill in the following fields</div><br>
+                    <form novalidate ng-submit="login()">
+                        <!--<label style="color:red" ng-show ="!email">Please Enter a Valid Email.</label>-->
+                        <input id="lEmail" type="email" ng-model="email" ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" placeholder="Email"><br><br>
+
+                        <!--<label style="color:red" ng-show ="!password">Password must be greater than four characters.</label>-->
+                        <input id="lPass" type="password" ng-model="password" ng-minlength="5" placeholder="Password"><br><br>
+
+                        <!-- hidden submit button! -->
+                        <input type="submit" style="position:absolute;left:-9999px;width:1px;height:1px;"/>
+                        <div ng-click="login()" class="bttn" style="margin-top:10px;">Login</div><br>
+                        <div ng-click="forgotPassword()" class="forgotBtn">Forgot Password</div>
+                    </form>
+                </div>
+                
+                <div name="sForm "id="sForm" style="display:none;position:relative;top:20px;">
+                    <div id="sTips" class="tips">Please fill in the following fields</div><br>
+
+                    <!-- ng-submit tells the hidden submit button what to call on enter -->
+                    <form novalidate ng-submit="signUp(); setValidEmail(); setValidName()">
+
+                        <input name="sname" id="sName" type="text" ng-model="name" required ng-pattern="/^[a-z']([a-z'_\s])+$/i" placeholder="Name"
+                             ng-style="( name.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (name) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )"><br><br>
+
+                        <input id="sEmail" type="email" ng-model="email" required ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" 
+                             ng-style="( email.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (email) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )" placeholder="Email"><br><br>
+
+                        <input id="sPass" type="password" ng-model="password" ng-minlength="5" placeholder="Password"
+                             ng-style="( password.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (password) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )"><br><br>
+
+                        <input id="sPass" type="password" ng-model="repassword" placeholder="Confirm Password"
+                             ng-style="( repassword.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (repassword == password) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )">
+
+                        <!-- hidden submit button! -->
+                        <input type="submit" style="position: absolute;opacity: 0; width: 1px; height: 1px;"/>
+                    </form>
+                    <div ng-click= "signUp()" ng-disabled="!email" class="bttn">Sign Up</div>
+                </div>
+            </center>
         </div>
     </body>
 </html>    
