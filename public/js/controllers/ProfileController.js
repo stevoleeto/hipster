@@ -691,7 +691,7 @@ app.controller('CollapseInstanceCtrl', function ($scope) {
         id: 1,
         image: 'images/userIcon.png',
         name: 'Super Hero',
-        selected: 0
+        selected: 1
     });
 
     //Note: this pushes the icons into the array in the following pattern: 
