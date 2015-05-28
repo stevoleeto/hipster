@@ -52,14 +52,12 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             $scope.eventArray = currentUser.get("personalSchedule");
             $scope.friendList = currentUser.get("friendList");
             $scope.eventColor = {mine : '#B9F5FF'};
-            $scope.eventEditColor = {mine : eventService.getSelectedEvent().color };
+            $scope.eventEditColor = {color : eventService.getSelectedEvent().color };
             $scope.eventClicked = eventService.getSelectedEvent();
 
             //set users email in service
             userService.setEmail(currentUser.get("username")); 
             userService.setName($scope.userName);
-
-
 
             $scope.addFriendModal = function(){
                 var modalInstance = $modal.open({
@@ -180,30 +178,29 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 });
             };
 
-            $scope.editGroupModal = function (size) {
-
+            $scope.editGroupModal = function (oldName, oldColor) {
                 var modalInstance = $modal.open({
                     animation: $scope.animationsEnabled,
                     templateUrl: 'editGroup.html',
-                    controller: 'ModalInstanceCtrl',
-                    size: size,
+                    controller: 'EditGroupController',
+                    size: 'lg',
                     resolve: {
-                        items: function () {
-                            return $scope.items;
+                        oldInfo: function () {
+                            return {name: oldName, color: oldColor};
                         }
                     }
                 });
 
-                modalInstance.result.then(function (selectedItem) {
-                    $scope.selected = selectedItem;
+                modalInstance.result.then(function (newGroupSettings) {
+                    console.log("NEW GROUP SETTINGS. TODO: UPDATE DATABASE WITH THESE VALUES!!");
+                    console.log(newGroupSettings.newName);
+                    console.log(newGroupSettings.newColor);
                 }, function () {
                     $scope.myGroupList = userService.getNewGroupList();
                     //$log.info('Modal dismissed at: ' + new Date());
 
                 });
             };                                                                                                                     
-
-
 
             $scope.dayRepeat = {
                 monday : false,
@@ -259,11 +256,17 @@ $scope.uiConfig = {
                     }
                 }
             });
-               modalInstance.result.then(function (newEvent) {
-                   event.color = newEvent.color;
-                   event.title = newEvent.title;
-                   $scope.eventClicked = event;
-                   $scope.editEvent();
+               modalInstance.result.then(function (modalObject) {
+                   if(modalObject.state == "save"){
+                       event.color = modalObject.theEvent.color;
+                       event.title = modalObject.theEvent.title;
+                       $scope.eventClicked = event;
+                       $scope.editEvent();
+                   }
+                   else if (modalObject.state == "delete"){
+                       $scope.eventClicked = event;
+                       $scope.deleteEvent();
+                   }
                }, function () {
                    $log.info('Modal dismissed at: ' + new Date());
                });
@@ -525,21 +528,17 @@ var viewFriends = function(newFriend) {
 $scope.deleteEvent = function(){
 
     var tempArray = [];
-    while($scope.eventArray.length != 0){
-      if($scope.eventClicked.id == $scope.eventArray[$scope.eventArray.length - 1].id){
-        $scope.eventArray.length = ($scope.eventArray.length) - 1;
-      }
-      else{
-        tempArray[tempArray.length] = $scope.eventArray[$scope.eventArray.length - 1];
-        $scope.eventArray.length = ($scope.eventArray.length) - 1;
+    $scope.eventSources.length = 0;
+
+    for(index = 0; index < $scope.eventArray.length; index++){
+      if($scope.eventClicked.id !== $scope.eventArray[index].id){
+        tempArray.push($scope.eventArray[index]);
       }
     }
 
 
-    for (index = 0; index < tempArray.length; index++){
-        $scope.eventArray[$scope.eventArray.length] = tempArray[index];
-    }
-
+    $scope.eventSources.push(tempArray);
+    currentUser.set("personalSchedule", tempArray);
     currentUser.save();
 }
 
@@ -554,6 +553,7 @@ $scope.editEvent = function(){
 
         }
     }
+
     for(index = 0; index < $scope.eventArray.length; index++){
         tempArray.push($scope.eventArray[index]);
     }
@@ -734,7 +734,7 @@ app.controller('PopoverInstanceCtrl', function ($scope) {
         templateUrl: 'confirmRemove.html'
     };
     $scope.groupColorSelect = {
-        templateUrl: 'groupColorSelect.html'
+        templateUrl: 'eventColorSelect.html'
     };
 
     $scope.eventEditColor = {
