@@ -210,15 +210,12 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                     console.log("NEW GROUP SETTINGS. TODO: UPDATE DATABASE WITH THESE VALUES!!");
                     console.log(newGroupSettings.newName);
                     console.log(newGroupSettings.newColor);
-
                 }, function () {
                     $scope.myGroupList = userService.getNewGroupList();
                     //$log.info('Modal dismissed at: ' + new Date());
 
                 });
             };                                                                                                                     
-
-
 
             $scope.dayRepeat = {
                 monday : false,

@@ -505,7 +505,9 @@
                     <h3 class="modal-title">Edit {{newGroupName}}</h3>
                 </div>
                 <div class="modal-body">
-                    <input type="text" ng-model="newGroupName" value="{{newGroupName}}">
+                    <label for="newName">New Group Name: </label>
+                    <input type="text" ng-model="newGroupName" value="{{newGroupName}}" name="newName" style="width:50%;"
+                        ng-pattern="newGroupName.length > 0" ng-style="(newGroupName) ? {'border-bottom':'1px solid green'} : {'border-bottom':'1px solid red'}">
                     <input type="hidden" ng-model="newGroupColor">
                     <br><br>
                     <label for="groupSelColor">Select a Color</label>
@@ -578,6 +580,7 @@
                 </div>
             </div>
         </script>
+<<<<<<< HEAD
                         <script type="text/ng-template" id="editGroup.html">
                             <div ng-controller="ProfileController">
                                 <div class="modal-header">
@@ -659,5 +662,9 @@
                             </div>
                         </script>
                        
+||||||| merged common ancestors
+                       
+=======
+>>>>>>> bea3f55cc6f60a58af3bdb05d4c9c823bc90687b
     </body>
 </html>
