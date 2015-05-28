@@ -261,14 +261,14 @@ $scope.uiConfig = {
                     }
                 }
             });
-               modalInstance.result.then(function (closeState, newEvent) {
-                   if(closeState == "save"){
-                       event.color = newEvent.color;
-                       event.title = newEvent.title;
+               modalInstance.result.then(function (modalObject) {
+                   if(modalObject.state == "save"){
+                       event.color = modalObject.theEvent.color;
+                       event.title = modalObject.theEvent.title;
                        $scope.eventClicked = event;
                        $scope.editEvent();
                    }
-                   else if (closeState == "delete"){
+                   else if (modalObject.state == "delete"){
                        $scope.eventClicked = event;
                        $scope.deleteEvent();
                    }
