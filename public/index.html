@@ -498,7 +498,6 @@
                 </div>
             </div>
         </script>
-<<<<<<< HEAD
 
         <script type="text/ng-template" id="editGroup.html">
             <div>
@@ -579,5 +578,86 @@
                 </div>
             </div>
         </script>
+                        <script type="text/ng-template" id="editGroup.html">
+                            <div ng-controller="ProfileController">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">Edit This Group</h3>
+                                </div>
+                                <div class="modal-body">
+                                <input type="text" ng-model="newGroupName" placeholder="New Group Name">
+                                <br><br>
+                                <label for="groupSelColor">Select a Color</label>
+                                    
+                               <!-- <div id="groupColorSelect" name="groupSelColor">
+                                    <div style="background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></div>
+                                    <div style="background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></div>
+                                    <div style="background:#FFA6B1;" ng-click="groupColor='#FFA6B1'"></div>
+                                    <div style="background:#FEC12F;" ng-click="groupColor='#FEC12F'"></div>
+                                    <div style="background:#F06292;" ng-click="groupColor='#F06292'"></div>
+                                    <div style="background:#CE93D8;" ng-click="groupColor='#CE93D8'"></div>
+                                    <div style="background:#9575CD;" ng-click="groupColor='#9575CD'"></div>
+                                    <div style="background:#7986CB;" ng-click="groupColor='#7986CB'"></div>
+                                    <div style="background:#81D4FA;" ng-click="groupColor='#81D4FA'"></div>
+                                    <div style="background:#4DD0E1;" ng-click="groupColor='#4DD0E1'"></div>
+                                    <div style="background:#4DB6AC;" ng-click="groupColor='#4DB6AC'"></div>
+                                    <div style="background:#D4E157;" ng-click="groupColor='#D4E157'"></div>
+                                    <div style="background:#FFF176;" ng-click="groupColor='#FFF176'"></div>
+                                    <div style="background:#FFD54F;" ng-click="groupColor='#FFD54F'"></div>
+                                    <div style="background:#FFA726;" ng-click="groupColor='#FFA726'"></div>
+                                    <div style="background:#FD8964;" ng-click="groupColor='#FD8964'"></div>
+                                    <div style="background:#BDBDBD;" ng-click="groupColor='#BDBDBD'"></div>
+                                    <div style="background:#90A4AE;" ng-click="groupColor='#90A4AE'"></div>
+                                </div>  -->  
+                                <br><br>
+                                </div>
+                                <h1>this modal does not function yet</h1>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" ng-click="ok()">OK</button>
+                                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                                </div>
+                            </div>
+                        </script>
+                    
+                        <script type="text/ng-template" id="addGroup.html">
+                            <div ng-controller="ProfileController">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">Add a Group</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="text" ng-model="newGroupName" placeholder="Enter Group Name" ng-disabled="newGroupCode.length > 0">
+                                    <br><br>
+                                    <input type="text" ng-model="newGroupCode" placeholder="Enter A Group Code" ng-disabled="newGroupName.length > 0">
+                                    <br><br>
+                                    <label for="groupColor">Select a Color</label>   
+                                    <!--
+                                    <div id="groupColorSelect">
+                                        <div style="background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></div>
+                                        <div style="background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></div>
+                                        <div style="background:#FFA6B1;" ng-click="groupColor='#FFA6B1'"></div>
+                                        <div style="background:#FEC12F;" ng-click="groupColor='#FEC12F'"></div>
+                                        <div style="background:#F06292;" ng-click="groupColor='#F06292'"></div>
+                                        <div style="background:#CE93D8;" ng-click="groupColor='#CE93D8'"></div>
+                                        <div style="background:#9575CD;" ng-click="groupColor='#9575CD'"></div>
+                                        <div style="background:#7986CB;" ng-click="groupColor='#7986CB'"></div>
+                                        <div style="background:#81D4FA;" ng-click="groupColor='#81D4FA'"></div>
+                                        <div style="background:#4DD0E1;" ng-click="groupColor='#4DD0E1'"></div>
+                                        <div style="background:#4DB6AC;" ng-click="groupColor='#4DB6AC'"></div>
+                                        <div style="background:#D4E157;" ng-click="groupColor='#D4E157'"></div>
+                                        <div style="background:#FFF176;" ng-click="groupColor='#FFF176'"></div>
+                                        <div style="background:#FFD54F;" ng-click="groupColor='#FFD54F'"></div>
+                                        <div style="background:#FFA726;" ng-click="groupColor='#FFA726'"></div>
+                                        <div style="background:#FD8964;" ng-click="groupColor='#FD8964'"></div>
+                                        <div style="background:#BDBDBD;" ng-click="groupColor='#BDBDBD'"></div>
+                                        <div style="background:#90A4AE;" ng-click="groupColor='#90A4AE'"></div>
+                                    </div> -->   
+                                    <br><br><br>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" ng-click="createGroup(); cancel()">OK</button>
+                                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                                </div>
+                            </div>
+                        </script>
+                       
     </body>
 </html>
