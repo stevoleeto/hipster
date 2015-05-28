@@ -59,21 +59,32 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             userService.setEmail(currentUser.get("username")); 
             userService.setName($scope.userName);
 
-            $scope.addFriendModal = function(){
+            var openModal = function(template, ctrl, size, param ){
+                console.log(ctrl);
                 var modalInstance = $modal.open({
-                    animation: $scope.animationsEnabled,
-                    templateUrl: 'addFriend.html',
-                    controller: 'AddFriendController',
-                    size: 'lg'
+                    animation: true,
+                    templateUrl: template,
+                    controller: ctrl,
+                    size: size,
+                    resolve: {
+                        modalParams: function () {
+                            return param;
+                        }
+                    }
                 });
+                return modalInstance.result
+            }
 
-                modalInstance.result.then(function (newFriend) {
+
+
+            $scope.addFriendModal = function(){
+                openModal( 'addFriend.html', 'AddFriendController', 'lg').then(function(newFriend){
                     addFriend(newFriend);
-                }, function () {
+                }, function(){
                     $log.info('Modal dismissed at: ' + new Date());
                 });
+            };
 
-            }
 
             $scope.friendListModal = function () {
 
@@ -155,7 +166,6 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 modalInstance.result.then(function(selectedItem){
                     $scope.selected = selectedItem;
                 }, function(){
-                    //$scope.
                 });
             };
 
@@ -300,25 +310,6 @@ $scope.addGroup = function(){
 $scope.updateSingleGroupTab = function(name){
     $scope.singleGroupName = name;
 }
-
-
-/* Function: Date
- * Desciption: Called to get a new date object, offset will offset the hour. Minutes and seconds and milliseconds
- * 			 set to 0.
- *
- */
-$scope.Date = function(hourOffset){
-    var date =  new Date();
-    date.setMinutes(0);
-    date.setMilliseconds(0);
-    date.setSeconds(0);
-    if(hourOffset){
-        date.setHours(date.getHours() + hourOffset);
-    }
-
-    return date;
-};
-
 
 
 /************************************************************************
