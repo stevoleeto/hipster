@@ -84,21 +84,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                     $log.info('Modal dismissed at: ' + new Date());
                 });
             };
-            /*
-                var modalInstance = $modal.open({
-                    animation: $scope.animationsEnabled,
-                    templateUrl: 'addFriend.html',
-                    controller: 'AddFriendController',
-                    size: 'lg'
-                });
 
-                modalInstance.result.then(function (newFriend) {
-                    addFriend(newFriend);
-                }, function () {
-                    $log.info('Modal dismissed at: ' + new Date());
-                });
-            }
-            */
 
             $scope.friendListModal = function () {
 
@@ -180,7 +166,6 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 modalInstance.result.then(function(selectedItem){
                     $scope.selected = selectedItem;
                 }, function(){
-                    //$scope.
                 });
             };
 
