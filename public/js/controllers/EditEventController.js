@@ -3,11 +3,11 @@ app.controller('EditEventController', function($scope, $modalInstance, myEvent){
     $scope.myEvent = myEvent;
 
     $scope.save = function () {
-        $modalInstance.close(myEvent);
+        $modalInstance.close("save", myEvent);
     };
 
     $scope.deleteEvent = function () {
-        $modalInstance.close();
+        $modalInstance.close("delete", undefined);
     };
 
     $scope.cancel = function () {
