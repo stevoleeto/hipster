@@ -59,8 +59,6 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             userService.setEmail(currentUser.get("username")); 
             userService.setName($scope.userName);
 
-
-
             $scope.addFriendModal = function(){
                 var modalInstance = $modal.open({
                     animation: $scope.animationsEnabled,
@@ -186,22 +184,24 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 });
             };
 
-            $scope.editGroupModal = function (size) {
-
+            $scope.editGroupModal = function (oldName, oldColor) {
                 var modalInstance = $modal.open({
                     animation: $scope.animationsEnabled,
                     templateUrl: 'editGroup.html',
-                    controller: 'ModalInstanceCtrl',
-                    size: size,
+                    controller: 'EditGroupController',
+                    size: 'lg',
                     resolve: {
-                        items: function () {
-                            return $scope.items;
+                        oldInfo: function () {
+                            return {name: oldName, color: oldColor};
                         }
                     }
                 });
 
-                modalInstance.result.then(function (selectedItem) {
-                    $scope.selected = selectedItem;
+                modalInstance.result.then(function (newGroupSettings) {
+                    console.log("NEW GROUP SETTINGS. TODO: UPDATE DATABASE WITH THESE VALUES!!");
+                    console.log(newGroupSettings.newName);
+                    console.log(newGroupSettings.newColor);
+
                 }, function () {
                     $scope.myGroupList = userService.getNewGroupList();
                     //$log.info('Modal dismissed at: ' + new Date());
