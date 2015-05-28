@@ -470,7 +470,7 @@ input
     margin-left:10px;
 }
 
-#colorBtn {
+.colorFade {
     transition: background .5s;
 }
 
