@@ -77,22 +77,21 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 
             }
 
-            $scope.friendsModal = function (size) {
+            $scope.friendListModal = function () {
 
                 var modalInstance = $modal.open({
                     animation: $scope.animationsEnabled,
                     templateUrl: 'friendList.html',
-                    controller: 'ModalInstanceCtrl',
-                    size: size,
+                    controller: 'FriendListController',
+                    size: 'lg',
                     resolve: {
-                        items: function () {
-                            return $scope.items;
+                        friendList: function () {
+                            return $scope.friendList;
                         }
                     }
                 });
 
                 modalInstance.result.then(function (selectedItem) {
-                    $scope.selected = selectedItem;
                 }, function () {
                     $log.info('Modal dismissed at: ' + new Date());
                 });
@@ -507,6 +506,17 @@ $scope.removeAllEvents = function(){
 }
 
 var addFriend = function(newFriend) {
+    var User = Parse.Object.extend("User");
+    var query = new Parse.Query(User);
+    query.equalTo("username", newFriend);
+    query.find().then(function(pulledFriend) {
+        $scope.friendList.push({email: newFriend, name:pulledFriend[0].attributes.name});
+        currentUser.set("friendList", $scope.friendList);
+        currentUser.save();
+    });
+}
+
+var viewFriends = function(newFriend) {
     var User = Parse.Object.extend("User");
     var query = new Parse.Query(User);
     query.equalTo("username", newFriend);
