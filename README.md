@@ -2,15 +2,13 @@
 #Team HIPSTER
 
 
-###TESTER INFROMATION
-
-Sign in information:
+#Sign in information:
 
 Email: BusyBlocksTester@gmail.com
 
 Password: busyblocktester
 
-Additional Information
+#Additional Information
 
 Email / Gmail Account: BusyBlocksTester@gmail.com
 
