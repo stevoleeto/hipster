@@ -184,6 +184,8 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 });
             };
 
+            /* END MODAL SECTION */
+
                                                                                                                      
 
             $scope.dayRepeat = {
