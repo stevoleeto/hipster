@@ -5,8 +5,6 @@ app.service('dataBaseService',['$q', function($q){
     var queryGroupList = function(newEmail){
         /* $q is a promise service, we can ask it to wait until something is done
          * then return a promise */
-        console.log("INE DB SERVICE EMAIL: ");
-            console.log(newEmail);
         var deferred = $q.defer();
         var GroupList = Parse.Object.extend("GroupList");
         var query = new Parse.Query(GroupList);
@@ -14,8 +12,6 @@ app.service('dataBaseService',['$q', function($q){
 
         /* this will be resolved before returned promise */
         query.find().then(function(pulledList) {
-            console.log("in database service");
-            console.log(pulledList);
             deferred.resolve(pulledList);
         })
         return deferred.promise;

@@ -101,7 +101,6 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
       minTime: '06:00:00',
       maxTime: '22:00:00',
       dayClick: function(date, jsEvent, view) {
-        console.log("Clicked on " + date.format());
       },
           allDaySlot:false
       }
@@ -126,12 +125,8 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
       /* initialize group data and get an array of the member's events 
        * through a callback */
       groupService.initGroup().then(function(returnedEvents){
-        console.log("RETURNED EVENTS");
-        console.log(returnedEvents);
         $scope.groupName = groupService.getGroupName();
         $scope.memberList = groupService.getMemberList();
-        console.log("MEMBER LIST");
-        console.log($scope.memberList);
         /* iterate through the returned events array and push all events 
          * into our source */
         for(index = 0; index < returnedEvents.length; index++){

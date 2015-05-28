@@ -184,8 +184,6 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 modalInstance.result.then(function (groupList) {
                     $scope.selected = selectedItem;
                 }, function (groupList) {
-                    console.log("OUTPUT OF MODAL");
-                    console.log(groupList);
                     $scope.myGroupList = userService.getNewGroupList();
                     //$log.info('Modal dismissed at: ' + new Date());
 
@@ -272,7 +270,6 @@ $scope.uiConfig = {
                 }
             });
                modalInstance.result.then(function (newEvent) {
-                   console.log(newEvent);
                    event.color = newEvent.color;
                    event.title = newEvent.title;
                    $scope.eventClicked = event;
@@ -309,7 +306,6 @@ $scope.addGroup = function(){
 
 $scope.updateSingleGroupTab = function(name){
     $scope.singleGroupName = name;
-    console.log($scope.singleGroupName);
 }
 
 
@@ -403,14 +399,11 @@ $scope.createGroup = function(){
                 $scope.myGroupList.push({id: pulledGroup[0].id, name: pulledGroup[0]._serverData.name, color: "#B5FBA3"});
                 queryGroupList[0].set("userGroups", $scope.myGroupList);
                 queryGroupList[0].save();
-                console.log(queryGroupList[0]);
             })
         });
     }
     else{userService.createGroup($scope.userName, $scope.email, $scope.myGroupList, $scope.newGroupName, $scope.groupColor).then(function(){
         /* this is to ensure scope gets applied even if query takes a bit too long*/
-        console.log("IN CONTROLLER");
-        console.log($scope.email);
         $timeout(function(){$scope.$apply()}, 150);
     });
     /* clear text box */
@@ -523,7 +516,6 @@ $scope.addFriend = function() {
     query.equalTo("username", $scope.newFriend);
     query.find().then(function(pulledFriend) {
         $scope.friendList.push({email: $scope.newFriend, name:pulledFriend[0].attributes.name});
-        console.log($scope.friendList);
         currentUser.set("friendList", $scope.friendList);
         currentUser.save();
     });
@@ -531,8 +523,6 @@ $scope.addFriend = function() {
 
 $scope.deleteEvent = function(){
 
-    console.log($scope.eventClicked);
-    console.log($scope.eventArray);
     var tempArray = [];
     while($scope.eventArray.length != 0){
       if($scope.eventClicked.id == $scope.eventArray[$scope.eventArray.length - 1].id){
@@ -560,7 +550,6 @@ $scope.editEvent = function(){
         if($scope.eventClicked.id == $scope.eventArray[index].id){
             $scope.eventArray[index].color = $scope.eventClicked.color;
             $scope.eventArray[index].title = $scope.eventClicked.title;
-            console.log($scope.eventArray[index]);
 
         }
     }
@@ -598,12 +587,6 @@ $scope.settingsSave = function(){
         currentUser.set("userIcon", newIcon);
         good = true;
     }
-
-    console.log('name: ' + $scope.newUserName);
-    console.log('email: ' + $scope.newEmail);
-    console.log('password: ' + $scope.newPassword);
-    console.log('calId: ' + $scope.googleCalendarID);
-    console.log('icon: ' + $scope.newUserName);
 
     if (good) {
         $scope.saveLabel = true;
@@ -726,7 +709,6 @@ app.controller('CollapseInstanceCtrl', function ($scope) {
 
     //Sets the selected field of all icons except for the one clicked on to 0. Sets selected field of clicked on icon to 1.
     //Allows ng-class to assign the selected class css to only the icon clicked on.
-    console.log(myEvent);
     $scope.clearSel = function(event) {
         //Loops through each element of the array
         angular.forEach(icons, function(icon) {

@@ -31,8 +31,6 @@ app.service('userService',['$q','googleCalendarService', 'dataBaseService' ,func
   var getGroupList = function(newEmail){
     var deferred = $q.defer();
     dataBaseService.queryGroupList(newEmail).then(function(groupListQuery){
-        console.log("IN SERVICE");
-        console.log(groupListQuery);
         groupList = groupListQuery[0].get("userGroups");
         deferred.resolve(groupListQuery[0].get("userGroups"));   
     });
