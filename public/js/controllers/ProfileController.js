@@ -59,9 +59,30 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             userService.setEmail(currentUser.get("username")); 
             userService.setName($scope.userName);
 
-
+            var openModal = function(template, ctrl, size, param ){
+                console.log(ctrl);
+                var modalInstance = $modal.open({
+                    animation: true,
+                    templateUrl: template,
+                    controller: ctrl,
+                    size: size,
+                    resolve: {
+                        modalParams: function () {
+                            return param;
+                        }
+                    }
+                });
+                return modalInstance.result
+            }
 
             $scope.addFriendModal = function(){
+                openModal( 'addFriend.html', 'AddFriendController', 'lg').then(function(newFriend){
+                    addFriend(newFriend);
+                }, function(){
+                    $log.info('Modal dismissed at: ' + new Date());
+                });
+            };
+            /*
                 var modalInstance = $modal.open({
                     animation: $scope.animationsEnabled,
                     templateUrl: 'addFriend.html',
@@ -74,8 +95,8 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 }, function () {
                     $log.info('Modal dismissed at: ' + new Date());
                 });
-
             }
+            */
 
             $scope.friendsModal = function (size) {
 
@@ -303,25 +324,6 @@ $scope.addGroup = function(){
 $scope.updateSingleGroupTab = function(name){
     $scope.singleGroupName = name;
 }
-
-
-/* Function: Date
- * Desciption: Called to get a new date object, offset will offset the hour. Minutes and seconds and milliseconds
- * 			 set to 0.
- *
- */
-$scope.Date = function(hourOffset){
-    var date =  new Date();
-    date.setMinutes(0);
-    date.setMilliseconds(0);
-    date.setSeconds(0);
-    if(hourOffset){
-        date.setHours(date.getHours() + hourOffset);
-    }
-
-    return date;
-};
-
 
 
 /************************************************************************

@@ -181,7 +181,6 @@
             
         	<div ng-init="groupView=false" ng-show="groupView" id="groupView">
             	<div>
-<!--                	<div ng-click="removeAllGroups()" class="btn2">Remove ALL Group</div>-->
                             <div ng-repeat="group in myGroupList track by $index" class ="groupSelect card"  
                                ng-style="{background:group.color}">
 
@@ -231,10 +230,18 @@
                             <br><br>
 
                             <div ng-controller="PopoverInstanceCtrl">
-                                <center><button Popover-animation="true" popover-template="repDays.templateUrl" popover-placement="bottom" class="btn btn-default" popover-title="Select Repeating Days">Set Repeating</button></center>
+                                <center>
+                                    <button Popover-animation="true" popover-template="repDays.templateUrl" popover-placement="bottom" class="btn btn-default" popover-title="Select Repeating Days">Set Repeating</button>
+                                </center>
                                 <script type="text/ng-template" id="repDays.html">
                                     <div class="repDays">
-                                    <label class="btn btn-primary" ng-model="dayRepeat.monday" btn-checkbox>Mon</label><label class="btn btn-primary" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</label><label class="btn btn-primary" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</label><label class="btn btn-primary" ng-model="dayRepeat.thursday" btn-checkbox>Thu</label><label class="btn btn-primary" ng-model="dayRepeat.friday" btn-checkbox>Fri</label><label class="btn btn-primary" ng-model="dayRepeat.saturday" btn-checkbox>Sat</label><label class="btn btn-primary" ng-model="dayRepeat.sunday" btn-checkbox>Sun</label>
+                                    <label class="btn btn-primary" ng-model="dayRepeat.monday" btn-checkbox>Mon</label>
+                                    <label class="btn btn-primary" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</label>
+                                    <label class="btn btn-primary" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</label>
+                                    <label class="btn btn-primary" ng-model="dayRepeat.thursday" btn-checkbox>Thu</label>
+                                    <label class="btn btn-primary" ng-model="dayRepeat.friday" btn-checkbox>Fri</label>
+                                    <label class="btn btn-primary" ng-model="dayRepeat.saturday" btn-checkbox>Sat</label>
+                                    <label class="btn btn-primary" ng-model="dayRepeat.sunday" btn-checkbox>Sun</label>
                                     </div>
                                 </script>
                             </div>
