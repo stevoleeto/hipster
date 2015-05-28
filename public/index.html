@@ -34,6 +34,7 @@
     	<script src="js/controllers/ProfileController.js"></script>
         <script src="js/controllers/GroupController.js"></script>
         <script src="js/controllers/EditEventController.js"></script>
+        <script src="js/controllers/AddFriendController.js"></script>
         <!-- Services -->
         <script src="js/services/googleCalendarService.js"></script>
         <script src="js/services/dataBaseService.js"></script>
@@ -85,7 +86,7 @@
             <div class="btn-group" dropdown>
                 <div class = "friendsOptionsBtn" ng-show="homeView" dropdown-toggle></div>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                        <li><a ng-click="open('lg')">Add Friend</a></li>
+                        <li><a ng-click="addFriendModal()">Add Friend</a></li>
                         <li><a ng-click="friendsModal('lg')">View Friends List</a></li>
                     </ul>
             </div>
@@ -285,13 +286,13 @@
         *   -------------------------------------------------------------
         *   -------------------------------------------------------------
         -->
-        <script type="text/ng-template" id="myModalContent.html">
+        <script type="text/ng-template" id="addFriend.html">
             <div class="modal-header">
                 <h3 class="modal-title">Add a Friend</h3>
             </div>
             <div class="modal-body">
             	<p>Friend&#39;s Email</p>
-            	<input placeholder="Enter Friend's Email" type="text">
+            	<input ng-model="newFriend" placeholder="Enter Friend's Email" type="text">
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary" ng-click="ok()">OK</button>

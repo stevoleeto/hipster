@@ -60,26 +60,22 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             userService.setName($scope.userName);
 
 
-            $scope.open = function (size) {
 
+            $scope.addFriendModal = function(){
                 var modalInstance = $modal.open({
                     animation: $scope.animationsEnabled,
-                    templateUrl: 'myModalContent.html',
-                    controller: 'ModalInstanceCtrl',
-                    size: size,
-                    resolve: {
-                        items: function () {
-                            return $scope.items;
-                        }
-                    }
+                    templateUrl: 'addFriend.html',
+                    controller: 'AddFriendController',
+                    size: 'lg'
                 });
 
-                modalInstance.result.then(function (selectedItem) {
-                    $scope.selected = selectedItem;
+                modalInstance.result.then(function (newFriend) {
+                    addFriend(newFriend);
                 }, function () {
                     $log.info('Modal dismissed at: ' + new Date());
                 });
-            };
+
+            }
 
             $scope.friendsModal = function (size) {
 
@@ -510,12 +506,12 @@ $scope.removeAllEvents = function(){
     }, 2000);
 }
 
-$scope.addFriend = function() {
+var addFriend = function(newFriend) {
     var User = Parse.Object.extend("User");
     var query = new Parse.Query(User);
-    query.equalTo("username", $scope.newFriend);
+    query.equalTo("username", newFriend);
     query.find().then(function(pulledFriend) {
-        $scope.friendList.push({email: $scope.newFriend, name:pulledFriend[0].attributes.name});
+        $scope.friendList.push({email: newFriend, name:pulledFriend[0].attributes.name});
         currentUser.set("friendList", $scope.friendList);
         currentUser.save();
     });
