@@ -35,6 +35,8 @@
         <script src="js/controllers/GroupController.js"></script>
         <script src="js/controllers/EditEventController.js"></script>
         <script src="js/controllers/AddFriendController.js"></script>
+        <script src="js/controllers/FriendListController.js"></script>
+
         <!-- Services -->
         <script src="js/services/googleCalendarService.js"></script>
         <script src="js/services/dataBaseService.js"></script>
@@ -87,7 +89,7 @@
                 <div class = "friendsOptionsBtn" ng-show="homeView" dropdown-toggle></div>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                         <li><a ng-click="addFriendModal()">Add Friend</a></li>
-                        <li><a ng-click="friendsModal('lg')">View Friends List</a></li>
+                        <li><a ng-click="friendListModal()">View Friends List</a></li>
                     </ul>
             </div>
             
@@ -351,20 +353,18 @@
         </script>
 
         <script type="text/ng-template" id="friendList.html">
-        	<div ng-controller="ProfileController">
-	            <div class="modal-header">
-	                <h3 class="modal-title">Your Friends</h3>
-	            </div>
-	            <div class="modal-body">
-	                <ul>
-	                    <li ng-repeat="friend in friendList track by $index">{{ friend.name }} ({{ friend.email }})</li>
-	                </ul>
-	            </div>
-	            <div class="modal-footer">
-	                <button class="btn btn-primary" ng-click="ok()">OK</button>
-	                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-	            </div>
-           	</div>
+            <div class="modal-header">
+                <h3 class="modal-title">Your Friends</h3>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li ng-repeat="friend in friendList track by $index">{{ friend.name }} ({{ friend.email }})</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+<!--                <button class="btn btn-primary" ng-click="ok()">OK</button>-->
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
         </script>
 
 
