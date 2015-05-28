@@ -1,6 +1,6 @@
-app.controller('FriendListController', function($scope, $modalInstance, friendList){
+app.controller('FriendListController', function($scope, $modalInstance, modalParams){
     
-    $scope.friendList = friendList;
+    $scope.friendList = modalParams;
     
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');

@@ -1,7 +1,7 @@
-app.controller('EditGroupController', function($scope, $modalInstance, oldInfo){
+app.controller('EditGroupController', function($scope, $modalInstance, modalParams){
 
-    $scope.newGroupName = oldInfo.name;
-    $scope.newGroupColor = oldInfo.color;
+    $scope.newGroupName = modalParams.name;
+    $scope.newGroupColor = modalParams.color;
 
     $scope.ok = function(){
         $scope.newGroupSettings = {

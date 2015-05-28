@@ -59,6 +59,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             userService.setEmail(currentUser.get("username")); 
             userService.setName($scope.userName);
 
+            /* MODAL FUNCTION */
             var openModal = function(template, ctrl, size, param ){
                 console.log(ctrl);
                 var modalInstance = $modal.open({
@@ -75,8 +76,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 return modalInstance.result
             }
 
-
-
+            /* COMPLETED MODALS */
             $scope.addFriendModal = function(){
                 openModal( 'addFriend.html', 'AddFriendController', 'lg').then(function(newFriend){
                     addFriend(newFriend);
@@ -85,26 +85,22 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 });
             };
 
+            $scope.editGroupModal = function (oldName, oldColor) {
+
+                openModal('editGroup.html', 'EditGroupController', 'lg', {name: oldName, color: oldColor}).then(function (newGroupSettings) {
+                }, function () {
+                    $scope.myGroupList = userService.getNewGroupList();
+                });
+            };
+
 
             $scope.friendListModal = function () {
-
-                var modalInstance = $modal.open({
-                    animation: $scope.animationsEnabled,
-                    templateUrl: 'friendList.html',
-                    controller: 'FriendListController',
-                    size: 'lg',
-                    resolve: {
-                        friendList: function () {
-                            return $scope.friendList;
-                        }
-                    }
-                });
-
-                modalInstance.result.then(function (selectedItem) {
+                openModal('friendList.html', 'FriendListController', 'lg', $scope.friendList).then(function () {
                 }, function () {
                     $log.info('Modal dismissed at: ' + new Date());
                 });
             };
+            /* END COMPLETED MODALS */
 
             $scope.settingsModal = function (size) {
                 var modalInstance = $modal.open({
@@ -188,31 +184,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 });
             };
 
-            $scope.editGroupModal = function (oldName, oldColor) {
-                console.log(oldName);
-                console.log(oldColor);
-                var modalInstance = $modal.open({
-                    animation: $scope.animationsEnabled,
-                    templateUrl: 'editGroup.html',
-                    controller: 'EditGroupController',
-                    size: 'lg',
-                    resolve: {
-                        oldInfo: function () {
-                            return {name: oldName, color: oldColor};
-                        }
-                    }
-                });
-
-                modalInstance.result.then(function (newGroupSettings) {
-                    console.log("NEW GROUP SETTINGS. TODO: UPDATE DATABASE WITH THESE VALUES!!");
-                    console.log(newGroupSettings.newName);
-                    console.log(newGroupSettings.newColor);
-                }, function () {
-                    $scope.myGroupList = userService.getNewGroupList();
-                    //$log.info('Modal dismissed at: ' + new Date());
-
-                });
-            };                                                                                                                     
+                                                                                                                     
 
             $scope.dayRepeat = {
                 monday : false,
