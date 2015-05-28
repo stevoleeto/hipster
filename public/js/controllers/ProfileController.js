@@ -170,22 +170,17 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             };
 
 
-            $scope.addGroupModal = function (size) {
+            $scope.addGroupModal = function () {
 
                 var modalInstance = $modal.open({
                     animation: $scope.animationsEnabled,
                     templateUrl: 'addGroup.html',
-                    controller: 'ModalInstanceCtrl',
-                    size: size,
-                    resolve: {
-                        items: function () {
-                            return $scope.myGroupList;
-                        }
-                    }
+                    controller: 'AddGroupController',
+                    size: 'lg'
                 });
-
-                modalInstance.result.then(function (groupList) {
-                    $scope.selected = selectedItem;
+                modalInstance.result.then(function (groupInfo) {
+                    
+                    createGroup(groupInfo.groupName, groupInfo.groupColor);
                 }, function (groupList) {
                     $scope.myGroupList = userService.getNewGroupList();
                     //$log.info('Modal dismissed at: ' + new Date());
@@ -374,8 +369,8 @@ $scope.logout = function(){
 
  * Description: Creates a new group, and adds the new group to the GroupList userGroups array for both the current user the and user they have selected.
  ************************************************************************/
-$scope.createGroup = function(){
-    if ($scope.newGroupName == undefined){
+createGroup = function(groupName, groupColor){
+    if (groupName == undefined){
         var Group = Parse.Object.extend("Group");
         var query = new Parse.Query(Group);
         query.get($scope.newGroupCode);
@@ -391,14 +386,14 @@ $scope.createGroup = function(){
             })
         });
     }
-    else{userService.createGroup($scope.userName, $scope.email, $scope.myGroupList, $scope.newGroupName, $scope.groupColor).then(function(){
+    else{userService.createGroup($scope.userName, $scope.email, $scope.myGroupList, groupName, groupColor).then(function(){
         /* this is to ensure scope gets applied even if query takes a bit too long*/
         $timeout(function(){$scope.$apply()}, 150);
     });
     /* clear text box */
-    $scope.newGroupName = '';
+    groupName = '';
     }
-
+    
 }
 
 /************************************************************************

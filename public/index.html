@@ -37,6 +37,8 @@
         <script src="js/controllers/AddFriendController.js"></script>
         <script src="js/controllers/EditGroupController.js"></script>
         <script src="js/controllers/FriendListController.js"></script>
+        <script src="js/controllers/AddGroupController.js"></script>
+
 
         <!-- Services -->
         <script src="js/services/googleCalendarService.js"></script>
@@ -187,24 +189,27 @@
             	<div>
                     <div ng-repeat="group in myGroupList track by $index" class ="groupSelect card"  
                        ng-style="{background:group.color}">
-                        <div id="groupClick"
-                             ng-click="$parent.profileView=false; 
-                              $parent.groupView=false; 
-                              $parent.$parent.singleGroupView=true; 
-                              $parent.currentGroupId = group.id; 
-                              $parent.currentGroupColor = group.color;
-                              addGroup(); $parent.updateSingleGroupTab(group.name)" ng-attr-title="{{ group.name }}">
-                            <p>{{ group.name | limitTo:12 }}{{ group.name.length > 12 ? '...' : '' }}</p>
-                        </div>
-                        <div ng-controller="PopoverInstanceCtrl">
-                        <div ng-click="editGroupModal(group.name, group.color)" id="pencil"></div> 
-                        <div Popover-animation="true" popover-template="confirmRemove.templateUrl" popover-trigger="focus"  
-                             popover-placement="top" id="minus" popover-title="Confirm Remove" tabindex="0"></div>
-                        <script type="text/ng-template" id="confirmRemove.html">
-                            <button class="btn btn-danger" ng-click="removeGroup(group.id);">Delete</button>
-                        </script>
-                    </div>
-                    </div>
+
+
+                                <div id = "groupClick"
+                                     ng-click="$parent.profileView=false; 
+                                      $parent.groupView=false; 
+                                      $parent.$parent.singleGroupView=true; 
+                                      $parent.currentGroupId = group.id; 
+                                      $parent.currentGroupColor = group.color;
+                                      addGroup(); $parent.updateSingleGroupTab(group.name)" ng-attr-title="{{ group.name }}">
+                                    <p>{{ group.name | limitTo:12 }}{{ group.name.length > 12 ? '...' : '' }}</p>
+                                </div>
+                                <div ng-controller="PopoverInstanceCtrl">
+                                    <div ng-click="editGroupModal()" id="pencil"></div> 
+                                    <div Popover-animation="true" popover-template="confirmRemove.templateUrl" popover-trigger="focus"  
+                                         popover-placement="top" id="minus" popover-title="Confirm Remove" tabindex="0"></div>
+                                    <script type="text/ng-template" id="confirmRemove.html">
+                                        <button class="btn btn-danger" ng-click="removeGroup(group.id);">Delete</button>
+                                    </script>
+                                </div>
+                            </div>
+
     
                     <div ng-click="addGroupModal()" id="addGroupBtn"></div>
             	</div>
@@ -542,7 +547,7 @@
         </script>
                     
         <script type="text/ng-template" id="addGroup.html">
-            <div ng-controller="ProfileController">
+
                 <div class="modal-header">
                     <h3 class="modal-title">Add a Group</h3>
                 </div>
@@ -575,10 +580,9 @@
                     <br><br><br>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" ng-click="createGroup(); cancel()">OK</button>
+                    <button class="btn btn-primary" ng-click="ok()">OK</button>
                     <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
                 </div>
-            </div>
         </script>
     </body>
 </html>
