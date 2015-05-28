@@ -189,6 +189,8 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             };
 
             $scope.editGroupModal = function (oldName, oldColor) {
+                console.log(oldName);
+                console.log(oldColor);
                 var modalInstance = $modal.open({
                     animation: $scope.animationsEnabled,
                     templateUrl: 'editGroup.html',
