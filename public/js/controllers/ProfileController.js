@@ -146,26 +146,6 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 $scope.animationsEnabled = !$scope.animationsEnabled;
             };
 
-            $scope.eventDetailModal = function(){
-                var modalInstance = $modal.open({
-                    animation: $scope.animationsEnabled,
-                    templateUrl: 'eventDetail.html',
-                    controller: 'ModalInstanceCtrl',
-                    size: lg,
-                    resolve: {
-                        items: function(){
-                            return scope.items;
-                        }
-                    }
-                });
-
-                modalInstance.result.then(function(selectedItem){
-                    $scope.selected = selectedItem;
-                }, function(){
-                });
-            };
-
-
             $scope.addGroupModal = function () {
 
                 var modalInstance = $modal.open({
@@ -231,25 +211,14 @@ $scope.uiConfig = {
         eventClick: function(event, jsEvent, view) {
             eventService.setSelectedEvent(event);
 
-            var modalInstance = $modal.open({
-                animation: $scope.animationsEnabled,
-                templateUrl: 'editMyEvent.html',
-                controller: 'EditEventController',
-                size: "lg",
-                resolve: {
-                    myEvent: function () {
-                        return event;
-                    }
-                }
-            });
-               modalInstance.result.then(function (modalObject) {
-                   if(modalObject.state == "save"){
-                       event.color = modalObject.theEvent.color;
-                       event.title = modalObject.theEvent.title;
+               openModal('editMyEvent.html','EditEventController', 'lg',event).then(function (savedEvent) {
+                   if(savedEvent){ //save it
+                       event.color = savedEvent.color;
+                       event.title = savedEvent.title;
                        $scope.eventClicked = event;
                        $scope.editEvent();
                    }
-                   else if (modalObject.state == "delete"){
+                   else{ // delete it
                        $scope.eventClicked = event;
                        $scope.deleteEvent();
                    }
