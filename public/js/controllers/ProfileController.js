@@ -101,7 +101,14 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                     $log.info('Modal dismissed at: ' + new Date());
                 });
             };
-            /* END COMPLETED MODALS */
+
+            $scope.groupInfoModal = function(){
+                openModal('groupInfo.html', 'GroupInfoController', 'lg', {}).then(function (){
+
+                }, function(){
+
+                });
+            };
 
             $scope.accountSettingsModal = function () {
                 openModal('accountSettings.html', 'AccountSettingsController', 'lg', {name: $scope.userName, email: $scope.email, google: $scope.googleID, icon: $scope.icon}).then(function (newAccountSettings) {
@@ -114,25 +121,27 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 });
             };
 
-            $scope.groupInfoModal = function (size) {
-                var modalInstance = $modal.open({
-                    animation: $scope.animationsEnabled,
-                    templateUrl: 'groupInfo.html',
-                    controller: 'ModalInstanceCtrl',
-                    size: size,
-                    resolve: {
-                        items: function () {
-                            return $scope.items;
-                        }
-                    }
-                });
+            /* END COMPLETED MODALS */
 
-                modalInstance.result.then(function (selectedItem) {
-                    $scope.selected = selectedItem;
-                }, function () {
-                    $log.info('Modal dismissed at: ' + new Date());
-                });
-            };
+            // $scope.groupInfoModal = function (size) {
+            //     var modalInstance = $modal.open({
+            //         animation: $scope.animationsEnabled,
+            //         templateUrl: 'groupInfo.html',
+            //         controller: 'ModalInstanceCtrl',
+            //         size: size,
+            //         resolve: {
+            //             items: function () {
+            //                 return $scope.items;
+            //             }
+            //         }
+            //     });
+
+            //     modalInstance.result.then(function (selectedItem) {
+            //         $scope.selected = selectedItem;
+            //     }, function () {
+            //         $log.info('Modal dismissed at: ' + new Date());
+            //     });
+            // };
 
             $scope.toggleAnimation = function () {
                 $scope.animationsEnabled = !$scope.animationsEnabled;
