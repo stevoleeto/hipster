@@ -1,5 +1,6 @@
 app.controller('EditEventController', function($scope, $modalInstance, modalParams){
-
+    console.log("EditEventController");
+    console.log(modalParams);
     $scope.myEvent = modalParams;
 
     $scope.save = function () {

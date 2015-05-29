@@ -54,7 +54,6 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             $scope.googleID = currentUser.get("googleAcct");
             $scope.eventColor = {mine : '#B9F5FF'};
             $scope.eventEditColor = {color : eventService.getSelectedEvent().color };
-            $scope.eventClicked = eventService.getSelectedEvent();
 
             //set users email in service
             userService.setEmail(currentUser.get("username")); 
@@ -62,7 +61,6 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 
             /* MODAL FUNCTION */
             var openModal = function(template, ctrl, size, param ){
-                console.log(ctrl);
                 var modalInstance = $modal.open({
                     animation: true,
                     templateUrl: template,
@@ -109,9 +107,6 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 
                 });
             };
-            /* COMPLETED MODALS */
-
-
 
             $scope.accountSettingsModal = function () {
                 openModal('accountSettings.html', 'AccountSettingsController', 'lg', {name: $scope.userName, email: $scope.email, google: $scope.googleID, icon: $scope.icon}).then(function (newAccountSettings) {
@@ -124,27 +119,39 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 });
             };
 
+            $scope.addGroupModal = function () {
+
+                openModal('addGroup.html', 'AddGroupController', 'lg').then(function (groupInfo){
+                    createGroup(groupInfo.groupName, groupInfo.groupColor);
+                }, function (groupList){
+                    $scope.myGroupList = userService.getNewGroupList();
+                });
+            };
+
+            var editEventModal = function(eventClicked){
+                openModal('editMyEvent.html','EditEventController', 'lg',eventClicked).then(function (savedEvent) {
+                   if(savedEvent){ //save it
+                       editEvent(eventClicked);
+                   }
+                   else{ // delete it
+                       deleteEvent(eventClicked);
+                   }
+               }, function () {
+                   $log.info('Modal dismissed at: ' + new Date());
+               });
+
+            }
+            /* COMPLETED MODALS */
+
+
+
+            
+
             $scope.toggleAnimation = function () {
                 $scope.animationsEnabled = !$scope.animationsEnabled;
             };
 
-            $scope.addGroupModal = function () {
-
-                var modalInstance = $modal.open({
-                    animation: $scope.animationsEnabled,
-                    templateUrl: 'addGroup.html',
-                    controller: 'AddGroupController',
-                    size: 'lg'
-                });
-                modalInstance.result.then(function (groupInfo) {
-                    
-                    createGroup(groupInfo.groupName, groupInfo.groupColor);
-                }, function (groupList) {
-                    $scope.myGroupList = userService.getNewGroupList();
-                    //$log.info('Modal dismissed at: ' + new Date());
-
-                });
-            };
+            
 
             /* END MODAL SECTION */
 
@@ -191,22 +198,7 @@ $scope.uiConfig = {
         minTime: '06:00:00',
         maxTime: '22:00:00',
         eventClick: function(event, jsEvent, view) {
-            eventService.setSelectedEvent(event);
-
-               openModal('editMyEvent.html','EditEventController', 'lg',event).then(function (savedEvent) {
-                   if(savedEvent){ //save it
-                       event.color = savedEvent.color;
-                       event.title = savedEvent.title;
-                       $scope.eventClicked = event;
-                       $scope.editEvent();
-                   }
-                   else{ // delete it
-                       $scope.eventClicked = event;
-                       $scope.deleteEvent();
-                   }
-               }, function () {
-                   $log.info('Modal dismissed at: ' + new Date());
-               });
+            editEventModal(event);
         },
         select: function(start, end, jsEvent, view){
             $scope.eventStartDate = (start.local()).toDate();
@@ -437,13 +429,13 @@ var viewFriends = function(newFriend) {
     });
 }
 
-$scope.deleteEvent = function(){
+ var deleteEvent = function(eventClicked){
 
     var tempArray = [];
     $scope.eventSources.length = 0;
 
     for(index = 0; index < $scope.eventArray.length; index++){
-      if($scope.eventClicked.id !== $scope.eventArray[index].id){
+      if(eventClicked.id !== $scope.eventArray[index].id){
         tempArray.push($scope.eventArray[index]);
       }
     }
@@ -454,14 +446,14 @@ $scope.deleteEvent = function(){
     currentUser.save();
 }
 
-$scope.editEvent = function(){
+var editEvent = function(eventClicked){
     var tempArray = [];
     $scope.eventSources.length = 0;
 
     for(index = 0; index < $scope.eventArray.length; index++){
-        if($scope.eventClicked.id == $scope.eventArray[index].id){
-            $scope.eventArray[index].color = $scope.eventClicked.color;
-            $scope.eventArray[index].title = $scope.eventClicked.title;
+        if(eventClicked.id == $scope.eventArray[index].id){
+            $scope.eventArray[index].color = eventClicked.color;
+            $scope.eventArray[index].title = eventClicked.title;
 
         }
     }
