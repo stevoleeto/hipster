@@ -409,15 +409,14 @@
                     <tab heading="Profile Settings">
                         <br>
                         <center>
-                            <div id="lblSuccess" ng-show="saveLabel">Your settings saved successfully!</div>
-                            <div id="lblError" ng-show="errLabel">Error saving settings!</div>
+                            <div id="lblSuccess" ng-show="saveLabel"> Everything looks good!</div>
+                            <div id="lblError" ng-show="errLabel">{{errMsg}}</div>
                         </center>
                         <label for="username" style="display:inline-block;width:150px;">User Name:</label>
-                        <input style="width:50%;margin-bottom:15px;" value="{{newName}}" ng-model="newName" name="username"><br>
+                        <input style="width:50%;margin-bottom:15px;" value="{{newName}}" ng-model="newName" name="username" ng-style="(newName.length > 0) ? {'border-bottom':'1px solid green'} : {'border-bottom':'1px solid red'}" required ng-pattern="/^[a-z']([a-z'_\s])+$/i"><br>
                         <label for="email" style="display:inline-block;width:150px;">Email:</label>
-                        <input style="width:50%;margin-bottom:15px;" value="{{newEmail}}" ng-model="newEmail"><br>
-                        <label for="password" style="display:inline-block;width:150px;">Password:</label>
-                        <input style="width:50%;margin-bottom:15px;" placeholder="Enter New Password" type="password" ng-model="newPassword"><br>
+                        <input style="width:50%;margin-bottom:15px;" value="{{newEmail}}" ng-model="newEmail" ng-style="(newEmail.length > 0) ? {'border-bottom':'1px solid green'} : {'border-bottom':'1px solid red'}" required ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/"><br>
+                        <div ng-click="editPassword()" class="btn btn-info">Change Password</div>
                         <button class="btn btn-default" ng-click="isCollapsed=!isCollapsed">User Icons</button><br><br>
                         <div collapse="isCollapsed">
                             <div class="well" id="colIcons">
@@ -431,7 +430,7 @@
                     <tab heading="Google Calendar Settings">
                         <br>
                         <label for="google" style="display:inline-block;width:150px;">Google Calendar ID:</label>
-                        <input style="width:50%;margin-bottom:15px;" value="{{newGoogleID}}" ng-model="newGoogleID"><br>
+                        <input style="width:50%;margin-bottom:15px;" value="{{newGoogleID}}" ng-model="newGoogleID" ng-style="( newGoogleID.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ((newGoogleID) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' })" ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" name="google" type="text"><br>
                         <accordion close-others="oneAtATime">
                             <accordion-group heading="How to Get Your Google Calendar ID">
                                 <p>Make your Google Calendar public:
@@ -470,7 +469,7 @@
                 </tabset>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-success" ng-click="settingsSave();">Update Profile</button>
+                <button class="btn btn-success" ng-click="saveSettings();">Update Profile</button>
                 <button class="btn btn-warning" ng-click="cancel()">Close</button>
             </div>
         </script>

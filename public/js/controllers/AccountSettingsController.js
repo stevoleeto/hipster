@@ -2,8 +2,9 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
 
     $scope.newName = modalParams.name;
     $scope.newEmail = modalParams.email;
-    $scope.newGoogleID = modalParams.google;
+    $scope.newGoogleID = (modalParams.google == undefined) ? ("") : (modalParams.google);
     $scope.newIcon = modalParams.icon;
+    $scope.saveSettingsFlag = 0;
     $scope.remEventsFlag = 0;
 
     //Don't display user icons on load
@@ -60,6 +61,48 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
         });
     };
 
+    $scope.saveSettings = function () {
+        if($scope.newName && $scope.newEmail) {
+            $scope.saveSettingsFlag = 1;
+        } else {
+            $scope.errMsg = "Errors found with name and/or email field(s)!";
+            $scope.errLabel = true;
+
+            setTimeout(function(){
+                $scope.errLabel = false;
+            }, 2000);
+        }
+
+        if(($scope.newGoogleID == "" || $scope.newGoogleID) && $scope.newName && $scope.newEmail) {
+            $scope.saveSettingsFlag = 1;
+            console.log($scope.newGoogleID);
+        } else {
+            $scope.errMsg = "Errors found with google calendar ID, name and/or email field(s)!";
+            $scope.errLabel = true;
+
+            setTimeout(function(){
+                $scope.errLabel = false;
+            }, 2000);
+        }
+
+        if($scope.saveSettingsFlag) {
+            $scope.saveLabel = true;
+
+            setTimeout(function(){
+                $scope.saveLabel = false;
+            }, 2000);
+        }
+    };
+
+    $scope.editPassword = function (){
+        Parse.User.requestPasswordReset( modalParams.email , {
+            success: function() {
+                alert("Due to security concerns, an email has been sent with instructions on how to change your password.");
+            },
+            error: function(error) {}
+        });
+    };
+
     $scope.removeAllEvents = function () {
         $scope.remEventsFlag = 1;
 
@@ -76,6 +119,7 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
             newUserEmail: $scope.newEmail,
             newGoogle: $scope.newGoogleID,
             newUserIcon: $scope.newIcon,
+            saveFlag: $scope.saveSettingsFlag,
             remFlag: $scope.remEventsFlag
         };
         
