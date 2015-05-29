@@ -102,8 +102,7 @@
                         <input name="sname" id="sName" type="text" ng-model="name" required ng-pattern="/^[a-z']([a-z'_\s])+$/i" placeholder="Name"
                              ng-style="( name.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (name) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )"><br><br>
 
-                        <input id="sEmail" type="email" ng-model="email" required ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" 
-                             ng-style="( email.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (email) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )" placeholder="Email"><br><br>
+                        <input id="sEmail" type="email" ng-model="email" required ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" ng-style="( email.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (email) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )" placeholder="Email"><br><br>
 
                         <input id="sPass" type="password" ng-model="password" ng-minlength="5" placeholder="Password"
                              ng-style="( password.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (password) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )"><br><br>
