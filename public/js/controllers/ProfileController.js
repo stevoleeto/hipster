@@ -51,6 +51,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             $scope.email = currentUser.get("username");
             $scope.eventArray = currentUser.get("personalSchedule");
             $scope.friendList = currentUser.get("friendList");
+            $scope.googleID = currentUser.get("googleAcct");
             $scope.eventColor = {mine : '#B9F5FF'};
             $scope.eventEditColor = {color : eventService.getSelectedEvent().color };
             $scope.eventClicked = eventService.getSelectedEvent();
@@ -102,22 +103,13 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             };
             /* END COMPLETED MODALS */
 
-            $scope.settingsModal = function (size) {
-                var modalInstance = $modal.open({
-                    animation: $scope.animationsEnabled,
-                    templateUrl: 'settings.html',
-                    controller: 'ModalInstanceCtrl',
-                    size: size,
-                    resolve: {
-                        items: function () {
-                            return $scope.items;
-                        }
+            $scope.accountSettingsModal = function () {
+                openModal('accountSettings.html', 'AccountSettingsController', 'lg', {name: $scope.userName, email: $scope.email, google: $scope.googleID, icon: $scope.icon}).then(function (newAccountSettings) {
+                    console.log(newAccountSettings);
+                    if(newAccountSettings.remFlag == 1) {
+                        $scope.removeAllEvents();
                     }
-                });
-
-                modalInstance.result.then(function (selectedItem) {
-                    $scope.selected = selectedItem;
-                }, function () {
+                }, function() {
                     $log.info('Modal dismissed at: ' + new Date());
                 });
             };
@@ -462,12 +454,6 @@ $scope.removeAllEvents = function(){
     $scope.eventSources.length = 0;
     currentUser.set("personalSchedule", []);
     currentUser.save();
-
-    $scope.remLabel = true;
-
-    setTimeout(function(){
-        $scope.remLabel = false;
-    }, 2000);
 }
 
 var addFriend = function(newFriend) {
@@ -629,68 +615,6 @@ app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
-});
-
-/************************************************************************
- * Name:        CollapseInstanceCtrl
-
- * Purpose:     Collapsibleontroller for Collapsible
-
- * Called In:   ProfileController
-
- * Description: This controller holds all the fields and functions
- associated wth the collapsible. This has fields and
- functions specifically designed for displaying the user 
- icons in the account settings modal.
- ************************************************************************/
-app.controller('CollapseInstanceCtrl', function ($scope) {
-    //Set the collapsible to be hidden initially
-    $scope.isCollapsed = true;
-
-    //Create an array to hold the icon objects. Think of this as an array of structs (c/c++).
-    var icons = $scope.icons = [];
-
-    //Add icons to the list by initializing fields and pushing onto the array
-    icons.push({
-        id: 1,
-        image: 'images/userIcon.png',
-        name: 'Super Hero',
-        selected: 1
-    });
-
-    //Note: this pushes the icons into the array in the following pattern: 
-    //Hipster Male 1, Hipster Female 1, Hipster Male 2, Hipster Female 2, Hipster Male 3, ... , Hipster Female 8
-    for (var i = 1; i <= 8; ++i) {
-        icons.push({
-            id: (i + 1),    /* Gives id's 2 - 9 */
-            image: 'images/hipsterMale' + i + '.png',
-            name: 'Hipster Male ' + i,
-            selected: 0
-        });
-        icons.push({
-            id: (i + 9),    /* Gives id's 10 - 17 */
-            image: 'images/hipsterFemale' + i + '.png',
-            name: 'Hipster Female ' + i,
-            selected: 0
-        });
-    }
-
-    //Sets the selected field of all icons except for the one clicked on to 0. Sets selected field of clicked on icon to 1.
-    //Allows ng-class to assign the selected class css to only the icon clicked on.
-    $scope.clearSel = function(event) {
-        //Loops through each element of the array
-        angular.forEach(icons, function(icon) {
-            //Check if the clicked on icon's src attribute is NOT the same as the current iteration of the array's image field
-            if ($(event.target).attr('src') != icon.image) {
-                //Sets selected field to false because this icon in the array is not the one clicked on
-                icon.selected = 0;
-            } else {
-                //Sets selected field to true becuase this icon in the array is the one clicked on.
-                icon.selected = 1;
-                newIcon = icon.image;
-            }
-        });
-    }
 });
 
 app.controller('PopoverInstanceCtrl', function ($scope) {
