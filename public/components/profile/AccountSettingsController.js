@@ -3,7 +3,7 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
     $scope.newName = modalParams.name;
     $scope.newEmail = modalParams.email;
     $scope.newGoogleID = modalParams.google;
-    $scope.newIcon = modalParams.icon;
+    $scope.newIcon = (modalParams.icon == undefined) ? ("images/userIcon.png") : (modalParams.icon);
     saveSettingsFlag = 0;
     remEventsFlag = 0;
 
@@ -27,13 +27,13 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
     //Hipster Male 1, Hipster Female 1, Hipster Male 2, Hipster Female 2, Hipster Male 3, ... , Hipster Female 8
     for (var i = 1; i <= 8; ++i) {
         icons.push({
-            id: (i + 1),    /* Gives id's 2 - 9 */
+            id: (i + 1),    // Gives id's 2 - 9
             image: 'images/hipsterMale' + i + '.png',
             name: 'Hipster Male ' + i,
             selected: 0
         });
         icons.push({
-            id: (i + 9),    /* Gives id's 10 - 17 */
+            id: (i + 9),    // Gives id's 10 - 17
             image: 'images/hipsterFemale' + i + '.png',
             name: 'Hipster Female ' + i,
             selected: 0

@@ -142,10 +142,10 @@
                             <br>
 
                             <p>Start Time: </p>
-                            <center><timepicker ng-init ="eventStartTime" ng-model="eventStartTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker></center>
+                            <center><timepicker ng-init="eventStartTime" ng-model="eventStartTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker></center>
 
                             <p>End Time: </p>
-                            <center><timepicker ng-init ="eventEndTime"  ng-model="eventEndTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker></center>
+                            <center><timepicker ng-init="eventEndTime"  ng-model="eventEndTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker></center>
                             <br>
                             
                                 <center><button Popover-animation="true" popover-template="'eventColorSelect.html'" popover-placement="top" class="btn btn-default" style="transition:background .5s;" ng-style="{'background':eventColor.mine}" ng-init="eventColor.mine='#fff'" popover-trigger="focus" popover-title="Select Color" class="colorFade">Choose A Color</button></center> 
@@ -380,61 +380,54 @@
                     <div id="lblSuccess" ng-show="saveLabel"> Everything looks good!</div>
                     <div id="lblError" ng-show="errLabel">Errors found with name and/or email field(s)!</div>
                 </center>
-                <tabset>
-                    <tab heading="Profile Settings">
-                        <br>
-                        <label for="username" style="display:inline-block;width:150px;">User Name:</label>
-                        <input style="width:50%;margin-bottom:15px;" value="{{modalParams.name}}" ng-model="newName" name="username" ng-style="(newName.length > 0) ? {'border-bottom':'1px solid green'} : {'border-bottom':'1px solid red'}" required ng-pattern="/^[a-z']([a-z'_\s])+$/i"><br>
-                        <label for="email" style="display:inline-block;width:150px;">Email:</label>
-                        <input style="width:50%;margin-bottom:15px;" value="{{modalParams.email}}" ng-model="newEmail" ng-style="(newEmail.length > 0) ? {'border-bottom':'1px solid green'} : {'border-bottom':'1px solid red'}" required ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" name="email"><br>
-                        <label for="google" style="display:inline-block;width:150px;">Google Calendar ID:</label>
-                        <input style="width:50%;margin-bottom:15px;" value="{{modalParams.google}}" ng-model="newGoogleID" name="google" ng-style="(newGoogleID != undefined) ? {'border-bottom':'1px solid green'} : {'border-bottom':'1px solid #c6c6c6'}"><br>
-                        <accordion close-others="oneAtATime">
-                            <accordion-group heading="How to Get Your Google Calendar ID">
-                                <p>Make your Google Calendar public:
-                                    <ol>
-                                        <li>In the <a target="_blank" href="http://calendar.google.com">Google Calendar</a> interface, locate the "My calendars" area on the left.</li>
-                                        <li>Hover over the calendar you need and click the downward arrow. </li>
-                                        <li>A menu will appear. Click "Share this Calendar".</li>
-                                        <li>Check "Make this calendar public".</li>
-                                        <li>Make sure "Share only my free/busy information" is unchecked.</li>
-                                        <li>Click "Save".</li>
-                                    </ol>
-                                    Obtain your Google Calendar ID:<br>
-                                    <ol>
-                                        <li>In the Google Calendar interface, locate the "My calendars" area on the left.</li>
-                                        <li>Hover over the calendar you need and click the downward arrow.</li> 
-                                        <li>A menu will appear. Click "Calendar settings".</li>
-                                        <li>In the "Calendar Address" section of the screen, you will see your Calendar ID. It will look something like "abcd1234@group.calendar.google.com".</li>
-                                    </ol>           
-                                </p>
-                            </accordion-group>
-                        </accordion>
-                        <div ng-click="editPassword()" class="btn btn-info">Change Password</div>
-                        <button class="btn btn-default" ng-click="isCollapsed=!isCollapsed">User Icons</button><br><br>
-                        <div collapse="isCollapsed">
-                            <div class="well" id="colIcons">
-                                <h4>Select a user icon</h4>
-                                <div id="icons" ng-repeat="icon in icons track by $index" ng-attr-title="{{icon.name}}">
-                                    <img class="selIcons" ng-src="{{icon.image}}" ng-click="setSel($event);" ng-model="newIcon" ng-init="initSelectedIcon(icon);" ng-class="{'selected': icon.selected, 'smallIcon': icon.name==='Super Hero'}"/>
-                                </div>
-                            </div>
+                <label for="username" style="display:inline-block;width:150px;">User Name:</label>
+                <input style="width:50%;margin-bottom:15px;" value="{{newName}}" ng-model="newName" name="username" ng-style="(newName.length > 0) ? {'border-bottom':'1px solid green'} : {'border-bottom':'1px solid red'}" required ng-pattern="/^[a-z']([a-z'_\s])+$/i"><br>
+                <label for="email" style="display:inline-block;width:150px;">Email:</label>
+                <input style="width:50%;margin-bottom:15px;" value="{{newEmail}}" ng-model="newEmail" ng-style="(newEmail.length > 0) ? {'border-bottom':'1px solid green'} : {'border-bottom':'1px solid red'}" required ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" name="email"><br>
+                <label for="google" style="display:inline-block;width:150px;">Google Calendar ID:</label>
+                <input style="width:50%;margin-bottom:15px;" value="{{newGoogleID}}" ng-model="newGoogleID" name="google" ng-style="(newGoogleID != undefined) ? {'border-bottom':'1px solid green'} : {'border-bottom':'1px solid #c6c6c6'}"><br>
+                <accordion close-others="oneAtATime">
+                    <accordion-group heading="How to Get Your Google Calendar ID">
+                        <p>Make your Google Calendar public:
+                            <ol>
+                                <li>In the <a target="_blank" href="http://calendar.google.com">Google Calendar</a> interface, locate the "My calendars" area on the left.</li>
+                                <li>Hover over the calendar you need and click the downward arrow. </li>
+                                <li>A menu will appear. Click "Share this Calendar".</li>
+                                <li>Check "Make this calendar public".</li>
+                                <li>Make sure "Share only my free/busy information" is unchecked.</li>
+                                <li>Click "Save".</li>
+                            </ol>
+                            Obtain your Google Calendar ID:<br>
+                            <ol>
+                                <li>In the Google Calendar interface, locate the "My calendars" area on the left.</li>
+                                <li>Hover over the calendar you need and click the downward arrow.</li> 
+                                <li>A menu will appear. Click "Calendar settings".</li>
+                                <li>In the "Calendar Address" section of the screen, you will see your Calendar ID. It will look something like "abcd1234@group.calendar.google.com".</li>
+                            </ol>           
+                        </p>
+                    </accordion-group>
+                </accordion>
+                <div ng-click="editPassword()" class="btn btn-info">Change Password</div>
+                <button class="btn btn-default" ng-click="isCollapsed=!isCollapsed">User Icons</button><br><br>
+                <div collapse="isCollapsed">
+                    <div class="well" id="colIcons">
+                        <h4>Select a user icon</h4>
+                        <div id="icons" ng-repeat="icon in icons track by $index" ng-attr-title="{{icon.name}}">
+                            <img class="selIcons" ng-src="{{icon.image}}" ng-click="setSel($event);" ng-model="newIcon" ng-init="initSelectedIcon(icon);" ng-class="{'selected': icon.selected, 'smallIcon': icon.name==='Super Hero'}"/>
                         </div>
-                    </tab>
-                    <tab heading="Remove All Events">
-                        <br>
-                        <center>
-                            <div id="lblSuccess" ng-show="remLabel">All events have been removed! Click the close button to see!</div>
-                        </center>
-                        <p>Please type "Clear my events!" below:</p>
-                        <input type="text" ng-model="clearEvents" ng-pattern="'Clear my events!'" placeholder="Clear my events!" ng-init="clearEvents=''" ng-style="( clearEvents.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (clearEvents) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )">
-                        <br><br>
-                        <center>
-                            <button class="btn btn-danger" ng-click="removeAllEvents()" ng-disabled="!clearEvents">Remove All Personal Events</button>
-                        </center>
-                        <br>
-                    </tab>
-                </tabset>
+                    </div>
+                </div>
+                <hr style="font-weight:700;">
+                <center>
+                    <div id="lblSuccess" ng-show="remLabel">All events have been removed! Click the close button to see!</div>
+                </center>
+                <p>Please type "Clear my events!" below:</p>
+                <input type="text" ng-model="clearEvents" ng-pattern="'Clear my events!'" placeholder="Clear my events!" ng-init="clearEvents=''" ng-style="( clearEvents.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (clearEvents) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )">
+                <br><br>
+                <center>
+                    <button class="btn btn-danger" ng-click="removeAllEvents()" ng-disabled="!clearEvents">Remove All Personal Events</button>
+                </center>
+                <br>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-success" ng-click="saveSettings();">Update Profile</button>
