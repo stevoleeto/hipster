@@ -252,7 +252,7 @@ $scope.removeAllGroups = function(){
 
  * Called In:   index.html
 
- * Description: Removs all groups found in their GroupList userGroups array.
+ * Description: Removs a single in their GroupList userGroups array.
  ************************************************************************/
 $scope.removeGroup = function(groupId){
     userService.removeGroup(groupId);
@@ -288,7 +288,7 @@ $scope.logout = function(){
 
  * Description: Creates a new group, and adds the new group to the GroupList userGroups array for both the current user the and user they have selected.
  ************************************************************************/
-createGroup = function(groupName, groupColor){
+var createGroup = function(groupName, groupColor){
     if (groupName == undefined){
         var Group = Parse.Object.extend("Group");
         var query = new Parse.Query(Group);

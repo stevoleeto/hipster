@@ -58,11 +58,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
       animation: $scope.animationsEnabled,
       templateUrl: 'addMember.html',
       controller: 'AddMemberController',
-      size: 'lg',
-      resolve: {
-        items: function () {
-        }
-      }
+      size: 'lg'
     });
 
     modalInstance.result.then(function (newMember) {

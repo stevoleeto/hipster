@@ -149,36 +149,10 @@
                             <br>
                             
                             <div ng-controller="PopoverInstanceCtrl">
-                                <center><button Popover-animation="true" popover-template="'eventColorSelect.html'" popover-placement="top" class="btn btn-default" ng-style="{'background':eventColor.mine}" ng-init="eventColor.mine='#fff'" popover-trigger="focus" popover-title="Select Color" class="colorFade">Choose A Color</button></center> <!--
-                                 <script type="text/ng-template" id="groupColorSelect.html">
-                                    <div id="groupColorSelect">
-                                        <div style="background:#B9F5FF;" ng-click="eventColor.mine='#B9F5FF'"></div>
-                                        <div style="background:#B5FBA3;" ng-click="eventColor.mine='#B5FBA3'"></div>
-                                        <div style="background:#FFA6B1;" ng-click="eventColor.mine='#FFA6B1'"></div>
-                                        <div style="background:#FEC12F;" ng-click="eventColor.mine='#FEC12F'"></div>
-                                        <div style="background:#F06292;" ng-click="eventColor.mine='#F06292'"></div>
-                                        <div style="background:#CE93D8;" ng-click="eventColor.mine='#CE93D8'"></div>
-                                        <div style="background:#9575CD;" ng-click="eventColor.mine='#9575CD'"></div>
-                                        <div style="background:#7986CB;" ng-click="eventColor.mine='#7986CB'"></div>
-                                        <div style="background:#81D4FA;" ng-click="eventColor.mine='#81D4FA'"></div>
-                                        <div style="background:#4DD0E1;" ng-click="eventColor.mine='#4DD0E1'"></div>
-                                        <div style="background:#4DB6AC;" ng-click="eventColor.mine='#4DB6AC'"></div>
-                                        <div style="background:#D4E157;" ng-click="eventColor.mine='#D4E157'"></div>
-                                        <div style="background:#FFF176;" ng-click="eventColor.mine='#FFF176'"></div>
-                                        <div style="background:#FFD54F;" ng-click="eventColor.mine='#FFD54F'"></div>
-                                        <div style="background:#FFA726;" ng-click="eventColor.mine='#FFA726'"></div>
-                                        <div style="background:#FD8964;" ng-click="eventColor.mine='#FD8964'"></div>
-                                        <div style="background:#BDBDBD;" ng-click="eventColor.mine='#BDBDBD'"></div>
-                                        <div style="background:#90A4AE;" ng-click="eventColor.mine='#90A4AE'"></div>
-                                        <br>
-                                    </div>
-                                </script> -->
+                                <center><button Popover-animation="true" popover-template="'eventColorSelect.html'" popover-placement="top" class="btn btn-default" ng-style="{'background':eventColor.mine}" ng-init="eventColor.mine='#fff'" popover-trigger="focus" popover-title="Select Color" class="colorFade">Choose A Color</button></center> 
                             </div>
-                            
                             <br>
-                                
                             <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
-<!--                            <div ng-click="removeAllEvents()" id="remEvents">Remove All Events</div>-->
                         </div>
                     </div>
             	</div>
@@ -268,6 +242,7 @@
                         </div>
                         <span style="float:left;clear:both;"><strong>Group Code: </strong></span><br>
                         <p style="float:left;clear:both;">{{currentGroupId}}</p> 
+                        <button ng-click="addMemberModal()">Add Member</button>
                     </div> 
                 </div>
             </div>

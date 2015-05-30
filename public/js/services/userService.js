@@ -69,6 +69,8 @@ app.service('userService',['$q','googleCalendarService', 'dataBaseService' ,func
   var removeGroup = function(groupToRemove){
      dataBaseService.queryGroupList(email).then(function(groupListQuery){
         var groupsList = groupListQuery[0]._serverData.userGroups;
+        
+        //removes group from member's group list
         for (i = 0; i < groupsList.length; i++){
           if(groupsList[i]['id'] === groupToRemove){
              groupsList.splice(i, 1);
@@ -77,8 +79,26 @@ app.service('userService',['$q','googleCalendarService', 'dataBaseService' ,func
              break;
           }
         }
+
+        //removes member from GROUP member list
+        dataBaseService.queryGroup(groupToRemove).then(function(groupQuery){
+          var memberList = groupQuery[0]._serverData.memberList;
+          console.log(memberList);
+          console.log(email);
+
+          for (index = 0; index < memberList.length; index++){
+            if(memberList[index]['email'] === email){
+              console.log(index);
+              memberList.splice(index,1);
+              console.log(memberList);
+              groupQuery[0].set("memberList", memberList);
+              groupQuery[0].save();
+              break;
+            }
+          }
+        });
      });
-  }
+  };
 
   var setGoogleCalendar = function(calendarID){
     return googleCalendarService.queryGoogleCalendar(calendarID).then(function(newCal){

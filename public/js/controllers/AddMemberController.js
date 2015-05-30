@@ -4,7 +4,7 @@ app.controller('AddMemberController', function($scope, $modalInstance){
 		$modalInstance.close($scope.newMemberEmail);
 	}
 
-	$scope.close = function(){
-		$modalInstance.close();
+	$scope.cancel = function(){
+		$modalInstance.dismiss();
 	}
 });
