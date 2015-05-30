@@ -212,13 +212,13 @@
                                 </center>
                                 <script type="text/ng-template" id="repDays.html">
                                     <div class="repDays">
-                                    <label class="btn btn-primary" ng-model="dayRepeat.monday" btn-checkbox>Mon</label>
-                                    <label class="btn btn-primary" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</label>
-                                    <label class="btn btn-primary" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</label>
-                                    <label class="btn btn-primary" ng-model="dayRepeat.thursday" btn-checkbox>Thu</label>
-                                    <label class="btn btn-primary" ng-model="dayRepeat.friday" btn-checkbox>Fri</label>
-                                    <label class="btn btn-primary" ng-model="dayRepeat.saturday" btn-checkbox>Sat</label>
-                                    <label class="btn btn-primary" ng-model="dayRepeat.sunday" btn-checkbox>Sun</label>
+                                        <label class="btn btn-primary" ng-model="dayRepeat.monday" btn-checkbox>Mon</label>
+                                        <label class="btn btn-primary" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</label>
+                                        <label class="btn btn-primary" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</label>
+                                        <label class="btn btn-primary" ng-model="dayRepeat.thursday" btn-checkbox>Thu</label>
+                                        <label class="btn btn-primary" ng-model="dayRepeat.friday" btn-checkbox>Fri</label>
+                                        <label class="btn btn-primary" ng-model="dayRepeat.saturday" btn-checkbox>Sat</label>
+                                        <label class="btn btn-primary" ng-model="dayRepeat.sunday" btn-checkbox>Sun</label>
                                     </div>
                                 </script>
                             </div>
@@ -249,7 +249,7 @@
                         <span style="float:left;clear:both;"><strong>Group Code: </strong></span><br>
                         <p style="float:left;clear:both;">{{currentGroupId}}</p> 
                         <button ng-click="addMemberModal()">Add Member</button>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>
@@ -475,7 +475,11 @@
                     <h3 class="modal-title">Add a Member</h3>
                 </div>
                 <div class="modal-body">
-                    <input type="text" ng-model="newMemberEmail" placeholder="Add New Member Email"> 
+                    <input type="text" ng-model="newMemberEmail" placeholder="Add New Member Email">
+                    <h3>Your Friends</h3>
+                    <ul ng-repeat="friend in friends track by $index" style="list-style-type:none;">
+                        <li ng-click="newMemberEmail=friend.email">{{friend.name}} ({{friend.email}})</li>
+                    </ul>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" ng-click="save()">Add Member</button>

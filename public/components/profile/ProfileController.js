@@ -312,7 +312,6 @@ var createGroup = function(groupInfo){
                 }
                 else{
                     alert("You're already in that group!");
-                    console.log("User already in group");
                 }
             }
         });
