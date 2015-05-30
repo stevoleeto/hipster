@@ -26,8 +26,8 @@
 
 var currentUser = Parse.User.current();
 
-app.controller('GroupController', ['$scope','groupService', 'eventService', '$timeout', 'uiCalendarConfig','$log', '$modal', '$window', 
-    function($scope, groupService, eventService, $timeout, uiCalendarConfig, $log, $modal, $window) { 
+app.controller('GroupController', ['$scope','groupService', 'eventService', 'validateService', '$timeout', 'uiCalendarConfig','$log', '$modal', '$window', 
+    function($scope, groupService, eventService, validateService, $timeout, uiCalendarConfig, $log, $modal, $window) { 
 
 
     /* DEFAULT COLORS */
@@ -132,25 +132,33 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
    *				new member and adds the new group to their list.
    ************************************************************************/
    var addMember = function(newMember){
-     groupService.addMember($scope.currentGroupId, newMember).then(function(){
-       $scope.memberList = groupService.getMemberList();
-        var newMemberCall = groupService.getNewMember();
-        if(newMemberCall){
-          var tempSched = newMemberCall.personalSchedule;
-          for(index = 0; index < tempSched.length; index++){
-            tempSched[index].rendering = "background";
-            tempSched[index]._id = busyId;
-            tempSched[index].__id = busyId;
-            tempSched[index].color = busyTimeColor;
+    var alreadyInGroup = validateService.isEmailInArray($scope.memberList, newMember);
+
+    if(!alreadyInGroup){
+       groupService.addMember($scope.currentGroupId, newMember).then(function(){
+         $scope.memberList = groupService.getMemberList();
+          var newMemberCall = groupService.getNewMember();
+          if(newMemberCall){
+            var tempSched = newMemberCall.personalSchedule;
+            for(index = 0; index < tempSched.length; index++){
+              tempSched[index].rendering = "background";
+              tempSched[index]._id = busyId;
+              tempSched[index].__id = busyId;
+              tempSched[index].color = busyTimeColor;
+            }
+            $scope.eventSources.push(tempSched);
           }
-          $scope.eventSources.push(tempSched);
-        }
-        else{
-            console.log("New Member not found");
-            alert("New Member not Found");
-        }
-     })
-   };
+          else{
+              console.log("New Member not found");
+              alert("New Member not Found");
+          }
+       })
+    }
+    else{
+      alert("That member is already in the Group!");
+      console.log("Member is already in group");
+    }
+  };
 
 
 
