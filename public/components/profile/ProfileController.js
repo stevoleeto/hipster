@@ -291,17 +291,9 @@ $scope.logout = function(){
 var createGroup = function(groupInfo){
      if (groupInfo.code != undefined){
          dataBaseService.queryGroup(groupInfo.code).then(function(groupQuery){
-            // for (index = 0; index < groupQuery[0]._serverData.memberList.length; index++){
-            //     console.log(groupQuery[0]._serverData.memberList[index]);
-            //     if($scope.email == (groupQuery[0]._serverData.memberList[index]).email){
-            //         alreadyInGoup = true;
-            //     }
-            // }
-            console.log(validateService.isEmailInArray(groupQuery[0]._serverData.memberList, $scope.email));
             var alreadyInGroup = validateService.isEmailInArray(groupQuery[0]._serverData.memberList, $scope.email);
-
             if(!alreadyInGroup){
-                groupQuery[0]._serverData.memberList.push({name: $scope.username, email: $scope.email});
+                groupQuery[0]._serverData.memberList.push({name: $scope.userName, email: $scope.email});
                 groupQuery[0].save();
                 dataBaseService.queryGroupList($scope.email).then(function(groupListQuery){
                     $scope.myGroupList.push({id: groupQuery[0].id, name: groupQuery[0]._serverData.name, color: groupInfo.color || "#B5FBA3"});
