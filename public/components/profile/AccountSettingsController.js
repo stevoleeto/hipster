@@ -3,7 +3,7 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
     $scope.newName = modalParams.name;
     $scope.newEmail = modalParams.email;
     $scope.newGoogleID = modalParams.google;
-    $scope.newIcon = modalParams.icon;
+    $scope.newIcon = (modalParams.icon == undefined) ? ("images/userIcon.png") : (modalParams.icon);
     saveSettingsFlag = 0;
     remEventsFlag = 0;
 
