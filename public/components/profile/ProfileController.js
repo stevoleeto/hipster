@@ -87,6 +87,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             $scope.editGroupModal = function (oldName, oldColor) {
 
                 openModal('editGroup.html', 'EditGroupController', 'lg', {name: oldName, color: oldColor}).then(function (newGroupSettings) {
+                    console.log(newGroupSettings);
                 }, function () {
                     $scope.myGroupList = userService.getNewGroupList();
                 });
@@ -113,6 +114,9 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                     console.log(newAccountSettings);
                     if(newAccountSettings.remFlag == 1) {
                         $scope.removeAllEvents();
+                    }
+                    if(newAccountSettings.saveFlag == 1) {
+                        $scope.settingsSave(newAccountSettings.newUserName, newAccountSettings.newUserEmail, newAccountSettings.newGoogle, newAccountSettings.newUserIcon);
                     }
                 }, function() {
                     $log.info('Modal dismissed at: ' + new Date());
@@ -382,15 +386,15 @@ $scope.createEvent = function(){
     }    
 
     eventService.createEvent($scope.newEventName, //event name
-            $scope.eventColor.mine, //event color
-            (moment($scope.eventStartDate.toISOString()).dateOnly()), //start date
-            (moment($scope.eventStartTime.toISOString()).hour()), //start hour
-            (moment($scope.eventStartTime.toISOString()).minute()), //start min
-            (moment($scope.eventEndDate.toISOString()).dateOnly()), //end date
-            (moment($scope.eventEndTime.toISOString()).hour()), //end hour
-            (moment($scope.eventEndTime.toISOString()).minute()), //end min
-            repeat, //does this event repeat?
-            repeatTheseDays); //what does does this event repeat on
+        $scope.eventColor.mine, //event color
+        (moment($scope.eventStartDate.toISOString()).dateOnly()), //start date
+        (moment($scope.eventStartTime.toISOString()).hour()), //start hour
+        (moment($scope.eventStartTime.toISOString()).minute()), //start min
+        (moment($scope.eventEndDate.toISOString()).dateOnly()), //end date
+        (moment($scope.eventEndTime.toISOString()).hour()), //end hour
+        (moment($scope.eventEndTime.toISOString()).minute()), //end min
+        repeat, //does this event repeat?
+        repeatTheseDays); //what does does this event repeat on
 
     newEvents = eventService.getEvents();
 
@@ -476,8 +480,8 @@ var editEvent = function(eventClicked){
     currentUser.save();
 }
 
-$scope.settingsSave = function(){
-    var good = false;
+$scope.settingsSave = function(name, email, google, icon){
+    /*var good = false;
     if ($scope.newUserName){
         currentUser.set("name", $scope.newUserName);
         $scope.userName = $scope.newUserName;
@@ -499,24 +503,22 @@ $scope.settingsSave = function(){
     if (newIcon){
         currentUser.set("userIcon", newIcon);
         good = true;
-    }
-
-    if (good) {
-        $scope.saveLabel = true;
-    } else {
-        $scope.errLabel = true;
-    }
+    }*/
+    console.log(name);
+    console.log(email);
+    console.log(google);
+    console.log(icon);
+    currentUser.set("name", name);
+    currentUser.set("username", email);
+    currentUser.set("email", email);
+    currentUser.set("googleCalendarID", google)
+    currentUser.set("userIcon", icon);
 
     currentUser.save();
     $scope.newUserName = "";
     userService.setName($scope.newUserName);
     $scope.newEmail = "";
     $scope.newPassword = "";
-
-    setTimeout(function(){
-        $scope.saveLabel = false;
-        $scope.errLabel = false;
-    }, 2000);
 }
 
 //timepicker
