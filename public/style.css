@@ -1,10 +1,21 @@
-
+/
+/*
+-------------------------------------------------------------------------------------------------------------------
+GENERAL/SHARED STYLES
+-------------------------------------------------------------------------------------------------------------------
+*/
 body  {
     margin-left: auto;
     margin-right: auto;
     font-family: 'Didact Gothic', sans-serif;
     min-width: 1000px;
     margin-top: 0;
+}
+
+#homeView, .singleGroupView
+{
+    position: relative;
+    top: 45px;
 }
 
 #loading
@@ -33,33 +44,6 @@ body  {
     line-height: 64px;
 }
 
-#profileView
-{
-    position:absolute;
-    height:100vh;
-/*    border:solid red 1px;t*/
-/*    overflow:scroll;*/
-    top:-45px;
-}
-
-.singleGroupView
-{
-    position:absolute;
-    height:calc(100vh - 45px);
-/*    border:solid red 1px;*/
-/*    overflow:scroll;*/
-}
-
-#login
-{
-    border:0;
-}
-
-#signup
-{
-    border:0;
-}
-
 input
 {
     outline:none;
@@ -70,6 +54,207 @@ input
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,.12);
     color:#272727;
     border-radius:2px;
+}
+
+input
+{
+    line-height: 2em;
+    border-radius: 3px;
+    font-size: 16px;
+    color: #575757;
+    border:none;
+    border-bottom: 1px solid #c6c6c6;
+    width: 90%;
+}
+
+.viewBtn
+{
+/*    border-right:solid black 1px;*/
+    letter-spacing: 2px;
+    float:left;
+    width: 140px;
+    height: 100%;
+    color: white;
+    font-size: 24px;
+    line-height: 45px;
+    display: table-cell;
+    vertical-align: middle;
+    transition: width .5s;
+    overflow:hidden;
+}
+
+.viewBtn:hover 
+{
+    cursor: pointer;
+    background: #4284F5;
+    width: 145px;
+    transition: width .5s;
+    overflow:hidden;
+}
+
+.selTab
+{
+    border-bottom:solid orange 4px;
+    background: #4284F5;
+    width: 140px;
+    overflow: hidden;
+}
+
+#profileWrapper
+{
+    width: 100%;
+    background-color:#F5F5F5;
+}
+
+#logoutWrapper 
+{
+    width: 100%;
+    position: fixed;
+    height: 45px;
+/*    border-bottom: 1px solid black;*/
+/*    border-top: 1px solid black;*/
+    z-index: 10;
+    background: #5B97F5;
+}
+
+.friendsOptionsBtn
+{
+    background-image: url(images/person.png);
+    height: 35px;
+    width: 35px;
+    background-size:contain;
+    background-repeat: no-repeat;
+    float:right;
+    position: relative; 
+    cursor: pointer;
+    margin-left:15px;
+    top:5px;
+    transition: height .5s, width .5s;
+}
+
+.friendsOptionsBtn:hover
+{
+    
+    transition: height .5s, width .5s;
+}
+
+.logoutbtn
+{
+    background-image: url(images/cog.png);
+    height:35px;
+    width: 40px;
+    background-size:contain;
+    background-repeat: no-repeat;
+    float:right;
+    font-size: 14px;
+    text-align: center;
+    float: right;
+    position: relative; 
+    cursor: pointer;
+    margin: auto 5px;
+    top:5px;
+    transform: rotate(0deg);
+    transform-origin: 19px 17.5px;
+    transition: transform .5s;
+}
+
+.logoutbtn:hover
+{
+    cursor: pointer;
+    transform: rotate(180deg);
+    transform-origin: 19px 17.5px;
+    transition: transform .5s;
+}
+
+.btn-group
+{
+    position: relative;
+    float: right;
+}
+
+.btn-group li
+{
+    cursor:pointer;
+}
+
+.btn-group li:hover
+{
+   background:#BBDEFB;
+}
+
+.modal-body {
+    padding: 0 15px 15px 15px;
+}
+
+.modal-body h3 {
+    letter-spacing: 3px;
+}
+
+.modal-body hr {
+    color: black;
+    border-color: #000;
+}
+
+#lblSuccess {
+    box-sizing: border-box;
+    color: #3C763D;
+    background: #DFF0D8;
+    border-color: #D6E9C6;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#lblError {
+    box-sizing: border-box;
+    color: #A94442;
+    background: #F2DEDE;
+    border-color: #EBCCD1;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#greeting
+{
+    line-height: 45px;
+    color:white;
+    float:right;
+}
+
+#remEvents
+{
+    position:relative;
+    clear:both;
+    padding:5px;
+    background-color:#FEC005;
+    color:white;
+    font-size:20px;
+    text-align: center;
+    cursor:pointer;
+/*    border:solid black 1px;*/
+    width:100%;
+/*    top:20px;*/
+}
+
+#remEvents:hover
+{
+    background-color:orange;
+}
+
+
+/*
+------------------------------------------------------------------------------------------------------------
+LOGIN PAGE STYLES
+------------------------------------------------------------------------------------------------------------
+*/
+
+#login
+{
+    border:0;
+}
+
+#signup
+{
+    border:0;
 }
 
 #busy
@@ -98,7 +283,6 @@ input
     margin-right: auto;
     top: 64px;
     z-index: 1;
-   
 }
 
 #gallery 
@@ -202,50 +386,6 @@ input
     border-radius:2px;
 }
 
-input
-{
-    line-height: 2em;
-    border-radius: 3px;
-    font-size: 16px;
-    color: #575757;
-    border:none;
-    border-bottom: 1px solid #c6c6c6;
-    width: 90%;
-}
-
-.viewBtn
-{
-/*    border-right:solid black 1px;*/
-    letter-spacing: 2px;
-    float:left;
-    width: 140px;
-    height: 100%;
-    color: white;
-    font-size: 24px;
-    line-height: 45px;
-    display: table-cell;
-    vertical-align: middle;
-    transition: width .5s;
-    overflow:hidden;
-}
-
-.viewBtn:hover 
-{
-    cursor: pointer;
-    background: #4284F5;
-    width: 145px;
-    transition: width .5s;
-    overflow:hidden;
-}
-
-.selTab
-{
-    border-bottom:solid orange 4px;
-    background: #4284F5;
-    width: 140px;
-    overflow: hidden;
-}
-
 .bttn 
 {
     width: 100%;
@@ -264,109 +404,19 @@ input
     transition:background .5s;
 }
 
-#profileWrapper
+/*
+---------------------------------------------------------------------------------------------------------------------------------------
+PROFILE VIEW STYLES
+---------------------------------------------------------------------------------------------------------------------------------------
+*/
+
+#profileView
 {
-    width: 100%;
-    background-color:#F5F5F5;
-}
-
-
-#logoutWrapper 
-{
-    width: 100%;
-    position: fixed;
-    height: 45px;
-/*    border-bottom: 1px solid black;*/
-/*    border-top: 1px solid black;*/
-    z-index: 10;
-    background: #5B97F5;
-}
-
-.friendsOptionsBtn
-{
-    background-image: url(images/person.png);
-    height: 35px;
-    width: 35px;
-    background-size:contain;
-    background-repeat: no-repeat;
-    float:right;
-    position: relative; 
-    cursor: pointer;
-    margin-left:15px;
-    top:5px;
-    transition: height .5s, width .5s;
-}
-
-.friendsOptionsBtn:hover
-{
-    
-    transition: height .5s, width .5s;
-}
-
-.logoutbtn
-{
-    background-image: url(images/cog.png);
-    height:35px;
-    width: 40px;
-    background-size:contain;
-    background-repeat: no-repeat;
-    float:right;
-    font-size: 14px;
-    text-align: center;
-    float: right;
-    position: relative; 
-    cursor: pointer;
-    margin: auto 5px;
-    top:5px;
-    transform: rotate(0deg);
-    transform-origin: 19px 17.5px;
-    transition: transform .5s;
-}
-
-.logoutbtn:hover
-{
-    cursor: pointer;
-    transform: rotate(180deg);
-    transform-origin: 19px 17.5px;
-    transition: transform .5s;
-}
-
-.modal-body {
-    padding: 0 15px 15px 15px;
-}
-
-.modal-body h3 {
-    letter-spacing: 3px;
-}
-
-.modal-body hr {
-    color: black;
-    border-color: #000;
-}
-
-#lblSuccess {
-    box-sizing: border-box;
-    color: #3C763D;
-    background: #DFF0D8;
-    border-color: #D6E9C6;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-#lblError {
-    box-sizing: border-box;
-    color: #A94442;
-    background: #F2DEDE;
-    border-color: #EBCCD1;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-#greeting
-{
-    line-height: 45px;
-    color:white;
-    float:right;
+    position:absolute;
+    height:100vh;
+/*    border:solid red 1px;t*/
+/*    overflow:scroll;*/
+    top:-45px;
 }
 
 #scheduleWrapper
@@ -391,15 +441,6 @@ input
     float:left;
     letter-spacing: 3px;
     top:5px;
-}
-
-#groupOptions
-{
-    position:relative;
-    float:right;
-    height: 20px;
-    width: 20px;
-    border:solid black 1px;
 }
 
 .schedule
@@ -463,85 +504,11 @@ input
     border-radius: 0 4px 4px 0;
 }
 
-
-.createEvent p,label
-{
-    font-size: 14px;
-    margin-left:10px;
-}
-
-.colorFade {
-    transition: background .5s;
-}
-
-.createButton
-{
-    font-size: 30px;
-    letter-spacing: 3px;
-/*    background:#9EF699;*/
-    height:45px;
-    text-align: center;
-    width: 160px;
-    margin-right: auto;
-    margin-left: auto;
-    transition:width .5s, background .4s;
-    margin-bottom: 10px;
-    background:#AAFFAA;
-    border-radius:5px;
-/*    border:solid grey 1px;*/
-}
-
-.createButton:hover
-{
-    cursor:pointer;
-    transition:background .4s;
-    background:#55EE55;
-    border:none;
-}
-
-.eventPar
-{
-    width:auto;
-    position:relative;
-    margin-left: 10px;
-    font-weight: 400;
-    font-size:14px;
-    border:none;
-    border-bottom: solid black 1px;
-    border-radius:0px;
-    height:35px;
-/*    border:none;*/
-}
-
-#remEvents
-{
-    position:relative;
-    clear:both;
-    padding:5px;
-    background-color:#FEC005;
-    color:white;
-    font-size:20px;
-    text-align: center;
-    cursor:pointer;
-/*    border:solid black 1px;*/
-    width:100%;
-/*    top:20px;*/
-}
-
-#remEvents:hover
-{
-    background-color:orange;
-}
-
-.btn2
-{
-    background: aqua;
-    width:10%;
-    height:20px;
-    cursor: pointer;
-
-}
-
+/*
+----------------------------------------------------------------------------------------------------------------------------------------
+GROUPS VIEW
+----------------------------------------------------------------------------------------------------------------------------------------
+*/
 #groupClick
 {
 /*    border:solid black 1px;*/
@@ -667,12 +634,97 @@ input
     transition: opacity .3s;
 }
 
-#homeView, .singleGroupView
+#groupColorSelect
 {
-    position: relative;
-    top: 45px;
+    list-style: none;
 }
 
+#groupColorSelect div
+{
+    border:solid black 1px;
+    width:25px;
+    height:25px;
+    margin-left:15px;
+    margin-bottom: 20px;
+    float:left;
+    cursor:pointer;
+}
+
+#groupColorSelect div:hover
+{
+    border:solid blue 2px;
+}
+
+/*
+----------------------------------------------------------------------------------------------------------------------------------------
+SINGLEGROUP VIEW STYLES
+----------------------------------------------------------------------------------------------------------------------------------------
+*/
+.singleGroupView
+{
+    position:absolute;
+    height:calc(100vh - 45px);
+/*    border:solid red 1px;*/
+/*    overflow:scroll;*/
+}
+
+#groupOptions
+{
+    position:relative;
+    float:right;
+    height: 20px;
+    width: 20px;
+    border:solid black 1px;
+}
+
+.createEvent p,label
+{
+    font-size: 14px;
+    margin-left:10px;
+}
+
+.colorFade {
+    transition: background .5s;
+}
+
+.createButton
+{
+    font-size: 30px;
+    letter-spacing: 3px;
+/*    background:#9EF699;*/
+    height:45px;
+    text-align: center;
+    width: 160px;
+    margin-right: auto;
+    margin-left: auto;
+    transition:width .5s, background .4s;
+    margin-bottom: 10px;
+    background:#AAFFAA;
+    border-radius:5px;
+/*    border:solid grey 1px;*/
+}
+
+.createButton:hover
+{
+    cursor:pointer;
+    transition:background .4s;
+    background:#55EE55;
+    border:none;
+}
+
+.eventPar
+{
+    width:auto;
+    position:relative;
+    margin-left: 10px;
+    font-weight: 400;
+    font-size:14px;
+    border:none;
+    border-bottom: solid black 1px;
+    border-radius:0px;
+    height:35px;
+/*    border:none;*/
+}
 
 #singleGroupWrapper
 {
@@ -732,70 +784,6 @@ input
     width: 100%;
     background-repeat: no-repeat;
     background-size: contain;
-}
-
-
-.btn-group
-{
-    position: relative;
-    float: right;
-}
-
-.btn-group li
-{
-    cursor:pointer;
-}
-
-.btn-group li:hover
-{
-   background:#BBDEFB;
-}
-
-.friend
-{
-    background: red;
-    width: 10%;
-    height: 20px;
-    cursor: pointer;
-}
-
-#groupColorSelect
-{
-    list-style: none;
-}
-
-#groupColorSelect div
-{
-    border:solid black 1px;
-    width:25px;
-    height:25px;
-    margin-left:15px;
-    margin-bottom: 20px;
-    float:left;
-    cursor:pointer;
-}
-
-#groupColorSelect div:hover
-{
-    border:solid blue 2px;
-}
-
-#removeGroupBtn
-{
-    position:relative;
-    transition:height .2s;
-    background:white;
-    height:20px;
-    width:auto;
-    z-index: 3;
-    top:200px;
-    border:solid black 1px;
-}
-
-#removeGroupBtn:hover
-{
-    height:25px;
-    transition: height .2s;
 }
 
 #addMemberBtn
