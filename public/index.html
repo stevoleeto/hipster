@@ -151,7 +151,7 @@
                             <br>
                             
                             <div ng-controller="PopoverInstanceCtrl">
-                                <center><button Popover-animation="true" popover-template="'eventColorSelect.html'" popover-placement="top" class="btn btn-default" ng-style="{'background':eventColor.mine}" ng-init="eventColor.mine='#fff'" popover-trigger="focus" popover-title="Select Color" class="colorFade">Choose A Color</button></center> 
+                                <center><button Popover-animation="true" popover-template="'eventColorSelect.html'" popover-placement="top" class="btn btn-default" style="transition:background .5s;" ng-style="{'background':eventColor.mine}" ng-init="eventColor.mine='#fff'" popover-trigger="focus" popover-title="Select Color" class="colorFade">Choose A Color</button></center> 
                             </div>
                             <br>
                             <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
