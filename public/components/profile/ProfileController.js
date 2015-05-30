@@ -523,8 +523,8 @@ $scope.settingsSave = function(name, email, google, icon){
 
 //timepicker
 
-//$scope.eventStartTime = new Date();
-//$scope.eventEndTime = new Date();
+$scope.eventStartTime = new Date();
+$scope.eventEndTime = new Date();
 
 
 $scope.hstep = 1;

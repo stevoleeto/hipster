@@ -64,6 +64,7 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
     };
 
     $scope.saveSettings = function () {
+        console.log($scope.newName);
         if($scope.newName && $scope.newEmail) {
             saveSettingsFlag = 1;
         } else {
