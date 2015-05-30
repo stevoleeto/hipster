@@ -19,21 +19,27 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
     var memberList;
     var newMember;
     var memberEventArray = [];
+    var groupSchedule;
 
     /* DEFAULT COLORS */
     var busyTimeColor = '#D2D2CD';
     /* Event Id's */
-    var freeId = 999;
+    var busyId = 999;
     var groupEventArray;
 
     /* query data fields - private data fields */
-    var groupQuery;
+    var lastGroupQuery;
     var userQuery;
     var groupListQuery;
 
     var clearMemberArray = function(){
         memberEventArray.length = 0;
-    }
+    };
+
+    var saveGroupSchedule = function(newSchedule){
+        lastGroupQuery[0].set("groupSchedule", newSchedule);
+        lastGroupQuery[0].save();
+    };
 
     /************************************************************************
      * Name:    initGroup()
@@ -54,8 +60,12 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
     var initGroup = function(){
         var deferred = $q.defer();
         dataBaseService.queryGroup(currentGroupId).then(function(groupQuery){
+
             groupName = groupQuery[0].get("name");
             memberList = groupQuery[0].get("memberList");
+            groupSchedule = groupQuery[0].get("groupSchedule");
+            lastGroupQuery = groupQuery;
+
             var queriesLeft = memberList.length;
             var googleCalQueriesLeft = memberList.length;
             /* iterate over memberList to pull all their data into */
@@ -66,8 +76,9 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
                      * the background and have to be displayed in the foreground */
                     for (indexInner = 0; indexInner < tempSched.length; indexInner++){
                         tempSched[indexInner].rendering = "background";
-                        tempSched[indexInner]._id = freeId;
-                        tempSched[indexInner].__id = freeId;
+                        tempSched[index].title = "";
+                        tempSched[indexInner]._id = busyId;
+                        tempSched[indexInner].__id = busyId;
                         tempSched[indexInner].color = busyTimeColor;
                     } // end inner for
                     memberEventArray.push(tempSched);
@@ -93,8 +104,8 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
                                 if(startTime && endTime){
                                     var newEvent = {
                                         textColor: 'white',
-                            title: newCal.items[indexInner].summary + "\nGoogle Calendar",
-                            id: 9,
+                            title:"",
+                            id: busyId,
                             start: startTime,
                             end: endTime,
                             color: '#d2d2cd',
@@ -200,6 +211,10 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
         return newMember;
     };
 
+    var getGroupSchedule = function(){
+        return groupSchedule;
+    };
+
     var getGroupList = function(){
         return groupList;
     };
@@ -247,6 +262,8 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
                   getMemberList : getMemberList,
                   getNewMember : getNewMember,
                   getGroupName : getGroupName,
+                  getGroupSchedule : getGroupSchedule,
+                  saveGroupSchedule : saveGroupSchedule,
 
                   initGroup : initGroup,
                   getMemberEventArray : getMemberEventArray,
