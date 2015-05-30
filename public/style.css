@@ -857,10 +857,6 @@ SINGLEGROUP VIEW STYLES
     height: 80px;
 }
 
-.smallIcon {
-    width: 48px;
-}
-
 .selected {
     box-shadow: 0 0 5px rgba(23, 93, 169, 1);
     border: 1px solid rgba(23, 93, 169, 1)
