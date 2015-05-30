@@ -40,6 +40,7 @@
         <script src="js/controllers/AddGroupController.js"></script>
         <script src="js/controllers/AccountSettingsController.js"></script>
         <script src="js/controllers/GroupInfoController.js"></script>
+        <script src="js/controllers/AddMemberController.js"></script>
 
         <!-- Services -->
         <script src="js/services/googleCalendarService.js"></script>
@@ -80,7 +81,7 @@
                 <div class="logoutbtn" ng-show="homeView" dropdown-toggle></div>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                         <li><a ng-click="accountSettingsModal();">Account Settings</a></li>
-                        <li ng-show="singleGroupView"><a ng-click="groupInfoModal('lg')">Group Info</a></li>
+                        <li ng-show="singleGroupView"><a ng-click="groupInfoModal()">Group Info</a></li>
                         <li class="divider"></li>
                         <li><a ng-click="logout()">Logout</a></li>
                     </ul>
@@ -475,8 +476,7 @@
         </script>
 
         <script type="text/ng-template" id="groupInfo.html">
-            <div ng-controller="GroupController">
-                <div>
+                <div ng-controller="GroupController">
                     <div style="background-color:{{ groupColor }}" class="modal-header">
                         <h3 class="modal-title">{{ groupName }}</h3>
                     </div>
@@ -500,7 +500,6 @@
         </script>
 
         <script type="text/ng-template" id="addMember.html">
-            <div ng-controller="GroupController">
                 <div class="modal-header">
                     <h3 class="modal-title">Add a Member</h3>
                 </div>
@@ -508,7 +507,7 @@
                     <input type="text" ng-model="newMemberEmail" placeholder="Add New Member Email"> 
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" ng-click="addMember()">OK</button>
+                    <button class="btn btn-primary" ng-click="save()">Add Member</button>
                     <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
                 </div>
             </div>

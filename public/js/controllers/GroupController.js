@@ -53,38 +53,22 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
    *              is in charge of updating the view with the new members
    *              schedule and the new members name.
    ************************************************************************/
-  $scope.addMemberModal = function (size) {
+  $scope.addMemberModal = function () {
     var modalInstance = $modal.open({
       animation: $scope.animationsEnabled,
       templateUrl: 'addMember.html',
-      controller: 'ModalInstanceCtrl',
-      size: size,
+      controller: 'AddMemberController',
+      size: 'lg',
       resolve: {
         items: function () {
-          return $scope.items;
         }
       }
     });
-    modalInstance.result.then(function (selectedItem) {
-    $scope.selected = selectedItem;
+
+    modalInstance.result.then(function (newMember) {
+      addMember(newMember);
     }, function () {
         $log.info('Modal dismissed at: ' + new Date());
-        /* update view after modal is dismissed by addMember() */
-        $scope.memberList = groupService.getMemberList();
-        var newMember = groupService.getNewMember();
-        if(newMember){
-        var tempSched = newMember.personalSchedule;
-        for(index = 0; index < tempSched.length; index++){
-          tempSched[index].rendering = "background";
-          tempSched[index]._id = busyId;
-          tempSched[index].__id = busyId;
-          tempSched[index].color = busyTimeColor;
-        }
-        $scope.eventSources.push(tempSched);
-        }
-        else{
-          console.log("New Member not found");
-        }
     });
   };
 
@@ -151,11 +135,26 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', '$ti
    *				queries the database to get the groupList associated with the
    *				new member and adds the new group to their list.
    ************************************************************************/
-  $scope.addMember = function(){
-    groupService.addMember($scope.currentGroupId, $scope.newMemberEmail).then(function(){
-      $scope.cancel(); // close the modal, which is in charge of updating view
-    })
-  };
+   var addMember = function(newMember){
+     groupService.addMember($scope.currentGroupId, newMember).then(function(){
+       $scope.memberList = groupService.getMemberList();
+        var newMemberCall = groupService.getNewMember();
+        if(newMemberCall){
+          var tempSched = newMemberCall.personalSchedule;
+          for(index = 0; index < tempSched.length; index++){
+            tempSched[index].rendering = "background";
+            tempSched[index]._id = busyId;
+            tempSched[index].__id = busyId;
+            tempSched[index].color = busyTimeColor;
+          }
+          $scope.eventSources.push(tempSched);
+        }
+        else{
+            console.log("New Member not found");
+            alert("New Member not Found");
+        }
+     })
+   };
 
 
 
