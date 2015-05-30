@@ -54,6 +54,7 @@ app.service('userService',['$q','googleCalendarService', 'dataBaseService' ,func
       var newGroup = new Group();
       newGroup.set("name", newGroupName);
       newGroup.set("memberList", [{name: userName, email: userEmail}]);
+      newGroup.set("groupSchedule", []);
       newGroup.save(null, {
         success: function(Group){
           userGroupList[userGroupList.length] = {id: Group.id, name: newGroupName, color: newGroupColor};
