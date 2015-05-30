@@ -885,3 +885,19 @@ SINGLEGROUP VIEW STYLES
     box-shadow: 0 0 5px rgba(23, 93, 169, 1);
     border: 1px solid rgba(23, 93, 169, 1)
 }
+
+#memberInfoBtn
+{
+    float:left;
+    clear:both;
+    background-color:orange;
+    border:none;
+    height:30px;
+    width:100%;
+    margin-top:15px;
+}
+
+#memberInfoBtn:hover
+{
+    background-color:darkorange;
+}

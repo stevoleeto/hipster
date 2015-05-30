@@ -242,9 +242,9 @@
                             
                             <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
-                        <span style="float:left;clear:both;"><strong>Group Code: </strong></span><br>
-                        <p style="float:left;clear:both;">{{currentGroupId}}</p> 
-                        <button ng-click="addMemberModal()">Add Member</button>
+                        <button ng-click="addMemberModal(); showMemberInfo()" id = "memberInfoBtn">Member Info</button>
+                        <span style="float:left;clear:both;"><strong>Group Code: </strong></span>
+                        <span style="float:left;">{{currentGroupId}}</span> 
                     </div> 
                 </div>
             </div>
