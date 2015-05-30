@@ -40,6 +40,7 @@
         <script src="components/profile/AccountSettingsController.js"></script>
         <script src="components/group/GroupController.js"></script>
         <script src="components/group/GroupInfoController.js"></script>
+        <script src="components/group/GroupEventController.js"></script>
         <script src="components/group/AddMemberController.js"></script>
         <script src="components/shared/EditEventController.js"></script>
 
@@ -509,6 +510,20 @@
                 </div>
             </div>
         </script>
+
+        <script type="text/ng-template" id="saveGroupEvent.html">
+                <div class="modal-header" style="border-bottom:none;" >
+                    <h3 class="modal-title">Save this event to personal calendar?</h3>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer" style="border-top:none;">
+                    <button class="btn btn-primary" ng-click="save()">Yes, save event.</button>
+                    <button class="btn btn-warning" ng-click="cancel()">No</button>
+                </div>
+            </div>
+        </script>
+
 
         <script type="text/ng-template" id="editGroup.html">
             <div>
