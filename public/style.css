@@ -875,11 +875,18 @@ SINGLEGROUP VIEW STYLES
     height:30px;
     width:100%;
     margin-top:15px;
+    letter-spacing: 2px;
+    font-size: 16px;
+    border-radius: 4px;
+    opacity:.75;
+    transition:opacity .5s;
 }
 
 #memberInfoBtn:hover
 {
     background-color:darkorange;
+    opacity:1;
+    transition:opacity .5s;
 }
 
 #memberView
