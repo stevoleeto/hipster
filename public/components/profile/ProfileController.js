@@ -84,7 +84,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 });
             };
 
-            $scope.editGroupModal = function (oldName, oldColor, oldID) {z
+            $scope.editGroupModal = function (oldName, oldColor, oldID) {
                 openModal('editGroup.html', 'EditGroupController', 'lg', {name: oldName, color: oldColor, id: oldID}).then(function (editedGroup) {
                     editGroup(editedGroup.id,editedGroup.newColor);
                     $log.info('Modal dismissed at: ' + new Date());
