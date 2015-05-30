@@ -477,7 +477,7 @@ PROFILE VIEW STYLES
 .schedule
 {
     float:left;
-    clear:left;
+    clear:both;
     width:100%;
 /*    height: calc(100% - 45px);*/
     height:auto;
@@ -837,26 +837,6 @@ SINGLEGROUP VIEW STYLES
     background-size: contain;
 }
 
-#addMemberBtn
-{
-    position: relative;
-    top: 45px;
-    left: 23px;
-    float: left;
-    height: 50px;
-    width: 50px;
-    background-image: url('images/addGroup.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-    border-radius: 50%;
-}
-
-#addMemberBtn:hover {
-    cursor: pointer;
-    opacity: 0.75;
-    filter: alpha(opacity=75);
-}
-
 #colIcons {
     height: 300px;
     overflow-y: scroll;
@@ -900,4 +880,55 @@ SINGLEGROUP VIEW STYLES
 #memberInfoBtn:hover
 {
     background-color:darkorange;
+}
+
+#memberView
+{
+    position:relative;
+    top:20px;
+    float: left;
+    height: auto;
+    width: 100%;
+    background:#FCFAF8;
+/*    border:solid black 1px;*/
+}
+
+#membersTitle
+{
+    position:relative;
+    font-size: 20px;
+    float:left;
+    left:2%;
+    letter-spacing: 3px;
+    top:5px;
+/*    border:solid black 1px;*/
+}
+
+#addMemberBtn
+{
+    position: relative;
+    cursor:pointer;
+    float: left;
+    top:40px;
+    left:40px;
+    height: 40px;
+    width: 40px;
+    background-image: url('images/addGroup.png');
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    background-size: contain;
+    opacity:.75;
+    transition:opacity .3s;
+    -webkit-transition: opacity .3s;
+    -moz-transition: opacity .3s;
+    -o-transition: opacity .3s;
+}
+
+#addMemberBtn:hover
+{
+    opacity:1;
+    transition:opacity .3s;
+    -webkit-transition: opacity .3s;
+    -moz-transition: opacity .3s;
+    -o-transition: opacity .3s;
 }

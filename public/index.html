@@ -189,7 +189,7 @@
         </div> 
       </div> <!--END PROFILE CONTROLLER -->
         <!-- GROUP CONTROLLER -->
-        <div class="singleGroupView" ng-init="singleGroupView=false" ng-show="singleGroupView">
+        <div class="singleGroupView" ng-init="singleGroupView=false;" ng-show="singleGroupView">
             <div id="profileWrapper" ng-controller="GroupController">
                 <div style="clear:both;">
                     <div id="scheduleWrapper" style="top:0;">
@@ -246,10 +246,22 @@
                             
                             <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
-                        <button ng-click="addMemberModal(); showMemberInfo()" id = "memberInfoBtn">Member Info</button>
+                        <button ng-click="addMemberView=!addMemberView;" id = "memberInfoBtn">Member Info</button>
                         <span style="float:left;clear:both;"><strong>Group Code: </strong></span>
                         <span style="float:left;">{{currentGroupId}}</span> 
                     </div> 
+                    
+                    <div id="memberView" ng-init="addMemberView=false" ng-show="addMemberView">
+                        <p id="membersTitle">Members</p><br>
+                        
+                        <div class="members" ng-repeat="member in memberList track by $index">
+                                <img class="memberIcon" ng-src="{{member.icon}}" ng-init="getMemberIcon(member.email);"
+                                     ng-class="{'smallIcon': member.icon === 'images/userIcon.png'}"/>
+                                <p text-align="center">{{member.name}}</p>
+                        </div>
+                        
+                        <div ng-click = "addMemberModal()" id="addMemberBtn"></div>
+                    </div>
                 </div>
             </div>
         </div>
