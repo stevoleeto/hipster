@@ -525,8 +525,8 @@ $scope.settingsSave = function(){
 //$scope.eventEndTime = new Date();
 
 
-//$scope.hstep = 1;
-//$scope.mstep = 1;
+$scope.hstep = 1;
+$scope.mstep = 1;
 
 $scope.options = {
     hstep: [1, 2, 3],
