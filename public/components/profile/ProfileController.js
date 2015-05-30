@@ -54,10 +54,77 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             $scope.googleID = currentUser.get("googleAcct");
             $scope.eventColor = {mine : '#B9F5FF'};
             $scope.eventEditColor = {color : eventService.getSelectedEvent().color };
+            var googleCalendar;
 
             //set users email in service
             userService.setEmail(currentUser.get("username")); 
             userService.setName($scope.userName);
+
+            $scope.eventSources = [];
+
+
+            /* IF the user is in profile view, ensure latest schedule */
+            $scope.$watch('profileView', function(){
+                if($scope.profileView){
+                $scope.eventSources.length = 0;
+                userService.getCurrentSchedule($scope.email).then(function(currentSchedule){
+                    $scope.eventSources.push(currentSchedule);
+
+                })
+                /* GOOGLE CALENDAR */
+                if(currentUser.get("googleCalendarID")){ // if user has calID
+                                console.log("happening!!");
+                    //if(userService.getGoogleCalendar().length === 0){ // if it hasn't been pulled already
+                        userService.setGoogleCalendar(currentUser.get("googleCalendarID")).then(function(){
+                            var newCalendar = userService.getGoogleCalendar();
+                            if(newCalendar){ //if successful
+                                googleCalendar = newCalendar;
+                                $scope.eventSources.push(googleCalendar);
+                            }
+                        });
+                   // }
+                }
+                }
+            });
+
+
+            // Profile Calendar Settings
+            // -----------------------
+            $scope.uiConfig = {
+                calendar:{
+                    height: 'auto',
+                    viewRender: function(view, element) {
+                        //$log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
+                    },
+                    editable: false,
+                    selectable: true,
+                    defaultView: 'agendaWeek',
+                    slotDuration: '01:00:00',
+                    minTime: '06:00:00',
+                    maxTime: '22:00:00',
+                    eventClick: function(event, jsEvent, view) {
+                        editEventModal(event);
+                    },
+                    select: function(start, end, jsEvent, view){
+                        $scope.eventStartDate = (start.local()).toDate();
+                        $scope.eventEndDate =  (end.local()).toDate();
+                        $scope.eventStartTime = ((start.local()).toDate());
+                        $scope.eventEndTime = ((end.local()).toDate());
+                    },
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay'
+                    },
+                    allDaySlot:false
+                }
+            };
+
+            /* asks the service to please pull the group list of desire email,
+             * then it gets the groupList from the service when its done pulling */
+            userService.getGroupList($scope.email).then(function(groupList){
+                $scope.myGroupList = groupList;
+            });
 
             /* MODAL FUNCTION */
             var openModal = function(template, ctrl, size, param ){
@@ -134,32 +201,32 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 
             var editEventModal = function(eventClicked){
                 openModal('editMyEvent.html','EditEventController', 'lg',eventClicked).then(function (savedEvent) {
-                   if(savedEvent){ //save it
-                       editEvent(eventClicked);
-                   }
-                   else{ // delete it
-                       deleteEvent(eventClicked);
-                   }
-               }, function () {
-                   $log.info('Modal dismissed at: ' + new Date());
-               });
+                    if(savedEvent){ //save it
+                        editEvent(eventClicked);
+                    }
+                    else{ // delete it
+                        deleteEvent(eventClicked);
+                    }
+                }, function () {
+                    $log.info('Modal dismissed at: ' + new Date());
+                });
 
             }
             /* COMPLETED MODALS */
 
 
 
-            
+
 
             $scope.toggleAnimation = function () {
                 $scope.animationsEnabled = !$scope.animationsEnabled;
             };
 
-            
+
 
             /* END MODAL SECTION */
 
-                                                                                                                     
+
 
             $scope.dayRepeat = {
                 monday : false,
@@ -171,392 +238,313 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 sunday : false
             };
 
-            $scope.eventSources = [$scope.eventArray];
-            /* GOOGLE CALENDAR */
-            if(currentUser.get("googleCalendarID")){ // if user has calID
-                if(userService.getGoogleCalendar().length === 0){ // if it hasn't been pulled already
-                    userService.setGoogleCalendar(currentUser.get("googleCalendarID")).then(function(){
-                        var newCalendar = userService.getGoogleCalendar();
-                        if(newCalendar){ //if successful
-                            var googleCalendar = newCalendar;
-                            $scope.eventSources.push(googleCalendar);
-                        }
 
-                    });
+
+            $scope.addGroup = function(){	
+                groupService.setGroupId($scope.currentGroupId);
+                groupService.setGroupColor($scope.currentGroupColor);
+            }
+
+            $scope.updateSingleGroupTab = function(name){
+                $scope.singleGroupName = name;
+            }
+
+
+            /************************************************************************
+             * Name:    removeAllGroups()
+
+             * Purpose:   Allows the user to remove themselves from all groups they are in.
+
+             * Called In:   index.html
+
+             * Description: Removs all groups found in their GroupList userGroups array.
+             ************************************************************************/
+            $scope.removeAllGroups = function(){
+                $scope.myGroupList = []; 
+                userService.clearGroupList($scope.email);
+            }
+
+            /************************************************************************
+             * Name:    removeGroup()
+
+             * Purpose:   Remove a single group.
+
+             * Called In:   index.html
+
+             * Description: Removs a single in their GroupList userGroups array.
+             ************************************************************************/
+            $scope.removeGroup = function(groupId){
+                userService.removeGroup(groupId);
+                for (i = 0; i < $scope.myGroupList.length; i++){
+                    if($scope.myGroupList[i]['id'] === groupId){
+                        $scope.myGroupList.splice(i, 1);
+                        break;
+                    }
                 }
+
             }
 
+            /************************************************************************
+             * Name:		logout()
 
-// Profile Calendar Settings
-// -----------------------
-$scope.uiConfig = {
-    calendar:{
-        height: 'auto',
-        viewRender: function(view, element) {
-            //$log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
-        },
-        editable: false,
-        selectable: true,
-        defaultView: 'agendaWeek',
-        slotDuration: '01:00:00',
-        minTime: '06:00:00',
-        maxTime: '22:00:00',
-        eventClick: function(event, jsEvent, view) {
-            editEventModal(event);
-        },
-        select: function(start, end, jsEvent, view){
-            $scope.eventStartDate = (start.local()).toDate();
-            $scope.eventEndDate =  (end.local()).toDate();
-            $scope.eventStartTime = ((start.local()).toDate());
-            $scope.eventEndTime = ((end.local()).toDate());
-        },
-        header: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'month,agendaWeek,agendaDay'
-        },
-        allDaySlot:false
-    }
-};
+             * Purpose:		Allows the user to logout.
 
-/* asks the service to please pull the group list of desire email,
- * then it gets the groupList from the service when its done pulling */
-userService.getGroupList($scope.email).then(function(groupList){
-    $scope.myGroupList = groupList;
-});
+             * Called In:   main()
 
-$scope.addGroup = function(){	
-    groupService.setGroupId($scope.currentGroupId);
-    groupService.setGroupColor($scope.currentGroupColor);
-}
-
-$scope.updateSingleGroupTab = function(name){
-    $scope.singleGroupName = name;
-}
-
-
-/************************************************************************
- * Name:    removeAllGroups()
-
- * Purpose:   Allows the user to remove themselves from all groups they are in.
-
- * Called In:   index.html
-
- * Description: Removs all groups found in their GroupList userGroups array.
- ************************************************************************/
-$scope.removeAllGroups = function(){
-    $scope.myGroupList = []; 
-    userService.clearGroupList($scope.email);
-}
-
-/************************************************************************
- * Name:    removeGroup()
-
- * Purpose:   Remove a single group.
-
- * Called In:   index.html
-
- * Description: Removs a single in their GroupList userGroups array.
- ************************************************************************/
-$scope.removeGroup = function(groupId){
-    userService.removeGroup(groupId);
-    for (i = 0; i < $scope.myGroupList.length; i++){
-        if($scope.myGroupList[i]['id'] === groupId){
-            $scope.myGroupList.splice(i, 1);
-            break;
-        }
-    }
-
-}
-
-/************************************************************************
- * Name:		logout()
-
- * Purpose:		Allows the user to logout.
-
- * Called In:   main()
-
- * Description:	Calls Parse's logout function. 
- ************************************************************************/
-$scope.logout = function(){
-    Parse.User.logOut();
-    location.href='components/login/login.html';
-}
-
-/************************************************************************
- * Name:    createGroup()
-
- * Purpose:   Allows the user to create a group and include an email to invite to the group.
-
- * Called In:   index.html
-
- * Description: Creates a new group, and adds the new group to the GroupList userGroups array for both the current user the and user they have selected.
- ************************************************************************/
-var createGroup = function(groupInfo){
-     if (groupInfo.code != undefined){
-         dataBaseService.queryGroup(groupInfo.code).then(function(groupQuery){
-            if(groupQuery.length == 0){
-                alert("Group Doesn't Exist!");
-                console.log("Group doesn't Exist");
+             * Description:	Calls Parse's logout function. 
+             ************************************************************************/
+            $scope.logout = function(){
+                Parse.User.logOut();
+                location.href='components/login/login.html';
             }
-            else{
-                var alreadyInGroup = validateService.isEmailInArray(groupQuery[0]._serverData.memberList, $scope.email);
-                if(!alreadyInGroup){
-                    groupQuery[0]._serverData.memberList.push({name: $scope.userName, email: $scope.email});
-                    groupQuery[0].save();
-                    dataBaseService.queryGroupList($scope.email).then(function(groupListQuery){
-                        $scope.myGroupList.push({id: groupQuery[0].id, name: groupQuery[0]._serverData.name, color: groupInfo.color || "#B5FBA3"});
-                        groupListQuery[0].set("userGroups", $scope.myGroupList);
-                        groupListQuery[0].save();
+
+            /************************************************************************
+             * Name:    createGroup()
+
+             * Purpose:   Allows the user to create a group and include an email to invite to the group.
+
+             * Called In:   index.html
+
+             * Description: Creates a new group, and adds the new group to the GroupList userGroups array for both the current user the and user they have selected.
+             ************************************************************************/
+            var createGroup = function(groupInfo){
+                if (groupInfo.code != undefined){
+                    dataBaseService.queryGroup(groupInfo.code).then(function(groupQuery){
+                        if(groupQuery.length == 0){
+                            alert("Group Doesn't Exist!");
+                            console.log("Group doesn't Exist");
+                        }
+                        else{
+                            var alreadyInGroup = validateService.isEmailInArray(groupQuery[0]._serverData.memberList, $scope.email);
+                            if(!alreadyInGroup){
+                                groupQuery[0]._serverData.memberList.push({name: $scope.userName, email: $scope.email});
+                                groupQuery[0].save();
+                                dataBaseService.queryGroupList($scope.email).then(function(groupListQuery){
+                                    $scope.myGroupList.push({id: groupQuery[0].id, name: groupQuery[0]._serverData.name, color: groupInfo.color || "#B5FBA3"});
+                                    groupListQuery[0].set("userGroups", $scope.myGroupList);
+                                    groupListQuery[0].save();
+                                });
+                            }
+                            else{
+                                alert("You're already in that group!");
+                                console.log("User already in group");
+                            }
+                        }
                     });
                 }
                 else{
-                    alert("You're already in that group!");
-                    console.log("User already in group");
+                    userService.createGroup($scope.userName, $scope.email, $scope.myGroupList, groupInfo.name, groupInfo.color).then(function(){
+                        /* this is to ensure scope gets applied even if query takes a bit too long*/
+                        $timeout(function(){$scope.$apply()}, 150);
+                    });
+                    groupName = '';
+                }
+
+            }
+
+            /************************************************************************
+             * Name:    createEvent()
+
+             * Purpose:   Allows the user to add an event to their calendar.
+
+             * Called In:   index.html
+
+             * Description: Removs all groups found in their GroupList userGroups array.
+             ************************************************************************/
+            $scope.createEvent = function(){
+                var repeatTheseDays = [];
+                var repeat = false;
+
+                if (!$scope.newEventName){
+                    alert("Enter a event name!");
+                    return;
+                }
+
+                if ($scope.eventColor.mine == '#fff') {
+                    alert("Choose a color for your event!");
+                    return;
+                }
+
+                if ($scope.dayRepeat.monday || 
+                        $scope.dayRepeat.tuesday || 
+                        $scope.dayRepeat.wednesday ||
+                        $scope.dayRepeat.thursday ||
+                        $scope.dayRepeat.friday ||
+                        $scope.dayRepeat.saturday ||
+                        $scope.dayRepeat.sunday){
+                            repeat = true;
+                        }
+
+                if(repeat){
+
+                    if ($scope.dayRepeat.monday){
+                        repeatTheseDays.push(1);
+                    }
+                    if ($scope.dayRepeat.tuesday){
+                        repeatTheseDays.push(2);
+                    }
+                    if ($scope.dayRepeat.wednesday){
+                        repeatTheseDays.push(3);
+                    }
+                    if ($scope.dayRepeat.thursday){
+                        repeatTheseDays.push(4);
+                    }
+                    if ($scope.dayRepeat.friday){
+                        repeatTheseDays.push(5);
+                    }
+                    if ($scope.dayRepeat.saturday){
+                        repeatTheseDays.push(6);
+                    }
+                    if ($scope.dayRepeat.sunday){
+                        repeatTheseDays.push(0); 
+                    }
+                }    
+
+                eventService.createEvent($scope.newEventName, //event name
+                        $scope.eventColor.mine, //event color
+                        (moment($scope.eventStartDate.toISOString()).dateOnly()), //start date
+                        (moment($scope.eventStartTime.toISOString()).hour()), //start hour
+                        (moment($scope.eventStartTime.toISOString()).minute()), //start min
+                        (moment($scope.eventEndDate.toISOString()).dateOnly()), //end date
+                        (moment($scope.eventEndTime.toISOString()).hour()), //end hour
+                        (moment($scope.eventEndTime.toISOString()).minute()), //end min
+                        repeat, //does this event repeat?
+                        repeatTheseDays); //what does does this event repeat on
+
+                newEvents = eventService.getEvents();
+
+                for (index = 0; index < newEvents.length; index++){
+                    $scope.eventArray.push(newEvents[index]); 
+                }
+
+                currentUser.save();
+
+                $scope.newEventName = "";
+
+                eventService.clearEvents();
+
+                for(index = 0; index < $scope.dayRepeat.length; index++){
+                    $scope.dayRepeat[i] = false;
                 }
             }
-        });
-     }
-    else{
-         userService.createGroup($scope.userName, $scope.email, $scope.myGroupList, groupInfo.name, groupInfo.color).then(function(){
-        /* this is to ensure scope gets applied even if query takes a bit too long*/
-         $timeout(function(){$scope.$apply()}, 150);
-         });
-         groupName = '';
-     }
-    
-}
 
-/************************************************************************
- * Name:    createEvent()
-
- * Purpose:   Allows the user to add an event to their calendar.
-
- * Called In:   index.html
-
- * Description: Removs all groups found in their GroupList userGroups array.
- ************************************************************************/
-$scope.createEvent = function(){
-    var repeatTheseDays = [];
-    var repeat = false;
-
-    if (!$scope.newEventName){
-        alert("Enter a event name!");
-        return;
-    }
-
-    if ($scope.eventColor.mine == '#fff') {
-        alert("Choose a color for your event!");
-        return;
-    }
-
-    if ($scope.dayRepeat.monday || 
-            $scope.dayRepeat.tuesday || 
-            $scope.dayRepeat.wednesday ||
-            $scope.dayRepeat.thursday ||
-            $scope.dayRepeat.friday ||
-            $scope.dayRepeat.saturday ||
-            $scope.dayRepeat.sunday){
-                repeat = true;
+            $scope.removeAllEvents = function(){
+                $scope.eventSources.length = 0;
+                currentUser.set("personalSchedule", []);
+                currentUser.save();
             }
 
-    if(repeat){
+            var addFriend = function(newFriend) {
+                var User = Parse.Object.extend("User");
+                var query = new Parse.Query(User);
+                query.equalTo("username", newFriend);
+                query.find().then(function(pulledFriend) {
+                    $scope.friendList.push({email: newFriend, name:pulledFriend[0].attributes.name});
+                    currentUser.set("friendList", $scope.friendList);
+                    currentUser.save();
+                });
+            }
 
-        if ($scope.dayRepeat.monday){
-            repeatTheseDays.push(1);
-        }
-        if ($scope.dayRepeat.tuesday){
-            repeatTheseDays.push(2);
-        }
-        if ($scope.dayRepeat.wednesday){
-            repeatTheseDays.push(3);
-        }
-        if ($scope.dayRepeat.thursday){
-            repeatTheseDays.push(4);
-        }
-        if ($scope.dayRepeat.friday){
-            repeatTheseDays.push(5);
-        }
-        if ($scope.dayRepeat.saturday){
-            repeatTheseDays.push(6);
-        }
-        if ($scope.dayRepeat.sunday){
-            repeatTheseDays.push(0); 
-        }
-    }    
+            var viewFriends = function(newFriend) {
+                var User = Parse.Object.extend("User");
+                var query = new Parse.Query(User);
+                query.equalTo("username", newFriend);
+                query.find().then(function(pulledFriend) {
+                    $scope.friendList.push({email: newFriend, name:pulledFriend[0].attributes.name});
+                    currentUser.set("friendList", $scope.friendList);
+                    currentUser.save();
+                });
+            }
 
-    eventService.createEvent($scope.newEventName, //event name
-        $scope.eventColor.mine, //event color
-        (moment($scope.eventStartDate.toISOString()).dateOnly()), //start date
-        (moment($scope.eventStartTime.toISOString()).hour()), //start hour
-        (moment($scope.eventStartTime.toISOString()).minute()), //start min
-        (moment($scope.eventEndDate.toISOString()).dateOnly()), //end date
-        (moment($scope.eventEndTime.toISOString()).hour()), //end hour
-        (moment($scope.eventEndTime.toISOString()).minute()), //end min
-        repeat, //does this event repeat?
-        repeatTheseDays); //what does does this event repeat on
+            var deleteEvent = function(eventClicked){
 
-    newEvents = eventService.getEvents();
+                var tempArray = [];
+                $scope.eventSources.length = 0;
 
-    for (index = 0; index < newEvents.length; index++){
-        $scope.eventArray.push(newEvents[index]); 
-    }
-
-    currentUser.save();
-
-    $scope.newEventName = "";
-
-    eventService.clearEvents();
-
-    for(index = 0; index < $scope.dayRepeat.length; index++){
-        $scope.dayRepeat[i] = false;
-    }
-}
-
-$scope.removeAllEvents = function(){
-    $scope.eventSources.length = 0;
-    currentUser.set("personalSchedule", []);
-    currentUser.save();
-}
-
-var addFriend = function(newFriend) {
-    var User = Parse.Object.extend("User");
-    var query = new Parse.Query(User);
-    query.equalTo("username", newFriend);
-    query.find().then(function(pulledFriend) {
-        $scope.friendList.push({email: newFriend, name:pulledFriend[0].attributes.name});
-        currentUser.set("friendList", $scope.friendList);
-        currentUser.save();
-    });
-}
-
-var viewFriends = function(newFriend) {
-    var User = Parse.Object.extend("User");
-    var query = new Parse.Query(User);
-    query.equalTo("username", newFriend);
-    query.find().then(function(pulledFriend) {
-        $scope.friendList.push({email: newFriend, name:pulledFriend[0].attributes.name});
-        currentUser.set("friendList", $scope.friendList);
-        currentUser.save();
-    });
-}
-
- var deleteEvent = function(eventClicked){
-
-    var tempArray = [];
-    $scope.eventSources.length = 0;
-
-    for(index = 0; index < $scope.eventArray.length; index++){
-      if(eventClicked.id !== $scope.eventArray[index].id){
-        tempArray.push($scope.eventArray[index]);
-      }
-    }
+                for(index = 0; index < $scope.eventArray.length; index++){
+                    if(eventClicked.id !== $scope.eventArray[index].id){
+                        tempArray.push($scope.eventArray[index]);
+                    }
+                }
 
 
-    $scope.eventSources.push(tempArray);
-    currentUser.set("personalSchedule", tempArray);
-    currentUser.save();
-}
+                $scope.eventSources.push(tempArray);
+                currentUser.set("personalSchedule", tempArray);
+                currentUser.save();
+            }
 
-var editEvent = function(eventClicked){
-    var tempArray = [];
-    $scope.eventSources.length = 0;
+            var editEvent = function(eventClicked){
+                var tempArray = [];
+                $scope.eventSources.length = 0;
 
-    for(index = 0; index < $scope.eventArray.length; index++){
-        if(eventClicked.id == $scope.eventArray[index].id){
-            $scope.eventArray[index].color = eventClicked.color;
-            $scope.eventArray[index].title = eventClicked.title;
+                for(index = 0; index < $scope.eventArray.length; index++){
+                    if(eventClicked.id == $scope.eventArray[index].id){
+                        $scope.eventArray[index].color = eventClicked.color;
+                        $scope.eventArray[index].title = eventClicked.title;
 
-        }
-    }
+                    }
+                }
 
-    for(index = 0; index < $scope.eventArray.length; index++){
-        tempArray.push($scope.eventArray[index]);
-    }
-
-
-    $scope.eventSources.push(tempArray);
-    currentUser.set("personalSchedule", tempArray);
-    currentUser.save();
-}
-
-$scope.settingsSave = function(name, email, google, icon){
-    /*var good = false;
-    if ($scope.newUserName){
-        currentUser.set("name", $scope.newUserName);
-        $scope.userName = $scope.newUserName;
-        good = true;
-    }
-    if ($scope.newEmail){ 
-        currentUser.set("username", $scope.newEmail);
-        currentUser.set("email", $scope.newEmail);
-        good = true;
-    }
-    if ($scope.newPassword){
-        currentUser.set("password", $scope.newPassword);
-        good = true;
-    }
-    if ($scope.googleCalendarID){
-        currentUser.set("googleCalendarID", $scope.googleCalendarID)
-            good = true;
-    }
-    if (newIcon){
-        currentUser.set("userIcon", newIcon);
-        good = true;
-    }*/
-    console.log(name);
-    console.log(email);
-    console.log(google);
-    console.log(icon);
-    currentUser.set("name", name);
-    currentUser.set("username", email);
-    currentUser.set("email", email);
-    currentUser.set("googleCalendarID", google)
-    currentUser.set("userIcon", icon);
-
-    currentUser.save();
-    $scope.newUserName = "";
-    userService.setName($scope.newUserName);
-    $scope.newEmail = "";
-    $scope.newPassword = "";
-}
-
-//timepicker
-
-$scope.eventStartTime = new Date();
-$scope.eventEndTime = new Date();
+                for(index = 0; index < $scope.eventArray.length; index++){
+                    tempArray.push($scope.eventArray[index]);
+                }
 
 
-$scope.hstep = 1;
-$scope.mstep = 1;
+                $scope.eventSources.push(tempArray);
+                currentUser.set("personalSchedule", tempArray);
+                currentUser.save();
+            }
 
-$scope.options = {
-    hstep: [1, 2, 3],
-    mstep: [1, 5, 10, 15, 25, 30]
-};
+            $scope.settingsSave = function(name, email, google, icon){
+                currentUser.set("name", name);
+                currentUser.set("username", email);
+                currentUser.set("email", email);
+                currentUser.set("googleCalendarID", google)
+                    currentUser.set("userIcon", icon);
 
-$scope.ismeridian = true;
-$scope.toggleMode = function() {
-    $scope.ismeridian = ! $scope.ismeridian;
-};
+                currentUser.save();
+                $scope.newUserName = "";
+                userService.setName($scope.newUserName);
+                $scope.newEmail = "";
+                $scope.newPassword = "";
+            }
 
-$scope.update = function() {
-    var d = new Date();
-    d.setHours( 14 );
-    d.setMinutes( 0 );
-    $scope.eventStartTime = d;
-    $scope.eventEndTime = d;
-};
+            //timepicker
 
-$scope.changed = function () {
-    $log.log('Time changed to: ' + $scope.mytime);
-};
+            $scope.eventStartTime = new Date();
+            $scope.eventEndTime = new Date();
 
-$scope.clear = function() {
-    $scope.mytime = null;
-};
 
-}]);//end profilecontrller
+            $scope.hstep = 1;
+            $scope.mstep = 1;
+
+            $scope.options = {
+                hstep: [1, 2, 3],
+                mstep: [1, 5, 10, 15, 25, 30]
+            };
+
+            $scope.ismeridian = true;
+            $scope.toggleMode = function() {
+                $scope.ismeridian = ! $scope.ismeridian;
+            };
+
+            $scope.update = function() {
+                var d = new Date();
+                d.setHours( 14 );
+                d.setMinutes( 0 );
+                $scope.eventStartTime = d;
+                $scope.eventEndTime = d;
+            };
+
+            $scope.changed = function () {
+                $log.log('Time changed to: ' + $scope.mytime);
+            };
+
+            $scope.clear = function() {
+                $scope.mytime = null;
+            };
+
+        }]);//end profilecontrller
 
 /************************************************************************
  * Name:        ModalInstanceCtrl

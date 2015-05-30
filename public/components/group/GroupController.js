@@ -108,7 +108,13 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                         $scope.eventEndTime = ((end.local()).toDate());
                     },
                     eventClick: function(event, jsEvent, view) {
-
+                        openModal('saveGroupEvent.html', 'GroupEventController', 'sm', null).then(function(){
+                            var currentSched = currentUser.get("personalSchedule");
+                            // set source to null to avoid circular structure
+                            event.source = null;
+                            currentSched.push(event);
+                            currentUser.save();
+                        });
                     },
                     editable: false,
                     viewRender: function(view, element) {
