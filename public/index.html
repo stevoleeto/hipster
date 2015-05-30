@@ -236,13 +236,13 @@
                             
                             <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
-                        <button ng-click="addMemberView=!addMemberView;" id = "memberInfoBtn">Member Info</button>
+                        <a href="#membersViewAnchor"><button ng-click="addMemberView=!addMemberView;" id="memberInfoBtn" >Member Info</button></a>
                         <span style="float:left;clear:both;"><strong>Group Code: </strong></span>
                         <span style="float:left;">{{currentGroupId}}</span> 
                     </div> 
                     
                     <div id="memberView" ng-init="addMemberView=false" ng-show="addMemberView">
-                        <p id="membersTitle">Members</p><br>
+                        <a name="membersViewAnchor"><p id="membersTitle">Members</p></a><br>
                         
                         <div class="members" ng-repeat="member in memberList track by $index">
                                 <img class="memberIcon" ng-src="{{member.icon}}" ng-init="getMemberIcon(member.email);"

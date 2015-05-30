@@ -11,6 +11,31 @@ body  {
     margin-top: 0;
 }
 
+a
+{
+    color:black;
+}
+
+/* unvisited link */
+a:link {
+    color: black;
+}
+
+/* visited link */
+a:visited {
+    color: black;
+}
+
+/* mouse over link */
+a:hover {
+    color: black;
+}
+
+/* selected link */
+a:active {
+    color: black;
+}
+
 #homeView, .singleGroupView
 {
     position: relative;
