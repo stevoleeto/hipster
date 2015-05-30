@@ -1,6 +1,7 @@
 app.controller('AddGroupController', function($scope, $modalInstance){
     $scope.ok = function(){
-        groupInfo = {groupName:$scope.newGroupName, groupColor: $scope.groupColor};
+        groupInfo = {name:$scope.newGroupName, color: $scope.groupColor, code: $scope.newGroupCode};
+        console.log($scope.newGroupCode);
         $modalInstance.close(groupInfo);
 //        console.log("hello");
     }
