@@ -84,7 +84,7 @@ app.controller('LoginController', ['$scope', function($scope) {
         });
         */
         //Reset the tips field back to original
-        location.href="../index.html";
+        location.href="../../index.html";
       },
       //If Parse isn't able to successfully add the user to the database
       error: function( user ) {
@@ -182,15 +182,15 @@ app.controller('CarouselInstanceCtrl', function ($scope) {
 
   $scope.addSlide = function() {
     slides.push({
-      image: '../images/ProfileView.png',
+      image: '../../images/ProfileView.png',
       caption: 'Customize your weekly schedule'
     });
     slides.push({
-      image: '../images/Groups.png',
+      image: '../../images/Groups.png',
       caption: 'Add a group to organize events'
     });
     slides.push({
-      image: '../images/GroupsView.png',
+      image: '../../images/GroupsView.png',
       caption: 'Find free time for your events among your group'
     });
   }
