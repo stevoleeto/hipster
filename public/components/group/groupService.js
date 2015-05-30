@@ -41,7 +41,6 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
         lastGroupQuery[0].save();
     };
 
-
     /************************************************************************
      * Name:    initGroup()
 
@@ -89,7 +88,6 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
                     /* get the user's google calendar data! */
                     var googleCalendarID = userQuery[0].get("googleCalendarID");
                     if( googleCalendarID){
-                        console.log("Trying to pull gCal id");
                         googleCalendarService.queryGoogleCalendar(googleCalendarID).then(function(newCal){
                             googleCalQueriesLeft--;
                             var tempSched = [];
