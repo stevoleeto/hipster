@@ -381,32 +381,19 @@
                 <h3 class="modal-title">Account Settings</h3>
             </div>
             <div class="modal-body">
+                <center>
+                    <div id="lblSuccess" ng-show="saveLabel"> Everything looks good!</div>
+                    <div id="lblError" ng-show="errLabel">Errors found with name and/or email field(s)!</div>
+                </center>
                 <tabset>
                     <tab heading="Profile Settings">
                         <br>
-                        <center>
-                            <div id="lblSuccess" ng-show="saveLabel"> Everything looks good!</div>
-                            <div id="lblError" ng-show="errLabel">{{errMsg}}</div>
-                        </center>
                         <label for="username" style="display:inline-block;width:150px;">User Name:</label>
-                        <input style="width:50%;margin-bottom:15px;" value="{{newName}}" ng-model="newName" name="username" ng-style="(newName.length > 0) ? {'border-bottom':'1px solid green'} : {'border-bottom':'1px solid red'}" required ng-pattern="/^[a-z']([a-z'_\s])+$/i"><br>
+                        <input style="width:50%;margin-bottom:15px;" value="{{modalParams.name}}" ng-model="newName" name="username" ng-style="(newName.length > 0) ? {'border-bottom':'1px solid green'} : {'border-bottom':'1px solid red'}" required ng-pattern="/^[a-z']([a-z'_\s])+$/i"><br>
                         <label for="email" style="display:inline-block;width:150px;">Email:</label>
-                        <input style="width:50%;margin-bottom:15px;" value="{{newEmail}}" ng-model="newEmail" ng-style="(newEmail.length > 0) ? {'border-bottom':'1px solid green'} : {'border-bottom':'1px solid red'}" required ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/"><br>
-                        <div ng-click="editPassword()" class="btn btn-info">Change Password</div>
-                        <button class="btn btn-default" ng-click="isCollapsed=!isCollapsed">User Icons</button><br><br>
-                        <div collapse="isCollapsed">
-                            <div class="well" id="colIcons">
-                                <h4>Select a user icon</h4>
-                                <div id="icons" ng-repeat="icon in icons track by $index" ng-attr-title="{{icon.name}}">
-                                    <img class="selIcons" ng-src="{{icon.image}}" ng-click="setSel($event);" ng-model="newIcon" ng-init="initSelectedIcon(icon);" ng-class="{'selected': icon.selected, 'smallIcon': icon.name==='Super Hero'}"/>
-                                </div>
-                            </div>
-                        </div>
-                    </tab>
-                    <tab heading="Google Calendar Settings">
-                        <br>
+                        <input style="width:50%;margin-bottom:15px;" value="{{modalParams.email}}" ng-model="newEmail" ng-style="(newEmail.length > 0) ? {'border-bottom':'1px solid green'} : {'border-bottom':'1px solid red'}" required ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" name="email"><br>
                         <label for="google" style="display:inline-block;width:150px;">Google Calendar ID:</label>
-                        <input style="width:50%;margin-bottom:15px;" value="{{newGoogleID}}" ng-model="newGoogleID" ng-style="( newGoogleID.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ((newGoogleID) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' })" ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" name="google" type="text"><br>
+                        <input style="width:50%;margin-bottom:15px;" value="{{modalParams.google}}" ng-model="newGoogleID" name="google" ng-style="(newGoogleID != undefined) ? {'border-bottom':'1px solid green'} : {'border-bottom':'1px solid #c6c6c6'}"><br>
                         <accordion close-others="oneAtATime">
                             <accordion-group heading="How to Get Your Google Calendar ID">
                                 <p>Make your Google Calendar public:
@@ -428,6 +415,16 @@
                                 </p>
                             </accordion-group>
                         </accordion>
+                        <div ng-click="editPassword()" class="btn btn-info">Change Password</div>
+                        <button class="btn btn-default" ng-click="isCollapsed=!isCollapsed">User Icons</button><br><br>
+                        <div collapse="isCollapsed">
+                            <div class="well" id="colIcons">
+                                <h4>Select a user icon</h4>
+                                <div id="icons" ng-repeat="icon in icons track by $index" ng-attr-title="{{icon.name}}">
+                                    <img class="selIcons" ng-src="{{icon.image}}" ng-click="setSel($event);" ng-model="newIcon" ng-init="initSelectedIcon(icon);" ng-class="{'selected': icon.selected, 'smallIcon': icon.name==='Super Hero'}"/>
+                                </div>
+                            </div>
+                        </div>
                     </tab>
                     <tab heading="Remove All Events">
                         <br>
