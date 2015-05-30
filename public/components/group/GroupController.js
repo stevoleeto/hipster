@@ -52,6 +52,22 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
 
             $scope.animationsEnabled = true;    
 
+            /* generic modal */
+            var openModal = function(template, ctrl, size, param ){
+                var modalInstance = $modal.open({
+                    animation: true,
+                    templateUrl: template,
+                    controller: ctrl,
+                    size: size,
+                    resolve: {
+                        modalParams: function () {
+                            return param;
+                        }
+                    }
+                });
+                return modalInstance.result
+            }
+
             /************************************************************************
              * Name:        addMemberModal
 
@@ -91,6 +107,10 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                         $scope.eventStartTime = ((start.local()).toDate());
                         $scope.eventEndTime = ((end.local()).toDate());
                     },
+                    eventClick: function(event, jsEvent, view) {
+
+                    },
+                    editable: false,
                     viewRender: function(view, element) {
                         //$log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
                     },
