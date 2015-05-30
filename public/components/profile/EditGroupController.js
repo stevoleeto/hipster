@@ -2,13 +2,16 @@ app.controller('EditGroupController', function($scope, $modalInstance, modalPara
 
     $scope.newGroupName = modalParams.name;
     $scope.newGroupColor = modalParams.color;
+    var groupId = modalParams.id;
 
     $scope.ok = function(){
-        $scope.newGroupSettings = {
-            newName: $scope.newGroupName,
-            newColor: $scope.newGroupColor
+        console.log("Ok");
+        console.log(modalParams);
+        var newGroupSettings = {
+            newColor: $scope.newGroupColor,
+            id: groupId
         };
-        $modalInstance.close($scope.newGroupSettings);
+        $modalInstance.close(newGroupSettings);
     }
 
     $scope.cancel = function () {

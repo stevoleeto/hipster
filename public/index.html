@@ -126,14 +126,12 @@
                             <input placeholder="Event Name" type="text" name="pEventName" class="eventPar" ng-model="newEventName">
                             <br><br>
 
-                            <div ng-controller="PopoverInstanceCtrl">
-                                <center><button Popover-animation="true" popover-template="repDays.templateUrl" popover-placement="top" class="btn btn-default" popover-title="Select Repeating Days">Set Repeating</button></center>
+                                <center><button Popover-animation="true" popover-template="repDays.html" popover-placement="top" class="btn btn-default" popover-title="Select Repeating Days">Set Repeating</button></center>
                                 <script type="text/ng-template" id="repDays.html">
                                     <div class="repDays">
                                         <label class="btn btn-primary" ng-model="dayRepeat.monday" btn-checkbox>Mon</label><label class="btn btn-primary" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</label><label class="btn btn-primary" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</label><label class="btn btn-primary" ng-model="dayRepeat.thursday" btn-checkbox>Thu</label><label class="btn btn-primary" ng-model="dayRepeat.friday" btn-checkbox>Fri</label><label class="btn btn-primary" ng-model="dayRepeat.saturday" btn-checkbox>Sat</label><label class="btn btn-primary" ng-model="dayRepeat.sunday" btn-checkbox>Sun</label>
                                     </div>
                                 </script>
-                            </div>
                             <br>
 
                             <p>Start Date: <input  ng-init="eventStartDate=Date()" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate"></p>
@@ -151,9 +149,7 @@
                             <center><timepicker ng-init="eventEndTime"  ng-model="eventEndTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker></center>
                             <br>
                             
-                            <div ng-controller="PopoverInstanceCtrl">
                                 <center><button Popover-animation="true" popover-template="'eventColorSelect.html'" popover-placement="top" class="btn btn-default" style="transition:background .5s;" ng-style="{'background':eventColor.mine}" ng-init="eventColor.mine='#fff'" popover-trigger="focus" popover-title="Select Color" class="colorFade">Choose A Color</button></center> 
-                            </div>
                             <br>
                             <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
@@ -174,14 +170,12 @@
                               addGroup(); $parent.updateSingleGroupTab(group.name)" ng-attr-title="{{ group.name }}">
                             <p>{{ group.name | limitTo:12 }}{{ group.name.length > 12 ? '...' : '' }}</p>
                         </div>
-                        <div ng-controller="PopoverInstanceCtrl">
-                            <div ng-click="editGroupModal(group.name, group.color)" id="pencil"></div> 
-                            <div Popover-animation="true" popover-template="confirmRemove.templateUrl" popover-trigger="focus"  
-                                 popover-placement="top" id="minus" popover-title="Confirm Remove" tabindex="0"></div>
-                            <script type="text/ng-template" id="confirmRemove.html">
-                                <button class="btn btn-danger" ng-click="removeGroup(group.id);">Delete</button>
-                            </script>
-                        </div>
+                        
+                        <div ng-click="editGroupModal(group.name, group.color, group.id)" id="pencil"></div>
+                        <div Popover-animation="true" popover-template="'confirmRemove.html'" popover-trigger="focus" popover-placement="top" id="minus" popover-title="Confirm Remove" tabindex="0"></div>
+                        <script type="text/ng-template" id="confirmRemove.html">
+                            <button class="btn btn-danger" ng-click="removeGroup(group.id);">Delete</button>
+                        </script>
                     </div>
 
                     <div ng-click="addGroupModal()" id="addGroupBtn"></div>
@@ -190,7 +184,7 @@
         </div> 
       </div> <!--END PROFILE CONTROLLER -->
         <!-- GROUP CONTROLLER -->
-        <div class="singleGroupView" ng-init="singleGroupView=false" ng-show="singleGroupView">
+        <div class="singleGroupView" ng-init="singleGroupView=false;" ng-show="singleGroupView">
             <div id="profileWrapper" ng-controller="GroupController">
                 <div style="clear:both;">
                     <div id="scheduleWrapper" style="top:0;">
@@ -207,22 +201,20 @@
                             <input type="text" placeholder="Event Name" name="pEventName" class="eventPar" ng-model="newEventName">
                             <br><br>
 
-                            <div ng-controller="PopoverInstanceCtrl">
                                 <center>
-                                    <button Popover-animation="true" popover-template="repDays.templateUrl" popover-placement="bottom" class="btn btn-default" popover-title="Select Repeating Days">Set Repeating</button>
+                                    <button Popover-animation="true" popover-template="repDays.html" popover-placement="bottom" class="btn btn-default" popover-title="Select Repeating Days">Set Repeating</button>
                                 </center>
                                 <script type="text/ng-template" id="repDays.html">
                                     <div class="repDays">
-                                    <label class="btn btn-primary" ng-model="dayRepeat.monday" btn-checkbox>Mon</label>
-                                    <label class="btn btn-primary" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</label>
-                                    <label class="btn btn-primary" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</label>
-                                    <label class="btn btn-primary" ng-model="dayRepeat.thursday" btn-checkbox>Thu</label>
-                                    <label class="btn btn-primary" ng-model="dayRepeat.friday" btn-checkbox>Fri</label>
-                                    <label class="btn btn-primary" ng-model="dayRepeat.saturday" btn-checkbox>Sat</label>
-                                    <label class="btn btn-primary" ng-model="dayRepeat.sunday" btn-checkbox>Sun</label>
+                                        <label class="btn btn-primary" ng-model="dayRepeat.monday" btn-checkbox>Mon</label>
+                                        <label class="btn btn-primary" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</label>
+                                        <label class="btn btn-primary" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</label>
+                                        <label class="btn btn-primary" ng-model="dayRepeat.thursday" btn-checkbox>Thu</label>
+                                        <label class="btn btn-primary" ng-model="dayRepeat.friday" btn-checkbox>Fri</label>
+                                        <label class="btn btn-primary" ng-model="dayRepeat.saturday" btn-checkbox>Sat</label>
+                                        <label class="btn btn-primary" ng-model="dayRepeat.sunday" btn-checkbox>Sun</label>
                                     </div>
                                 </script>
-                            </div>
                             <br>
 
                             <p>Start Date: <input  ng-init="eventStartDate=Date()" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate"></p>
@@ -241,16 +233,25 @@
                             <!-- <input ng-init="eventEndTime = Date(1)"  type="time" class="eventPar" ng-model="eventEndTime"> -->
                             <center><timepicker ng-init ="eventEndTime" ng-model="eventEndTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker></center>
 
-                            <div ng-controller="PopoverInstanceCtrl">
                                 <center><button Popover-animation="true" popover-template="'eventColorSelect.html'" popover-placement="top" class="btn btn-default" ng-style="{'background':eventColor.mine}" ng-init="eventColor.mine='#fff'" popover-trigger="focus" popover-title="Select Color" class="colorFade">Choose A Color</button></center> 
-                            </div>
                             
                             <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
-                        <span style="float:left;clear:both;"><strong>Group Code: </strong></span><br>
-                        <p style="float:left;clear:both;">{{currentGroupId}}</p> 
-                        <button ng-click="addMemberModal()">Add Member</button>
+                        <a href="#membersViewAnchor"><button ng-click="addMemberView=!addMemberView;" id="memberInfoBtn" >Member Info</button></a>
+                        <span style="float:left;clear:both;"><strong>Group Code: </strong></span>
+                        <span style="float:left;">{{currentGroupId}}</span> 
                     </div> 
+                    
+                    <div id="memberView" ng-init="addMemberView=false" ng-show="addMemberView">
+                        <a name="membersViewAnchor"><p id="membersTitle">Members</p></a><br>
+                        
+                        <div class="members" ng-repeat="member in memberList track by $index">
+                                <img class="memberIcon" ng-src="{{member.icon}}" ng-init="getMemberIcon(member.email);"/>
+                                <p text-align="center">{{member.name}}</p>
+                        </div>
+                        
+                        <div ng-click = "addMemberModal()" id="addMemberBtn"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -325,6 +326,30 @@
             </div>
         </script>
 
+        <script type="text/ng-template" id="editGroupColor.html">
+            <div id="groupColorSelect">
+                <div style="background:#B9F5FF;" ng-click="newGroupColor='#B9F5FF'"></div>
+                <div style="background:#B5FBA3;" ng-click="newGroupColor='#B5FBA3'"></div>
+                <div style="background:#FFA6B1;" ng-click="newGroupColor='#FFA6B1'"></div>
+                <div style="background:#FEC12F;" ng-click="newGroupColor='#FEC12F'"></div>
+                <div style="background:#F06292;" ng-click="newGroupColor='#F06292'"></div>
+                <div style="background:#CE93D8;" ng-click="newGroupColor='#CE93D8'"></div>
+                <div style="background:#9575CD;" ng-click="newGroupColor='#9575CD'"></div>
+                <div style="background:#7986CB;" ng-click="newGroupColor='#7986CB'"></div>
+                <div style="background:#81D4FA;" ng-click="newGroupColor='#81D4FA'"></div>
+                <div style="background:#4DD0E1;" ng-click="newGroupColor='#4DD0E1'"></div>
+                <div style="background:#4DB6AC;" ng-click="newGroupColor='#4DB6AC'"></div>
+                <div style="background:#D4E157;" ng-click="newGroupColor='#D4E157'"></div>
+                <div style="background:#FFF176;" ng-click="newGroupColor='#FFF176'"></div>
+                <div style="background:#FFD54F;" ng-click="newGroupColor='#FFD54F'"></div>
+                <div style="background:#FFA726;" ng-click="newGroupColor='#FFA726'"></div>
+                <div style="background:#FD8964;" ng-click="newGroupColor='#FD8964'"></div>
+                <div style="background:#BDBDBD;" ng-click="newGroupColor='#BDBDBD'"></div>
+                <div style="background:#90A4AE;" ng-click="newGroupColor='#90A4AE'"></div>
+                <br>
+            </div>
+        </script>
+
         <script type="text/ng-template" id="addFriend.html">
             <div class="modal-header">
                 <h3 class="modal-title">Add a Friend</h3>
@@ -370,9 +395,7 @@
                     <input type="text" ng-model="myEvent.title" value={{myEvent.title}} name="newName" style="width:50%;">
                     <br><br>
                     <center>
-                        <div ng-controller="PopoverInstanceCtrl">
                             <button Popover-animation="true" popover-template="'eventEditColorSelect.html'" popover-placement="top" class="btn btn-default" ng-style="{'background':myEvent.color}" ng-init="myEvent.color" popover-trigger="focus" popover-title="Select Color" class="colorFade">Change Color</button>
-                        </div>
                     </center>
                     <br>
                     <div class="modal-footer">
@@ -425,7 +448,7 @@
                     <div class="well" id="colIcons">
                         <h4>Select a user icon</h4>
                         <div id="icons" ng-repeat="icon in icons track by $index" ng-attr-title="{{icon.name}}">
-                            <img class="selIcons" ng-src="{{icon.image}}" ng-click="setSel($event);" ng-model="newIcon" ng-init="initSelectedIcon(icon);" ng-class="{'selected': icon.selected, 'smallIcon': icon.name==='Super Hero'}"/>
+                            <img class="selIcons" ng-src="{{icon.image}}" ng-click="setSel($event);" ng-model="newIcon" ng-init="initSelectedIcon(icon);" ng-class="{'selected': icon.selected}"/>
                         </div>
                     </div>
                 </div>
@@ -457,8 +480,7 @@
                         <h3>Members</h3>
                         <div style="overflow-y:scroll;height:150px;">
                             <div class="members" ng-repeat="member in memberList track by $index">
-                                <img class="memberIcon" ng-src="{{member.icon}}" ng-init="getMemberIcon(member.email);"
-                                     ng-class="{'smallIcon': member.icon === 'images/userIcon.png'}"/>
+                                <img class="memberIcon" ng-src="{{member.icon}}" ng-init="getMemberIcon(member.email);"/>
                                 <p text-align="center">{{member.name}}</p>
                             </div>
                             <div id="addMemberBtn" ng-click="addMemberModal()"></div>
@@ -476,7 +498,11 @@
                     <h3 class="modal-title">Add a Member</h3>
                 </div>
                 <div class="modal-body">
-                    <input type="text" ng-model="newMemberEmail" placeholder="Add New Member Email"> 
+                    <input type="text" ng-model="newMemberEmail" placeholder="Add New Member Email">
+                    <h3>Your Friends</h3>
+                    <ul ng-repeat="friend in friends track by $index" style="list-style-type:none;">
+                        <li ng-click="newMemberEmail=friend.email">{{friend.name}} ({{friend.email}})</li>
+                    </ul>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" ng-click="save()">Add Member</button>
@@ -505,11 +531,9 @@
                     <h3 class="modal-title">Edit {{newGroupName}}</h3>
                 </div>
                 <div class="modal-body">
-                    <label for="newName">New Group Name: </label>
-                    <input type="text" ng-model="newGroupName" value="{{newGroupName}}" name="newName" style="width:50%;" ng-style="(newGroupName.length > 0) ? {'border-bottom':'1px solid green'} : {'border-bottom':'1px solid red'}">
                     <input type="hidden" ng-model="newGroupColor">
                     <br><br>
-                    <label for="groupSelColor">Select a Color</label>
+                    <label for="groupSelColor">Select a new Color</label>
 
                     <div id="groupColorSelect" name="groupSelColor">
                         <div style="background:#B9F5FF;" ng-click="newGroupColor='#B9F5FF'"></div>

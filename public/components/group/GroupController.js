@@ -48,6 +48,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
             /* Initialize event sources to be an array */
             $scope.eventSources = [];
             $scope.eventColor = {mine : '#B9F5FF'};
+            $scope.friendList = currentUser.get("friendList");
             
 
             $scope.animationsEnabled = true;    
@@ -81,11 +82,17 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
              *              schedule and the new members name.
              ************************************************************************/
             $scope.addMemberModal = function () {
+
                 var modalInstance = $modal.open({
                     animation: $scope.animationsEnabled,
                     templateUrl: 'addMember.html',
                     controller: 'AddMemberController',
-                    size: 'lg'
+                    size: 'lg',
+                    resolve: {
+                        friendList: function () {
+                            return $scope.friendList;
+                        }
+                    }
                 });
 
                 modalInstance.result.then(function (newMember) {
