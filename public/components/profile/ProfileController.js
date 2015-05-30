@@ -454,18 +454,18 @@ var viewFriends = function(newFriend) {
     });
 }
 
- var deleteEvent = function(eventClicked){
-
+ var deleteEvent = function(eventClicked){    
     var tempArray = [];
     $scope.eventSources.length = 0;
 
     for(index = 0; index < $scope.eventArray.length; index++){
-      if(eventClicked.id !== $scope.eventArray[index].id){
-        tempArray.push($scope.eventArray[index]);
-      }
+        if(eventClicked.id == $scope.eventArray[index].id){
+            $scope.eventArray.splice(index, 1);
+        }
     }
-
-
+    for(index = 0; index < $scope.eventArray.length; index++){
+        tempArray.push($scope.eventArray[index]);
+    }
     $scope.eventSources.push(tempArray);
     currentUser.set("personalSchedule", tempArray);
     currentUser.save();
