@@ -2,10 +2,12 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
 
     $scope.newName = modalParams.name;
     $scope.newEmail = modalParams.email;
-    $scope.newGoogleID = (modalParams.google == undefined) ? ("") : (modalParams.google);
+    $scope.newGoogleID = modalParams.google;
     $scope.newIcon = modalParams.icon;
-    $scope.saveSettingsFlag = 0;
-    $scope.remEventsFlag = 0;
+    saveSettingsFlag = 0;
+    remEventsFlag = 0;
+
+    newAccountSettings = {};
 
     //Don't display user icons on load
     $scope.isCollapsed = true;
@@ -64,9 +66,8 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
     $scope.saveSettings = function () {
         console.log($scope.newName);
         if($scope.newName && $scope.newEmail) {
-            $scope.saveSettingsFlag = 1;
+            saveSettingsFlag = 1;
         } else {
-            $scope.errMsg = "Errors found with name and/or email field(s)!";
             $scope.errLabel = true;
 
             setTimeout(function(){
@@ -74,19 +75,16 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
             }, 2000);
         }
 
-        if(($scope.newGoogleID == "" || $scope.newGoogleID) && $scope.newName && $scope.newEmail) {
-            $scope.saveSettingsFlag = 1;
-            console.log($scope.newGoogleID);
-        } else {
-            $scope.errMsg = "Errors found with google calendar ID, name and/or email field(s)!";
-            $scope.errLabel = true;
+        if(saveSettingsFlag) {
+            newAccountSettings = {
+                newUserName: $scope.newName,
+                newUserEmail: $scope.newEmail,
+                newGoogle: $scope.newGoogleID,
+                newUserIcon: $scope.newIcon,
+                saveFlag: saveSettingsFlag,
+                remFlag: remEventsFlag
+            };
 
-            setTimeout(function(){
-                $scope.errLabel = false;
-            }, 2000);
-        }
-
-        if($scope.saveSettingsFlag) {
             $scope.saveLabel = true;
 
             setTimeout(function(){
@@ -105,7 +103,7 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
     };
 
     $scope.removeAllEvents = function () {
-        $scope.remEventsFlag = 1;
+        remEventsFlag = 1;
 
         $scope.remLabel = true;
 
@@ -115,15 +113,6 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
     };
 
     $scope.cancel = function () {
-        $scope.newAccountSettings = {
-            newUserName: $scope.newName,
-            newUserEmail: $scope.newEmail,
-            newGoogle: $scope.newGoogleID,
-            newUserIcon: $scope.newIcon,
-            saveFlag: $scope.saveSettingsFlag,
-            remFlag: $scope.remEventsFlag
-        };
-        
-        $modalInstance.close($scope.newAccountSettings);
+        $modalInstance.close(newAccountSettings);
     };
 });
