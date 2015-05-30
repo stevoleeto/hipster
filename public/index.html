@@ -29,25 +29,25 @@
         <script type="text/javascript" src="lib/ui-bootstrap-tpls-0.13.0.min.js"></script>
 
         <!-- Modules -->
-        <script src="js/app.js"></script>
+        <script src="components/app.js"></script>
         <!-- Controllers -->
-    	<script src="js/controllers/ProfileController.js"></script>
-        <script src="js/controllers/GroupController.js"></script>
-        <script src="js/controllers/EditEventController.js"></script>
-        <script src="js/controllers/AddFriendController.js"></script>
-        <script src="js/controllers/EditGroupController.js"></script>
-        <script src="js/controllers/FriendListController.js"></script>
-        <script src="js/controllers/AddGroupController.js"></script>
-        <script src="js/controllers/AccountSettingsController.js"></script>
-        <script src="js/controllers/GroupInfoController.js"></script>
-        <script src="js/controllers/AddMemberController.js"></script>
+    	<script src="components/profile/ProfileController.js"></script>
+        <script src="components/profile/AddFriendController.js"></script>
+        <script src="components/profile/EditGroupController.js"></script>
+        <script src="components/profile/FriendListController.js"></script>
+        <script src="components/profile/AddGroupController.js"></script>
+        <script src="components/profile/AccountSettingsController.js"></script>
+        <script src="components/group/GroupController.js"></script>
+        <script src="components/group/GroupInfoController.js"></script>
+        <script src="components/group/AddMemberController.js"></script>
+        <script src="components/shared/EditEventController.js"></script>
 
         <!-- Services -->
-        <script src="js/services/googleCalendarService.js"></script>
-        <script src="js/services/dataBaseService.js"></script>
-    	<script src="js/services/userService.js"></script>
-    	<script src="js/services/groupService.js"></script>
-        <script src="js/services/eventService.js"></script>
+        <script src="components/profile/userService.js"></script>
+        <script src="components/group/groupService.js"></script>
+        <script src="components/shared/googleCalendarService.js"></script>
+        <script src="components/shared/dataBaseService.js"></script>
+        <script src="components/shared/eventService.js"></script>
 
         <!-- Inline JS goes here -->
         <script> 
@@ -59,7 +59,7 @@
             } 
             else {
             	// show the signup or login page
-            	location.href = "login/login.html";
+            	location.href = "components/login/login.html";
             }
         </script> 
 

@@ -116,7 +116,7 @@ app.controller('LoginController', ['$scope', function($scope) {
     Parse.User.logIn( $scope.email, $scope.password, {
       //If the logIn is successful, notify user via sweet alert
       success: function( user ) {
-        location.href="../index.html";
+        location.href="../../index.html";
       },
     //If the logIn is not successful, notify the user via sweet alert
     error: function( user ) {

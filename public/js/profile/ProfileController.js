@@ -276,7 +276,7 @@ $scope.removeGroup = function(groupId){
  ************************************************************************/
 $scope.logout = function(){
     Parse.User.logOut();
-    location.href='login/login.html';
+    location.href='components/login/login.html';
 }
 
 /************************************************************************
