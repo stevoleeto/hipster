@@ -76,7 +76,7 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
                      * the background and have to be displayed in the foreground */
                     for (indexInner = 0; indexInner < tempSched.length; indexInner++){
                         tempSched[indexInner].rendering = "background";
-                        tempSched[index].title = "";
+                        tempSched[indexInner].title = "";
                         tempSched[indexInner]._id = busyId;
                         tempSched[indexInner].__id = busyId;
                         tempSched[indexInner].color = busyTimeColor;
