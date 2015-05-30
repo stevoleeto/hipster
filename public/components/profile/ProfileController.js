@@ -84,12 +84,10 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 });
             };
 
-            $scope.editGroupModal = function (oldName, oldColor) {
-
-                openModal('editGroup.html', 'EditGroupController', 'lg', {name: oldName, color: oldColor}).then(function (newGroupSettings) {
-                    console.log(newGroupSettings);
-                }, function () {
-                    $scope.myGroupList = userService.getNewGroupList();
+            $scope.editGroupModal = function (oldName, oldColor, oldID) {
+                openModal('editGroup.html', 'EditGroupController', 'lg', {name: oldName, color: oldColor, id: oldID}).then(function (editedGroup) {
+                    editGroup(editedGroup.id,editedGroup.newColor);
+                    $log.info('Modal dismissed at: ' + new Date());
                 });
             };
 
@@ -232,6 +230,21 @@ $scope.addGroup = function(){
 
 $scope.updateSingleGroupTab = function(name){
     $scope.singleGroupName = name;
+}
+
+var editGroup = function(groupID, newColor){
+    for(index = 0; index < $scope.myGroupList.length; index++){
+        if(groupID === $scope.myGroupList[index]['id']){
+            console.log("Found the group!");
+            $scope.myGroupList[index]['color'] = newColor;
+            break;
+        }
+    }
+
+    dataBaseService.queryGroupList($scope.email).then(function(groupListQuery){
+        groupListQuery[0].set("userGroups", $scope.myGroupList);
+        groupListQuery[0].save();
+    });
 }
 
 
@@ -575,21 +588,5 @@ app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
 
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
-    };
-});
-
-app.controller('PopoverInstanceCtrl', function ($scope) {
-    $scope.repDays = {
-        templateUrl: 'repDays.html'
-    };
-    $scope.confirmRemove = {
-        templateUrl: 'confirmRemove.html'
-    };
-    $scope.groupColorSelect = {
-        templateUrl: 'eventColorSelect.html'
-    };
-
-    $scope.eventEditColor = {
-        templateUrl: 'eventEditColor.html'
     };
 });
