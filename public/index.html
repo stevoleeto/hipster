@@ -205,13 +205,13 @@
                                 </center>
                                 <script type="text/ng-template" id="repDays.html">
                                     <div class="repDays">
-                                    <label class="btn btn-primary" ng-model="dayRepeat.monday" btn-checkbox>Mon</label>
-                                    <label class="btn btn-primary" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</label>
-                                    <label class="btn btn-primary" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</label>
-                                    <label class="btn btn-primary" ng-model="dayRepeat.thursday" btn-checkbox>Thu</label>
-                                    <label class="btn btn-primary" ng-model="dayRepeat.friday" btn-checkbox>Fri</label>
-                                    <label class="btn btn-primary" ng-model="dayRepeat.saturday" btn-checkbox>Sat</label>
-                                    <label class="btn btn-primary" ng-model="dayRepeat.sunday" btn-checkbox>Sun</label>
+                                        <label class="btn btn-primary" ng-model="dayRepeat.monday" btn-checkbox>Mon</label>
+                                        <label class="btn btn-primary" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</label>
+                                        <label class="btn btn-primary" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</label>
+                                        <label class="btn btn-primary" ng-model="dayRepeat.thursday" btn-checkbox>Thu</label>
+                                        <label class="btn btn-primary" ng-model="dayRepeat.friday" btn-checkbox>Fri</label>
+                                        <label class="btn btn-primary" ng-model="dayRepeat.saturday" btn-checkbox>Sat</label>
+                                        <label class="btn btn-primary" ng-model="dayRepeat.sunday" btn-checkbox>Sun</label>
                                     </div>
                                 </script>
                             <br>
@@ -245,8 +245,7 @@
                         <a name="membersViewAnchor"><p id="membersTitle">Members</p></a><br>
                         
                         <div class="members" ng-repeat="member in memberList track by $index">
-                                <img class="memberIcon" ng-src="{{member.icon}}" ng-init="getMemberIcon(member.email);"
-                                     ng-class="{'smallIcon': member.icon === 'images/userIcon.png'}"/>
+                                <img class="memberIcon" ng-src="{{member.icon}}" ng-init="getMemberIcon(member.email);"/>
                                 <p text-align="center">{{member.name}}</p>
                         </div>
                         
@@ -448,7 +447,7 @@
                     <div class="well" id="colIcons">
                         <h4>Select a user icon</h4>
                         <div id="icons" ng-repeat="icon in icons track by $index" ng-attr-title="{{icon.name}}">
-                            <img class="selIcons" ng-src="{{icon.image}}" ng-click="setSel($event);" ng-model="newIcon" ng-init="initSelectedIcon(icon);" ng-class="{'selected': icon.selected, 'smallIcon': icon.name==='Super Hero'}"/>
+                            <img class="selIcons" ng-src="{{icon.image}}" ng-click="setSel($event);" ng-model="newIcon" ng-init="initSelectedIcon(icon);" ng-class="{'selected': icon.selected}"/>
                         </div>
                     </div>
                 </div>
@@ -480,8 +479,7 @@
                         <h3>Members</h3>
                         <div style="overflow-y:scroll;height:150px;">
                             <div class="members" ng-repeat="member in memberList track by $index">
-                                <img class="memberIcon" ng-src="{{member.icon}}" ng-init="getMemberIcon(member.email);"
-                                     ng-class="{'smallIcon': member.icon === 'images/userIcon.png'}"/>
+                                <img class="memberIcon" ng-src="{{member.icon}}" ng-init="getMemberIcon(member.email);"/>
                                 <p text-align="center">{{member.name}}</p>
                             </div>
                             <div id="addMemberBtn" ng-click="addMemberModal()"></div>
@@ -499,7 +497,11 @@
                     <h3 class="modal-title">Add a Member</h3>
                 </div>
                 <div class="modal-body">
-                    <input type="text" ng-model="newMemberEmail" placeholder="Add New Member Email"> 
+                    <input type="text" ng-model="newMemberEmail" placeholder="Add New Member Email">
+                    <h3>Your Friends</h3>
+                    <ul ng-repeat="friend in friends track by $index" style="list-style-type:none;">
+                        <li ng-click="newMemberEmail=friend.email">{{friend.name}} ({{friend.email}})</li>
+                    </ul>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" ng-click="save()">Add Member</button>
