@@ -84,10 +84,12 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 });
             };
 
-            $scope.editGroupModal = function (oldName, oldColor, oldID) {
-                openModal('editGroup.html', 'EditGroupController', 'lg', {name: oldName, color: oldColor, id: oldID}).then(function (editedGroup) {
-                    editGroup(editedGroup.id,editedGroup.newColor);
-                    $log.info('Modal dismissed at: ' + new Date());
+            $scope.editGroupModal = function (oldName, oldColor) {
+
+                openModal('editGroup.html', 'EditGroupController', 'lg', {name: oldName, color: oldColor}).then(function (newGroupSettings) {
+                    console.log(newGroupSettings);
+                }, function () {
+                    $scope.myGroupList = userService.getNewGroupList();
                 });
             };
 
@@ -230,21 +232,6 @@ $scope.addGroup = function(){
 
 $scope.updateSingleGroupTab = function(name){
     $scope.singleGroupName = name;
-}
-
-var editGroup = function(groupID, newColor){
-    for(index = 0; index < $scope.myGroupList.length; index++){
-        if(groupID === $scope.myGroupList[index]['id']){
-            console.log("Found the group!");
-            $scope.myGroupList[index]['color'] = newColor;
-            break;
-        }
-    }
-
-    dataBaseService.queryGroupList($scope.email).then(function(groupListQuery){
-        groupListQuery[0].set("userGroups", $scope.myGroupList);
-        groupListQuery[0].save();
-    });
 }
 
 
@@ -516,10 +503,7 @@ $scope.settingsSave = function(name, email, google, icon){
         currentUser.set("userIcon", newIcon);
         good = true;
     }*/
-    console.log(name);
-    console.log(email);
-    console.log(google);
-    console.log(icon);
+
     currentUser.set("name", name);
     currentUser.set("username", email);
     currentUser.set("email", email);
@@ -531,6 +515,11 @@ $scope.settingsSave = function(name, email, google, icon){
     userService.setName($scope.newUserName);
     $scope.newEmail = "";
     $scope.newPassword = "";
+
+    $scope.userName = name;
+    $scope.email = email;
+    $scope.icon = icon;
+    $scope.googleID = google;
 }
 
 //timepicker
@@ -547,7 +536,7 @@ $scope.options = {
     mstep: [1, 5, 10, 15, 25, 30]
 };
 
-$scope.ismeridian = true;
+$scope.ismderidian = true;
 $scope.toggleMode = function() {
     $scope.ismeridian = ! $scope.ismeridian;
 };
@@ -587,5 +576,21 @@ app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
 
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
+    };
+});
+
+app.controller('PopoverInstanceCtrl', function ($scope) {
+    $scope.repDays = {
+        templateUrl: 'repDays.html'
+    };
+    $scope.confirmRemove = {
+        templateUrl: 'confirmRemove.html'
+    };
+    $scope.groupColorSelect = {
+        templateUrl: 'eventColorSelect.html'
+    };
+
+    $scope.eventEditColor = {
+        templateUrl: 'eventEditColor.html'
     };
 });

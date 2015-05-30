@@ -103,7 +103,17 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
     };
 
     $scope.removeAllEvents = function () {
+
         remEventsFlag = 1;
+
+        newAccountSettings = {
+            newUserName: $scope.newName,
+            newUserEmail: $scope.newEmail,
+            newGoogle: $scope.newGoogleID,
+            newUserIcon: $scope.newIcon,
+            saveFlag: saveSettingsFlag,
+            remFlag: remEventsFlag
+        };
 
         $scope.remLabel = true;
 
