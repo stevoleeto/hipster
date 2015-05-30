@@ -289,20 +289,29 @@ $scope.logout = function(){
  * Description: Creates a new group, and adds the new group to the GroupList userGroups array for both the current user the and user they have selected.
  ************************************************************************/
 var createGroup = function(groupInfo){
-    console.log(groupInfo);
+    var alreadyInGoup = false;
      if (groupInfo.code != undefined){
-        console.log("Added by code");
          dataBaseService.queryGroup(groupInfo.code).then(function(groupQuery){
-            console.log(groupQuery);
-             groupQuery[0]._serverData.memberList.push({name: $scope.username, email: $scope.email});
-             groupQuery[0].save();
-         dataBaseService.queryGroupList($scope.email).then(function(groupListQuery){
-            console.log(groupListQuery);
-             $scope.myGroupList.push({id: groupQuery[0].id, name: groupQuery[0]._serverData.name, color: groupInfo.color || "#B5FBA3"});
-             console.log(groupListQuery);
-             groupListQuery[0].set("userGroups", $scope.myGroupList);
-             groupListQuery[0].save();
-         });
+            for (index = 0; index < groupQuery[0]._serverData.memberList.length; index++){
+                console.log(groupQuery[0]._serverData.memberList[index]);
+                if($scope.email == (groupQuery[0]._serverData.memberList[index]).email){
+                    alreadyInGoup = true;
+                }
+            }
+
+            if(!alreadyInGoup){
+                groupQuery[0]._serverData.memberList.push({name: $scope.username, email: $scope.email});
+                groupQuery[0].save();
+                dataBaseService.queryGroupList($scope.email).then(function(groupListQuery){
+                    $scope.myGroupList.push({id: groupQuery[0].id, name: groupQuery[0]._serverData.name, color: groupInfo.color || "#B5FBA3"});
+                    groupListQuery[0].set("userGroups", $scope.myGroupList);
+                    groupListQuery[0].save();
+                });
+            }
+            else{
+                alert("You're already in that group!");
+                console.log("User already in group");
+            }
         });
      }
     else{
