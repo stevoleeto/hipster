@@ -39,8 +39,8 @@ var currentUser = Parse.User.current();
 var newIcon = '';
 
 
-app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '$timeout','userService','uiCalendarConfig', '$modal', '$log', '$window', 
-        function($scope, groupService, eventService, $timeout, userService, uiCalendarConfig, $modal,$log, $window) {
+app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '$timeout','userService', 'dataBaseService', 'validateService', 'uiCalendarConfig', '$modal', '$log', '$window', 
+        function($scope, groupService, eventService, $timeout, userService, dataBaseService , validateService, uiCalendarConfig, $modal,$log, $window) {
 
             $scope.animationsEnabled = true;
 
@@ -122,7 +122,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             $scope.addGroupModal = function () {
 
                 openModal('addGroup.html', 'AddGroupController', 'lg').then(function (groupInfo){
-                    createGroup(groupInfo.groupName, groupInfo.groupColor);
+                    createGroup(groupInfo);
                 }, function (groupList){
                     $scope.myGroupList = userService.getNewGroupList();
                 });
@@ -288,30 +288,38 @@ $scope.logout = function(){
 
  * Description: Creates a new group, and adds the new group to the GroupList userGroups array for both the current user the and user they have selected.
  ************************************************************************/
-var createGroup = function(groupName, groupColor){
-    if (groupName == undefined){
-        var Group = Parse.Object.extend("Group");
-        var query = new Parse.Query(Group);
-        query.get($scope.newGroupCode);
-        query.find().then(function(pulledGroup) {
-            pulledGroup[0]._serverData.memberList.push({name: $scope.userName, email: $scope.email});
-            pulledGroup[0].save();
-
-            userService.queryGroupList($scope.email).then(function(){
-                var queryGroupList = userService.getGroupListQuery();
-                $scope.myGroupList.push({id: pulledGroup[0].id, name: pulledGroup[0]._serverData.name, color: "#B5FBA3"});
-                queryGroupList[0].set("userGroups", $scope.myGroupList);
-                queryGroupList[0].save();
-            })
+var createGroup = function(groupInfo){
+     if (groupInfo.code != undefined){
+         dataBaseService.queryGroup(groupInfo.code).then(function(groupQuery){
+            if(groupQuery.length == 0){
+                alert("Group Doesn't Exist!");
+                console.log("Group doesn't Exist");
+            }
+            else{
+                var alreadyInGroup = validateService.isEmailInArray(groupQuery[0]._serverData.memberList, $scope.email);
+                if(!alreadyInGroup){
+                    groupQuery[0]._serverData.memberList.push({name: $scope.userName, email: $scope.email});
+                    groupQuery[0].save();
+                    dataBaseService.queryGroupList($scope.email).then(function(groupListQuery){
+                        $scope.myGroupList.push({id: groupQuery[0].id, name: groupQuery[0]._serverData.name, color: groupInfo.color || "#B5FBA3"});
+                        groupListQuery[0].set("userGroups", $scope.myGroupList);
+                        groupListQuery[0].save();
+                    });
+                }
+                else{
+                    alert("You're already in that group!");
+                    console.log("User already in group");
+                }
+            }
         });
-    }
-    else{userService.createGroup($scope.userName, $scope.email, $scope.myGroupList, groupName, groupColor).then(function(){
+     }
+    else{
+         userService.createGroup($scope.userName, $scope.email, $scope.myGroupList, groupInfo.name, groupInfo.color).then(function(){
         /* this is to ensure scope gets applied even if query takes a bit too long*/
-        $timeout(function(){$scope.$apply()}, 150);
-    });
-    /* clear text box */
-    groupName = '';
-    }
+         $timeout(function(){$scope.$apply()}, 150);
+         });
+         groupName = '';
+     }
     
 }
 
@@ -517,8 +525,8 @@ $scope.settingsSave = function(){
 //$scope.eventEndTime = new Date();
 
 
-//$scope.hstep = 1;
-//$scope.mstep = 1;
+$scope.hstep = 1;
+$scope.mstep = 1;
 
 $scope.options = {
     hstep: [1, 2, 3],
