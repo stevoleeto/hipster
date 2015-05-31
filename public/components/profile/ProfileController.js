@@ -441,6 +441,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                     personalSchedule.push(eventService.copyEvent(newEvents[index]));
                 }
 
+                currentUser.set("personalSchedule",personalSchedule);
                 currentUser.save();
 
                 $scope.newEventName = "";
@@ -491,6 +492,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                         index--;
                     }
                 }
+                currentUser.set("personalSchedule",personalSchedule);
                 currentUser.save();
             }
 

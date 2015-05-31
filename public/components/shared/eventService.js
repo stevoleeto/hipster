@@ -62,8 +62,8 @@
         return{
             id: event.id,
             title: event.title,
-            start: event.start,
-            end: event.end,
+            start: event.start.toString(),
+            end: event.end.toString(),
             rendering: event.rendering,
             color: event.color,
             textColor : event.textColor,
