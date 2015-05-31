@@ -50,7 +50,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             $scope.joinDate = currentUser.createdAt;
             $scope.email = currentUser.get("username");
             $scope.friendList = currentUser.get("friendList");
-            $scope.googleID = currentUser.get("googleAcct");
+            $scope.googleID = currentUser.get("googleCalendarID");
             $scope.eventColor = {mine : '#B9F5FF'};
             $scope.eventEditColor = {color : eventService.getSelectedEvent().color };
             var personalSchedule = currentUser.get("personalSchedule");
@@ -126,10 +126,17 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             };
 
             $scope.addGroupModal = function () {
-
                 openModal('addGroup.html', 'AddGroupController', 'lg').then(function (groupInfo){
                     createGroup(groupInfo);
                 }, function (groupList){
+                    $scope.myGroupList = userService.getNewGroupList();
+                });
+            };
+
+            $scope.contactModal = function () {
+                openModal('contact.html', 'ContactController', 'lg', {name: $scope.userName, email: $scope.email}).then(function (){
+                    
+                }, function (){
                     $scope.myGroupList = userService.getNewGroupList();
                 });
             };
@@ -504,8 +511,8 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 currentUser.set("name", name);
                 currentUser.set("username", email);
                 currentUser.set("email", email);
-                currentUser.set("googleCalendarID", google)
-                    currentUser.set("userIcon", icon);
+                currentUser.set("googleCalendarID", google);
+                currentUser.set("userIcon", icon);
 
                 currentUser.save();
                 $scope.newUserName = "";
