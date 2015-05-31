@@ -2,9 +2,6 @@
 // Use Parse.Cloud.define to define as many cloud functions as you want.
 // For example:
 
-
-
-
 Parse.Cloud.define("mailGroupAlert", function(request, response){
 	var Mailgun = require('mailgun');
 	Mailgun.initialize('sandboxba98e37f8db04e8fa51e87a9352aec44.mailgun.org', 'key-f72d9fd43656a1032df21d7caa7865e0');
@@ -31,10 +28,10 @@ Parse.Cloud.define("mailContactUs", function(request, response){
 	Mailgun.initialize('sandboxba98e37f8db04e8fa51e87a9352aec44.mailgun.org', 'key-f72d9fd43656a1032df21d7caa7865e0');
 
 	Mailgun.sendEmail({
-	  to: "saveenchad@gmail.com",
-	  from: request.params.email,
+	  to: "Saveen <saveenchad@gmail.com>, Mikey <mikeykentarocho@gmail.com>, Stephen <stevoabc123@gmail.com>, Joe <jmdeon@gmail.com>",
+	  from: "BusyBlocks@hipster.com",
 	  subject: "Feedback!",
-	  text: "Name: " + request.params.name + "\r\n\r\nMessage: " + request.params.email},
+	  text: "Name: " + request.params.name + "\r\n\r\nEmail: " + request.params.email + "\r\n\r\nMessage: \r\n\r\n" + request.params.message},
 	  {
 	  success: function(httpResponse) {
 	    console.log(httpResponse);
