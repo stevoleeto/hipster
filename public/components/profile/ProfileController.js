@@ -168,18 +168,19 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             };
 
 
-            $scope.eventSources = [];
+            $scope.eventSources = [personalSchedule];
             $scope.$watch('profileView', function(){
                 if($scope.profileView){
-                    $scope.eventSources.length = 0;
+                    personalSchedule.length = 0;
+                    currentUser.set("personalSchedule", personalSchedule);
                     userService.getCurrentSchedule($scope.email).then(function(currentSchedule){
-                        personalSchedule = currentSchedule;
-                        $scope.eventSources.push(personalSchedule);
+                        for(index = 0; index < currentSchedule.length; index ++){
+                            personalSchedule.push(eventService.copyEvent(currentSchedule[index]));
+                        }
                         currentUser.set("personalSchedule", personalSchedule);
                     })
                     /* GOOGLE CALENDAR */
                     if(currentUser.get("googleCalendarID")){ // if user has calID
-                        //if(userService.getGoogleCalendar().length === 0){ // if it hasn't been pulled already
                         userService.setGoogleCalendar(currentUser.get("googleCalendarID")).then(function(){
                             var newCalendar = userService.getGoogleCalendar();
                             if(newCalendar){ //if successful
@@ -187,28 +188,9 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                                 $scope.eventSources.push(googleCalendar);
                             }
                         });
-                        // }
                     }
                 }
             });
-
-            /*
-            $scope.eventSources = [personalSchedule];
-            /* GOOGLE CALENDAR */
-            /*
-            if(currentUser.get("googleCalendarID")){ // if user has calID
-                if(userService.getGoogleCalendar().length === 0){ // if it hasn't been pulled already
-                    userService.setGoogleCalendar(currentUser.get("googleCalendarID")).then(function(){
-                        var newCalendar = userService.getGoogleCalendar();
-                        if(newCalendar){ //if successful
-                            var googleCalendar = newCalendar;
-                            $scope.eventSources.push(googleCalendar);
-                        }
-
-                    });
-                }
-            }
-            */
 
 
             // Profile Calendar Settings
@@ -374,6 +356,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
              * Description: Removs all groups found in their GroupList userGroups array.
              ************************************************************************/
             $scope.createEvent = function(){
+                currentUser.set("personalSchedule",personalSchedule);
                 var repeatTheseDays = [];
                 var repeat = false;
 
