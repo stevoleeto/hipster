@@ -413,8 +413,6 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 
             $scope.removeAllEvents = function(){
                 personalSchedule.length = 0;
-                console.log($scope.eventSources);
-                //$scope.eventSources.length = 0;
                 currentUser.save();
             }
 
@@ -441,69 +439,29 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             }
 
             var deleteEvent = function(eventClicked){    
-                var tempArray = [];
-                $scope.eventSources.length = 0;
 
                 for(index = 0; index < personalSchedule.length; index++){
                     if(eventClicked.id == personalSchedule[index].id){
                         personalSchedule.splice(index, 1);
                     }
                 }
-                for(index = 0; index < personalSchedule.length; index++){
-                    tempArray.push(personalSchedule[index]);
-                }
-                $scope.eventSources.push(tempArray);
-                currentUser.set("personalSchedule", tempArray);
                 currentUser.save();
             }
 
             var editEvent = function(eventClicked){
-                var tempArray = [];
-                $scope.eventSources.length = 0;
 
                 for(index = 0; index < personalSchedule.length; index++){
                     if(eventClicked.id == personalSchedule[index].id){
-                        personalSchedule[index].color = eventClicked.color;
-                        personalSchedule[index].title = eventClicked.title;
-
+                        personalSchedule[index] = eventService.copyEvent(eventClicked);
+                    }
+                    else{
+                        personalSchedule[index] = eventService.copyEvent(personalSchedule[index]);
                     }
                 }
-
-                for(index = 0; index < personalSchedule.length; index++){
-                    tempArray.push(personalSchedule[index]);
-                }
-
-
-                $scope.eventSources.push(tempArray);
-                personalSchedule = tempArray;
-                currentUser.set("personalSchedule", tempArray);
                 currentUser.save();
             }
 
             $scope.settingsSave = function(name, email, google, icon){
-                /*var good = false;
-                  if ($scope.newUserName){
-                  currentUser.set("name", $scope.newUserName);
-                  $scope.userName = $scope.newUserName;
-                  good = true;
-                  }
-                  if ($scope.newEmail){ 
-                  currentUser.set("username", $scope.newEmail);
-                  currentUser.set("email", $scope.newEmail);
-                  good = true;
-                  }
-                  if ($scope.newPassword){
-                  currentUser.set("password", $scope.newPassword);
-                  good = true;
-                  }
-                  if ($scope.googleCalendarID){
-                  currentUser.set("googleCalendarID", $scope.googleCalendarID)
-                  good = true;
-                  }
-                  if (newIcon){
-                  currentUser.set("userIcon", newIcon);
-                  good = true;
-                  }*/
 
                 currentUser.set("name", name);
                 currentUser.set("username", email);

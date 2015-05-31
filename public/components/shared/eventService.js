@@ -36,7 +36,7 @@
  				start : ((startDate.set('hour', startHour)).set('minute', startMin)).toISOString(),
  				end   : ((endDate.set('hour', endHour)).set('minute', endMin)).toISOString(),
  				color : eventColor,
- 				stick : false,
+ 				stick : true,
         textColor: "black"
  			});
  		}
@@ -66,7 +66,8 @@
             end: event.end,
             rendering: event.rendering,
             color: event.color,
-            textColor : event.textColor
+            textColor : event.textColor,
+            stick : event.stick
         }
     };
 
