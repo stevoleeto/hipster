@@ -479,8 +479,8 @@ PROFILE VIEW STYLES
     position:relative;
     top:45px;
     height: calc(100% - 45px);
-    height: -webkit-calc(100% - 45px);
-    /*    height:800px;*/
+/*    height: -webkit-calc(100vh - 45px);       THIS IS FOR VIEWPORT DETECTION IN THE FUTURE*/
+    height:auto;
     width:70%;
     float:left;
     margin-left: 2%;
@@ -509,7 +509,7 @@ PROFILE VIEW STYLES
     background:white;
     padding:5px;
     margin-bottom: 10px;
-    border:solid black 1px;
+/*    border:solid black 1px;*/
 }
 
 #createWrapper
@@ -913,12 +913,12 @@ SINGLEGROUP VIEW STYLES
 #memberView
 {
     position:relative;
-    top:20px;
+/*    top:20px;*/
     float: left;
     height: auto;
     width: 100%;
-    background:#FCFAF8;
-    border:solid black 1px;
+    background:white;
+/*    border:solid black 1px;*/
 }
 
 #membersTitle
@@ -929,7 +929,7 @@ SINGLEGROUP VIEW STYLES
     left:2%;
     letter-spacing: 3px;
     top:5px;
-    border:solid black 1px;
+/*    border:solid black 1px;*/
 }
 
 #addMemberBtn
