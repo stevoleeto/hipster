@@ -129,28 +129,31 @@
                                 <center><button Popover-animation="true" popover-template="'repDays.html'" popover-placement="top" class="btn btn-default" popover-title="Select Repeating Days">Set Repeating</button></center>
                                 <script type="text/ng-template" id="repDays.html">
                                     <div class="repDays">
-                                        <label class="btn btn-primary" ng-model="dayRepeat.monday" btn-checkbox>Mon</label><label class="btn btn-primary" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</label><label class="btn btn-primary" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</label><label class="btn btn-primary" ng-model="dayRepeat.thursday" btn-checkbox>Thu</label><label class="btn btn-primary" ng-model="dayRepeat.friday" btn-checkbox>Fri</label><label class="btn btn-primary" ng-model="dayRepeat.saturday" btn-checkbox>Sat</label><label class="btn btn-primary" ng-model="dayRepeat.sunday" btn-checkbox>Sun</label>
+                                        <div class="btn btn-primary" ng-model="dayRepeat.monday" btn-checkbox>Mon</div><div class="btn btn-primary" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</div><div class="btn btn-primary" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</div><div class="btn btn-primary" ng-model="dayRepeat.thursday" btn-checkbox>Thu</div><div class="btn btn-primary" ng-model="dayRepeat.friday" btn-checkbox>Fri</div><div class="btn btn-primary" ng-model="dayRepeat.saturday" btn-checkbox>Sat</div><div class="btn btn-primary" ng-model="dayRepeat.sunday" btn-checkbox>Sun</div>
                                     </div>
                                 </script>
                             <br>
 
-                            <p>Start Date: <input  ng-init="eventStartDate=Date()" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate"></p>
+                            <p for="startDate" style="display:inline-block;width:75px;">Start Date: </p>
+                            <input ng-init="eventStartDate=Date()" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate" name="startDate">
                             
                             <br>
                             
-                            <p>End Date: <input ng-init="eventEndDate=Date()" for="pEndDate" type="date" class="eventPar" ng-model="eventEndDate">
+                            <p for="endDate" style="display:inline-block;width:75px;">End Date:</p>
+                            <input ng-init="eventEndDate=Date()" for="pEndDate" type="date" class="eventPar" ng-model="eventEndDate" name="endDate">
                             
                             <br>
 
-                            <p>Start Time: </p>
-                            <center><timepicker ng-init="eventStartTime" ng-model="eventStartTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker></center>
+                            <p for="startTime" style="display:inline-block;width:75px;">Start Time: </p>
+                            <center><timepicker ng-init="eventStartTime" ng-model="eventStartTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" name="startTime"></timepicker></center>
 
 
-                            <p>End Time: </p>
-                            <center><timepicker ng-init="eventEndTime"  ng-model="eventEndTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker></center>
+                            <p for="endTime" style="display:inline-block;width:75px;">End Time: </p>
+                            <center><timepicker ng-init="eventEndTime"  ng-model="eventEndTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" name="endTime"></timepicker></center>
                             <br>
                             
-                                <center><button Popover-animation="true" popover-template="'eventColorSelect.html'" popover-placement="top" class="btn btn-default" style="transition:background .5s;" ng-style="{'background':eventColor.mine}" ng-init="eventColor.mine='#fff'" popover-trigger="focus" popover-title="Select Color" class="colorFade">Choose A Color</button></center> 
+                            <center><button Popover-animation="true" popover-template="'eventColorSelect.html'" popover-placement="top" class="btn btn-default" style="transition:background .5s;" ng-style="{'background':eventColor.mine}" ng-init="eventColor.mine='#fff'" popover-trigger="focus" popover-title="Select Color" class="colorFade">Choose A Color</button></center> 
+
                             <br>
                             <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
@@ -208,23 +211,25 @@
                                 
                             <br>
 
-                            <p>Start Date: <input  ng-init="eventStartDate=Date()" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate"></p>
+                            <p for="gStartDate" style="display:inline-block;width:75px;">Start Date</p>
+                            <input ng-init="eventStartDate=Date()" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate" name="gStartDate">
                             
                             <br>
                             
-                            <p>End Date: <input ng-init="eventEndDate=Date()" for="pEndDate" type="date" class="eventPar" ng-model="eventEndDate"></p>
+                            <p for="gEndDate" style="display:inline-block;width:75px;">End Date: </p>
+                            <input ng-init="eventEndDate=Date()" type="date" class="eventPar" ng-model="eventEndDate" name="gEndDate">
                             
                             <br>
 
-                            <p >Start Time</p>
+                            <p for="gStartTime" style="display:inline-block;width:75px;">Start Time</p>
                             <!-- <input ng-init="eventStartTime = Date()" type="time" class="eventPar" ng-model="eventStartTime"> --> 
-                            <center><timepicker ng-init ="eventStartTime" ng-model="eventStartTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker></center>
+                            <center><timepicker ng-init ="eventStartTime" ng-model="eventStartTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" name="gStartTime"></timepicker></center>
 
-                            <p >End Time</p>
+                            <p for="gEndTime" style="display:inline-block;width:75px;">End Time</p>
                             <!-- <input ng-init="eventEndTime = Date(1)"  type="time" class="eventPar" ng-model="eventEndTime"> -->
-                            <center><timepicker ng-init ="eventEndTime" ng-model="eventEndTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker></center>
+                            <center><timepicker ng-init ="eventEndTime" ng-model="eventEndTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" name="gEndTime"></timepicker></center>
 
-                                <center><button Popover-animation="true" popover-template="'eventColorSelect.html'" popover-placement="top" class="btn btn-default" ng-style="{'background':eventColor.mine}" ng-init="eventColor.mine='#fff'" popover-trigger="focus" popover-title="Select Color" class="colorFade">Choose A Color</button></center> 
+                            <center><button Popover-animation="true" popover-template="'eventColorSelect.html'" popover-placement="top" class="btn btn-default" ng-style="{'background':eventColor.mine}" ng-init="eventColor.mine='#fff'" popover-trigger="focus" popover-title="Select Color" class="colorFade">Choose A Color</button></center> 
                             
                             <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
@@ -515,9 +520,9 @@
                 </div>
                 <div class="modal-body">
                     <input type="text" ng-model="newMemberEmail" placeholder="Add New Member Email">
-                    <h3>Your Friends</h3>
+                    <h3>Add From Your Friends</h3>
                     <div style="height:100px;overflow-y:scroll;">
-                        <ul ng-repeat="friend in friends track by $index" style="list-style-type:none;cursor:pointer;">
+                        <ul class="addFromFriends" ng-repeat="friend in friends track by $index" style="list-style-type:none;cursor:pointer;">
                             <li ng-click="setEmail(friend.email);">
                                 <div>{{friend.name}} ({{friend.email}})</div>
                             </li>
