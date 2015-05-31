@@ -340,17 +340,17 @@ $scope.createEvent = function(){
     var repeat = false;
 
     if (!$scope.newEventName){
-        alert("Enter a event name!");
+        alert("Enter a event name!!");
         return;
     }
 
     if ($scope.eventColor.mine == '#fff') {
-        alert("Choose a color for your event!");
+        alert("Choose a color for your event!!");
         return;
     }
 
     if(Date.parse($scope.eventStartTime) > Date.parse($scope.eventEndTime)) {
-        alert("Your end time is before your start time!");
+        alert("Your end time is before your start time!!");
         return;
     }
 
