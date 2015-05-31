@@ -509,7 +509,7 @@ PROFILE VIEW STYLES
     background:white;
     padding:5px;
     margin-bottom: 10px;
-/*    border:solid black 1px;*/
+    border:solid black 1px;
 }
 
 #createWrapper
@@ -918,7 +918,7 @@ SINGLEGROUP VIEW STYLES
     height: auto;
     width: 100%;
     background:#FCFAF8;
-/*    border:solid black 1px;*/
+    border:solid black 1px;
 }
 
 #membersTitle
@@ -929,7 +929,7 @@ SINGLEGROUP VIEW STYLES
     left:2%;
     letter-spacing: 3px;
     top:5px;
-/*    border:solid black 1px;*/
+    border:solid black 1px;
 }
 
 #addMemberBtn
