@@ -348,6 +348,12 @@ $scope.createEvent = function(){
         alert("Choose a color for your event!");
         return;
     }
+    
+    if(Date.parse($scope.eventStartTime) < Date.parse($scope.eventEndTime)) {
+        alert("Your end time is before your start time!");
+        return;
+    }
+
 
     if ($scope.dayRepeat.monday || 
             $scope.dayRepeat.tuesday || 
