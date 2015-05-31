@@ -205,7 +205,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                     defaultView: 'agendaWeek',
                     slotDuration: '01:00:00',
                     minTime: '06:00:00',
-                    maxTime: '22:00:00',
+                    maxTime: '24:00:00',
                     eventClick: function(event, jsEvent, view) {
                         editEventModal(event);
                     },
