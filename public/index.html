@@ -145,6 +145,7 @@
                             <p>Start Time: </p>
                             <center><timepicker ng-init="eventStartTime" ng-model="eventStartTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker></center>
 
+
                             <p>End Time: </p>
                             <center><timepicker ng-init="eventEndTime"  ng-model="eventEndTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker></center>
                             <br>
@@ -227,7 +228,7 @@
                             
                             <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
-                        <a href="#membersViewAnchor"><button ng-click="addMemberView=!addMemberView;" id="memberInfoBtn" >Member Info</button></a>
+                        <a href="#membersViewAnchor"><button ng-click="addMemberView=!addMemberView;" id="memberInfoBtn" >Member Info / Add Member</button></a>
                         
                         <span style="font-size: 17px; margin-top: 10px; letter-spacing: 2px; float:left;clear:both;"><strong>Group Code: </strong></span>
                         <span style="font-size: 17px; margin-top:10px; letter-spacing: 2px; float:left;">{{currentGroupId}}</span> 
