@@ -118,6 +118,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                         openModal('saveEvent.html', 'SaveGroupEventController', 'sm', null)
                             .then(function(){
                                 event.source = null;
+                                event.title = event.title + " (" + groupService.getGroupName() + ")";
                                 currentUser.get("personalSchedule").push(event);
                                 currentUser.save();
                             });
