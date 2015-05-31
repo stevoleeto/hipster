@@ -964,3 +964,8 @@ SINGLEGROUP VIEW STYLES
     -moz-transition: opacity .3s;
     -o-transition: opacity .3s;
 }
+
+.addFromFriends:hover
+{
+    background:#A0DEFB;
+}

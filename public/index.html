@@ -520,9 +520,9 @@
                 </div>
                 <div class="modal-body">
                     <input type="text" ng-model="newMemberEmail" placeholder="Add New Member Email">
-                    <h3>Your Friends</h3>
+                    <h3>Add From Your Friends</h3>
                     <div style="height:100px;overflow-y:scroll;">
-                        <ul ng-repeat="friend in friends track by $index" style="list-style-type:none;cursor:pointer;">
+                        <ul class="addFromFriends" ng-repeat="friend in friends track by $index" style="list-style-type:none;cursor:pointer;">
                             <li ng-click="setEmail(friend.email);">
                                 <div>{{friend.name}} ({{friend.email}})</div>
                             </li>
