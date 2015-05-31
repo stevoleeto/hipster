@@ -549,10 +549,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 mstep: [1, 5, 10, 15, 25, 30]
             };
 
-            $scope.ismderidian = true;
-            $scope.toggleMode = function() {
-                $scope.ismeridian = ! $scope.ismeridian;
-            };
+            $scope.ismeridian = true;
 
             $scope.update = function() {
                 var d = new Date();
