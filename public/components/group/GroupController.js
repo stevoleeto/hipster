@@ -115,7 +115,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                         $scope.eventEndTime = ((end.local()).toDate());
                     },
                     eventClick: function(event, jsEvent, view) {
-                        openModal('saveEvent.html', 'SaveGroupEventController', 'sm', null)
+                        openModal('saveEvent.html', 'SaveGroupEventController', 'lg', null)
                             .then(function(){
                                 var newEvent = eventService.copyEvent(event);
                                 newEvent.title = event.title + " (" + groupService.getGroupName() + ")";
@@ -130,7 +130,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                     defaultView: 'agendaWeek',
                     slotDuration: '01:00:00',
                     minTime: '06:00:00',
-                    maxTime: '22:00:00',
+                    maxTime: '24:00:00',
                     dayClick: function(date, jsEvent, view) {
                     },
                     allDaySlot:false
