@@ -7,7 +7,7 @@
 
 Parse.Cloud.define("mailGroupAlert", function(request, response){
 	var Mailgun = require('mailgun');
-Mailgun.initialize('sandboxba98e37f8db04e8fa51e87a9352aec44.mailgun.org', 'key-f72d9fd43656a1032df21d7caa7865e0');
+	Mailgun.initialize('sandboxba98e37f8db04e8fa51e87a9352aec44.mailgun.org', 'key-f72d9fd43656a1032df21d7caa7865e0');
 
 	Mailgun.sendEmail({
 	  to: request.params.email,
@@ -24,7 +24,27 @@ Mailgun.initialize('sandboxba98e37f8db04e8fa51e87a9352aec44.mailgun.org', 'key-f
 	    response.error("Uh oh, something went wrong");
 	  }
 	});
+});
 
+Parse.Cloud.define("mailContactUs", function(request, response){
+	var Mailgun = require('mailgun');
+	Mailgun.initialize('sandboxba98e37f8db04e8fa51e87a9352aec44.mailgun.org', 'key-f72d9fd43656a1032df21d7caa7865e0');
+
+	Mailgun.sendEmail({
+	  to: "saveenchad@gmail.com",
+	  from: request.params.email,
+	  subject: "Feedback!",
+	  text: "Name: " + request.params.name + "\r\n\r\nMessage: " + request.params.email},
+	  {
+	  success: function(httpResponse) {
+	    console.log(httpResponse);
+	    response.success("Email sent!");
+	  },
+	  error: function(httpResponse) {
+	    console.error(httpResponse);
+	    response.error("Uh oh, something went wrong");
+	  }
+	});
 });
 
 Parse.Cloud.define("hello", function(request, response) {

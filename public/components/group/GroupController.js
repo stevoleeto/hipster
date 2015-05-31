@@ -115,7 +115,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                         $scope.eventEndTime = ((end.local()).toDate());
                     },
                     eventClick: function(event, jsEvent, view) {
-                        openModal('saveEvent.html', 'SaveGroupEventController', 'sm', null)
+                        openModal('saveEvent.html', 'SaveGroupEventController', 'lg', null)
                             .then(function(){
                                 var newEvent = eventService.copyEvent(event);
                                 newEvent.title = event.title + " (" + groupService.getGroupName() + ")";
