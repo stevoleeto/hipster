@@ -244,6 +244,16 @@ $scope.createEvent = function(){
         return;
     }
 
+    if(Date.parse($scope.eventStartTime) > Date.parse($scope.eventEndTime)) {
+        alert("Your end time is before your start time!!");
+        return;
+    }
+
+    if(Date.parse($scope.eventStartTime) == Date.parse($scope.eventEndTime)) {
+        alert("Your event starts and ends at the same time!!");
+        return;
+    }
+
     if ($scope.dayRepeat.monday || 
             $scope.dayRepeat.tuesday || 
             $scope.dayRepeat.wednesday ||

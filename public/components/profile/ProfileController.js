@@ -84,10 +84,10 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 });
             };
 
-            $scope.editGroupModal = function (oldName, oldColor) {
+            $scope.editGroupModal = function (oldName, oldColor, oldID) {
 
-                openModal('editGroup.html', 'EditGroupController', 'lg', {name: oldName, color: oldColor}).then(function (newGroupSettings) {
-                    console.log(newGroupSettings);
+                openModal('editGroup.html', 'EditGroupController', 'lg', {name: oldName, color: oldColor, id:oldID}).then(function (editedGroup) {
+                    editGroup(editedGroup.id,editedGroup.newColor);
                 }, function () {
                     $scope.myGroupList = userService.getNewGroupList();
                 });
@@ -226,9 +226,22 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 groupService.setGroupId($scope.currentGroupId);
                 groupService.setGroupColor($scope.currentGroupColor);
             }
-
             $scope.updateSingleGroupTab = function(name){
                 $scope.singleGroupName = name;
+            }
+            var editGroup = function(groupID, newColor){
+                for(index = 0; index < $scope.myGroupList.length; index++){
+                    if(groupID === $scope.myGroupList[index]['id']){
+                        console.log("Found the group!");
+                        $scope.myGroupList[index]['color'] = newColor;
+                        break;
+                    }
+                }
+
+                dataBaseService.queryGroupList($scope.email).then(function(groupListQuery){
+                    groupListQuery[0].set("userGroups", $scope.myGroupList);
+                    groupListQuery[0].save();
+                });
             }
 
 
@@ -330,6 +343,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 
              * Called In:   index.html
 
+             <<<<<<< HEAD
              * Description: Removs all groups found in their GroupList userGroups array.
              ************************************************************************/
             $scope.createEvent = function(){

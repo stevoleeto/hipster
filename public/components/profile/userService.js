@@ -26,7 +26,7 @@ app.service('userService',['$q','googleCalendarService', 'dataBaseService' ,func
     var getCurrentSchedule = function(email){
         var deferred = $q.defer();
         dataBaseService.queryUser(email).then(function(userQuery){
-           deferred.resolve( userQuery[0].get("personalSchedule"));
+            deferred.resolve( userQuery[0].get("personalSchedule"));
         });
         return deferred.promise;
     };
@@ -104,66 +104,70 @@ app.service('userService',['$q','googleCalendarService', 'dataBaseService' ,func
                         break;
                     }
                 }
+
+                if(memberList.length === 0){
+                    groupQuery[0].destroy();
+                }
+
             });
-        });
-    };
+        })};
 
-    var setGoogleCalendar = function(calendarID){
-        return googleCalendarService.queryGoogleCalendar(calendarID).then(function(newCal){
-            /* iterate over items in googleCal */
-            if(googleCalendar.length === 0){ //make sure we don't have it already
-                for(index = 0; index< newCal.items.length; index++){
-                    var startTime;
-                    var endTime;
+        var setGoogleCalendar = function(calendarID){
+            return googleCalendarService.queryGoogleCalendar(calendarID).then(function(newCal){
+                /* iterate over items in googleCal */
+                if(googleCalendar.length === 0){ //make sure we don't have it already
+                    for(index = 0; index< newCal.items.length; index++){
+                        var startTime;
+                        var endTime;
 
-                    if(newCal.items[index].start){
-                        startTime = newCal.items[index].start.dateTime;
-                    }
-                    if(newCal.items[index].end){
-                        endTime = newCal.items[index].end.dateTime;
-                    }
-                    if(startTime && endTime){
-                        var newEvent = {
-                            textColor: 'white',
-               title: newCal.items[index].summary + "\nGoogle Calendar",
-               id: 9,
-               start: startTime,
-               end: endTime,
-               color: 'green'
+                        if(newCal.items[index].start){
+                            startTime = newCal.items[index].start.dateTime;
                         }
-                        googleCalendar.push(newEvent);
+                        if(newCal.items[index].end){
+                            endTime = newCal.items[index].end.dateTime;
+                        }
+                        if(startTime && endTime){
+                            var newEvent = {
+                                textColor: 'white',
+                   title: newCal.items[index].summary + "\nGoogle Calendar",
+                   id: 9,
+                   start: startTime,
+                   end: endTime,
+                   color: 'green'
+                            }
+                            googleCalendar.push(newEvent);
+                        }
                     }
                 }
-            }
-        });
-    };
+            });
+        };
 
-    var clearGroupList = function(email){
-        dataBaseService.queryGroupList().then(function(groupListQuery){
-            groupListQuery[0].set("userGroups", []);
-            groupListQuery[0].save();
-        });
-    };
+        var clearGroupList = function(email){
+            dataBaseService.queryGroupList().then(function(groupListQuery){
+                groupListQuery[0].set("userGroups", []);
+                groupListQuery[0].save();
+            });
+        };
 
-    var getGoogleCalendar = function(){
-        return googleCalendar;
-    };
-
+        var getGoogleCalendar = function(){
+            return googleCalendar;
+        };
 
 
 
-    return {
-        // return all functions here so the dependant knows what to call!
-        getGroupList: getGroupList,
-            getNewGroupList: getNewGroupList,
-            getFriendGroupList: getFriendGroupList,
-            createGroup: createGroup,
-            removeGroup: removeGroup,
-            setEmail : setEmail,
-            setName : setName,
-            getGoogleCalendar : getGoogleCalendar,
-            setGoogleCalendar : setGoogleCalendar,
-            getCurrentSchedule : getCurrentSchedule
-    };
 
-}]);
+        return {
+            // return all functions here so the dependant knows what to call!
+            getGroupList: getGroupList,
+                getNewGroupList: getNewGroupList,
+                getFriendGroupList: getFriendGroupList,
+                createGroup: createGroup,
+                removeGroup: removeGroup,
+                setEmail : setEmail,
+                setName : setName,
+                getGoogleCalendar : getGoogleCalendar,
+                setGoogleCalendar : setGoogleCalendar,
+                getCurrentSchedule : getCurrentSchedule
+        };
+
+    }]);
