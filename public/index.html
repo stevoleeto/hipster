@@ -38,6 +38,7 @@
         <script src="components/profile/FriendListController.js"></script>
         <script src="components/profile/AddGroupController.js"></script>
         <script src="components/profile/AccountSettingsController.js"></script>
+        <script src="components/group/SaveGroupEventController.js"></script>
         <script src="components/group/GroupController.js"></script>
         <script src="components/group/GroupInfoController.js"></script>
         <script src="components/group/AddMemberController.js"></script>
@@ -360,6 +361,16 @@
             <div class="modal-footer">
                 <button class="btn btn-primary" ng-click="ok()">OK</button>
                 <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+
+        <script type="text/ng-template" id="saveEvent.html">
+            <div class="modal-header" style="bottom-border:none">
+                <h3 class="modal-title">Save this event to personal schedule?</h3>
+            </div>
+            <div class="modal-footer" style="top-border:none">
+                <button class="btn btn-primary" ng-click="save()">Save Event</button>
+                <button class="btn btn-warning" ng-click="cancel()">No</button>
             </div>
         </script>
 
