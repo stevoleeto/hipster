@@ -168,8 +168,34 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             };
 
 
+            $scope.eventSources = [];
+            $scope.$watch('profileView', function(){
+                if($scope.profileView){
+                    $scope.eventSources.length = 0;
+                    userService.getCurrentSchedule($scope.email).then(function(currentSchedule){
+                        personalSchedule = currentSchedule;
+                        $scope.eventSources.push(personalSchedule);
+                    })
+                    /* GOOGLE CALENDAR */
+                    if(currentUser.get("googleCalendarID")){ // if user has calID
+                        console.log("happening!!");
+                        //if(userService.getGoogleCalendar().length === 0){ // if it hasn't been pulled already
+                        userService.setGoogleCalendar(currentUser.get("googleCalendarID")).then(function(){
+                            var newCalendar = userService.getGoogleCalendar();
+                            if(newCalendar){ //if successful
+                                googleCalendar = newCalendar;
+                                $scope.eventSources.push(googleCalendar);
+                            }
+                        });
+                        // }
+                    }
+                }
+            });
+
+            /*
             $scope.eventSources = [personalSchedule];
             /* GOOGLE CALENDAR */
+            /*
             if(currentUser.get("googleCalendarID")){ // if user has calID
                 if(userService.getGoogleCalendar().length === 0){ // if it hasn't been pulled already
                     userService.setGoogleCalendar(currentUser.get("googleCalendarID")).then(function(){
@@ -182,6 +208,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                     });
                 }
             }
+            */
 
 
             // Profile Calendar Settings
@@ -454,8 +481,12 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 
             var deleteEvent = function(eventClicked){    
 
+                
                 for(index = 0; index < personalSchedule.length; index++){
                     if(eventClicked.id == personalSchedule[index].id){
+                console.log("GETTING DELETED?");
+                console.log(eventClicked);
+                console.log(personalSchedule[index]);
                         personalSchedule.splice(index, 1);
                         index--;
                     }

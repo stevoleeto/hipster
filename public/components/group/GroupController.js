@@ -117,12 +117,11 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                     eventClick: function(event, jsEvent, view) {
                         openModal('saveEvent.html', 'SaveGroupEventController', 'sm', null)
                             .then(function(){
-                                event.source = null;
-                                event.title = event.title + " (" + groupService.getGroupName() + ")";
-                                currentUser.get("personalSchedule").push(event);
+                                var newEvent = eventService.copyEvent(event);
+                                newEvent.title = event.title + " (" + groupService.getGroupName() + ")";
+                                currentUser.get("personalSchedule").push(newEvent);
                                 currentUser.save();
                             });
-
                     },
                     editable: false,
                     viewRender: function(view, element) {
@@ -193,6 +192,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                 if(!alreadyInGroup){
                     groupService.addMember($scope.currentGroupId, newMember).then(function(){
                         $scope.memberList = groupService.getMemberList();
+                        $timeout(function(){$scope.$apply()}, 150);
                         var newMemberCall = groupService.getNewMember();
                         if(newMemberCall){
                             var tempSched = newMemberCall.personalSchedule;
