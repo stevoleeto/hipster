@@ -457,16 +457,23 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 for(index = 0; index < personalSchedule.length; index++){
                     if(eventClicked.id == personalSchedule[index].id){
                         personalSchedule.splice(index, 1);
+                        index--;
                     }
                 }
                 currentUser.save();
             }
 
             var editEvent = function(eventClicked){
+                var start;
+                var end;
 
                 for(index = 0; index < personalSchedule.length; index++){
                     if(eventClicked.id == personalSchedule[index].id){
+                        start = personalSchedule[index].start;
+                        end = personalSchedule[index].end;
                         personalSchedule[index] = eventService.copyEvent(eventClicked);
+                        personalSchedule[index].start = start;
+                        personalSchedule[index].end = end;
                     }
                     else{
                         personalSchedule[index] = eventService.copyEvent(personalSchedule[index]);
