@@ -44,19 +44,31 @@
 
  	var getEvents = function(){
  		return eventsToAdd;
- 	}
+ 	};
 
  	var clearEvents = function(){
  		eventsToAdd.length = 0;
- 	}
+ 	};
 
  	var getSelectedEvent = function(){
  		return currentSelectedEvent;
- 	}
+ 	};
 
  	var setSelectedEvent = function(eventSelected){
  		currentSelectedEvent = eventSelected;
- 	}
+ 	};
+
+    var copyEvent = function(event){
+        return{
+            id: event.id,
+            title: event.title,
+            start: event.start,
+            end: event.end,
+            rendering: event.rendering,
+            color: event.color,
+            textColor : event.textColor
+        }
+    };
 
 
 
@@ -65,6 +77,7 @@
  		clearEvents : clearEvents,
  		getEvents : getEvents,
  		getSelectedEvent : getSelectedEvent,
- 		setSelectedEvent : setSelectedEvent
+ 		setSelectedEvent : setSelectedEvent,
+        copyEvent : copyEvent
  	}
  }]);
