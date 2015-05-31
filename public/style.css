@@ -837,6 +837,7 @@ SINGLEGROUP VIEW STYLES
     font-weight: 500;
 }
 
+
 #membersInfo
 {
     clear:both;
@@ -849,15 +850,15 @@ SINGLEGROUP VIEW STYLES
 .members
 {
     float:left;
-    margin: 20px;
+    margin: 5px;
     text-align: center;
-    height: 80px;
-    width: 80px;
+    height: auto;
+    width: 82px;
 }
 
 .memberIcon {
-    height: 100%;
-    width: 100%;
+    height: 80px;
+    width: 80px;
     background-repeat: no-repeat;
     background-size: contain;
 }
@@ -914,9 +915,11 @@ SINGLEGROUP VIEW STYLES
 {
     position:relative;
 /*    top:20px;*/
+    left:2%;
     float: left;
-    height: auto;
-    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    width: 96%;
     background:white;
 /*    border:solid black 1px;*/
 }
