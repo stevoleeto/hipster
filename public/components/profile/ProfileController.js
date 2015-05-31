@@ -460,14 +460,8 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             }
 
             var deleteEvent = function(eventClicked){    
-                currentUser.set("personalSchedule",personalSchedule);
-
-                
                 for(index = 0; index < personalSchedule.length; index++){
                     if(eventClicked.id == personalSchedule[index].id){
-                console.log("GETTING DELETED?");
-                console.log(eventClicked);
-                console.log(personalSchedule[index]);
                         personalSchedule.splice(index, 1);
                         index--;
                     }
@@ -487,9 +481,6 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                         personalSchedule[index] = eventService.copyEvent(eventClicked);
                         personalSchedule[index].start = start;
                         personalSchedule[index].end = end;
-                    }
-                    else{
-                        personalSchedule[index] = eventService.copyEvent(personalSchedule[index]);
                     }
                 }
                 currentUser.save();
