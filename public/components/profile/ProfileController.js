@@ -348,9 +348,14 @@ $scope.createEvent = function(){
         alert("Choose a color for your event!");
         return;
     }
-    
-    if(Date.parse($scope.eventStartTime) < Date.parse($scope.eventEndTime)) {
+
+    if(Date.parse($scope.eventStartTime) > Date.parse($scope.eventEndTime)) {
         alert("Your end time is before your start time!");
+        return;
+    }
+
+    if(Date.parse($scope.eventStartTime) == Date.parse($scope.eventEndTime)) {
+        alert("Your event starts and ends at the same time!!");
         return;
     }
 
