@@ -919,6 +919,7 @@ SINGLEGROUP VIEW STYLES
     float: left;
     margin-right: auto;
     margin-left: auto;
+    margin-bottom:10px;
     width: 96%;
     background:white;
 /*    border:solid black 1px;*/
