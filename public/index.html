@@ -572,9 +572,10 @@
                     <h3 class="modal-title">Add a Group</h3>
                 </div>
                 <div class="modal-body">
-                    <input type="text" ng-model="newGroupName" placeholder="Enter Group Name" ng-disabled="newGroupCode.length > 0">
+                    <input ng-style="( newGroupCode.length > 0 ) ? { 'opacity':'.5' } :  { 'border-bottom':'1px solid green' }" ng-model="newGroupName" placeholder="Enter Group Name" ng-disabled="newGroupCode.length > 0">
                     <br><br>
-                    <input type="text" ng-model="newGroupCode" placeholder="Enter A Group Code" ng-disabled="newGroupName.length > 0">
+                    <p style="text-align:center"><strong>- OR add a group using a preexisting group code -</strong></p>
+                    <input ng-style="( newGroupName.length > 0 ) ? { 'opacity':'.5' } :  { 'border-bottom':'1px solid green' }" type="text" ng-model="newGroupCode" placeholder="Enter A Group Code" ng-disabled="newGroupName.length > 0">
                     <br><br>
                     <label for="groupColor">Select a Color</label>   
                     <div id="groupColorSelect">
