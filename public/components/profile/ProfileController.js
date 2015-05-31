@@ -175,10 +175,10 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                     userService.getCurrentSchedule($scope.email).then(function(currentSchedule){
                         personalSchedule = currentSchedule;
                         $scope.eventSources.push(personalSchedule);
+                        currentUser.set("personalSchedule", personalSchedule);
                     })
                     /* GOOGLE CALENDAR */
                     if(currentUser.get("googleCalendarID")){ // if user has calID
-                        console.log("happening!!");
                         //if(userService.getGoogleCalendar().length === 0){ // if it hasn't been pulled already
                         userService.setGoogleCalendar(currentUser.get("googleCalendarID")).then(function(){
                             var newCalendar = userService.getGoogleCalendar();
@@ -481,6 +481,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             }
 
             var deleteEvent = function(eventClicked){    
+                currentUser.set("personalSchedule",personalSchedule);
 
                 
                 for(index = 0; index < personalSchedule.length; index++){
