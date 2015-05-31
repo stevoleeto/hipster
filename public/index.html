@@ -184,7 +184,7 @@
         </div> 
       </div> <!--END PROFILE CONTROLLER -->
         <!-- GROUP CONTROLLER -->
-        <div class="singleGroupView" ng-init="singleGroupView=false;" ng-show="singleGroupView">
+        <div class="singleGroupView" ng-init="singleGroupView=false;" ng-show="singleGroupView" >
             <div id="profileWrapper" ng-controller="GroupController">
                 <div style="clear:both;">
                     <div id="scheduleWrapper" style="top:0;">
@@ -569,13 +569,13 @@
                     
         <script type="text/ng-template" id="addGroup.html">
 
-                <div class="modal-header">
+                <div ng-style="{background:groupColor}" class="modal-header">
                     <h3 class="modal-title">Add a Group</h3>
                 </div>
                 <div class="modal-body">
                     <input ng-style="( newGroupCode.length > 0 ) ? { 'opacity':'.5' } :  { 'border-bottom':'1px solid green' }" ng-model="newGroupName" placeholder="Enter Group Name" ng-disabled="newGroupCode.length > 0">
                     <br><br>
-                    <p style="text-align:center"><strong>- OR add a group using a preexisting group code -</strong></p>
+                    <p style="text-align:center"><strong>- OR add a group using an existing group code -</strong></p>
                     <input ng-style="( newGroupName.length > 0 ) ? { 'opacity':'.5' } :  { 'border-bottom':'1px solid green' }" type="text" ng-model="newGroupCode" placeholder="Enter A Group Code" ng-disabled="newGroupName.length > 0">
                     <br><br>
                     <label for="groupColor">Select a Color</label>   
