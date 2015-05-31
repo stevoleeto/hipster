@@ -84,8 +84,7 @@ app.service('userService',['$q','googleCalendarService', 'dataBaseService' ,func
         //removes member from GROUP member list
         dataBaseService.queryGroup(groupToRemove).then(function(groupQuery){
           var memberList = groupQuery[0]._serverData.memberList;
-          console.log(memberList);
-          console.log(email);
+          console.log(groupQuery);
 
           for (index = 0; index < memberList.length; index++){
             if(memberList[index]['email'] === email){
@@ -97,6 +96,11 @@ app.service('userService',['$q','googleCalendarService', 'dataBaseService' ,func
               break;
             }
           }
+
+          if(memberList.length === 0){
+            groupQuery[0].destroy();
+          }
+
         });
      });
   };
