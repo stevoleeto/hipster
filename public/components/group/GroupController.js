@@ -115,6 +115,12 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                         $scope.eventEndTime = ((end.local()).toDate());
                     },
                     eventClick: function(event, jsEvent, view) {
+                        openModal('saveEvent.html', 'SaveGroupEventController', 'sm', null)
+                            .then(function(){
+                                event.source = null;
+                                currentUser.get("personalSchedule").push(event);
+                                currentUser.save();
+                            });
 
                     },
                     editable: false,
