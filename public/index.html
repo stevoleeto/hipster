@@ -101,7 +101,7 @@
             <center>
                 <div ng-click="profileView=true; groupView=false; $parent.singleGroupView=false" ng-class="{selTab: profileView}" class="viewBtn">Personal</div>
                 <div ng-click="groupView=true; profileView=false; $parent.singleGroupView=false" ng-class="{selTab: groupView}" class="viewBtn">Groups</div>
-                <div ng-hover="" ng-click="profileView=false; groupView=false; $parent.singleGroupView=true;" class="viewBtn" ng-class="{selTab: $parent.singleGroupView}" ng-hide="!singleGroupName">
+                <div ng-hover="" ng-click="profileView=false; groupView=false; $parent.singleGroupView=true;" class="viewBtn" ng-class="{selTab: $parent.singleGroupView}" ng-hide="!singleGroupName" ng-attr-title="{{singleGroupName}}">
                     {{ singleGroupName | limitTo:8 }}{{ singleGroupName.length > 8 ? '...' : '' }}
                 </div>
             </center>
@@ -187,7 +187,7 @@
             <div id="profileWrapper" ng-controller="GroupController">
                 <div style="clear:both;">
                     <div id="scheduleWrapper" style="top:0;">
-                        <p id="yourSched">{{groupName}}'s Schedule</p>
+                        <p id="yourSched">Schedule for <i>{{groupName}}</i></p>
                         <div class="schedule card">
                             <!-- group UI CALENDAR -->
                             <div  ng-model="eventSources" calendar='groupCalendar' ui-calendar="uiConfig.calendar"  ></div> 
@@ -394,7 +394,7 @@
                     <input type="text" ng-model="myEvent.title" value={{myEvent.title}} name="newName" style="width:50%;">
                     <br><br>
                     <center>
-                            <button Popover-animation="true" popover-template="'eventEditColorSelect.html'" popover-placement="top" class="btn btn-default" ng-style="{'background':myEvent.color}" ng-init="myEvent.color" popover-trigger="focus" popover-title="Select Color" class="colorFade">Change Color</button>
+                        <button Popover-animation="true" popover-template="'eventEditColorSelect.html'" popover-placement="top" class="btn btn-default" ng-style="{'background':myEvent.color}" ng-init="myEvent.color" popover-trigger="focus" popover-title="Select Color" class="colorFade">Change Color</button>
                     </center>
                     <br>
                     <div class="modal-footer">
