@@ -544,8 +544,14 @@ PROFILE VIEW STYLES
     background:white;
 }
 
-.btn-group label
+.repeatBtn
 {
+    background:white;
+}
+
+.btn-primary .active
+{
+    background:#ccc;
 }
 
 
