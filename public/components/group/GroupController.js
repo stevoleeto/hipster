@@ -141,7 +141,15 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
             };
 
             /* END Group Calendar Settings */
-            /* --------------------------- */
+
+            /*
+             * ********** Initialize Group View **********
+             * *******************************************
+             * *******************************************
+             * *******************************************
+             * *******************************************
+             * *******************************************
+             */
 
             /* Watch to see if single group view is set to true, if it is, pull down group info */
             $scope.$watch('singleGroupView', function(){
