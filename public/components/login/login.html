@@ -25,6 +25,7 @@
         <!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/X.Y.Z/angular-animate.js"></script>-->
 
         <!-- jquery, moment, and angular have to get included before fullcalendar -->
+        <script type="text/javascript" src="../../lib/bower_components/init.js"></script>
         <script type="text/javascript" src="../../lib/bower_components/jquery/dist/jquery.js"></script>
         <script type="text/javascript" src="../../lib/bower_components/moment/moment.js"></script>
         <script type="text/javascript" src="../../lib/bower_components/angular/angular.js"></script>
@@ -32,8 +33,6 @@
         <script type="text/javascript" src="../../lib/bower_components/fullcalendar/dist/fullcalendar.js"></script>
         <script type="text/javascript" src="../../lib/bower_components/fullcalendar/dist/gcal.js"></script>
         <script type="text/javascript" src="../../lib/bower_components/loadingBar/src/loading-bar.js"></script>
-        
-
 
         <!-- Load BootStrap -->
         <script type="text/javascript" src="../../lib/ui-bootstrap-tpls-0.13.0.min.js"></script>
@@ -43,6 +42,14 @@
 
         <!-- Controllers -->
         <script src="LoginController.js"></script>
+
+        <script>
+            Parse.initialize(appID,jsKey);
+            var currentUser = Parse.User.current();
+            if (currentUser) {
+                location.href = "../../index.html";
+            } 
+        </script>
     </head>
     <!-- Here is where we tell angular to expect angularJS implementation in
          this HTML block  -->

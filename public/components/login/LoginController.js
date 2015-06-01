@@ -8,10 +8,9 @@
 //Global Variables
 /****************/
 //Link to Parse database - accepts application_ID, JavaScript_Key
-Parse.initialize( "t5hvXf3wJOYnL3MMIffsemMdhLM7f4brACcf0eBa", "UhqQaEDIEQr6cxhO8XS4Fl8BcGU4ir9jL9To7PVO" );
+Parse.initialize(appID,jsKey);
 var tips = document.getElementById( 'sTips' );
 var currentUser = Parse.User.current();
-
 
 app.controller('LoginController', ['$scope', function($scope) { 
 
