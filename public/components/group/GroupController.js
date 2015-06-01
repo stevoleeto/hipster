@@ -116,10 +116,14 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                     eventClick: function(event, jsEvent, view) {
                         openModal('saveEvent.html', 'SaveGroupEventController', 'lg', null)
                             .then(function(){
-                                var newEvent = eventService.copyEvent(event);
-                                newEvent.title = event.title + " (" + groupService.getGroupName() + ")";
-                                currentUser.get("personalSchedule").push(newEvent);
-                                currentUser.save();
+                                for(index = 0; index < $scope.eventSources[0].length; index++){
+                                    if(event.id === $scope.eventSources[0][index].id){
+                                        var newEvent = eventService.copyEvent($scope.eventSources[0][index]);
+                                        newEvent.title = event.title + " (" + groupService.getGroupName() + ")";
+                                        currentUser.get("personalSchedule").push(newEvent);
+                                        currentUser.save(); 
+                                    }
+                                }
                             });
                     },
                     editable: false,
