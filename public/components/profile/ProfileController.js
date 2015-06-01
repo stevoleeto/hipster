@@ -59,6 +59,21 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             userService.setEmail(currentUser.get("username")); 
             userService.setName($scope.userName);
 
+            /* GET USER GROUPLIST */
+            userService.getGroupList($scope.email).then(function(groupList){
+                $scope.myGroupList = groupList;
+            });
+
+            /*
+             * **********MODALS***********
+             * ***************************
+             * ***************************
+             * ***************************
+             * ***************************
+             * ***************************
+             * ***************************
+             */
+
             /* MODAL FUNCTION */
             var openModal = function(template, ctrl, size, param ){
                 var modalInstance = $modal.open({
@@ -75,7 +90,6 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 return modalInstance.result
             }
 
-            /* COMPLETED MODALS */
             $scope.addFriendModal = function(){
                 openModal( 'addFriend.html', 'AddFriendController', 'lg').then(function(newFriend){
                     addFriend(newFriend);
@@ -162,7 +176,12 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 
 
             /* END MODAL SECTION */
-
+            /*********************/
+            /*********************/
+            /*********************/
+            /*********************/
+            /*********************/
+            /*********************/
 
             $scope.dayRepeat = {
                 monday : false,
@@ -231,11 +250,17 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 }
             };
 
-            /* asks the service to please pull the group list of desire email,
-             * then it gets the groupList from the service when its done pulling */
-            userService.getGroupList($scope.email).then(function(groupList){
-                $scope.myGroupList = groupList;
-            });
+            
+
+            /*
+             * ********USER BEHAVIORS********
+             * ******************************
+             * ******************************
+             * ******************************
+             * ******************************
+             * ******************************
+             * ******************************
+             */
 
             $scope.addGroup = function(){	
                 groupService.setGroupId($scope.currentGroupId);
