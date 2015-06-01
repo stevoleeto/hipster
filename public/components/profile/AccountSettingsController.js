@@ -40,6 +40,19 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
         });
     }
 
+    /** AVENGERS ICON PACK **/
+    var names = ['Black Widow', 'Captain America', 'Iron Man', 'Thor', 'Hulk', 'Hawkeye'];
+
+    for (var i = 0; i < 6; ++i) {
+        icons.push({
+            id: (i + 18),
+            image: 'images/avenger' + i + '.png',
+            name: names[i],
+            selected: 0
+        });
+    }
+    /** END AVENGERS ICON PACK **/
+
     $scope.initSelectedIcon = function(icon) {
         if (icon.image == modalParams.icon) {
             icon.selected = 1;
@@ -64,7 +77,6 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
     };
 
     $scope.saveSettings = function () {
-        console.log($scope.newName);
         if($scope.newName && $scope.newEmail) {
             saveSettingsFlag = 1;
         } else {

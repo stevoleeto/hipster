@@ -250,7 +250,7 @@ input
     border-color: #000;
 }
 
-#lblSuccess {
+.lblSuccess {
     box-sizing: border-box;
     color: #3C763D;
     background: #DFF0D8;
@@ -259,7 +259,7 @@ input
     margin-bottom: 10px;
 }
 
-#lblError {
+.lblError {
     box-sizing: border-box;
     color: #A94442;
     background: #F2DEDE;
