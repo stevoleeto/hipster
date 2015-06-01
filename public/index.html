@@ -120,19 +120,15 @@
                         <div class="createEvent card">
                             <input placeholder="Event Name" type="text" name="pEventName" class="eventPar" ng-model="newEventName">
                             <br><br>
-
-                                <center><button Popover-animation="true" popover-template="'repDays.html'" popover-placement="top" class="btn btn-default" popover-title="Select Repeating Days">Set Repeating</button></center>
-                                <script type="text/ng-template" id="repDays.html">
-                                    <div class="repDays">
-                                        <div class="btn btn-primary" ng-model="dayRepeat.monday" btn-checkbox>Mon</div>
-                                        <div class="btn btn-primary" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</div>
-                                        <div class="btn btn-primary" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</div>
-                                        <div class="btn btn-primary" ng-model="dayRepeat.thursday" btn-checkbox>Thu</div>
-                                        <div class="btn btn-primary" ng-model="dayRepeat.friday" btn-checkbox>Fri</div>
-                                        <div class="btn btn-primary" ng-model="dayRepeat.saturday" btn-checkbox>Sat</div>
-                                        <div class="btn btn-primary" ng-model="dayRepeat.sunday" btn-checkbox>Sun</div>
-                                    </div>
-                                </script>
+                                <div class="btn-group">
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.monday" btn-checkbox>Mon</label>
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</label>
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</label>
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.thursday" btn-checkbox>Thu</label>
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.friday" btn-checkbox>Fri</label>
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.saturday" btn-checkbox>Sat</label>
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.sunday" btn-checkbox>Sun</label>
+                                </div>
                             <br>
                             <center>
                                 <div class="lblInfo" ng-show="dayRepeat.monday || dayRepeat.tuesday || dayRepeat.wednesday || dayRepeat.thursday || dayRepeat.friday || dayRepeat.saturday || dayRepeat.sunday">
@@ -211,9 +207,15 @@
                             <input type="text" placeholder="Event Name" name="pEventName" class="eventPar" ng-model="newEventName">
                             <br><br>
 
-                                <center>
-                                    <button Popover-animation="true" popover-template="'repDays.html'" popover-placement="bottom" class="btn btn-default" popover-title="Select Repeating Days">Set Repeating</button>
-                                </center>
+                                <div class="btn-group">
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.monday" btn-checkbox>Mon</label>
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</label>
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</label>
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.thursday" btn-checkbox>Thu</label>
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.friday" btn-checkbox>Fri</label>
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.saturday" btn-checkbox>Sat</label>
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.sunday" btn-checkbox>Sun</label>
+                                </div>
                                 
                             <br>
 
@@ -307,17 +309,6 @@
             </div>
         </script>
 
-        <script type="text/ng-template" id="repDays.html">
-            <div class="repDays">
-                <label class="btn btn-primary" ng-model="dayRepeat.monday" btn-checkbox>Mon</label>
-                <label class="btn btn-primary" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</label>
-                <label class="btn btn-primary" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</label>
-                <label class="btn btn-primary" ng-model="dayRepeat.thursday" btn-checkbox>Thu</label>
-                <label class="btn btn-primary" ng-model="dayRepeat.friday" btn-checkbox>Fri</label>
-                <label class="btn btn-primary" ng-model="dayRepeat.saturday" btn-checkbox>Sat</label>
-                <label class="btn btn-primary" ng-model="dayRepeat.sunday" btn-checkbox>Sun</label>
-            </div>
-        </script>
 
         <script type="text/ng-template" id="eventColorSelect.html">
             <div id="groupColorSelect">
