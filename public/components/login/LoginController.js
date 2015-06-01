@@ -7,7 +7,6 @@
 
 //Global Variables
 /****************/
-//Link to Parse database - accepts application_ID, JavaScript_Key
 Parse.initialize(appID,jsKey);
 var tips = document.getElementById( 'sTips' );
 var currentUser = Parse.User.current();

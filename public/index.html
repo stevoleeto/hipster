@@ -74,7 +74,7 @@
         <!-- PROFILE CONTROLLER -->
         <div ng-controller="ProfileController"> 
         <div id="logoutWrapper">
-            <div class="btn-group" dropdown>
+            <div class="dropDown" dropdown>
                 <div class="logoutbtn" ng-show="homeView" dropdown-toggle></div>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                         <li><a ng-click="accountSettingsModal();">Account Settings</a></li>
@@ -85,7 +85,7 @@
                     </ul>
             </div>
             
-            <div class="btn-group" dropdown>
+            <div class="dropDown" dropdown>
                 <div class = "friendsOptionsBtn" ng-show="homeView" dropdown-toggle></div>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                         <li><a ng-click="addFriendModal()">Add Friend</a></li>
@@ -120,7 +120,7 @@
                         <div class="createEvent card">
                             <input placeholder="Event Name" type="text" name="pEventName" class="eventPar" ng-model="newEventName">
                             <br><br>
-                                <div class="btn-group">
+                                <center><div class="btn-group" style="padding-left:10px;">
                                     <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.monday" btn-checkbox>Mon</label>
                                     <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</label>
                                     <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</label>
@@ -128,12 +128,12 @@
                                     <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.friday" btn-checkbox>Fri</label>
                                     <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.saturday" btn-checkbox>Sat</label>
                                     <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.sunday" btn-checkbox>Sun</label>
-                                </div>
+                                </div></center>
                             <br>
                             <center>
                                 <div class="lblInfo" ng-show="dayRepeat.monday || dayRepeat.tuesday || dayRepeat.wednesday || dayRepeat.thursday || dayRepeat.friday || dayRepeat.saturday || dayRepeat.sunday">
                                     <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                                    Remember to set the end date for your repeating event!
+                                    Remember to properly set the end date for your repeating event!
                                 </div>
                             </center>
                             <p for="startDate" style="display:inline-block;width:75px;">Start Date: </p>

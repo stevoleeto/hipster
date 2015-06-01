@@ -3,6 +3,7 @@
 GENERAL/SHARED STYLES
 -------------------------------------------------------------------------------------------------------------------
 */
+
 body  {
     margin-left: auto;
     margin-right: auto;
@@ -193,8 +194,6 @@ input
     -moz-transition: -moz-transform .5s;
     -o-transition: -o-transform .5s;
     transition: transform .5s;
-    
-    
 }
 
 .logoutbtn:hover
@@ -221,18 +220,18 @@ input
 
 }
 
-.btn-group
+.dropDown
 {
     position: relative;
     float: right;
 }
 
-.btn-group li
+.dropDown li
 {
     cursor:pointer;
 }
 
-.btn-group li:hover
+.dropDown li:hover
 {
    background:#BBDEFB;
 }
@@ -303,7 +302,6 @@ input
 {
     background-color:orange;
 }
-
 
 /*
 ------------------------------------------------------------------------------------------------------------
@@ -563,15 +561,12 @@ PROFILE VIEW STYLES
     background:#ccc;
 }
 
-
-
-
-
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------
 GROUPS VIEW
 ----------------------------------------------------------------------------------------------------------------------------------------
 */
+
 #groupClick
 {
 /*    border:solid black 1px;*/
@@ -734,6 +729,7 @@ GROUPS VIEW
 SINGLEGROUP VIEW STYLES
 ----------------------------------------------------------------------------------------------------------------------------------------
 */
+
 .singleGroupView
 {
     position:absolute;
