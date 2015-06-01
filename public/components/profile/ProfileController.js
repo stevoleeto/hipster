@@ -547,41 +547,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 
         }]);//end profilecontrller
 
-/************************************************************************
- * Name:        ModalInstanceCtrl
 
- * Purpose:     Controller for Modal
-
- * Called In:   ProfileController and GroupController
-
- * Description: Modal control
- ************************************************************************/
-app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
-
-    $scope.ok = function () {
-        $modalInstance.close("Hello");
-    };
-
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-    };
-});
-
-app.controller('PopoverInstanceCtrl', function ($scope) {
-    $scope.repDays = {
-        templateUrl: 'repDays.html'
-    };
-    $scope.confirmRemove = {
-        templateUrl: 'confirmRemove.html'
-    };
-    $scope.groupColorSelect = {
-        templateUrl: 'eventColorSelect.html'
-    };
-
-    $scope.eventEditColor = {
-        templateUrl: 'eventEditColor.html'
-    };
-});
 
 app.controller('ContactController', function($scope, $modalInstance, modalParams){
 
