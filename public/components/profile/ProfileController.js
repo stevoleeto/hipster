@@ -34,7 +34,7 @@
  */
 
 //Link to Parse database - accepts application_ID, JavaScript_Key
-Parse.initialize( "t5hvXf3wJOYnL3MMIffsemMdhLM7f4brACcf0eBa", "UhqQaEDIEQr6cxhO8XS4Fl8BcGU4ir9jL9To7PVO" );
+Parse.initialize(appID,jsKey);
 var currentUser = Parse.User.current();
 var newIcon = '';
 
@@ -389,6 +389,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 
                     if ($scope.dayRepeat.monday){
                         repeatTheseDays.push(1);
+                        
                     }
                     if ($scope.dayRepeat.tuesday){
                         repeatTheseDays.push(2);
@@ -438,6 +439,9 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 for(index = 0; index < $scope.dayRepeat.length; index++){
                     $scope.dayRepeat[i] = false;
                 }
+                $scope.dayRepeat.monday = $scope.dayRepeat.tuesday = 
+                $scope.dayRepeat.wednesday = $scope.dayRepeat.thursday = 
+                $scope.dayRepeat.friday = $scope.dayRepeat.saturday = $scope.dayRepeat.sunday = false;
             }
 
             $scope.removeAllEvents = function(){
