@@ -50,7 +50,6 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
             $scope.eventColor = {mine : '#B9F5FF'};
             $scope.friendList = currentUser.get("friendList");
             
-
             $scope.animationsEnabled = true;    
 
             /* generic modal */
@@ -235,6 +234,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
  * Description: Removs all groups found in their GroupList userGroups array.
  ************************************************************************/
 $scope.createEvent = function(){
+    var repDays = "Repeats on: ";
     var repeatTheseDays = [];
     var repeat = false;
 
@@ -272,27 +272,33 @@ $scope.createEvent = function(){
 
         if ($scope.dayRepeat.monday){
             repeatTheseDays.push(1);
+            repDays += "Monday, ";
         }
         if ($scope.dayRepeat.tuesday){
             repeatTheseDays.push(2);
+            repDays += "Tuesday, ";
         }
         if ($scope.dayRepeat.wednesday){
             repeatTheseDays.push(3);
+            repDays += "Wednesday, ";
         }
         if ($scope.dayRepeat.thursday){
             repeatTheseDays.push(4);
+            repDays += "Thursday, ";
         }
         if ($scope.dayRepeat.friday){
             repeatTheseDays.push(5);
+            repDays += "Friday, ";
         }
         if ($scope.dayRepeat.saturday){
             repeatTheseDays.push(6);
+            repDays += "Saturday, ";
         }
         if ($scope.dayRepeat.sunday){
-            repeatTheseDays.push(0); 
+            repeatTheseDays.push(0);
+            repDays += "Sunday";
         }
     }    
-
 
     eventService.createEvent($scope.newEventName, //event name
             $scope.eventColor.mine, //event color
@@ -319,6 +325,35 @@ $scope.createEvent = function(){
     groupService.saveGroupSchedule(tempGroupSched);
     // SAVE TO GROUP CALENDAR TODO
 
+    var list = groupService.getMemberList();
+    var memberStr = "";
+    for (var i = 0; i < list.length; ++i) {
+        if (list[i].name != currentUser.get("name")) {
+            if (i != list.length - 1) {
+                memberStr += (list[i].name + " <" + list[i].email + ">, ");
+            } else {
+                memberStr += (list[i].name + " <" + list[i].email + ">");
+            }
+        }
+    }
+
+    var start = new moment($scope.eventStartDate);
+    var end = new moment($scope.eventEndDate);
+
+    if (repDays == "Repeats on: ") {
+        repDays = "This event does not repeat";
+    }
+    /*var info = "\tStarts on: " + (start.getMonth() + 1) + "/" + (start.getDate() + 1) + "/" + (start.getFullYear() + 1) +" at " + (start.getHours() + 1) + ":" + sMin + "<br>" + 
+                "\tEnds on: " + (end.getMonth() + 1) + "/" + (end.getDate() + 1) + "/" + (end.getFullYear() + 1) +" at " + (end.getHours() + 1) + ":" + eMin + "<br>" +
+                "\tRepeats on: " + repDays;*/
+
+    var info = "\tStarts on: " + start.format("MM/DD/YYYY") + " at " + start.format("hh:mm A") + "<br>" + 
+               "\tEnds on: " + end.format("MM/DD/YYYY") + " at " + end.format("hh:mm A") + "<br>\t" + repDays;
+
+    Parse.Cloud.run('mailNewGroupEvent', {user: currentUser.get("name"), eventName: $scope.newEventName, group: $scope.groupName, members: memberStr, details: info}, {
+        success: function(result) {},
+        error: function(error) {}
+    });
 
     $scope.newEventName = "";
 
@@ -328,9 +363,6 @@ $scope.createEvent = function(){
         $scope.dayRepeat[i] = false;
     }
 }
-
-
-
 
             /*
              * Time Picker
