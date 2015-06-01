@@ -435,8 +435,8 @@
             </div>
             <div class="modal-body">
                 <center>
-                    <div id="lblSuccess" ng-show="saveLabel"> Everything looks good!</div>
-                    <div id="lblError" ng-show="errLabel">Errors found with name and/or email field(s)!</div>
+                    <div class="lblSuccess" ng-show="saveLabel"> Everything looks good!</div>
+                    <div class="lblError" ng-show="errLabel">Errors found with name and/or email field(s)!</div>
                 </center>
                 <label for="username" style="display:inline-block;width:150px;">User Name:</label>
                 <input style="width:50%;margin-bottom:15px;" value="{{newName}}" ng-model="newName" name="username" ng-style="(newName.length > 0) ? {'border-bottom':'1px solid green'} : {'border-bottom':'1px solid red'}" required ng-pattern="/^[a-z']([a-z'_\s])+$/i"><br>
@@ -477,7 +477,7 @@
                 </div>
                 <hr style="font-weight:700;">
                 <center>
-                    <div id="lblSuccess" ng-show="remLabel">All events have been removed! Click the close button to see!</div>
+                    <div class="lblSuccess" ng-show="remLabel">All events have been removed! Click the close button to see!</div>
                 </center>
                 <p>Please type "Clear my events!" below:</p>
                 <input type="text" ng-model="clearEvents" ng-pattern="'Clear my events!'" placeholder="Clear my events!" ng-init="clearEvents=''" ng-style="( clearEvents.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (clearEvents) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )">
@@ -617,10 +617,14 @@
         </script>
 
         <script type="text/ng-template" id="contact.html">
-                <div ng-style="{background:groupColor}" class="modal-header">
+                <div class="modal-header">
                     <h3 class="modal-title">Send Us A Message</h3>
                 </div>
                 <div class="modal-body">
+                    <center>
+                        <div class="lblSuccess" ng-show="sent">Message sent! You will hear back from us soon!</div>
+                        <div class="lblError" ng-show="error">You want to send us a blank message??</div>
+                    </center>
                     <input readonly="readonly" class="form-control" ng-model="name" style="width:50%;" placeholder="Your name"><br>
                     <input readonly="readonly" class="form-control" ng-model="email" style="width:50%;" placeholder="Your email"><br>
                     <textarea class="form-control" rows="4" cols="50" style="resize:vertical;" ng-model="message" placeholder="Your message..."></textarea>

@@ -40,48 +40,18 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
         });
     }
 
-    icons.push({
-        id: 18,
-        image: 'images/avenger0.png',
-        name: 'Black Widow',
-        selected: 0
-    });
+    /** AVENGERS ICON PACK **/
+    var names = ['Black Widow', 'Captain America', 'Iron Man', 'Thor', 'Hulk', 'Hawkeye'];
 
-    icons.push({
-        id: 19,
-        image: 'images/avenger1.png',
-        name: 'Captain America',
-        selected: 0
-    });
-
-    icons.push({
-        id: 20,
-        image: 'images/avenger2.png',
-        name: 'Iron Man',
-        selected: 0
-    });
-
-    icons.push({
-        id: 21,
-        image: 'images/avenger3.png',
-        name: 'Thor',
-        selected: 0
-    });
-
-    icons.push({
-        id: 22,
-        image: 'images/avenger4.png',
-        name: 'Hulk',
-        selected: 0
-    });
-
-    icons.push({
-        id: 23,
-        image: 'images/avenger5.png',
-        name: 'Hawkeye',
-        selected: 0
-    });
-
+    for (var i = 0; i < 6; ++i) {
+        icons.push({
+            id: (i + 18),
+            image: 'images/avenger' + i + '.png',
+            name: names[i],
+            selected: 0
+        });
+    }
+    /** END AVENGERS ICON PACK **/
 
     $scope.initSelectedIcon = function(icon) {
         if (icon.image == modalParams.icon) {
@@ -107,7 +77,6 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
     };
 
     $scope.saveSettings = function () {
-        console.log($scope.newName);
         if($scope.newName && $scope.newEmail) {
             saveSettingsFlag = 1;
         } else {

@@ -4,16 +4,26 @@ app.controller('ContactController', function($scope, $modalInstance, modalParams
 	$scope.email = modalParams.email;
 
 	$scope.ok = function() {
-		if ($scope.message == "") {
+		if ($scope.message != "" && $scope.message != undefined) {
+			Parse.Cloud.run('mailContactUs', {name: $scope.name, email: $scope.email, message: $scope.message}, {
+	            success: function(result) {},
+	            error: function(error) {}
+	        });
 
-		}	
-		
-        Parse.Cloud.run('mailContactUs', {name: $scope.name, email: $scope.email, message: $scope.message}, {
-            success: function(result) {},
-            error: function(error) {}
-        });
+	        $scope.sent = true;
 
-        $modalInstance.dismiss('cancel');
+	        setTimeout(function(){
+                $scope.sent = false;
+            }, 2000);
+
+            $scope.message = "";
+		} else {
+			$scope.error = true;
+
+	        setTimeout(function(){
+                $scope.error = false;
+            }, 2000);
+		}
 	}
 
 	$scope.cancel = function(){
