@@ -40,6 +40,49 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
         });
     }
 
+    icons.push({
+        id: 18,
+        image: 'images/avenger0.png',
+        name: 'Black Widow',
+        selected: 0
+    });
+
+    icons.push({
+        id: 19,
+        image: 'images/avenger1.png',
+        name: 'Captain America',
+        selected: 0
+    });
+
+    icons.push({
+        id: 20,
+        image: 'images/avenger2.png',
+        name: 'Iron Man',
+        selected: 0
+    });
+
+    icons.push({
+        id: 21,
+        image: 'images/avenger3.png',
+        name: 'Thor',
+        selected: 0
+    });
+
+    icons.push({
+        id: 22,
+        image: 'images/avenger4.png',
+        name: 'Hulk',
+        selected: 0
+    });
+
+    icons.push({
+        id: 23,
+        image: 'images/avenger5.png',
+        name: 'Hawkeye',
+        selected: 0
+    });
+
+
     $scope.initSelectedIcon = function(icon) {
         if (icon.image == modalParams.icon) {
             icon.selected = 1;
