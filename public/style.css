@@ -544,21 +544,13 @@ PROFILE VIEW STYLES
     background:white;
 }
 
-.repDays label{
-    position: relative;
-    width: 14.29%;
-    margin: 0;
-    padding: 6px 5px;
-    border-radius: 0;
+.btn-group label
+{
 }
 
-.repDays label:first-child {
-    border-radius: 4px 0 0 4px;
-}
 
-.repDays label:last-child {
-    border-radius: 0 4px 4px 0;
-}
+
+
 
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------
