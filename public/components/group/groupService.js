@@ -80,8 +80,9 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
                         tempSched[indexInner]._id = busyId;
                         tempSched[indexInner].__id = busyId;
                         tempSched[indexInner].color = busyTimeColor;
+                        memberEventArray.push(tempSched[indexInner]);
                     } // end inner for
-                    memberEventArray.push(tempSched);
+                    //memberEventArray.push(tempSched);
                     queriesLeft--; // decrement calls to make
 
 
@@ -111,10 +112,10 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
                             color: '#d2d2cd',
                             rendering: "background"
                                     }
-                                    tempSched.push(newEvent);
+                                    memberEventArray.push(newEvent);
                                 }
                             } // end inner for
-                            memberEventArray.push(tempSched);
+                            //memberEventArray.push(tempSched);
                             if(googleCalQueriesLeft <= 0 && queriesLeft <= 0){
                                 deferred.resolve(memberEventArray);
                             }

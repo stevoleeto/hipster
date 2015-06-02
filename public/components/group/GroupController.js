@@ -46,7 +46,9 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
 
 
             /* Initialize event sources to be an array */
-            $scope.eventSources = [];
+            var groupSchedule = [];
+            var memberEventArray = [];
+            $scope.eventSources = [groupSchedule, memberEventArray];
             $scope.eventColor = {mine : '#B9F5FF'};
             $scope.friendList = currentUser.get("friendList");
             
@@ -101,6 +103,44 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                 });
             };
 
+
+            var saveToPersonal = function(eventToSave){
+                for(index = 0; index < $scope.eventSources[0].length; index++){
+                    if(eventToSave.event.id === $scope.eventSources[0][index].id){
+                        var newEvent = eventService.copyEvent($scope.eventSources[0][index]);
+                        newEvent.title = returnObject.event.title + " (" + groupService.getGroupName() + ")";
+                        currentUser.get("personalSchedule").push(newEvent);
+                        currentUser.save(); 
+                    }
+                }
+            }
+
+            var saveToGroup = function(eventToSave){
+                var start;
+                var end;
+
+                for(index = 0; index < groupSchedule.length; index++){
+                    if(eventToSave.event.id == groupSchedule[index].id){
+                        start = groupSchedule[index].start;
+                        end = groupSchedule[index].end;
+                        groupSchedule[index] = eventService.copyEvent(eventToSave.event);
+                        groupSchedule[index].start = start;
+                        groupSchedule[index].end = end;
+                    }
+                }
+                groupService.saveGroupSchedule(groupSchedule);
+            }
+
+            var deleteFromGroup = function(eventToDelete){
+                for(index = 0; index < $scope.eventSources[0].length; index++){
+                    if(eventToDelete.event.id == $scope.eventSources[0][index].id){
+                        $scope.eventSources[0].splice(index, 1);
+                        index--;
+                    }
+                }
+                groupService.saveGroupSchedule($scope.eventSources[0]);
+            }      
+
             /* Group Calendar Settings */
             /* ----------------------- */
             $scope.uiConfig = {
@@ -114,15 +154,19 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                         $scope.eventEndTime = ((end.local()).toDate());
                     },
                     eventClick: function(event, jsEvent, view) {
-                        openModal('saveEvent.html', 'SaveGroupEventController', 'lg', null)
-                            .then(function(){
-                                for(index = 0; index < $scope.eventSources[0].length; index++){
-                                    if(event.id === $scope.eventSources[0][index].id){
-                                        var newEvent = eventService.copyEvent($scope.eventSources[0][index]);
-                                        newEvent.title = event.title + " (" + groupService.getGroupName() + ")";
-                                        currentUser.get("personalSchedule").push(newEvent);
-                                        currentUser.save(); 
-                                    }
+                        openModal('saveEvent.html', 'SaveGroupEventController', 'lg', event)
+                            .then(function(modalObject){
+                                if(modalObject.whatToDo === 'saveToPersonal'){
+                                    saveToPersonal(modalObject);
+                                }
+                                else if(modalObject.whatToDo === 'saveToGroup'){
+                                    saveToGroup(modalObject);
+                                }
+                                else if(modalObject.whatToDo ===  'deleteFromGroup'){
+                                    deleteFromGroup(modalObject);
+                                }
+                                else{
+                                    alert("Something went wrong when attempting to save. Please try again.");
                                 }
                             });
                     },
@@ -144,11 +188,14 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
             /* --------------------------- */
 
             /* Watch to see if single group view is set to true, if it is, pull down group info */
+
             $scope.$watch('singleGroupView', function(){
                 if($scope.singleGroupView === false){
                     /* clear current group data */
                     $scope.groupName = '';
-                    $scope.eventSources.length = 0;
+                    //$scope.eventSources.length = 0;
+                    groupSchedule.length = 0;
+                    memberEventArray.length = 0;
                     groupService.clearMemberArray();
                 }
                 /* if we have switched to single group view */
@@ -163,15 +210,25 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                         $scope.groupName = groupService.getGroupName();
                         $scope.memberList = groupService.getMemberList();
                         /* display the group Schedule */
-                        $scope.eventSources.push(groupService.getGroupSchedule());
+                        var tempSchedule = groupService.getGroupSchedule();
+                        for (index = 0; index < tempSchedule.length; index++){
+                            groupSchedule.push(eventService.copyEvent(tempSchedule[index]));
+                        }
+                        var tempMemberEvents = groupService.getMemberEventArray();
+                        for (index = 0; index < tempMemberEvents.length; index++){
+                            memberEventArray.push(eventService.copyEvent(tempMemberEvents[index]));
+                        }
+                        //$scope.eventSources.push(groupService.getGroupSchedule());
 
                         /* iterate through the returned events array and push all events 
                          * into our source */
-                        for(index = 0; index < returnedEvents.length; index++){
-                            if(returnedEvents[index].length !== 0){
-                                $scope.eventSources.push(returnedEvents[index]);
-                            }
-                        }
+                        //for(index = 0; index < returnedEvents.length; index++){
+                        //    if(returnedEvents[index].length !== 0){
+                        //        $scope.eventSources.push(returnedEvents[index]);
+                        //    }
+                        console.log("Event Sources");
+                        console.log($scope.eventSources);
+                        
                     })
                 }
             });
@@ -312,17 +369,18 @@ $scope.createEvent = function(){
             repeatTheseDays); //what does does this event repeat on
 
     newEvents = eventService.getEvents();
-    var tempArray = [];
-    var tempGroupSched = groupService.getGroupSchedule();
+    //var tempArray = [];
+    //var tempGroupSched = groupService.getGroupSchedule();
 
     for (index = 0; index < newEvents.length; index++){
-        tempArray.push(newEvents[index]); 
-        tempGroupSched.push(newEvents[index]); 
+        //tempArray.push(newEvents[index]); 
+        //tempGroupSched.push(newEvents[index]);
+        groupSchedule.push(newEvents[index]); 
     }
 
-    $scope.eventSources.push(tempArray);
+    //$scope.eventSources.push(tempArray);
     /* save the new group schedule */
-    groupService.saveGroupSchedule(tempGroupSched);
+    groupService.saveGroupSchedule(groupSchedule);
     // SAVE TO GROUP CALENDAR TODO
 
     var list = groupService.getMemberList();
@@ -358,10 +416,6 @@ $scope.createEvent = function(){
     $scope.newEventName = "";
 
     eventService.clearEvents();
-
-    for(index = 0; index < $scope.dayRepeat.length; index++){
-        $scope.dayRepeat[i] = false;
-    }
 }
 
             /*

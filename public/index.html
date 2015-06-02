@@ -197,7 +197,7 @@
                         <p id="yourSched">Schedule for <i>{{groupName}}</i></p>
                         <div class="schedule card">
                             <!-- group UI CALENDAR -->
-                            <div  ng-model="eventSources" calendar='groupCalendar' ui-calendar="uiConfig.calendar"  ></div> 
+                            <div  ng-model="eventSources" calendar='groupCalendar' ui-calendar="uiConfig.calendar" calendar-watch-event="color"  ></div> 
                         </div>
                     </div>
                 
@@ -378,12 +378,30 @@
         </script>
 
         <script type="text/ng-template" id="saveEvent.html">
-            <div class="modal-header" style="bottom-border:none">
-                <h3 class="modal-title">Save this event to personal schedule?</h3>
+            <div style="background-color:{{ myEvent.color}}; transition: background-color .5s;" class="modal-header" style="bottom-border:none">
+                <h3 class="modal-title">{{ myEvent.title }}&#39;s Details</h3>
+                <button style="float:right" class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+            <div class="modal-body">
+                <label for="startsOn">Starts On:</label>
+                <span name="startsOn"> {{ myEvent.start.format("MMMM DD, YYYY")}} at {{ myEvent.start.format("hh:mm A")}}</span>
+                <br>
+                <label for="endsOn">Ends On: </label>
+                <span name="endsOn"> {{ myEvent.end.format("MMMM DD, YYYY")}} at {{ myEvent.end.format("hh:mm A")}}</span>
+                <br><br>
+                <label for="newName">Modify Event Name: </label>
+                <input type="text" ng-model="myEvent.title" value={{myEvent.title}} name="newName" style="width:50%;">
+                <br><br>
+                <center>
+                    <button Popover-animation="true" popover-template="'eventEditColorSelect.html'" popover-placement="top" class="btn btn-default" ng-style="{'background':myEvent.color}" ng-init="myEvent.color" popover-trigger="focus" popover-title="Select Color" class="colorFade">Change Color</button>
+                    </center>
+                <br>
             </div>
             <div class="modal-footer" style="top-border:none">
-                <button class="btn btn-primary" ng-click="save()">Save Event</button>
-                <button class="btn btn-warning" ng-click="cancel()">No</button>
+                <button style="float:left" class="btn btn-primary" ng-click="saveToPersonal()">Save Event to Personal Schedule</button>
+                <button class="btn btn-primary" ng-click="saveToGroup()">Save Changes to Group Event</button>
+                <button class="btn btn-danger" ng-click="deleteEvent();">Delete Group Event</button>
+                
             </div>
         </script>
 

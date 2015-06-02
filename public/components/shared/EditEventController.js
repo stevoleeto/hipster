@@ -12,8 +12,4 @@ app.controller('EditEventController', function($scope, $modalInstance, modalPara
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
-
-
-
-
 });
