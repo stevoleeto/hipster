@@ -1,15 +1,16 @@
 <html ng-app="myApp" style="background:#FCFAF8;">
     <head style="background: #FCFAF8;">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0">
+        
         <link rel="icon" type="image/gif" href="images/favicon.gif">
-        <!-- Information about the document goes here. This includes the encoding, title, css files, and JS files -->
         <link rel="stylesheet" type="text/css" href="./style.css">
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.0/angular-material.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
         <link rel="stylesheet" media="all" type="text/css" href="./lib/bower_components/loadingBar/src/loading-bar.css">
+
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0">	
 
         <!-- Get access to the Parse library -->
 		<script type="text/javascript" src="https://parse.com/downloads/javascript/parse-1.4.2.js"></script>
@@ -18,6 +19,7 @@
         <link rel="stylesheet" href="lib/bower_components/fullcalendar/dist/fullcalendar.css"/>
 
         <!-- jquery, moment, and angular have to get included before fullcalendar -->
+        <script type="text/javascript" src="lib/bower_components/init.js"></script>
         <script type="text/javascript" src="lib/bower_components/jquery/dist/jquery.js"></script>
         <script type="text/javascript" src="lib/bower_components/moment/moment.js"></script>
         <script type="text/javascript" src="lib/moment-recur.min.js"></script>
@@ -31,6 +33,7 @@
 
         <!-- Modules -->
         <script src="components/app.js"></script>
+
         <!-- Controllers -->
     	<script src="components/profile/ProfileController.js"></script>
         <script src="components/profile/AddFriendController.js"></script>
@@ -51,20 +54,13 @@
         <script src="components/shared/googleCalendarService.js"></script>
         <script src="components/shared/dataBaseService.js"></script>
         <script src="components/shared/eventService.js"></script>
-        <script src="components/shared/validateService.js"></script>        
-
-        <!-- Inline JS goes here -->
+        <script src="components/shared/validateService.js"></script>
         <script> 
-            /** Global variables **/
-            Parse.initialize( "t5hvXf3wJOYnL3MMIffsemMdhLM7f4brACcf0eBa", "UhqQaEDIEQr6cxhO8XS4Fl8BcGU4ir9jL9To7PVO" );
+            Parse.initialize(appID,jsKey);
             var currentUser = Parse.User.current();
-            if (currentUser) {
-            	// do stuff with the user
-            } 
-            else {
-            	// show the signup or login page
+            if (!currentUser) {
             	location.href = "components/login/login.html";
-            }
+            } 
         </script> 
 
         <!-- TITLE -->
@@ -73,15 +69,12 @@
     
     <body style="background: #FCFAF8;">
         <div ng-if="false">
- 
-    <div id = "loading">
-    </div>
-</div>
-      <!-- PROFILE CONTROLLER -->
-      <div ng-controller="ProfileController"> 
-
+            <div id="loading"></div>
+        </div>
+        <!-- PROFILE CONTROLLER -->
+        <div ng-controller="ProfileController"> 
         <div id="logoutWrapper">
-            <div class="btn-group" dropdown>
+            <div class="dropDown" dropdown>
                 <div class="logoutbtn" ng-show="homeView" dropdown-toggle></div>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                         <li><a ng-click="accountSettingsModal();">Account Settings</a></li>
@@ -92,7 +85,7 @@
                     </ul>
             </div>
             
-            <div class="btn-group" dropdown>
+            <div class="dropDown" dropdown>
                 <div class = "friendsOptionsBtn" ng-show="homeView" dropdown-toggle></div>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                         <li><a ng-click="addFriendModal()">Add Friend</a></li>
@@ -127,15 +120,22 @@
                         <div class="createEvent card">
                             <input placeholder="Event Name" type="text" name="pEventName" class="eventPar" ng-model="newEventName">
                             <br><br>
-
-                                <center><button Popover-animation="true" popover-template="'repDays.html'" popover-placement="top" class="btn btn-default" popover-title="Select Repeating Days">Set Repeating</button></center>
-                                <script type="text/ng-template" id="repDays.html">
-                                    <div class="repDays">
-                                        <div class="btn btn-primary" ng-model="dayRepeat.monday" btn-checkbox>Mon</div><div class="btn btn-primary" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</div><div class="btn btn-primary" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</div><div class="btn btn-primary" ng-model="dayRepeat.thursday" btn-checkbox>Thu</div><div class="btn btn-primary" ng-model="dayRepeat.friday" btn-checkbox>Fri</div><div class="btn btn-primary" ng-model="dayRepeat.saturday" btn-checkbox>Sat</div><div class="btn btn-primary" ng-model="dayRepeat.sunday" btn-checkbox>Sun</div>
-                                    </div>
-                                </script>
+                                <center><div class="btn-group">
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.monday" btn-checkbox>Mon</label>
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</label>
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</label>
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.thursday" btn-checkbox>Thu</label>
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.friday" btn-checkbox>Fri</label>
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.saturday" btn-checkbox>Sat</label>
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.sunday" btn-checkbox>Sun</label>
+                                </div></center>
                             <br>
-
+                            <center>
+                                <div class="lblInfo" ng-show="dayRepeat.monday || dayRepeat.tuesday || dayRepeat.wednesday || dayRepeat.thursday || dayRepeat.friday || dayRepeat.saturday || dayRepeat.sunday">
+                                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                                    Remember to properly set the end date for your repeating event!
+                                </div>
+                            </center>
                             <p for="startDate" style="display:inline-block;width:75px;">Start Date: </p>
                             <input ng-init="eventStartDate=Date()" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate" name="startDate">
                             
@@ -207,9 +207,15 @@
                             <input type="text" placeholder="Event Name" name="pEventName" class="eventPar" ng-model="newEventName">
                             <br><br>
 
-                                <center>
-                                    <button Popover-animation="true" popover-template="'repDays.html'" popover-placement="bottom" class="btn btn-default" popover-title="Select Repeating Days">Set Repeating</button>
-                                </center>
+                                <div class="btn-group">
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.monday" btn-checkbox>Mon</label>
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</label>
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</label>
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.thursday" btn-checkbox>Thu</label>
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.friday" btn-checkbox>Fri</label>
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.saturday" btn-checkbox>Sat</label>
+                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.sunday" btn-checkbox>Sun</label>
+                                </div>
                                 
                             <br>
 
@@ -303,17 +309,6 @@
             </div>
         </script>
 
-        <script type="text/ng-template" id="repDays.html">
-            <div class="repDays">
-                <label class="btn btn-primary" ng-model="dayRepeat.monday" btn-checkbox>Mon</label>
-                <label class="btn btn-primary" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</label>
-                <label class="btn btn-primary" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</label>
-                <label class="btn btn-primary" ng-model="dayRepeat.thursday" btn-checkbox>Thu</label>
-                <label class="btn btn-primary" ng-model="dayRepeat.friday" btn-checkbox>Fri</label>
-                <label class="btn btn-primary" ng-model="dayRepeat.saturday" btn-checkbox>Sat</label>
-                <label class="btn btn-primary" ng-model="dayRepeat.sunday" btn-checkbox>Sun</label>
-            </div>
-        </script>
 
         <script type="text/ng-template" id="eventColorSelect.html">
             <div id="groupColorSelect">
@@ -453,8 +448,14 @@
             </div>
             <div class="modal-body">
                 <center>
-                    <div class="lblSuccess" ng-show="saveLabel"> Everything looks good!</div>
-                    <div class="lblError" ng-show="errLabel">Errors found with name and/or email field(s)!</div>
+                    <div class="lblSuccess" ng-show="saveLabel">
+                        <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> 
+                        Everything looks good!
+                    </div>
+                    <div class="lblError" ng-show="errLabel">
+                        <span class="glyphicon glyphicon-alert" aria-hidden="true"></span>
+                        Errors found with name and/or email field(s)!
+                    </div>
                 </center>
                 <label for="username" style="display:inline-block;width:150px;">User Name:</label>
                 <input style="width:50%;margin-bottom:15px;" value="{{newName}}" ng-model="newName" name="username" ng-style="(newName.length > 0) ? {'border-bottom':'1px solid green'} : {'border-bottom':'1px solid red'}" required ng-pattern="/^[a-z']([a-z'_\s])+$/i"><br>
@@ -495,7 +496,10 @@
                 </div>
                 <hr style="font-weight:700;">
                 <center>
-                    <div class="lblSuccess" ng-show="remLabel">All events have been removed! Click the close button to see!</div>
+                    <div class="lblSuccess" ng-show="remLabel">
+                        <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+                        All events have been removed! Click the close button to see!
+                    </div>
                 </center>
                 <p>Please type "Clear my events!" below:</p>
                 <input type="text" ng-model="clearEvents" ng-pattern="'Clear my events!'" placeholder="Clear my events!" ng-init="clearEvents=''" ng-style="( clearEvents.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (clearEvents) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )">
@@ -596,10 +600,16 @@
         </script>
                     
         <script type="text/ng-template" id="addGroup.html">
-                <div ng-style="{background:groupColor}" class="modal-header">
+                <div ng-style="{background:groupColor}" style="transition:background 0.5s;" class="modal-header">
                     <h3 class="modal-title">Add a Group</h3>
                 </div>
                 <div class="modal-body">
+                    <center>
+                        <div class="lblError" ng-show="errLabel">
+                            <span class="glyphicon glyphicon-alert" aria-hidden="true"></span>
+                            Errors found! Make sure you include a group name/code AND a group color.
+                        </div>
+                    </center>
                     <input ng-style="( newGroupCode.length > 0 ) ? { 'opacity':'.5' } :  { 'border-bottom':'1px solid green' }" ng-model="newGroupName" placeholder="Enter Group Name" ng-disabled="newGroupCode.length > 0">
                     <br><br>
                     <p style="text-align:center"><strong>- OR add a group using an existing group code -</strong></p>
@@ -640,8 +650,14 @@
                 </div>
                 <div class="modal-body">
                     <center>
-                        <div class="lblSuccess" ng-show="sent">Message sent! You will hear back from us soon!</div>
-                        <div class="lblError" ng-show="error">You want to send us a blank message??</div>
+                        <div class="lblSuccess" ng-show="sent">
+                            <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
+                            Message sent! You will hear back from us soon!
+                        </div>
+                        <div class="lblError" ng-show="error">
+                            <span class="glyphicon glyphicon-alert" aria-hidden="true"></span>
+                            You want to send us a blank message??
+                        </div>
                     </center>
                     <input readonly="readonly" class="form-control" ng-model="name" style="width:50%;" placeholder="Your name"><br>
                     <input readonly="readonly" class="form-control" ng-model="email" style="width:50%;" placeholder="Your email"><br>

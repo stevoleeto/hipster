@@ -1,12 +1,11 @@
 <html ng-app="myApp" ng-controller = "LoginController">
     <head>
-        <link rel="icon" type="image/gif" href="../../images/favicon.gif">
-        <!-- Information about the document goes here
-             This includes the encoding, title, css files, and JS files -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0">	
         <title>Busy Blocks</title>
-        
+
+        <link rel="icon" type="image/gif" href="../../images/favicon.gif">
+
         <!-- Angular Material CSS and google fonts -->
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.0/angular-material.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
@@ -16,15 +15,15 @@
         <link rel="stylesheet" type="text/css" href="../../style.css">
         <link rel="stylesheet" media="all" type="text/css" href="../../lib/bower_components/loadingBar/src/loading-bar.css">
 
-        
         <!-- Get access to the Parse libraries -->
 		<script type="text/javascript" src="https://www.parsecdn.com/js/parse-1.1.14.min.js"></script>
 
         <!-- Get access to the AngularJS and Angular-Animate libraries -->
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-        <!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/X.Y.Z/angular-animate.js"></script>-->
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/X.Y.Z/angular-animate.js"></script>
 
         <!-- jquery, moment, and angular have to get included before fullcalendar -->
+        <script type="text/javascript" src="../../lib/bower_components/init.js"></script>
         <script type="text/javascript" src="../../lib/bower_components/jquery/dist/jquery.js"></script>
         <script type="text/javascript" src="../../lib/bower_components/moment/moment.js"></script>
         <script type="text/javascript" src="../../lib/bower_components/angular/angular.js"></script>
@@ -32,26 +31,31 @@
         <script type="text/javascript" src="../../lib/bower_components/fullcalendar/dist/fullcalendar.js"></script>
         <script type="text/javascript" src="../../lib/bower_components/fullcalendar/dist/gcal.js"></script>
         <script type="text/javascript" src="../../lib/bower_components/loadingBar/src/loading-bar.js"></script>
-        
-
 
         <!-- Load BootStrap -->
         <script type="text/javascript" src="../../lib/ui-bootstrap-tpls-0.13.0.min.js"></script>
+
+        <!-- Load smooth scrolling function -->
+        <script type="text/javascript" src="scroll.js"></script>
     		    
         <!-- Modules -->
         <script src="../app.js"></script>
 
         <!-- Controllers -->
         <script src="LoginController.js"></script>
+
+        <script>
+            Parse.initialize(appID,jsKey);
+            var currentUser = Parse.User.current();
+            if (currentUser) {
+                location.href = "../../index.html";
+            }
+        </script>
     </head>
-    <!-- Here is where we tell angular to expect angularJS implementation in
-         this HTML block  -->
     <body style="background:#FCFAF8;">
         <div id="header">
-            <p>
-                <span id="busy">BUSY</span>
-                <span id="blocks">BLOCKS</span>
-            </p>
+            <span id="busy">BUSY</span>
+            <span id="blocks">BLOCKS</span>
         </div>
 <!--
         <div id="content">
@@ -72,51 +76,56 @@
             </div>
         </div>
 -->
-        <div name="myForm" id="getInWrapper" class="card">
-            <div id="options">
-                <div id="login" onclick="dispTab('login')" style="background:white;">Login</div>
-                <div id="signup" onclick="dispTab('signup')" style="background:#D8D8D8; color:grey">Sign Up</div>
+        <div class="slide" id="one">
+            <div name="myForm" id="getInWrapper" class="card">
+                <div id="options">
+                    <div id="login" onclick="dispTab('login')" style="background:white;">Login</div>
+                    <div id="signup" onclick="dispTab('signup')" style="background:#D8D8D8; color:grey">Sign Up</div>
+                </div>
+                <center><br><br>
+                    <div id="lForm" style="display:block;position:relative;top:20px;">
+                        <div id="lTips" class="tips">Please fill in the following fields</div><br>
+                        <form novalidate ng-submit="login()">
+                            <!--<label style="color:red" ng-show ="!email">Please Enter a Valid Email.</label>-->
+                            <input id="lEmail" type="email" ng-model="email" ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" placeholder="Email"><br><br>
+
+                            <!--<label style="color:red" ng-show ="!password">Password must be greater than four characters.</label>-->
+                            <input id="lPass" type="password" ng-model="password" ng-minlength="5" placeholder="Password"><br><br>
+
+                            <!-- hidden submit button! -->
+                            <input type="submit" style="position:absolute;left:-9999px;width:1px;height:1px;"/>
+                            <div ng-click="login()" class="bttn" style="margin-top:10px;">Login</div><br>
+                            <div ng-click="forgotPassword()" class="forgotBtn">Forgot Password</div>
+                        </form>
+                    </div>
+                    
+                    <div name="sForm "id="sForm" style="display:none;position:relative;top:20px;">
+                        <div id="sTips" class="tips">Please fill in the following fields</div><br>
+
+                        <!-- ng-submit tells the hidden submit button what to call on enter -->
+                        <form novalidate ng-submit="signUp(); setValidEmail(); setValidName()">
+
+                            <input name="sname" id="sName" type="text" ng-model="name" required ng-pattern="/^[a-z']([a-z'_\s])+$/i" placeholder="Name"
+                                 ng-style="( name.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (name) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )"><br><br>
+
+                            <input id="sEmail" type="email" ng-model="email" required ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" ng-style="( email.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (email) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )" placeholder="Email"><br><br>
+
+                            <input id="sPass" type="password" ng-model="password" ng-minlength="5" placeholder="Password"
+                                 ng-style="( password.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (password) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )"><br><br>
+
+                            <input id="sPass" type="password" ng-model="repassword" placeholder="Confirm Password"
+                                 ng-style="( repassword.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (repassword == password) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )">
+
+                            <!-- hidden submit button! -->
+                            <input type="submit" style="position: absolute;opacity: 0; width: 1px; height: 1px;"/>
+                        </form>
+                        <div ng-click= "signUp()" ng-disabled="!email" class="bttn">Sign Up</div>
+                    </div>
+                </center>
             </div>
-            <center><br><br>
-                <div id="lForm" style="display:block;position:relative;top:20px;">
-                    <div id="lTips" class="tips">Please fill in the following fields</div><br>
-                    <form novalidate ng-submit="login()">
-                        <!--<label style="color:red" ng-show ="!email">Please Enter a Valid Email.</label>-->
-                        <input id="lEmail" type="email" ng-model="email" ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" placeholder="Email"><br><br>
-
-                        <!--<label style="color:red" ng-show ="!password">Password must be greater than four characters.</label>-->
-                        <input id="lPass" type="password" ng-model="password" ng-minlength="5" placeholder="Password"><br><br>
-
-                        <!-- hidden submit button! -->
-                        <input type="submit" style="position:absolute;left:-9999px;width:1px;height:1px;"/>
-                        <div ng-click="login()" class="bttn" style="margin-top:10px;">Login</div><br>
-                        <div ng-click="forgotPassword()" class="forgotBtn">Forgot Password</div>
-                    </form>
-                </div>
-                
-                <div name="sForm "id="sForm" style="display:none;position:relative;top:20px;">
-                    <div id="sTips" class="tips">Please fill in the following fields</div><br>
-
-                    <!-- ng-submit tells the hidden submit button what to call on enter -->
-                    <form novalidate ng-submit="signUp(); setValidEmail(); setValidName()">
-
-                        <input name="sname" id="sName" type="text" ng-model="name" required ng-pattern="/^[a-z']([a-z'_\s])+$/i" placeholder="Name"
-                             ng-style="( name.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (name) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )"><br><br>
-
-                        <input id="sEmail" type="email" ng-model="email" required ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" ng-style="( email.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (email) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )" placeholder="Email"><br><br>
-
-                        <input id="sPass" type="password" ng-model="password" ng-minlength="5" placeholder="Password"
-                             ng-style="( password.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (password) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )"><br><br>
-
-                        <input id="sPass" type="password" ng-model="repassword" placeholder="Confirm Password"
-                             ng-style="( repassword.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (repassword == password) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )">
-
-                        <!-- hidden submit button! -->
-                        <input type="submit" style="position: absolute;opacity: 0; width: 1px; height: 1px;"/>
-                    </form>
-                    <div ng-click= "signUp()" ng-disabled="!email" class="bttn">Sign Up</div>
-                </div>
-            </center>
+            <div class="btn btn-success" onclick="smooth_scroll_to();">Scroll Down</div>
+        </div>
+        <div class="slide">
         </div>
     </body>
 </html>    

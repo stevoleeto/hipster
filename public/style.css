@@ -3,6 +3,7 @@
 GENERAL/SHARED STYLES
 -------------------------------------------------------------------------------------------------------------------
 */
+
 body  {
     margin-left: auto;
     margin-right: auto;
@@ -52,20 +53,31 @@ a:active {
 #header 
 {
     width: 100%;
-    height: 64px;
+    height: 50px;
     position: fixed;
-/*    border-bottom: solid #888 1px;*/
+    border-bottom: solid #888 1px;
     z-index: 2;
+    text-align: center;
+    background:#FCFAF8;
+    opacity: 0.75;
 }
 
-#header p
+#header span
 {
     text-align:center; 
     font-size:30px;
     font-weight: 100; 
     letter-spacing: 3px; 
     position:relative; 
-    line-height: 64px;
+    line-height: 45px;
+    opacity: 1;
+}
+
+.slide {
+    height: 100vh;
+    max-height: 100vh;
+    border-bottom: 1px solid black;
+    background: #FCFAF8;
 }
 
 input
@@ -193,8 +205,6 @@ input
     -moz-transition: -moz-transform .5s;
     -o-transition: -o-transform .5s;
     transition: transform .5s;
-    
-    
 }
 
 .logoutbtn:hover
@@ -221,18 +231,18 @@ input
 
 }
 
-.btn-group
+.dropDown
 {
     position: relative;
     float: right;
 }
 
-.btn-group li
+.dropDown li
 {
     cursor:pointer;
 }
 
-.btn-group li:hover
+.dropDown li:hover
 {
    background:#BBDEFB;
 }
@@ -268,6 +278,15 @@ input
     margin-bottom: 10px;
 }
 
+.lblInfo {
+    box-sizing: border-box;
+    color: #31708F;
+    background: #D9EDF7;
+    border-color: #BCE8F1;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
 #greeting
 {
     line-height: 45px;
@@ -294,7 +313,6 @@ input
 {
     background-color:orange;
 }
-
 
 /*
 ------------------------------------------------------------------------------------------------------------
@@ -544,20 +562,14 @@ PROFILE VIEW STYLES
     background:white;
 }
 
-.repDays label{
-    position: relative;
-    width: 14.29%;
-    margin: 0;
-    padding: 6px 5px;
-    border-radius: 0;
+.repeatBtn
+{
+    background:white;
 }
 
-.repDays label:first-child {
-    border-radius: 4px 0 0 4px;
-}
-
-.repDays label:last-child {
-    border-radius: 0 4px 4px 0;
+.btn-primary .active
+{
+    background:#ccc;
 }
 
 /*
@@ -565,6 +577,7 @@ PROFILE VIEW STYLES
 GROUPS VIEW
 ----------------------------------------------------------------------------------------------------------------------------------------
 */
+
 #groupClick
 {
 /*    border:solid black 1px;*/
@@ -727,6 +740,7 @@ GROUPS VIEW
 SINGLEGROUP VIEW STYLES
 ----------------------------------------------------------------------------------------------------------------------------------------
 */
+
 .singleGroupView
 {
     position:absolute;

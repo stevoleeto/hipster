@@ -45,7 +45,6 @@ Parse.Cloud.define("mailContactUs", function(request, response){
 });
 
 Parse.Cloud.define("mailNewGroupEvent", function(request, response){
-	console.log(request.params);
 	var Mailgun = require('mailgun');
 	Mailgun.initialize('sandboxba98e37f8db04e8fa51e87a9352aec44.mailgun.org', 'key-f72d9fd43656a1032df21d7caa7865e0');
 
@@ -65,8 +64,4 @@ Parse.Cloud.define("mailNewGroupEvent", function(request, response){
 	    response.error("Uh oh, something went wrong");
 	  }
 	});
-});
-
-Parse.Cloud.define("hello", function(request, response) {
-  response.success("Hello world!");
 });

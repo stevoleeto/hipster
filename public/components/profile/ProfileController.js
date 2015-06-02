@@ -34,7 +34,7 @@
  */
 
 //Link to Parse database - accepts application_ID, JavaScript_Key
-Parse.initialize( "t5hvXf3wJOYnL3MMIffsemMdhLM7f4brACcf0eBa", "UhqQaEDIEQr6cxhO8XS4Fl8BcGU4ir9jL9To7PVO" );
+Parse.initialize(appID,jsKey);
 var currentUser = Parse.User.current();
 var newIcon = '';
 
@@ -59,6 +59,21 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             userService.setEmail(currentUser.get("username")); 
             userService.setName($scope.userName);
 
+            /* GET USER GROUPLIST */
+            userService.getGroupList($scope.email).then(function(groupList){
+                $scope.myGroupList = groupList;
+            });
+
+            /*
+             * **********MODALS***********
+             * ***************************
+             * ***************************
+             * ***************************
+             * ***************************
+             * ***************************
+             * ***************************
+             */
+
             /* MODAL FUNCTION */
             var openModal = function(template, ctrl, size, param ){
                 var modalInstance = $modal.open({
@@ -75,7 +90,6 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 return modalInstance.result
             }
 
-            /* COMPLETED MODALS */
             $scope.addFriendModal = function(){
                 openModal( 'addFriend.html', 'AddFriendController', 'lg').then(function(newFriend){
                     addFriend(newFriend);
@@ -162,7 +176,12 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 
 
             /* END MODAL SECTION */
-
+            /*********************/
+            /*********************/
+            /*********************/
+            /*********************/
+            /*********************/
+            /*********************/
 
             $scope.dayRepeat = {
                 monday : false,
@@ -231,11 +250,17 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 }
             };
 
-            /* asks the service to please pull the group list of desire email,
-             * then it gets the groupList from the service when its done pulling */
-            userService.getGroupList($scope.email).then(function(groupList){
-                $scope.myGroupList = groupList;
-            });
+            
+
+            /*
+             * ********USER BEHAVIORS********
+             * ******************************
+             * ******************************
+             * ******************************
+             * ******************************
+             * ******************************
+             * ******************************
+             */
 
             $scope.addGroup = function(){	
                 groupService.setGroupId($scope.currentGroupId);
@@ -389,6 +414,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 
                     if ($scope.dayRepeat.monday){
                         repeatTheseDays.push(1);
+                        
                     }
                     if ($scope.dayRepeat.tuesday){
                         repeatTheseDays.push(2);
@@ -438,6 +464,9 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 for(index = 0; index < $scope.dayRepeat.length; index++){
                     $scope.dayRepeat[i] = false;
                 }
+                $scope.dayRepeat.monday = $scope.dayRepeat.tuesday = 
+                $scope.dayRepeat.wednesday = $scope.dayRepeat.thursday = 
+                $scope.dayRepeat.friday = $scope.dayRepeat.saturday = $scope.dayRepeat.sunday = false;
             }
 
             $scope.removeAllEvents = function(){
