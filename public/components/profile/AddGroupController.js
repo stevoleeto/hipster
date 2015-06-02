@@ -1,6 +1,6 @@
 app.controller('AddGroupController', function($scope, $modalInstance){
     $scope.ok = function(){
-    	if ($scope.newGroupName != "" && $scope.newGroupName != undefined && $scope.color != undefined && $scope.newGroupCode != "" && $scope.newGroupCode != undefined) {
+    	if ((($scope.newGroupName != "" && $scope.newGroupName != undefined) || ($scope.newGroupCode != "" && $scope.newGroupCode != undefined))  && $scope.groupColor != undefined) {
         	groupInfo = {name:$scope.newGroupName, color: $scope.groupColor, code: $scope.newGroupCode};
         	$modalInstance.close(groupInfo);
         } else {
