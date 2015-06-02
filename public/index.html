@@ -4,13 +4,14 @@
         <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0">
         
         <link rel="icon" type="image/gif" href="images/favicon.gif">
-        <link rel="stylesheet" type="text/css" href="./style.css">
+        
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.0/angular-material.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
         <link rel="stylesheet" media="all" type="text/css" href="./lib/bower_components/loadingBar/src/loading-bar.css">
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="./style.css">
 
         <!-- Get access to the Parse library -->
 		<script type="text/javascript" src="https://parse.com/downloads/javascript/parse-1.4.2.js"></script>
@@ -120,15 +121,15 @@
                         <div class="createEvent card">
                             <input placeholder="Event Name" type="text" name="pEventName" class="eventPar" ng-model="newEventName">
                             <br><br>
-                                <center><div class="btn-group">
-                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.sunday" btn-checkbox>Sun</label>
-                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.monday" btn-checkbox>Mon</label>
-                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</label>
-                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</label>
-                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.thursday" btn-checkbox>Thu</label>
-                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.friday" btn-checkbox>Fri</label>
-                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.saturday" btn-checkbox>Sat</label>
-                                </div></center>
+                                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                                    <a class="btn btn-default" ng-model="dayRepeat.sunday" btn-checkbox>Sun</a>
+                                    <a class="btn btn-default" ng-model="dayRepeat.monday" btn-checkbox>Mon</a>
+                                    <a class="btn btn-default" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</a>
+                                    <a class="btn btn-default" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</a>
+                                    <a class="btn btn-default" ng-model="dayRepeat.thursday" btn-checkbox>Thu</a>
+                                    <a class="btn btn-default" ng-model="dayRepeat.friday" btn-checkbox>Fri</a>
+                                    <a class="btn btn-default" ng-model="dayRepeat.saturday" btn-checkbox>Sat</a>
+                                </div>
                             <br>
                             <center>
                                 <div class="lblInfo" ng-show="dayRepeat.monday || dayRepeat.tuesday || dayRepeat.wednesday || dayRepeat.thursday || dayRepeat.friday || dayRepeat.saturday || dayRepeat.sunday">
