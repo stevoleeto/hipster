@@ -1,20 +1,26 @@
 /**
     Smoothly scroll element to the given target (element.scrollTop)
-    for the given duration
 
     Returns a promise that's fulfilled when done, or rejected if
     interrupted
  */
-var smooth_scroll_to = function() {
+var smooth_scroll_to = function(dir) {
+    if (dir == 1) {
+        target = document.body.scrollTop + window.innerHeight;
+        console.log(target);
+    } else {
+        target = document.body.scrollTop - window.innerHeight;
+        console.log(target);
+    }
+
     var DURATION = 1000;
 
     var start_time = Date.now();
     var end_time = start_time + DURATION;
 
     var start_top = document.body.scrollTop;
-    var distance = window.innerHeight - start_top;
+    var distance = target - start_top;
 
-    // based on http://en.wikipedia.org/wiki/Smoothstep
     var smooth_step = function(start, end, point) {
         if(point <= start) { return 0; }
         if(point >= end) { return 1; }
