@@ -226,16 +226,6 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                         for (index = 0; index < tempMemberEvents.length; index++){
                             memberEventArray.push(eventService.copyEvent(tempMemberEvents[index]));
                         }
-                        //$scope.eventSources.push(groupService.getGroupSchedule());
-
-                        /* iterate through the returned events array and push all events 
-                         * into our source */
-                        //for(index = 0; index < returnedEvents.length; index++){
-                        //    if(returnedEvents[index].length !== 0){
-                        //        $scope.eventSources.push(returnedEvents[index]);
-                        //    }
-                        console.log("Event Sources");
-                        console.log($scope.eventSources);
                         
                     })
                 }
