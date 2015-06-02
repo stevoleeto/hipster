@@ -137,26 +137,28 @@
                                     Remember to properly set the end date for your repeating event!
                                 </div>
                             </center>
-                            <p for="startDate" style="display:inline-block;width:75px;">Start Date: </p>
-                            <input ng-init="eventStartDate=Date()" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate" name="startDate">
-                            
-                            <br>
-                            
-                            <p for="endDate" style="display:inline-block;width:75px;">End Date:</p>
-                            <input ng-init="eventEndDate=Date()" for="pEndDate" type="date" class="eventPar" ng-model="eventEndDate" name="endDate">
-                            
+                            <p for="pStartDate" style="display:inline-block;width:80px;">Start Date: </p>
+                            <input ng-init="eventStartDate=Date()" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate">
                             <br>
 
-                            <p for="startTime" style="display:inline-block;width:75px;">Start Time: </p>
-                            <center><timepicker ng-init="eventStartTime" ng-model="eventStartTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" name="startTime"></timepicker></center>
+                            <p for="pEndDate" style="display:inline-block;width:80px;">End Date:</p>
+                            <input ng-init="eventEndDate=Date()" name="pEndDate" type="date" class="eventPar" ng-model="eventEndDate">
+                            <br>
 
+                            <p for="pStartTime" style="display:inline-block;width:80px;">Start Time: </p>
+                            <center>
+                                <timepicker ng-init="eventStartTime" ng-model="eventStartTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" name="pStartTime"></timepicker>
+                            </center>
 
-                            <p for="endTime" style="display:inline-block;width:75px;">End Time: </p>
-                            <center><timepicker ng-init="eventEndTime"  ng-model="eventEndTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" name="endTime"></timepicker></center>
+                            <p for="pEndTime" style="display:inline-block;width:80px;">End Time: </p>
+                            <center>
+                                <timepicker ng-init="eventEndTime"  ng-model="eventEndTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" name="pEndTime"></timepicker>
+                            </center>
                             <br>
                             
-                            <center><button Popover-animation="true" popover-template="'eventColorSelect.html'" popover-placement="top" class="btn btn-default" style="transition:background .5s;" ng-style="{'background':eventColor.mine}" ng-init="eventColor.mine='#fff'" popover-trigger="focus" popover-title="Select Color" class="colorFade">Choose A Color</button></center> 
-
+                            <center>
+                                <button Popover-animation="true" popover-template="'eventColorSelect.html'" popover-placement="top" class="btn btn-default" style="transition:background .5s;" ng-style="{'background':eventColor.mine}" ng-init="eventColor.mine='#fff'" popover-trigger="focus" popover-title="Select Color" class="colorFade">Choose A Color</button>
+                            </center> 
                             <br>
                             <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
@@ -207,38 +209,44 @@
                         <div class="createEvent card">
                             <input type="text" placeholder="Event Name" name="pEventName" class="eventPar" ng-model="newEventName">
                             <br><br>
-
-                                <div class="btn-group">
-                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.sunday" btn-checkbox>Sun</label>
-                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.monday" btn-checkbox>Mon</label>
-                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</label>
-                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</label>
-                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.thursday" btn-checkbox>Thu</label>
-                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.friday" btn-checkbox>Fri</label>
-                                    <label class="btn btn-primary" style="width:14%; overflow:hidden; background:white; color:black;" ng-model="dayRepeat.saturday" btn-checkbox>Sat</label>
+                            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                                <a class="btn btn-default" ng-model="dayRepeat.sunday" btn-checkbox>Sun</a>
+                                <a class="btn btn-default" ng-model="dayRepeat.monday" btn-checkbox>Mon</a>
+                                <a class="btn btn-default" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</a>
+                                <a class="btn btn-default" ng-model="dayRepeat.wednesday" btn-checkbox>Wed</a>
+                                <a class="btn btn-default" ng-model="dayRepeat.thursday" btn-checkbox>Thu</a>
+                                <a class="btn btn-default" ng-model="dayRepeat.friday" btn-checkbox>Fri</a>
+                                <a class="btn btn-default" ng-model="dayRepeat.saturday" btn-checkbox>Sat</a>
+                            </div>
+                            <br>
+                            <center>
+                                <div class="lblInfo" ng-show="dayRepeat.monday || dayRepeat.tuesday || dayRepeat.wednesday || dayRepeat.thursday || dayRepeat.friday || dayRepeat.saturday || dayRepeat.sunday">
+                                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                                    Remember to properly set the end date for your repeating event!
                                 </div>
-                                
+                            </center>
+
+                            <p for="gStartDate" style="display:inline-block;width:80px;">Start Date:</p>
+                            <input ng-init="eventStartDate=Date()" name="gStartDate" type="date" class="eventPar" ng-model="eventStartDate">
                             <br>
 
-                            <p for="gStartDate" style="display:inline-block;width:75px;">Start Date</p>
-                            <input ng-init="eventStartDate=Date()" name="pStartDate" type="date" class="eventPar" ng-model="eventStartDate" name="gStartDate">
-                            
-                            <br>
-                            
-                            <p for="gEndDate" style="display:inline-block;width:75px;">End Date: </p>
-                            <input ng-init="eventEndDate=Date()" type="date" class="eventPar" ng-model="eventEndDate" name="gEndDate">
-                            
+                            <p for="gEndDate" style="display:inline-block;width:80px;">End Date:</p>
+                            <input ng-init="eventEndDate=Date()" for="pEndDate" type="date" class="eventPar" ng-model="eventEndDate" name="gEndDate">
                             <br>
 
-                            <p for="gStartTime" style="display:inline-block;width:75px;">Start Time</p>
-                            <!-- <input ng-init="eventStartTime = Date()" type="time" class="eventPar" ng-model="eventStartTime"> --> 
-                            <center><timepicker ng-init ="eventStartTime" ng-model="eventStartTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" name="gStartTime"></timepicker></center>
+                            <p for="gStartTime" style="display:inline-block;width:80px;">Start Time</p>
+                            <center>
+                                <timepicker ng-init ="eventStartTime" ng-model="eventStartTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" name="gStartTime"></timepicker>
+                            </center>
 
-                            <p for="gEndTime" style="display:inline-block;width:75px;">End Time</p>
-                            <!-- <input ng-init="eventEndTime = Date(1)"  type="time" class="eventPar" ng-model="eventEndTime"> -->
-                            <center><timepicker ng-init ="eventEndTime" ng-model="eventEndTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" name="gEndTime"></timepicker></center>
+                            <p for="gEndTime" style="display:inline-block;width:80px;">End Time</p>
+                            <center>
+                                <timepicker ng-init ="eventEndTime" ng-model="eventEndTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" name="gEndTime"></timepicker>
+                            </center>
 
-                            <center><button Popover-animation="true" popover-template="'eventColorSelect.html'" popover-placement="top" class="btn btn-default" ng-style="{'background':eventColor.mine}" ng-init="eventColor.mine='#fff'" popover-trigger="focus" popover-title="Select Color" class="colorFade">Choose A Color</button></center> 
+                            <center>
+                                <button Popover-animation="true" popover-template="'eventColorSelect.html'" popover-placement="top" class="btn btn-default" ng-style="{'background':eventColor.mine}" ng-init="eventColor.mine='#fff'" popover-trigger="focus" popover-title="Select Color" class="colorFade">Choose A Color</button>
+                            </center> 
                             
                             <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
@@ -250,14 +258,10 @@
                     
                     <div class="card" id="memberView" ng-init="addMemberView=false" ng-show="addMemberView">
                         <a name="membersViewAnchor"><p id="membersTitle">Members</p></a><br>
-                        
-                        
                         <div class="members" ng-repeat="member in memberList track by $index">
                             <img class="memberIcon" ng-src="{{member.icon}}" ng-init="getMemberIcon(member.email);"/>
                             <p text-align="center">{{member.name}}</p>
                         </div>
-                    
-                        
                         <div ng-click = "addMemberModal()" id="addMemberBtn"></div>
                     </div>
                 </div>
