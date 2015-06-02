@@ -18,44 +18,9 @@
 
         <!-- Load UI Calendar sources -->
         <link rel="stylesheet" href="lib/bower_components/fullcalendar/dist/fullcalendar.css"/>
-
-        <!-- jquery, moment, and angular have to get included before fullcalendar -->
         <script type="text/javascript" src="lib/bower_components/init.js"></script>
-        <script type="text/javascript" src="lib/bower_components/jquery/dist/jquery.js"></script>
-        <script type="text/javascript" src="lib/bower_components/moment/moment.js"></script>
-        <script type="text/javascript" src="lib/moment-recur.min.js"></script>
-        <script type="text/javascript" src="lib/bower_components/angular/angular.js"></script>
-        <script type="text/javascript" src="lib/bower_components/angular-ui-calendar/src/calendar.js"></script>
-        <script type="text/javascript" src="lib/bower_components/fullcalendar/dist/fullcalendar.js"></script>
-        <script type="text/javascript" src="lib/bower_components/loadingBar/src/loading-bar.js"></script>
+
         
-        <!-- Load BootStrap -->
-        <script type="text/javascript" src="lib/ui-bootstrap-tpls-0.13.0.min.js"></script>
-
-        <!-- Modules -->
-        <script src="components/app.js"></script>
-
-        <!-- Controllers -->
-    	<script src="components/profile/ProfileController.js"></script>
-        <script src="components/profile/AddFriendController.js"></script>
-        <script src="components/profile/EditGroupController.js"></script>
-        <script src="components/profile/FriendListController.js"></script>
-        <script src="components/profile/AddGroupController.js"></script>
-        <script src="components/profile/AccountSettingsController.js"></script>
-        <script src="components/group/SaveGroupEventController.js"></script>
-        <script src="components/group/GroupController.js"></script>
-        <script src="components/group/GroupInfoController.js"></script>
-        <script src="components/group/AddMemberController.js"></script>
-        <script src="components/shared/EditEventController.js"></script>
-        <script src="components/profile/ContactController.js"></script>
-
-        <!-- Services -->
-        <script src="components/profile/userService.js"></script>
-        <script src="components/group/groupService.js"></script>
-        <script src="components/shared/googleCalendarService.js"></script>
-        <script src="components/shared/dataBaseService.js"></script>
-        <script src="components/shared/eventService.js"></script>
-        <script src="components/shared/validateService.js"></script>
         <script> 
             Parse.initialize(appID,jsKey);
             var currentUser = Parse.User.current();
@@ -673,5 +638,44 @@
                     <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
                 </div>
         </script>
+
+
+        <!-- jquery, moment, and angular have to get included before fullcalendar -->
+        
+        <script type="text/javascript" src="lib/bower_components/jquery/dist/jquery.js"></script>
+        <script type="text/javascript" src="lib/bower_components/moment/moment.js"></script>
+        <script type="text/javascript" src="lib/moment-recur.min.js"></script>
+        <script type="text/javascript" src="lib/bower_components/angular/angular.js"></script>
+        <script type="text/javascript" src="lib/bower_components/angular-ui-calendar/src/calendar.js"></script>
+        <script type="text/javascript" src="lib/bower_components/fullcalendar/dist/fullcalendar.js"></script>
+        <script type="text/javascript" src="lib/bower_components/loadingBar/src/loading-bar.js"></script>
+        
+        <!-- Load BootStrap -->
+        <script type="text/javascript" src="lib/ui-bootstrap-tpls-0.13.0.min.js"></script>
+
+        <!-- Modules -->
+        <script src="components/app.js"></script>
+
+        <!-- Controllers -->
+        <script src="components/profile/ProfileController.js"></script>
+        <script src="components/profile/AddFriendController.js"></script>
+        <script src="components/profile/EditGroupController.js"></script>
+        <script src="components/profile/FriendListController.js"></script>
+        <script src="components/profile/AddGroupController.js"></script>
+        <script src="components/profile/AccountSettingsController.js"></script>
+        <script src="components/group/SaveGroupEventController.js"></script>
+        <script src="components/group/GroupController.js"></script>
+        <script src="components/group/GroupInfoController.js"></script>
+        <script src="components/group/AddMemberController.js"></script>
+        <script src="components/shared/EditEventController.js"></script>
+        <script src="components/profile/ContactController.js"></script>
+
+        <!-- Services -->
+        <script src="components/profile/userService.js"></script>
+        <script src="components/group/groupService.js"></script>
+        <script src="components/shared/googleCalendarService.js"></script>
+        <script src="components/shared/dataBaseService.js"></script>
+        <script src="components/shared/eventService.js"></script>
+        <script src="components/shared/validateService.js"></script>
     </body>
 </html>
