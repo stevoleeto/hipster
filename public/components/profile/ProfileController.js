@@ -195,6 +195,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 
 
             $scope.eventSources = [personalSchedule];
+            var first = true;
             $scope.$watch('profileView', function(){
                 if($scope.profileView){
                     personalSchedule.length = 0;
@@ -208,7 +209,8 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                     if(currentUser.get("googleCalendarID")){ // if user has calID
                         userService.setGoogleCalendar(currentUser.get("googleCalendarID")).then(function(){
                             var newCalendar = userService.getGoogleCalendar();
-                            if(newCalendar){ //if successful
+                            if(newCalendar && first){ //if successful
+                                first = false;
                                 googleCalendar = newCalendar;
                                 $scope.eventSources.push(googleCalendar);
                             }
