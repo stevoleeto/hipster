@@ -1,7 +1,7 @@
 app.controller('AccountSettingsController', function($scope, $modalInstance, modalParams){
 
     $scope.newName = modalParams.name;
-    $scope.newEmail = modalParams.email;
+    /*$scope.newEmail = modalParams.email;*/
     $scope.newGoogleID = modalParams.google;
     $scope.newIcon = (modalParams.icon == undefined) ? ("images/userIcon.png") : (modalParams.icon);
     saveSettingsFlag = 0;
@@ -77,7 +77,7 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
     };
 
     $scope.saveSettings = function () {
-        if($scope.newName && $scope.newEmail) {
+        if($scope.newName /*&& $scope.newEmail*/) {
             saveSettingsFlag = 1;
         } else {
             $scope.errLabel = true;
@@ -90,7 +90,7 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
         if(saveSettingsFlag) {
             newAccountSettings = {
                 newUserName: $scope.newName,
-                newUserEmail: $scope.newEmail,
+                /*newUserEmail: $scope.newEmail,*/
                 newGoogle: $scope.newGoogleID,
                 newUserIcon: $scope.newIcon,
                 saveFlag: saveSettingsFlag,
@@ -120,7 +120,7 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
 
         newAccountSettings = {
             newUserName: $scope.newName,
-            newUserEmail: $scope.newEmail,
+            /*newUserEmail: $scope.newEmail,*/
             newGoogle: $scope.newGoogleID,
             newUserIcon: $scope.newIcon,
             saveFlag: saveSettingsFlag,
