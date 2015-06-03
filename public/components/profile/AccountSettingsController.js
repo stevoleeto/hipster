@@ -41,9 +41,9 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
     }
 
     /** AVENGERS ICON PACK **/
-    var names = ['Black Widow', 'Captain America', 'Iron Man', 'Thor', 'Hulk', 'Hawkeye'];
+    var names = ['Black Widow', 'Captain America', 'Iron Man', 'Thor', 'Hulk', 'Hawkeye', 'Thanos'];
 
-    for (var i = 0; i < 6; ++i) {
+    for (var i = 0; i < 7; ++i) {
         icons.push({
             id: (i + 18),
             image: 'images/avenger' + i + '.png',

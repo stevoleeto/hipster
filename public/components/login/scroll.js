@@ -6,21 +6,27 @@
  */
 var smooth_scroll_to = function(dir) {
     if (dir == 1) {
+        // Set it to scroll down
         target = document.body.scrollTop + window.innerHeight;
-        console.log(target);
     } else {
+        // Set it to scroll up
         target = document.body.scrollTop - window.innerHeight;
-        console.log(target);
     }
 
+    // Set animation duration to be 1 second
     var DURATION = 1000;
 
+    // Start time for animation
     var start_time = Date.now();
+    // End time for animation
     var end_time = start_time + DURATION;
 
+    // Gets the current vertical position of the body's scroll bar
     var start_top = document.body.scrollTop;
+    // Set how far it scrolls
     var distance = target - start_top;
 
+    // Function for smooth scrolling
     var smooth_step = function(start, end, point) {
         if(point <= start) { return 0; }
         if(point >= end) { return 1; }
