@@ -108,7 +108,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                 for(index = 0; index < $scope.eventSources[0].length; index++){
                     if(eventToSave.event.id === $scope.eventSources[0][index].id){
                         var newEvent = eventService.copyEvent($scope.eventSources[0][index]);
-                        newEvent.title = returnObject.event.title + " (" + groupService.getGroupName() + ")";
+                        newEvent.title = eventToSave.event.title + " (" + groupService.getGroupName() + ")";
                         currentUser.get("personalSchedule").push(newEvent);
                         currentUser.save(); 
                     }
