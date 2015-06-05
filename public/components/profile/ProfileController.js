@@ -398,8 +398,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                     $scope.eventStartDate = sherlocked.startDate;
                     $scope.eventStartTime = sherlocked.startDate.getTime();
                     $scope.eventEndDate = sherlocked.endDate;
-                    $scope.eventEndTime = sherlocked.startDate.getTime();    
-                    /*var isAllDay = sherlocked.isAllDay;   */
+                    $scope.eventEndTime = sherlocked.endDate.getTime();         
                     //sherlockUsed = true;
                 }
                 if (!$scope.newEventName){

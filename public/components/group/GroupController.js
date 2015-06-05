@@ -255,7 +255,7 @@ $scope.createEvent = function(){
         $scope.eventStartDate = sherlocked.startDate;
         $scope.eventStartTime = sherlocked.startDate.getTime();
         $scope.eventEndDate = sherlocked.endDate;
-        $scope.eventEndTime = sherlocked.startDate.getTime();         
+        $scope.eventEndTime = sherlocked.endDate.getTime();         
         //sherlockUsed = true;
     }
     if (!$scope.newEventName){
