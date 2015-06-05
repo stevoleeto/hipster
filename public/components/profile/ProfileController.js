@@ -391,7 +391,17 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             $scope.createEvent = function(){
                 var repeatTheseDays = [];
                 var repeat = false;
-
+                //var sherlockUsed = false;
+                if ($scope.newEventDetail) {
+                    var sherlocked = Sherlock.parse($scope.newEventDetail);
+                    $scope.newEventName = sherlocked.eventTitle;   
+                    $scope.eventStartDate = sherlocked.startDate;
+                    $scope.eventStartTime = sherlocked.startDate.getTime();
+                    $scope.eventEndDate = sherlocked.endDate;
+                    $scope.eventEndTime = sherlocked.startDate.getTime();    
+                    /*var isAllDay = sherlocked.isAllDay;   */
+                    //sherlockUsed = true;
+                }
                 if (!$scope.newEventName){
                     alert("Enter a event name!");
                     return;
@@ -459,6 +469,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 
                 currentUser.save();
 
+                $scope.newEventDetail = "";
                 $scope.newEventName = "";
 
                 eventService.clearEvents();

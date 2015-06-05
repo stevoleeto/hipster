@@ -248,7 +248,16 @@ $scope.createEvent = function(){
     var repDays = "Repeats on: ";
     var repeatTheseDays = [];
     var repeat = false;
-
+    //var sherlockUsed = false;
+    if ($scope.newEventDetail) {
+        var sherlocked = Sherlock.parse($scope.newEventDetail);
+        $scope.newEventName = sherlocked.eventTitle;   
+        $scope.eventStartDate = sherlocked.startDate;
+        $scope.eventStartTime = sherlocked.startDate.getTime();
+        $scope.eventEndDate = sherlocked.endDate;
+        $scope.eventEndTime = sherlocked.startDate.getTime();         
+        //sherlockUsed = true;
+    }
     if (!$scope.newEventName){
         alert("Enter a event name!");
         return;

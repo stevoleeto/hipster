@@ -84,6 +84,9 @@
                     <div id="createWrapper">
                         <p id="createTitle">Create Personal Event</p>
                         <div class="createEvent card">
+                            <p for="pEventDetails" style="display:inline-block;width:80px;">Enter Evnet details in plain English: </p>
+                            <input placeholder="Event Details" type="text" name="pEventDetails" class="eventPar" ng-model="newEventDetail">
+                            <p><strong>-OR directly enter the information-<strong></p>
                             <input placeholder="Event Name" type="text" name="pEventName" class="eventPar" ng-model="newEventName">
                             <br><br>
                                 <div class="btn-group btn-group-justified" role="group" aria-label="...">
@@ -636,6 +639,10 @@
         
         <!-- Load BootStrap -->
         <script type="text/javascript" src="lib/ui-bootstrap-tpls-0.13.0.min.js"></script>
+
+        <script type="text/javascript" src="lib/Sherlock/Sherlock-master/sherlock.js"></script>
+        <!-- optional - include if you want Watson to help Sherlock -->
+        <!--script type="text/javascript" src="lib/Sherlock/Sherlock-master/watson.js"></script-->
 
         <!-- Modules -->
         <script src="components/app.js"></script>
