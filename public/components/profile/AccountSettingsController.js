@@ -1,7 +1,7 @@
 app.controller('AccountSettingsController', function($scope, $modalInstance, modalParams){
 
     $scope.newName = modalParams.name;
-    $scope.newEmail = modalParams.email;
+    /*$scope.newEmail = modalParams.email;*/
     $scope.newGoogleID = modalParams.google;
     $scope.newIcon = (modalParams.icon == undefined) ? ("images/userIcon.png") : (modalParams.icon);
     saveSettingsFlag = 0;
@@ -41,9 +41,8 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
     }
 
     /** AVENGERS ICON PACK **/
-    var names = ['Black Widow', 'Captain America', 'Iron Man', 'Thor', 'Hulk', 'Hawkeye'];
-
-    for (var i = 0; i < 6; ++i) {
+    var names = ['Black Widow', 'Captain America', 'Iron Man', 'Thor', 'Hulk', 'Hawkeye', 'Thanos', 'Loki', 'War Machine', 'Ant Man', 'Nick Fury'];
+    for (var i = 0; i < 11; ++i) {
         icons.push({
             id: (i + 18),
             image: 'images/avenger' + i + '.png',
@@ -77,7 +76,7 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
     };
 
     $scope.saveSettings = function () {
-        if($scope.newName && $scope.newEmail) {
+        if($scope.newName /*&& $scope.newEmail*/) {
             saveSettingsFlag = 1;
         } else {
             $scope.errLabel = true;
@@ -90,7 +89,7 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
         if(saveSettingsFlag) {
             newAccountSettings = {
                 newUserName: $scope.newName,
-                newUserEmail: $scope.newEmail,
+                /*newUserEmail: $scope.newEmail,*/
                 newGoogle: $scope.newGoogleID,
                 newUserIcon: $scope.newIcon,
                 saveFlag: saveSettingsFlag,
@@ -120,7 +119,7 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
 
         newAccountSettings = {
             newUserName: $scope.newName,
-            newUserEmail: $scope.newEmail,
+            /*newUserEmail: $scope.newEmail,*/
             newGoogle: $scope.newGoogleID,
             newUserIcon: $scope.newIcon,
             saveFlag: saveSettingsFlag,

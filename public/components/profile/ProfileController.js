@@ -195,6 +195,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 
 
             $scope.eventSources = [personalSchedule];
+            var first = true;
             $scope.$watch('profileView', function(){
                 if($scope.profileView){
                     personalSchedule.length = 0;
@@ -206,7 +207,8 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                     if(currentUser.get("googleCalendarID")){ // if user has calID
                         userService.setGoogleCalendar(currentUser.get("googleCalendarID")).then(function(){
                             var newCalendar = userService.getGoogleCalendar();
-                            if(newCalendar){ //if successful
+                            if(newCalendar && first){ //if successful
+                                first = false;
                                 googleCalendar = newCalendar;
                                 $scope.eventSources.push(googleCalendar);
                             }
@@ -475,17 +477,33 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             }
 
             var addFriend = function(newFriend) {
+                var notAlreadyFriend = 1;
                 var User = Parse.Object.extend("User");
                 var query = new Parse.Query(User);
                 query.equalTo("username", newFriend);
                 query.find().then(function(pulledFriend) {
-                    $scope.friendList.push({email: newFriend, name:pulledFriend[0].attributes.name});
-                    currentUser.set("friendList", $scope.friendList);
-                    currentUser.save();
+                    if (pulledFriend.length > 0) {
+                        console.log($scope.friendList);
+                        for ( var i = 0; i < $scope.friendList.length; ++i) {
+                            if ($scope.friendList[i].email == newFriend) {
+                                notAlreadyFriend = 0;
+                                break;
+                            }
+                        }
+                        if (notAlreadyFriend) {
+                            $scope.friendList.push({email: newFriend, name:pulledFriend[0].attributes.name});
+                            currentUser.set("friendList", $scope.friendList);
+                            currentUser.save();
+                        } else {
+                            alert("User is already your friend!");
+                        }
+                    } else {
+                        alert("User not found.");
+                    }
                 });
             }
 
-            var viewFriends = function(newFriend) {
+            /*var viewFriends = function(newFriend) {
                 var User = Parse.Object.extend("User");
                 var query = new Parse.Query(User);
                 query.equalTo("username", newFriend);
@@ -494,7 +512,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                     currentUser.set("friendList", $scope.friendList);
                     currentUser.save();
                 });
-            }
+            }*/
 
             var deleteEvent = function(eventClicked){    
                 for(index = 0; index < personalSchedule.length; index++){
