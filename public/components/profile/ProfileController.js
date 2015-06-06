@@ -202,9 +202,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                         for(index = 0; index < currentSchedule.length; index ++){
                             personalSchedule.push(eventService.copyEvent(currentSchedule[index]));
                         }
-                    })
-                    /* GOOGLE CALENDAR */
-
+                    });
                     if(currentUser.get("googleCalendarID")){ // if user has calID
                         userService.setGoogleCalendar(currentUser.get("googleCalendarID")).then(function(){
                             var newCalendar = userService.getGoogleCalendar();
@@ -214,6 +212,9 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                             }
                         });
                     }
+                    /* GOOGLE CALENDAR */
+
+                    
                 }
             });
 
@@ -525,8 +526,8 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             $scope.settingsSave = function(name, email, google, icon){
 
                 currentUser.set("name", name);
-                currentUser.set("username", email);
-                currentUser.set("email", email);
+                //currentUser.set("username", email);
+                //currentUser.set("email", email);
                 currentUser.set("googleCalendarID", google);
                 currentUser.set("userIcon", icon);
 
@@ -537,7 +538,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 $scope.newPassword = "";
 
                 $scope.userName = name;
-                $scope.email = email;
+                //$scope.email = email;
                 $scope.icon = icon;
                 $scope.googleID = google;
             }
