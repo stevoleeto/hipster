@@ -133,7 +133,8 @@ app.service('userService',['$q','googleCalendarService', 'dataBaseService' ,func
                    id: 9,
                    start: startTime,
                    end: endTime,
-                   color: 'green'
+                   color: 'green',
+                   stick: true
                             }
                             googleCalendar.push(newEvent);
                         }
