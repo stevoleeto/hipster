@@ -11,6 +11,9 @@ app.service('googleCalendarService',['$q', '$http', function($q, $http){
         googleCalendar = data;
         deferred.resolve(googleCalendar);
       }).error( function(data, status, headers, config){
+          deferred.reject("Error retrieving google Calendar");
+          console.log(data);
+          console.log(status);
         console.log("Error retieving Google Calendar");
       })
     return deferred.promise;
