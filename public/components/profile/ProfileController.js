@@ -658,10 +658,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
              ************************************************************************/
             var addFriend = function(newFriend) {
                 var notAlreadyFriend = 1;
-                var User = Parse.Object.extend("User");
-                var query = new Parse.Query(User);
-                query.equalTo("username", newFriend);
-                query.find().then(function(pulledFriend) {
+                dataBaseService.queryUser(newFriend).then(function(pulledFriend) {
                     if (pulledFriend.length > 0) {
                         console.log($scope.friendList);
                         for ( var i = 0; i < $scope.friendList.length; ++i) {
