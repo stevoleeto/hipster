@@ -53,9 +53,9 @@ app.controller('LoginController', ['$scope', function($scope) {
       updateTips( 'sTips', 'Please enter valid input.');
       return;
     }
-    var user = new Parse.User(); 
 
-    //Set the user's inputs as database fields
+    // Creates a new Parse User object and adds defualt fields to it.
+    var user = new Parse.User(); 
     user.set( 'name', $scope.name );
     user.set( 'username', $scope.email );
     user.set( 'email', $scope.email );
@@ -63,18 +63,19 @@ app.controller('LoginController', ['$scope', function($scope) {
     user.set( 'personalSchedule',  []);
     user.set( 'friendList' , []);
 
-    var GroupList = Parse.Object.extend("GroupList");
-
-    var newGroupList = new GroupList();
-
-    newGroupList.set("userEmail", $scope.email);
-    newGroupList.set( 'userGroups', [] );
-    newGroupList.set( 'userName', $scope.name);
-    newGroupList.save(null, {
-      success: function(GroupList) {}
-    });
     user.signUp(null, {
       success: function( user ) {
+        // Creates a new Parse Group List object and adds default fields to it
+        // Only does this if user signup was successful.
+        var GroupList = Parse.Object.extend("GroupList");
+        var newGroupList = new GroupList();
+        newGroupList.set("userEmail", $scope.email);
+        newGroupList.set( 'userGroups', [] );
+        newGroupList.set( 'userName', $scope.name);
+        newGroupList.save(null, {
+          success: function(GroupList) {}
+        });
+        //redirects the user to the website.
         location.href="../../index.html";
       },
       error: function( user ) {
@@ -96,12 +97,16 @@ app.controller('LoginController', ['$scope', function($scope) {
    help the user login properly.
    ************************************************************************/
     $scope.login = function(){
+      //Confirms that the user used a valid email and password to sign in.
       if(!$scope.email || !$scope.password ){
         updateTips( 'lTips', 'Please enter valid input.');
         return;
       }
+
+      //Calls a Parse API to sign the user in.
       Parse.User.logIn( $scope.email, $scope.password, {
         success: function( user ) {
+          //redirects the user to the website.
           location.href="../../index.html";
         },
         error: function( user ) {
@@ -119,6 +124,7 @@ app.controller('LoginController', ['$scope', function($scope) {
     * Called In:   login.html
     ************************************************************************/
     $scope.forgotPassword = function(){
+      //makes a Parse API call for password resets using the user's email.
       Parse.User.requestPasswordReset( $scope.email , {
         success: function() {
           alert("An email has been sent with information on changing password.");
@@ -128,78 +134,72 @@ app.controller('LoginController', ['$scope', function($scope) {
         }
       });
     }
-
-    /////////////////////
-    //Helper JS functions
-    /////////////////////
-
-    /************************************************************************
-     * Name:    updateTips()
-     * 
-     * Purpose:   Updates the value and css of the tip bar at the top of 
-     *            the form if there is an error
-     *  
-     * Description: Sets the value, background color, and border color of the
-     *              tips bar
-     *
-     * Called in: login(), signup(), checkAlreadyUser()
-     *
-     * Input:   id     - The ID of the tips field to update.
-     *          newTip - The string to be displayed in the tip bar.
-     ************************************************************************/
-    function updateTips( id, newTip ) {
-      var tips = document.getElementById(id);
-      tips.innerHTML = newTip;
-      tips.style.background  = '#F44336';
-      tips.style.border = '2px solid #D50000';
-      tips.style.color = 'white';
-    }
-
-    /************************************************************************
-     * Name:    dispTab()
-     *
-     * Purpose:   Changes the UI to display the form requested by the user.
-     *
-     * Description: This function changes the background color of the tab
-     *              requested by the user to be white. It also changes the
-     *              background color of the other tab to be grey. Finally,
-     *              it displays the correct form and hides the other tab's 
-     *              form.
-     *
-     * Called In:   
-     ************************************************************************/
-    function dispTab( tabId ) {
-      //Declare any necessary variables
-      var login = document.getElementById( 'login' ), signup = document.getElementById('signup'),
-          sForm = document.getElementById( 'sForm' ), lForm = document.getElementById('lForm');
-
-      //If the user clicked on "Log In" tab
-      if ( tabId == 'login' ) {
-        //Change the background of "Sign Up" tab gray
-        signup.style.background = '#D8D8D8';
-        signup.style.color = "grey";
-        //Change the background of "Log In" tab white
-        login.style.background = 'white';
-        login.style.color = "#2B98F0"
-        //Hide the text boxes and buttons for the sign up form
-        sForm.style.display = 'none';
-        //Display the text boxes and the buttons for the log in form
-        lForm.style.display = 'block';
-      } else {
-        //Change the background of "Log In" tab gray
-        login.style.background = '#D8D8D8';
-        login.style.color = "grey"
-        //Change the background of "Sign Up" tab white
-        signup.style.background = 'white';
-        signup.style.color = "#2B98F0";
-        //Hide the text boxes and buttons for the log in form
-        lForm.style.display = 'none';
-        //Display the text boxes and buttons for the sign up form
-        sForm.style.display = 'block';
-      }
-
-    }
-
   }]);
+
+/////////////////////
+//Helper JS functions
+/////////////////////
+
+/************************************************************************
+ * Name:    updateTips()
+ * Purpose:   Updates the value and css of the tip bar at the top of 
+ the form if there is an error
+ * Description: Sets the value, background color, and border color of the
+ tips bar
+ * Called in:   login(), signup(), checkAlreadyUser()
+ * Input:   var id - The ID of the tips field to update.
+ var newTip - The string to be displayed in the tip bar.
+ ************************************************************************/
+function updateTips( id, newTip ) {
+  var tips = document.getElementById(id);
+  //Change the text displayed to the argument
+  tips.innerHTML = newTip;
+  //Change the background-color and border color of the tips bar.
+  tips.style.background  = '#F44336';
+  tips.style.border = '2px solid #D50000';
+  tips.style.color = 'white';
+}
+
+/************************************************************************
+ * Name:    dispTab()
+ * Purpose:   Changes the UI to display the form requested by the user.
+ * Description: This function changes the background color of the tab
+ requested by the user to be white. It also changes the
+ background color of the other tab to be grey. Finally,
+ it displays the correct form and hides the other tab's 
+ form.
+ * Called In:   main()
+ ************************************************************************/
+function dispTab( tabId ) {
+  //Declare any necessary variables
+  var login = document.getElementById( 'login' ), signup = document.getElementById('signup'),
+      sForm = document.getElementById( 'sForm' ), lForm = document.getElementById('lForm');
+
+  //If the user clicked on "Log In" tab
+  if ( tabId == 'login' ) {
+    //Change the background of "Sign Up" tab gray
+    signup.style.background = '#D8D8D8';
+    signup.style.color = "grey";
+    //Change the background of "Log In" tab white
+    login.style.background = 'white';
+    login.style.color = "#2B98F0"
+    //Hide the text boxes and buttons for the sign up form
+    sForm.style.display = 'none';
+    //Display the text boxes and the buttons for the log in form
+    lForm.style.display = 'block';
+  } else {
+    //Change the background of "Log In" tab gray
+    login.style.background = '#D8D8D8';
+    login.style.color = "grey"
+    //Change the background of "Sign Up" tab white
+    signup.style.background = 'white';
+    signup.style.color = "#2B98F0";
+    //Hide the text boxes and buttons for the log in form
+    lForm.style.display = 'none';
+    //Display the text boxes and buttons for the sign up form
+    sForm.style.display = 'block';
+  }
+
+}
 
   

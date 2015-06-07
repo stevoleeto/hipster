@@ -39,13 +39,22 @@
     * Called In:   ProfileController.js
     ************************************************************************/
  	var createEvent = function(eventName, eventColor, startDate, startHour, startMin, endDate, endHour, endMin, repeating, repeatingDays){
- 		var eventID = (moment().local()).unix();
+ 		// sets the eventID to epoch time, chosen to be unique.
+        var eventID = (moment().local()).unix();
  		
+        // if the event is a repeating event.
  		if (repeating){
+            // Define the reccurence to be between the start and end dates.
  			var myRecurRules = (moment(startDate)).recur(endDate);
+
+            // Define the reccurence to repeat on the specific days of the week as defined 
+            // by the repeating events array parameter.
  			myRecurRules = (myRecurRules.every(repeatingDays)).daysOfWeek();
+
+            // Grab al of the dates within the reccurence.
  			var allDates = myRecurRules.all();
 
+            // Iterate through all of the dates in the reccurence, add them to eventsToAdd.
  			for (index = 0; index < allDates.length; index++){
  				eventsToAdd.push({
  					id    : eventID,
@@ -54,10 +63,11 @@
  					end   : ((allDates[index].set('hour', endHour)).set('minute', endMin)).toISOString(),
  					color : eventColor,
  					stick : true,
-          textColor: "black"
+                    textColor: "black"
  				});
  			}
  		}
+        //if the event is not a repeating event. Just push the event onto eventsToAdd array.
  		else{
  			eventsToAdd.push({
  				id    : eventID,

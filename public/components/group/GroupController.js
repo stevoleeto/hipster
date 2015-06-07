@@ -296,33 +296,44 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
              * Description: Removes all groups found in their GroupList userGroups array.
              ************************************************************************/
             $scope.createEvent = function(){
+                /* Declare any necesary variables
+                 *  repDays - The start of the string to be emailed to group members
+                 *  repeatTheseDays - An array of days that the event repeats on
+                 *  repeat - Set the repeat boolean off
+                 */
                 var repDays = "Repeats on: ";
                 var repeatTheseDays = [];
                 var repeat = false;
 
+                // Check if the user didn't enter an event name
                 if (!$scope.newEventName){
                     alert("Enter a event name!");
                     return;
                 }
 
+                // Check if the user didn't change the color of the event
                 if ($scope.eventColor.mine == '#fff') {
                     alert("Choose a color for your event!");
                     return;
                 }
 
+                // Check if the chosen end time is before the chosen start time
                 if(Date.parse($scope.eventStartTime) > Date.parse($scope.eventEndTime)) {
                     alert("Your end time is before your start time!!");
                     return;
                 }
 
+                // Check if the chosen end time is the same as the chosen start time
                 if(Date.parse($scope.eventStartTime) == Date.parse($scope.eventEndTime)) {
                     alert("Your event starts and ends at the same time!!");
                     return;
                 }
 
+                // Check if any of the checkboxes for the repeating days was set to true
+                // If so, set the repeat boolean to true
                 if ($scope.dayRepeat.monday || 
                         $scope.dayRepeat.tuesday || 
-                        $scope.dayRepeat.wednesday ||
+                        $scope.dayRepeat.wednIDKesday ||
                         $scope.dayRepeat.thursday ||
                         $scope.dayRepeat.friday ||
                         $scope.dayRepeat.saturday ||
@@ -330,6 +341,8 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                             repeat = true;
                         }
 
+                // Push which days to repeat onto the array
+                // Continue building string to be emailed to group members
                 if(repeat){
 
                     if ($scope.dayRepeat.monday){
@@ -362,6 +375,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                     }
                 }    
 
+                // Call the createEvent function handled in shared/eventService.js
                 eventService.createEvent($scope.newEventName, //event name
                         $scope.eventColor.mine, //event color
                         (moment($scope.eventStartDate.toISOString()).dateOnly()), //start date
@@ -373,6 +387,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                         repeat, //does this event repeat?
                         repeatTheseDays); //what does does this event repeat on
 
+                /*** IDK THIS CODE ***/
                 newEvents = eventService.getEvents();
                 var tempArray = [];
                 var tempGroupSched = groupService.getGroupSchedule();
@@ -386,8 +401,10 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                 /* save the new group schedule */
                 groupService.saveGroupSchedule(tempGroupSched);
 
+                // Get a list of the group's members
                 var list = groupService.getMemberList();
                 var memberStr = "";
+                // Loop through members and add their name and email to a string if they are not the current user
                 for (var i = 0; i < list.length; ++i) {
                     if (list[i].name != currentUser.get("name")) {
                         if (i != list.length - 1) {
@@ -398,21 +415,27 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                     }
                 }
 
+                // Convert the start date entered by the user into moment date format
                 var start = new moment($scope.eventStartDate);
+                // Convert the end date entered by the user into moment date format
                 var end = new moment($scope.eventEndDate);
 
+                // Check if the event repeats. If it doesn't change the repDays string
                 if (repDays == "Repeats on: ") {
                     repDays = "This event does not repeat";
                 }
 
+                // Build the string to be emailed to the group's members
                 var info = "\tStarts on: " + start.format("MM/DD/YYYY") + " at " + start.format("hh:mm A") + "<br>" + 
                     "\tEnds on: " + end.format("MM/DD/YYYY") + " at " + end.format("hh:mm A") + "<br>\t" + repDays;
 
+                // Send email to members notifying them of a new event being created
                 Parse.Cloud.run('mailNewGroupEvent', {user: currentUser.get("name"), eventName: $scope.newEventName, group: $scope.groupName, members: memberStr, details: info}, {
                     success: function(result) {},
                     error: function(error) {}
                 });
 
+                // Reset fields
                 $scope.newEventName = "";
 
                 eventService.clearEvents();

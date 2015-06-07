@@ -1,13 +1,17 @@
+<!DOCTYPE html>
+<!-- Initialize ng-app -->
 <html ng-app="myApp" style="background:#FCFAF8;">
     <head style="background: #FCFAF8;">
+        <!-- Initialize document settings -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0">
         
+        <!-- Website icon -->
         <link rel="icon" type="image/gif" href="images/favicon.gif">
 
-        
+        <!-- Get access to Angular/Material and Loading Bar CSS -->
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.0/angular-material.min.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+        <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">-->
         <link rel="stylesheet" media="all" type="text/css" href="./lib/bower_components/loadingBar/src/loading-bar.css">
 
         <!-- Bootstrap CSS -->
@@ -20,9 +24,12 @@
         <!-- Load UI Calendar sources -->
         <link rel="stylesheet" href="lib/bower_components/fullcalendar/dist/fullcalendar.css"/>
         <script type="text/javascript" src="lib/bower_components/init.js"></script>
-        
+
+        <!-- JS Code to run on load -->
         <script> 
+            // Connect to the database
             Parse.initialize(appID,jsKey);
+            // If the user is not logged in, redirect to the login screen
             var currentUser = Parse.User.current();
             if (!currentUser) {
             	location.href = "components/login/login.html";
@@ -44,7 +51,6 @@
                 <div class="logoutbtn" ng-show="homeView" dropdown-toggle></div>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                         <li><a ng-click="accountSettingsModal();">Account Settings</a></li>
-                        <!--   <li ng-show="singleGroupView"><a ng-click="groupInfoModal()">Group Info</a></li> -->
                         <li><a ng-click="contactModal();">Contact Us!</a></li>
                         <li class="divider"></li>
                         <li><a ng-click="logout()">Logout</a></li>
@@ -81,12 +87,15 @@
                         </div>
                     </div>
                     
+                    <!-- CREATE EVENT -->
                     <div id="createWrapper">
                         <p id="createTitle">Create Personal Event</p>
                         <div class="createEvent card">
                             <input placeholder="Event Name" type="text" name="pEventName" class="eventPar" ng-model="newEventName">
                             <br><br>
-                                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                                <!-- REPEATING DAYS BUTTONS -->
+                                <p for="repDays">Select Repeating Days:</p>
+                                <div class="btn-group btn-group-justified" role="group" aria-label="..." name="repDays">
                                     <a class="btn btn-default" ng-model="dayRepeat.sunday" btn-checkbox>Sun</a>
                                     <a class="btn btn-default" ng-model="dayRepeat.monday" btn-checkbox>Mon</a>
                                     <a class="btn btn-default" ng-model="dayRepeat.tuesday" btn-checkbox>Tue</a>
@@ -131,8 +140,10 @@
             	</div>
         	</div>
             
+            <!-- DISPLAYS ONLY WHEN THE USER CLICKS ON THE GROUPS TAB -->
         	<div ng-init="groupView=false" ng-show="groupView" id="groupView">
             	<div>
+                    <!-- EACH OF THE GROUPS THAT THE USER IS A MEMBER OF -->
                     <div ng-repeat="group in myGroupList track by $index" class ="groupSelect card"  
                        ng-style="{background:group.color}">
                         <div id = "groupClick"
@@ -142,6 +153,7 @@
                               $parent.currentGroupId = group.id; 
                               $parent.currentGroupColor = group.color;
                               addGroup(); $parent.updateSingleGroupTab(group.name)" ng-attr-title="{{ group.name }}">
+                            <!-- TRUNCATE NAME OF GROUP -->
                             <p>{{ group.name | limitTo:12 }}{{ group.name.length > 12 ? '...' : '' }}</p>
                         </div>
                         
@@ -158,17 +170,19 @@
         </div> 
       </div> <!--END PROFILE CONTROLLER -->
         <!-- GROUP CONTROLLER -->
+        <!-- DISPLAYS WHEN THE USER CLICKS ON A GROUP FROM THE GROUP LIST OR ON THE GROUP'S TAB -->
         <div class="singleGroupView" ng-init="singleGroupView=false;" ng-show="singleGroupView" >
             <div id="profileWrapper" ng-controller="GroupController">
                 <div style="clear:both;">
                     <div id="scheduleWrapper" style="top:0;">
                         <p id="yourSched">Schedule for <i>{{groupName}}</i></p>
                         <div class="schedule card">
-                            <!-- group UI CALENDAR -->
+                            <!-- GROUP UI CALENDAR -->
                             <div  ng-model="eventSources" calendar='groupCalendar' ui-calendar="uiConfig.calendar"  ></div> 
                         </div>
                     </div>
-                
+                    
+                    <!-- GROUP CREATE EVENT -->
                     <div id="createWrapper" style="top:0px;">
                         <p id="createTitle">Create Group Event</p>
                         <div class="createEvent card">
@@ -221,6 +235,7 @@
                         <span style="font-size: 17px; margin-top:10px; letter-spacing: 2px; float:left;">{{currentGroupId}}</span> 
                     </div> 
                     
+                    <!-- GROUP'S MEMBERS -->
                     <div class="card" id="memberView" ng-init="addMemberView=false" ng-show="addMemberView">
                         <a name="membersViewAnchor"><p id="membersTitle">Members</p></a><br>
                         <div class="members" ng-repeat="member in memberList track by $index">
@@ -236,27 +251,18 @@
         <!--
         *   -------------------------------------------------------------
         *   -------------------------------------------------------------
-        *   -------------------------------------------------------------
-        *   -------------------------------------------------------------
-        *   -------------------------------------------------------------
-        *   -------------------------------------------------------------
-        *   -------------------------------------------------------------
         *   HTML TEMPLATES
         *   ----------------
         *   These are templates for various controllers to use. Modals and 
         *   popovers use these.
         *   -------------------------------------------------------------
         *   -------------------------------------------------------------
-        *   -------------------------------------------------------------
-        *   -------------------------------------------------------------
-        *   -------------------------------------------------------------
-        *   -------------------------------------------------------------
-        *   -------------------------------------------------------------
-        *   -------------------------------------------------------------
         -->
 
+        <!-- STRUCURE OF MODAL FOR WHEN THE USER WANTS TO 
         <script type="text/ng-template" id="eventEditColorSelect.html">
             <div id="groupColorSelect">
+                <!-- ALL COLORS TO CHOOSE FROM -->
                 <div style="background:#B9F5FF;" ng-click="myEvent.color='#B9F5FF'"></div>
                 <div style="background:#B5FBA3;" ng-click="myEvent.color='#B5FBA3'"></div>
                 <div style="background:#FFA6B1;" ng-click="myEvent.color='#FFA6B1'"></div>
@@ -279,9 +285,10 @@
             </div>
         </script>
 
-
+        <!-- STRUCTURE OF MODAL FOR WHEN THE USER IS CHANGING THEIR NEW EVENT'S COLOR -->
         <script type="text/ng-template" id="eventColorSelect.html">
             <div id="groupColorSelect">
+                <!-- ALL COLORS TO CHOOSE FROM -->
                 <div style="background:#B9F5FF;" ng-click="eventColor.mine='#B9F5FF'"></div>
                 <div style="background:#B5FBA3;" ng-click="eventColor.mine='#B5FBA3'"></div>
                 <div style="background:#FFA6B1;" ng-click="eventColor.mine='#FFA6B1'"></div>
@@ -303,9 +310,11 @@
                 <br>
             </div>
         </script>
-
+        
+        <!-- STRUCTURE OF MODAL FOR WHEN THE USER WANTS TO EDIT A GROUP EVENT'S COLOR -->
         <script type="text/ng-template" id="editGroupColor.html">
             <div id="groupColorSelect">
+                <!-- ALL COLORS TO CHOOSE FROM -->
                 <div style="background:#B9F5FF;" ng-click="newGroupColor='#B9F5FF'"></div>
                 <div style="background:#B5FBA3;" ng-click="newGroupColor='#B5FBA3'"></div>
                 <div style="background:#FFA6B1;" ng-click="newGroupColor='#FFA6B1'"></div>
@@ -328,6 +337,7 @@
             </div>
         </script>
 
+        <!-- STRUCTURE OF MODAL FOR WHEN THE USER CLICKS ON "ADD FRIEND" -->
         <script type="text/ng-template" id="addFriend.html">
             <div class="modal-header">
                 <h3 class="modal-title">Add a Friend</h3>
@@ -342,6 +352,7 @@
             </div>
         </script>
 
+        <!-- STRUCTURE OF MODAL FOR WHEN THE USER CLICKS ON A GROUP EVENT -->
         <script type="text/ng-template" id="saveEvent.html">
             <div class="modal-header" style="bottom-border:none">
                 <h3 class="modal-title">Save this event to personal schedule?</h3>
@@ -352,6 +363,7 @@
             </div>
         </script>
 
+        <!-- STRUCTURE OF MODAL FOR WHEN THE USER CLICKS ON "VIEW FRIEND'S LIST" -->
         <script type="text/ng-template" id="friendList.html">
             <div class="modal-header">
                 <h3 class="modal-title">Your Friends</h3>
@@ -367,6 +379,7 @@
             </div>
         </script>
 
+        <!-- STRUCTURE OF MODAL FOR WHEN THE USER WANTS TO EDIT A PERSONAL EVENT -->
         <script type="text/ng-template" id="editMyEvent.html">
             <div>
                 <div style="background-color:{{ myEvent.color}}; transition: background-color .5s;" class="modal-header">
@@ -394,6 +407,7 @@
                 </div>
         </script>
 
+        <!-- STRUCTURE OF MODAL FOR WHEN THE USER CLICKS ON "ACCOUNT SETTINGS" -->
         <script type="text/ng-template" id="accountSettings.html">
             <div class="modal-header">
                 <h3 class="modal-title">Account Settings</h3>
@@ -471,6 +485,7 @@
             </div>
         </script>
 
+        <!-- STRUCURE OF MODAL FOR WHEN THE USER CLICKS ON THE ADD MEMBER BUTTON IN A GROUP -->
         <script type="text/ng-template" id="addMember.html">
                 <div class="modal-header">
                     <h3 class="modal-title">Add a Member</h3>
@@ -493,6 +508,7 @@
             </div>
         </script>
 
+        <!-- STRUCTURE OF MDOAL FOR WHEN THE USER CLICKS ON THE PENCIL ICON WHEN HOVERING OVER A GROUP IN THE GROUP'S LIST -->
         <script type="text/ng-template" id="editGroup.html">
             <div>
                 <div class="modal-header" style="background:{{ newGroupColor }};transition: background 0.5s;">
@@ -532,6 +548,7 @@
             </div>
         </script>
                     
+        <!-- STRUCTURE OF MODAL FOR WHEN THE USER CLICKS ON THE ADD GROUP BUTTON -->
         <script type="text/ng-template" id="addGroup.html">
                 <div ng-style="{background:groupColor}" style="transition:background 0.5s;" class="modal-header">
                     <h3 class="modal-title">Add a Group</h3>
@@ -577,6 +594,7 @@
                 </div>
         </script>
 
+        <!-- STRUCTURE OF MODAL FOR WHEN THE USER CLICKS ON "CONTACT US" -->
         <script type="text/ng-template" id="contact.html">
                 <div class="modal-header">
                     <h3 class="modal-title">Send Us A Message</h3>
@@ -602,9 +620,19 @@
                 </div>
         </script>
 
+        <!--
+        *   -------------------------------------------------------------
+        *   -------------------------------------------------------------
+        *
+        *   External Script Files
+        *   ----------------------
+        *   These are external files that are being imported in
+        *
+        *   -------------------------------------------------------------
+        *   -------------------------------------------------------------
+        -->
 
         <!-- jquery, moment, and angular have to get included before fullcalendar -->
-        
         <script type="text/javascript" src="lib/bower_components/jquery/dist/jquery.js"></script>
         <script type="text/javascript" src="lib/bower_components/moment/moment.js"></script>
         <script type="text/javascript" src="lib/moment-recur.min.js"></script>
