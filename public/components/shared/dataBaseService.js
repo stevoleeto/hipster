@@ -1,7 +1,33 @@
-app.service('dataBaseService',['$q', function($q){
-    /* QUERY FUNCTIONS */
-    /*******************/
+/*
+ * Filename: dataBaseService.js
+ *
+ * Purpose: This file holds all querying functions for the application. The
+ *          goal of having all dataBase interactions in a single service is so 
+ *          that when we move our application to a different database, all the
+ *          front-end changes will be in this service.
+ *
+ * Description: Holds three queries for other services/controllers to call.
+ *
+ * Functions:
+ *  queryGroupList - query a grouplist
+ *  queryGroup -     query a Group
+ *  queryUser -      query a user
+ */
 
+
+app.service('dataBaseService',['$q', function($q){
+
+    /************************************************************************
+     * Name:        queryGroupList
+
+     * Purpose:     To query the database and return the result.
+
+     * Called In:   userService.js and groupService.js
+
+     * Description: Uses parse's library to query the database.
+     
+     * Parameters: newEmail - the email of the user's groupList to get
+     ************************************************************************/
     var queryGroupList = function(newEmail){
         /* $q is a promise service, we can ask it to wait until something is done
          * then return a promise */
@@ -17,6 +43,18 @@ app.service('dataBaseService',['$q', function($q){
         return deferred.promise;
     };
 
+    /************************************************************************
+     * Name:        queryGroup
+
+     * Purpose:     To query the database using parse's api and return the
+     *              result.
+
+     * Called In:   groupService.js
+
+     * Description: Uses parse's library to query the database.
+     
+     * Parameters: groupId - the groupID to query.
+     ************************************************************************/
     var queryGroup = function(groupId){
         /* $q is a promise service, we can ask it to wait until something is done
          * then return a promise */
@@ -32,6 +70,18 @@ app.service('dataBaseService',['$q', function($q){
         return deferred.promise;
     };
 
+    /************************************************************************
+     * Name:        queryGroup
+
+     * Purpose:     To query the database using parse's api and return the
+     *              result.
+
+     * Called In:   groupService.js and userService.js
+
+     * Description: Uses parse's library to query the database.
+     
+     * Parameters: groupId - the userEmail to query.
+     ************************************************************************/
     var queryUser = function(userEmail){
         /* $q is a promise service, we can ask it to wait until something is done
          * then return a promise */
@@ -47,12 +97,12 @@ app.service('dataBaseService',['$q', function($q){
         return deferred.promise;
     };
 
-    /* END query functions */
-    /*---------------------*/
+    /* The names of the functions accessible in any controller, service, or
+     * directive that injects this service as a dependancy.*/
     return {
         queryGroup : queryGroup,
-        queryUser : queryUser,
-        queryGroupList : queryGroupList
+                   queryUser : queryUser,
+                   queryGroupList : queryGroupList
 
     };
 
