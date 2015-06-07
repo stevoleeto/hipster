@@ -700,6 +700,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                     } else {
                         alert("User not found.");
                     }
+                }
             }
 
 
