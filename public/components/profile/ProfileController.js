@@ -145,13 +145,21 @@ sunday : false
              */
 
             /************************************************************************
-             * Name:        
+             * Name:        openModal
 
-             * Purpose:    
+             * Purpose:     A generic function for initializing a modal.
 
-             * Called In:   
+             * Called In:   ProfileController.js
 
-             * Description: 
+             * Description: Uses the $modal service to open a modal with the
+             *              input settings. 
+             *
+             * Parameters:
+             *              template - the template html for the modal
+             *              ctrl - the controller for the modal
+             *              size - the size of the modal
+             *              param - the data the caller wants to send to the
+             *                      modal
              ************************************************************************/
             var openModal = function(template, ctrl, size, param ){
                 var modalInstance = $modal.open({
@@ -169,126 +177,145 @@ sunday : false
             }
 
             /************************************************************************
-             * Name:        
+             * Name:       addFriendModal
 
-             * Purpose:    
+             * Purpose:    To provide the user a modal to add a new friend.
 
-             * Called In:   
+             * Called In:  index.html
 
-             * Description: 
+             * Description: A modal for adding new friends with their emails.
+             *              This function is responsible for calling addFriend
+             *              with the data recieved from the user.
              ************************************************************************/
             $scope.addFriendModal = function(){
                 openModal( 'addFriend.html', 'AddFriendController', 'lg').then(function(newFriend){
+                    // add friend
                     addFriend(newFriend);
                 }, function(){
-                    $log.info('Modal dismissed at: ' + new Date());
                 });
             };
 
             /************************************************************************
-             * Name:        
+             * Name:        editGroupModal
 
-             * Purpose:    
+             * Purpose:     To provide the user a modal to edit a group.
 
-             * Called In:   
+             * Called In:   index.html
 
-             * Description: 
+             * Description: A modal for editing a group. When the modal is done
+             *              this function is in charge of updating the view.
+             *
+             * Parameters:
+             *              oldName - the current name of the group
+             *              oldColor - the current color of the group
+             *              oldID -  the current ID of the group
              ************************************************************************/
             $scope.editGroupModal = function (oldName, oldColor, oldID) {
 
                 openModal('editGroup.html', 'EditGroupController', 'lg', {name: oldName, color: oldColor, id:oldID}).then(function (editedGroup) {
                     editGroup(editedGroup.id,editedGroup.newColor);
                 }, function () {
+                    // update groups on view
                     $scope.myGroupList = userService.getNewGroupList();
                 });
             };
 
             /************************************************************************
-             * Name:        
+             * Name:        friendsListModal
 
-             * Purpose:    
+             * Purpose:     To provide the user with a modal for viewing their 
+             *              friendsList.
 
-             * Called In:   
+             * Called In:   index.html
 
-             * Description: 
+             * Description: Creates a modal for a user to see their friends.
              ************************************************************************/
             $scope.friendListModal = function () {
                 openModal('friendList.html', 'FriendListController', 'lg', $scope.friendList).then(function () {
                 }, function () {
-                    $log.info('Modal dismissed at: ' + new Date());
                 });
             };
 
             /************************************************************************
-             * Name:        
+             * Name:        accountSettingsModal
 
-             * Purpose:    
+             * Purpose:     To provide a modal for the user to change their
+             *              account settings and googleCalendarID
 
-             * Called In:   
+             * Called In:   index.html
 
-             * Description: 
+             * Description: Makes the modal, then on return removes all events
+             *              if the user decided to remove the events, or updates
+             *              user settings if the user chose to change their settings.
              ************************************************************************/
             $scope.accountSettingsModal = function () {
                 openModal('accountSettings.html', 'AccountSettingsController', 'lg', {name: $scope.userName, email: $scope.email, google: $scope.googleID, icon: $scope.icon}).then(function (newAccountSettings) {
+                    // if the user removed their events
                     if(newAccountSettings.remFlag == 1) {
                         $scope.removeAllEvents();
                     }
+                    // if the user saved their new settings
                     if(newAccountSettings.saveFlag == 1) {
                         $scope.settingsSave(newAccountSettings.newUserName, newAccountSettings.newUserEmail, newAccountSettings.newGoogle, newAccountSettings.newUserIcon);
                         currentUser.set("googleCalendarID", newAccountSettings.newGoogle); 
+                        // update view with new calendar
                         updatePersonalSchedule();
                     }
                 }, function(newAccountSettings) {
-                    $log.info('Modal dismissed at: ' + new Date());
-                    if(newAccountSettings.remFlag == 1) {
-                        $scope.removeAllEvents();
-                    }
-                    //updatePersonalSchedule();
                 });
             };
 
             /************************************************************************
-             * Name:        
+             * Name:        addGroupModal
 
-             * Purpose:    
+             * Purpose:     To provide the user with a modal to create a 
+             *              new group.
 
-             * Called In:   
+             * Called In:   index.html
 
-             * Description: 
+             * Description: Opens the modal, then delegates to createGroup on
+             *              return.
              ************************************************************************/
             $scope.addGroupModal = function () {
                 openModal('addGroup.html', 'AddGroupController', 'lg').then(function (groupInfo){
+                    // call create group with the data retrieved from user.
                     createGroup(groupInfo);
                 }, function (groupList){
-                    $scope.myGroupList = userService.getNewGroupList();
                 });
             };
 
             /************************************************************************
-             * Name:        
+             * Name:        contactModal
 
-             * Purpose:    
+             * Purpose:     To provide a modal for the user to contact the
+             *              developers with any comments or questions they may have
+             *              about the app.
 
-             * Called In:   
+             * Called In:   index.html
 
-             * Description: 
+             * Description: This function only opens the modal, and the modal
+             *              controller itself is in charge of all other 
+             *              behavior.
              ************************************************************************/
             $scope.contactModal = function () {
                 openModal('contact.html', 'ContactController', 'lg', {name: $scope.userName, email: $scope.email}).then(function (){
-
                 }, function (){
-                    $scope.myGroupList = userService.getNewGroupList();
                 });
             };
 
             /************************************************************************
-             * Name:        
+             * Name:        editEventModal
 
-             * Purpose:    
+             * Purpose:     To provide a modal for the user to edit their
+             *              event information.
 
-             * Called In:   
+             * Called In:   index.html
 
-             * Description: 
+             * Description: After opening the modal, on return from the modal,
+             *              this function is in charge of updating the view
+             *              with the newly acquired information by calling
+             *              editEvent or deleteEvent depending on what the
+             *              user did in the modal.
              ************************************************************************/
             var editEventModal = function(eventClicked){
                 openModal('editMyEvent.html','EditEventController', 'lg',eventClicked).then(function (savedEvent) {
@@ -325,16 +352,30 @@ sunday : false
              */
 
             /************************************************************************
-             * Name:        
+             * Name:        updatePersonalSchedule
 
-             * Purpose:    
+             * Purpose:     To update the view with the current user's personal
+             *              schedule.
 
-             * Called In:   
+             * Called In:   ProfileController.js (this file)
 
-             * Description: 
+             * Description: This function clears the current personalSchedule
+             *              array then calls the user service to get the current
+             *              schedule and push all the events back into the
+             *              personalSchedule array. If the user has a gCal
+             *              ID, call userService to set the googleCalendar
+             *              then get the calendar and update the googleCalendar
+             *              array with them. 
+             *
+             *              Note on arrays:
+             *              We do a lot of clearing and pushing of the same
+             *              array because angularUI calendar's view will only
+             *              act predictably if a single array instance is used
+             *              for storing the events.
              ************************************************************************/
             var updatePersonalSchedule = function(){
                 personalSchedule.length = 0;
+                // call user service to get the current schedule 
                 userService.getCurrentSchedule($scope.email).then(function(currentSchedule){
                     for(index = 0; index < currentSchedule.length; index ++){
                         personalSchedule.push(eventService.copyEvent(currentSchedule[index]));
@@ -364,13 +405,15 @@ sunday : false
 
 
             /************************************************************************
-             * Name:        
+             * Name:        addGroup
 
-             * Purpose:    
+             * Purpose:     Inform the group schedule of the group the user
+             *              clicked on.
 
-             * Called In:   
+             * Called In:   index.html
 
-             * Description: 
+             * Description: Calls groupService to set its current group id and
+             *              group color so it can display them correctly.
              ************************************************************************/
             $scope.addGroup = function(){	
                 groupService.setGroupId($scope.currentGroupId);
@@ -378,36 +421,39 @@ sunday : false
             }
 
             /************************************************************************
-             * Name:        
+             * Name:        updateSingleGroupTab
 
-             * Purpose:    
+             * Purpose:     Updates the single group tab at the top of the page
+             *              with the name of the group clicked on.
 
-             * Called In:   
+             * Called In:   index.html
 
-             * Description: 
+             * Description: Sets a scope variable to the passed in name.
              ************************************************************************/
             $scope.updateSingleGroupTab = function(name){
                 $scope.singleGroupName = name;
             }
 
             /************************************************************************
-             * Name:        
+             * Name:        editGroup
 
-             * Purpose:    
+             * Purpose:     Edit a user's group to match the passed in parameters.
 
-             * Called In:   
+             * Called In:   ProfileController.js (this file)
 
-             * Description: 
+             * Description: Loops over the user's grouplist to find the correct
+             *              group, then changes the color to match the one
+             *              passed in.
              ************************************************************************/
             var editGroup = function(groupID, newColor){
                 for(index = 0; index < $scope.myGroupList.length; index++){
                     if(groupID === $scope.myGroupList[index]['id']){
-                        console.log("Found the group!");
                         $scope.myGroupList[index]['color'] = newColor;
-                        break;
+                        break; 
                     }
                 }
 
+                // call dataBase to update the group's color
                 dataBaseService.queryGroupList($scope.email).then(function(groupListQuery){
                     groupListQuery[0].set("userGroups", $scope.myGroupList);
                     groupListQuery[0].save();
@@ -425,7 +471,9 @@ sunday : false
              * Description: Removes a single in their GroupList userGroups array.
              ************************************************************************/
             $scope.removeGroup = function(groupId){
+                // call userService to remove group
                 userService.removeGroup(groupId);
+                // loop over grouplist to find and remove the group from view.
                 for (i = 0; i < $scope.myGroupList.length; i++){
                     if($scope.myGroupList[i]['id'] === groupId){
                         $scope.myGroupList.splice(i, 1);
@@ -465,6 +513,7 @@ sunday : false
                             console.log("Group doesn't Exist");
                         }
                         else{
+                            // check if the user is already in the group
                             var alreadyInGroup = validateService.isEmailInArray(groupQuery[0]._serverData.memberList, $scope.email);
                             if(!alreadyInGroup){
                                 groupQuery[0]._serverData.memberList.push({name: $scope.userName, email: $scope.email});
@@ -492,14 +541,13 @@ sunday : false
             }
 
             /************************************************************************
-             * Name:    createEvent()
+             * Name:        createEvent()
 
-             * Purpose:   Allows the user to add an event to their calendar.
+             * Purpose:     Allows the user to add an event to their calendar.
 
              * Called In:   index.html
 
-             <<<<<<< HEAD
-             * Description: Removs all groups found in their GroupList userGroups array.
+             * Description: Removes all groups found in their GroupList userGroups array.
              ************************************************************************/
             $scope.createEvent = function(){
                 var repeatTheseDays = [];
@@ -551,6 +599,7 @@ sunday : false
                     }
                 }    
 
+                // delegate to eventService to create the event with the passed in data
                 eventService.createEvent($scope.newEventName, //event name
                         $scope.eventColor.mine, //event color
                         (moment($scope.eventStartDate.toISOString()).dateOnly()), //start date
@@ -563,8 +612,6 @@ sunday : false
                         repeatTheseDays); //what does does this event repeat on
 
                 newEvents = eventService.getEvents();
-                console.log("In Create event, new event");
-                console.log(newEvents);
 
                 for (index = 0; index < newEvents.length; index++){
                     personalSchedule.push(eventService.copyEvent(newEvents[index]));
@@ -585,13 +632,13 @@ sunday : false
             }
 
             /************************************************************************
-             * Name:        
+             * Name:        removeAllEvents
 
-             * Purpose:    
+             * Purpose:     To remove all events from view and save the change.
 
-             * Called In:   
+             * Called In:   ProfileController.js (this file)
 
-             * Description: 
+             * Description: Clears personalSchedule array and saves.
              ************************************************************************/
             $scope.removeAllEvents = function(){
                 personalSchedule.length = 0;
@@ -599,13 +646,15 @@ sunday : false
             }
 
             /************************************************************************
-             * Name:        
+             * Name:        addFriend
 
-             * Purpose:    
+             * Purpose:     To add a friend
 
-             * Called In:   
+             * Called In:   ProfileController.js (this file)
 
-             * Description: 
+             * Description: Adds a friend to a user's friends list and saves it to
+             *              the database. It also queries the friend to get the
+             *              name of the user.
              ************************************************************************/
             var addFriend = function(newFriend) {
                 var notAlreadyFriend = 1;
@@ -635,6 +684,16 @@ sunday : false
             }
 
 
+            /************************************************************************
+             * Name:        deleteEvent
+
+             * Purpose:     To delete an event from a user's schedule.
+
+             * Called In:   ProfileController.js (this file)
+
+             * Description: Deletes an event and updates the view with the 
+             *              updated schedule.
+             ************************************************************************/
             var deleteEvent = function(eventClicked){    
                 for(index = 0; index < personalSchedule.length; index++){
                     if(eventClicked.id == personalSchedule[index].id){
@@ -646,10 +705,24 @@ sunday : false
                 currentUser.save();
             }
 
+            /************************************************************************
+             * Name:        editEvent
+
+             * Purpose:     To edit a particular event or all repeating events
+             *              sharing an id to the passed in event.
+
+             * Called In:   ProfileController.js (this file)
+
+             * Description: Adds a friend to a user's friends list and saves it to
+             *              the database. It also queries the friend to get the
+             *              name of the user.
+             ************************************************************************/
             var editEvent = function(eventClicked){
                 var start;
                 var end;
 
+                // loops over the personalSchedule and replaces the found
+                // events with copies of the one passed in
                 for(index = 0; index < personalSchedule.length; index++){
                     if(eventClicked.id == personalSchedule[index].id){
                         start = personalSchedule[index].start;
@@ -662,6 +735,17 @@ sunday : false
                 currentUser.save();
             }
 
+            /************************************************************************
+             * Name:        settingsSave
+
+             * Purpose:     To save the passed in data to the current user
+             *              and save.
+
+             * Called In:   ProfileController.js (this file)
+
+             * Description: Uses the currentUser functions to set the data fields
+             *              to the passed in fields and saves.
+             ************************************************************************/
             $scope.settingsSave = function(name, email, google, icon){
 
                 currentUser.set("name", name);
