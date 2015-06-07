@@ -131,11 +131,13 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                     if(newAccountSettings.saveFlag == 1) {
                         $scope.settingsSave(newAccountSettings.newUserName, newAccountSettings.newUserEmail, newAccountSettings.newGoogle, newAccountSettings.newUserIcon);
                     }
+                    updatePersonalSchedule();
                 }, function(newAccountSettings) {
                     $log.info('Modal dismissed at: ' + new Date());
                     if(newAccountSettings.remFlag == 1) {
                         $scope.removeAllEvents();
                     }
+                    updatePersonalSchedule();
                 });
             };
 
@@ -194,31 +196,42 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             };
 
 
-            $scope.eventSources = [personalSchedule];
-            var first = true;
+            var googleCalendar = [];
+            $scope.eventSources = [personalSchedule, googleCalendar];
             $scope.$watch('profileView', function(){
                 if($scope.profileView){
-                    personalSchedule.length = 0;
-                    userService.getCurrentSchedule($scope.email).then(function(currentSchedule){
-                        for(index = 0; index < currentSchedule.length; index ++){
-                            personalSchedule.push(eventService.copyEvent(currentSchedule[index]));
-                        }
-                    });
-                    if(currentUser.get("googleCalendarID")){ // if user has calID
-                        userService.setGoogleCalendar(currentUser.get("googleCalendarID")).then(function(){
-                            var newCalendar = userService.getGoogleCalendar();
-                            if(newCalendar && first){ //if successful
-                                first = false;
-                                googleCalendar = newCalendar;
-                                $scope.eventSources.push(googleCalendar);
-                            }
-                        });
-                    }
-                    /* GOOGLE CALENDAR */
-
-                    
+                    updatePersonalSchedule();
                 }
             });
+
+            var updatePersonalSchedule = function(){
+                personalSchedule.length = 0;
+                userService.getCurrentSchedule($scope.email).then(function(currentSchedule){
+                    for(index = 0; index < currentSchedule.length; index ++){
+                        personalSchedule.push(eventService.copyEvent(currentSchedule[index]));
+                    }
+                });
+
+                /* GOOGLE CALENDAR */
+                if(currentUser.get("googleCalendarID")){ // if user has calID
+                    userService.setGoogleCalendar(currentUser.get("googleCalendarID")).then(function(){
+                        var newCalendar = userService.getGoogleCalendar();
+                        if(newCalendar){ //if successful
+                            googleCalendar.length = 0;
+                            for(index = 0; index < newCalendar.length; index++){
+                                googleCalendar.push(newCalendar[index]);
+                            }
+                            //console.log(angular.element('#userCalendar'));
+                            //angular.element('#userCalendar').fullCalendar('refetchEvents');
+                        }
+                    });
+                }
+                else{
+                    googleCalendar.length = 0;
+                }
+
+
+            }
 
 
             // Profile Calendar Settings

@@ -118,7 +118,11 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
                             if(googleCalQueriesLeft <= 0 && queriesLeft <= 0){
                                 deferred.resolve(memberEventArray);
                             }
-                        })
+                        },
+                            function(reason){
+                            googleCalQueriesLeft--;
+                                console.log("succeed in failing");
+                            })
                     }
                     /* if no calID, decrement queries anyway and check if we should resolve*/
                     else{
