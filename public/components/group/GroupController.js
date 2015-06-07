@@ -254,12 +254,15 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
             var addMember = function(newMember){
                 var alreadyInGroup = validateService.isEmailInArray($scope.memberList, newMember);
 
+                if (newMember == currentUser.get("username")) {
+                    alert("You can't to add yourself!!");
+                    return;
+                }
+
                 if(!alreadyInGroup){
                     groupService.addMember($scope.currentGroupId, newMember).then(function(){
                         $scope.memberList = groupService.getMemberList();
-                        //ensure view is properly updated with user icon
                         $timeout(function(){$scope.$apply()}, 150);
-                        $timeout(function(){$scope.$apply()}, 1500);
                         var newMemberCall = groupService.getNewMember();
                         if(newMemberCall){
                             var tempSched = newMemberCall.personalSchedule;
@@ -328,6 +331,12 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                 // Check if the chosen end time is the same as the chosen start time
                 if(Date.parse($scope.eventStartTime) == Date.parse($scope.eventEndTime)) {
                     alert("Your event starts and ends at the same time!!");
+                    return;
+                }
+
+                // Check if the chosen end time is the same as the chosen start time
+                if(Date.parse($scope.eventStartDate) > Date.parse($scope.eventEndDate)) {
+                    alert("Your end date is before your start date!!");
                     return;
                 }
 

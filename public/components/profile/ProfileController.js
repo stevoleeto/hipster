@@ -563,6 +563,24 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                     return;
                 }
 
+                // Check if the chosen end time is before the chosen start time
+                if(Date.parse($scope.eventStartTime) > Date.parse($scope.eventEndTime)) {
+                    alert("Your end time is before your start time!!");
+                    return;
+                }
+
+                // Check if the chosen end time is the same as the chosen start time
+                if(Date.parse($scope.eventStartTime) == Date.parse($scope.eventEndTime)) {
+                    alert("Your event starts and ends at the same time!!");
+                    return;
+                }
+
+                // Check if the chosen end time is the same as the chosen start time
+                if(Date.parse($scope.eventStartDate) > Date.parse($scope.eventEndDate)) {
+                    alert("Your end date is before your start date!!");
+                    return;
+                }
+
                 if ($scope.dayRepeat.monday || 
                         $scope.dayRepeat.tuesday || 
                         $scope.dayRepeat.wednesday ||

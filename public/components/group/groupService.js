@@ -202,13 +202,11 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
 
             /* make sure the new member is resolved */
                 /* query the user get it's data */
-                deferred.resolve(
                 dataBaseService.queryUser(newMemberEmail).then(function(userQuery){
                     if(userQuery[0]){
                         newMember = userQuery[0].attributes;
                     }
                 })
-                );
 
             /* make sure the new groupList is resolved */
                 /* query the groupList of the new member and do the following:
