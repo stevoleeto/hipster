@@ -553,13 +553,11 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 var repeatTheseDays = [];
                 var repeat = false;
 
-                // Check if the user didn't enter an event name
                 if (!$scope.newEventName){
                     alert("Enter a event name!");
                     return;
                 }
 
-                // Check if the user didn't change the color of the event
                 if ($scope.eventColor.mine == '#fff') {
                     alert("Choose a color for your event!");
                     return;
@@ -577,7 +575,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                     return;
                 }
 
-                // Check if the chosen end date is before the chosen start date
+                // Check if the chosen end time is the same as the chosen start time
                 if(Date.parse($scope.eventStartDate) > Date.parse($scope.eventEndDate)) {
                     alert("Your end date is before your start date!!");
                     return;
@@ -700,7 +698,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                     } else {
                         alert("User not found.");
                     }
-                }
+                });
             }
 
 
