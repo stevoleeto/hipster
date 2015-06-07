@@ -157,6 +157,8 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                     templateUrl: 'addMember.html',
                     controller: 'AddMemberController',
                     size: 'lg',
+                    resolve: {
+                        friendList: function () {
                             return $scope.friendList;
                         }
                     }
@@ -245,9 +247,9 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
              * Called In:   index.html
 
              * Description: This function queries the database to get the group's memberlist
-             *				then updates it with the new member. Once that is done, it 
-             *				queries the database to get the groupList associated with the
-             *				new member and adds the new group to their list.
+             *              then updates it with the new member. Once that is done, it 
+             *              queries the database to get the groupList associated with the
+             *              new member and adds the new group to their list.
              ************************************************************************/
             var addMember = function(newMember){
                 var alreadyInGroup = validateService.isEmailInArray($scope.memberList, newMember);
