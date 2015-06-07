@@ -263,6 +263,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                     groupService.addMember($scope.currentGroupId, newMember).then(function(){
                         $scope.memberList = groupService.getMemberList();
                         $timeout(function(){$scope.$apply()}, 150);
+                        $timeout(function(){$scope.$apply()}, 1500);
                         var newMemberCall = groupService.getNewMember();
                         if(newMemberCall){
                             var tempSched = newMemberCall.personalSchedule;
