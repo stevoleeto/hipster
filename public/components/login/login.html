@@ -99,7 +99,7 @@
                             <input id="sPass" type="password" ng-model="repassword" placeholder="Confirm Password"
                                  ng-style="( repassword.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (repassword == password) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )">
                             <!-- hidden submit button! -->
-                            <input type="submit" ng-diables="!email" class="bttn">Sign Up REAL</input>
+                            <!--<input type="submit" ng-disabled="!email" class="bttn">Sign Up REAL</input>-->
                             <input type="submit" style="position: absolute;opacity: 0; width: 1px; height: 1px;"/>
                         </form>
                         <div ng-click="signUp()" ng-disabled="!email" class="bttn">Sign Up</div>
