@@ -1,13 +1,35 @@
 /*
  * Filename: groupService.js
- * Purpose: To make database calls and perform business-level logic 
- *          for the controller.
- * Description: Has several query functions which are only to be used 
- *              internally. Also has functions to be called mostly by the
- *              GroupController:
- *              1) addMember: adds a member to the currently selected group.
- *              
- *              Also has getters and setters for all attributes.
+ *
+ * Purpose: This service is in charge of all business logic for single groups.
+ *          When a user clicks on a single group, the group controller uses
+ *          this service to initialize the member info and group schedule of
+ *          events.
+ *
+ * Description: Calls the dataBaseService to do all necessary queries for member
+ *              information and member events.
+ *
+ * Attributes:
+ *   currentGroupId - The current group id to be queried.
+ *   groupColor - The current group's color.
+ *   groupName - The current group's name.
+ *   memberList - The current list of members associated with the current group.
+ *   newMember - a new member to be added to the group.
+ *   memberEventArray - An array to hold the member events.
+ *   groupSchedule - The events specific to the current group.
+ *
+ *   busyTimeColor - The color for busy blocks.
+ *   busyId - Id for busy events.
+ *
+ *   lastGroupQuery - The last group queried.
+ *
+ * Functions:
+ *   clearMemberArray - clears member array.
+ *   saveGroupSchedule - saves the group schedule.
+ *   initGroup - initialized the group data.
+ *   addMember - adds a new member to the group.
+ *
+ *   setters and getters for all attributes
  *
  */
 app.service('groupService',['$q','googleCalendarService','dataBaseService', function($q,googleCalendarService,dataBaseService){
@@ -25,17 +47,38 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
     var busyTimeColor = '#D2D2CD';
     /* Event Id's */
     var busyId = 999;
-    var groupEventArray;
 
     /* query data fields - private data fields */
     var lastGroupQuery;
-    var userQuery;
-    var groupListQuery;
 
+    /************************************************************************
+     * Name:    clearMemberArray()
+
+     * Purpose:  Used to clear the current member array when needed.
+
+     * Called In:   GroupController
+
+     * Description: Clears the member array.
+     *
+     * Outcome:    The memberEventArray is cleared.
+     ************************************************************************/
     var clearMemberArray = function(){
         memberEventArray.length = 0;
     };
 
+
+    /************************************************************************
+     * Name:    saveGroupSchedule()
+
+     * Purpose: Saves the group schedule to the database.
+
+     * Called In:   GroupController
+
+     * Description: Sets groupSchedule to be the newSchedule and saves it to
+     *              the database.
+     *
+     * Outcome:   Group schedule is saved to database.
+     ************************************************************************/
     var saveGroupSchedule = function(newSchedule){
         lastGroupQuery[0].set("groupSchedule", newSchedule);
         lastGroupQuery[0].save();
@@ -131,12 +174,8 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
                             deferred.resolve(memberEventArray);
                         }
                     }
-
                 })
             } //end outer for
-
-
-
         })
         return deferred.promise;
 
@@ -162,22 +201,19 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
             groupName = groupQuery[0].attributes.name;
 
             /* make sure the new member is resolved */
-            deferred.resolve(
                 /* query the user get it's data */
                 dataBaseService.queryUser(newMemberEmail).then(function(userQuery){
                     if(userQuery[0]){
                         newMember = userQuery[0].attributes;
                     }
                 })
-                );
 
             /* make sure the new groupList is resolved */
-            deferred.resolve(
                 /* query the groupList of the new member and do the following:
                  * 1) update the new member's groupList with the new group 
                  * 2) update our working memberlist
                  * 3) update the memberlist of the group */
-            dataBaseService.queryGroupList(newMemberEmail).then(function(groupListQuery){
+            return dataBaseService.queryGroupList(newMemberEmail).then(function(groupListQuery){
                 if(groupListQuery[0]){
                     var newMemberGroupList = groupListQuery[0]._serverData.userGroups;
                     /* set new member's grouplist to have the new group in it */
@@ -199,8 +235,6 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
                 }
 
             })
-        );
-
         })
         return deferred.promise;
     };
@@ -209,7 +243,9 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
 
 
     /* SETTERS AND GETTERS */
-    /***********************/
+    /************************************************************************
+     * Description: Below are the setters and getters for this service.
+     ************************************************************************/
 
     var getNewMember = function(){
         return newMember;
@@ -255,6 +291,11 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
         return groupName;
     };
 
+    /************************************************************************
+     * Description: Below is the list of functions that will be available to 
+     * any controller, service, or directive that injects this service as a
+     * dependency.
+     ************************************************************************/
     return {
         addMember : addMember,
 
