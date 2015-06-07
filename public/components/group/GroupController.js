@@ -157,8 +157,6 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                     templateUrl: 'addMember.html',
                     controller: 'AddMemberController',
                     size: 'lg',
-                    resolve: {
-                        friendList: function () {
                             return $scope.friendList;
                         }
                     }
