@@ -53,9 +53,9 @@ app.controller('LoginController', ['$scope', function($scope) {
       updateTips( 'sTips', 'Please enter valid input.');
       return;
     }
-    var user = new Parse.User(); 
 
-    //Set the user's inputs as database fields
+    // Creates a new Parse User object and adds defualt fields to it.
+    var user = new Parse.User(); 
     user.set( 'name', $scope.name );
     user.set( 'username', $scope.email );
     user.set( 'email', $scope.email );
@@ -63,18 +63,19 @@ app.controller('LoginController', ['$scope', function($scope) {
     user.set( 'personalSchedule',  []);
     user.set( 'friendList' , []);
 
-    var GroupList = Parse.Object.extend("GroupList");
-
-    var newGroupList = new GroupList();
-
-    newGroupList.set("userEmail", $scope.email);
-    newGroupList.set( 'userGroups', [] );
-    newGroupList.set( 'userName', $scope.name);
-    newGroupList.save(null, {
-      success: function(GroupList) {}
-    });
     user.signUp(null, {
       success: function( user ) {
+        // Creates a new Parse Group List object and adds default fields to it
+        // Only does this if user signup was successful.
+        var GroupList = Parse.Object.extend("GroupList");
+        var newGroupList = new GroupList();
+        newGroupList.set("userEmail", $scope.email);
+        newGroupList.set( 'userGroups', [] );
+        newGroupList.set( 'userName', $scope.name);
+        newGroupList.save(null, {
+          success: function(GroupList) {}
+        });
+        //redirects the user to the website.
         location.href="../../index.html";
       },
       error: function( user ) {
@@ -96,12 +97,16 @@ app.controller('LoginController', ['$scope', function($scope) {
    help the user login properly.
    ************************************************************************/
     $scope.login = function(){
+      //Confirms that the user used a valid email and password to sign in.
       if(!$scope.email || !$scope.password ){
         updateTips( 'lTips', 'Please enter valid input.');
         return;
       }
+
+      //Calls a Parse API to sign the user in.
       Parse.User.logIn( $scope.email, $scope.password, {
         success: function( user ) {
+          //redirects the user to the website.
           location.href="../../index.html";
         },
         error: function( user ) {
@@ -119,6 +124,7 @@ app.controller('LoginController', ['$scope', function($scope) {
     * Called In:   login.html
     ************************************************************************/
     $scope.forgotPassword = function(){
+      //makes a Parse API call for password resets using the user's email.
       Parse.User.requestPasswordReset( $scope.email , {
         success: function() {
           alert("An email has been sent with information on changing password.");
