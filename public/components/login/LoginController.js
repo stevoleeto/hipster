@@ -128,78 +128,72 @@ app.controller('LoginController', ['$scope', function($scope) {
         }
       });
     }
-
-    /////////////////////
-    //Helper JS functions
-    /////////////////////
-
-    /************************************************************************
-     * Name:    updateTips()
-     * 
-     * Purpose:   Updates the value and css of the tip bar at the top of 
-     *            the form if there is an error
-     *  
-     * Description: Sets the value, background color, and border color of the
-     *              tips bar
-     *
-     * Called in: login(), signup(), checkAlreadyUser()
-     *
-     * Input:   id     - The ID of the tips field to update.
-     *          newTip - The string to be displayed in the tip bar.
-     ************************************************************************/
-    function updateTips( id, newTip ) {
-      var tips = document.getElementById(id);
-      tips.innerHTML = newTip;
-      tips.style.background  = '#F44336';
-      tips.style.border = '2px solid #D50000';
-      tips.style.color = 'white';
-    }
-
-    /************************************************************************
-     * Name:    dispTab()
-     *
-     * Purpose:   Changes the UI to display the form requested by the user.
-     *
-     * Description: This function changes the background color of the tab
-     *              requested by the user to be white. It also changes the
-     *              background color of the other tab to be grey. Finally,
-     *              it displays the correct form and hides the other tab's 
-     *              form.
-     *
-     * Called In:   
-     ************************************************************************/
-    function dispTab( tabId ) {
-      //Declare any necessary variables
-      var login = document.getElementById( 'login' ), signup = document.getElementById('signup'),
-          sForm = document.getElementById( 'sForm' ), lForm = document.getElementById('lForm');
-
-      //If the user clicked on "Log In" tab
-      if ( tabId == 'login' ) {
-        //Change the background of "Sign Up" tab gray
-        signup.style.background = '#D8D8D8';
-        signup.style.color = "grey";
-        //Change the background of "Log In" tab white
-        login.style.background = 'white';
-        login.style.color = "#2B98F0"
-        //Hide the text boxes and buttons for the sign up form
-        sForm.style.display = 'none';
-        //Display the text boxes and the buttons for the log in form
-        lForm.style.display = 'block';
-      } else {
-        //Change the background of "Log In" tab gray
-        login.style.background = '#D8D8D8';
-        login.style.color = "grey"
-        //Change the background of "Sign Up" tab white
-        signup.style.background = 'white';
-        signup.style.color = "#2B98F0";
-        //Hide the text boxes and buttons for the log in form
-        lForm.style.display = 'none';
-        //Display the text boxes and buttons for the sign up form
-        sForm.style.display = 'block';
-      }
-
-    }
-
   }]);
+
+/////////////////////
+//Helper JS functions
+/////////////////////
+
+/************************************************************************
+ * Name:    updateTips()
+ * Purpose:   Updates the value and css of the tip bar at the top of 
+ the form if there is an error
+ * Description: Sets the value, background color, and border color of the
+ tips bar
+ * Called in:   login(), signup(), checkAlreadyUser()
+ * Input:   var id - The ID of the tips field to update.
+ var newTip - The string to be displayed in the tip bar.
+ ************************************************************************/
+function updateTips( id, newTip ) {
+  var tips = document.getElementById(id);
+  //Change the text displayed to the argument
+  tips.innerHTML = newTip;
+  //Change the background-color and border color of the tips bar.
+  tips.style.background  = '#F44336';
+  tips.style.border = '2px solid #D50000';
+  tips.style.color = 'white';
+}
+
+/************************************************************************
+ * Name:    dispTab()
+ * Purpose:   Changes the UI to display the form requested by the user.
+ * Description: This function changes the background color of the tab
+ requested by the user to be white. It also changes the
+ background color of the other tab to be grey. Finally,
+ it displays the correct form and hides the other tab's 
+ form.
+ * Called In:   main()
+ ************************************************************************/
+function dispTab( tabId ) {
+  //Declare any necessary variables
+  var login = document.getElementById( 'login' ), signup = document.getElementById('signup'),
+      sForm = document.getElementById( 'sForm' ), lForm = document.getElementById('lForm');
+
+  //If the user clicked on "Log In" tab
+  if ( tabId == 'login' ) {
+    //Change the background of "Sign Up" tab gray
+    signup.style.background = '#D8D8D8';
+    signup.style.color = "grey";
+    //Change the background of "Log In" tab white
+    login.style.background = 'white';
+    login.style.color = "#2B98F0"
+    //Hide the text boxes and buttons for the sign up form
+    sForm.style.display = 'none';
+    //Display the text boxes and the buttons for the log in form
+    lForm.style.display = 'block';
+  } else {
+    //Change the background of "Log In" tab gray
+    login.style.background = '#D8D8D8';
+    login.style.color = "grey"
+    //Change the background of "Sign Up" tab white
+    signup.style.background = 'white';
+    signup.style.color = "#2B98F0";
+    //Hide the text boxes and buttons for the log in form
+    lForm.style.display = 'none';
+    //Display the text boxes and buttons for the sign up form
+    sForm.style.display = 'block';
+  }
+
+}
 
   
