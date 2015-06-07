@@ -1,9 +1,14 @@
-/**
-    Smoothly scroll element to the given target (element.scrollTop)
+/************************************************************************
+ * Name:        smooth_scroll_to
 
-    Returns a promise that's fulfilled when done, or rejected if
-    interrupted
- */
+ * Purpose:     Scrolls the view down to the info screen from the
+ *              login screen before the user has logged in.
+
+ * Called In:   login.html
+
+ * Description: This function smoothly scrolls the view to display more
+ *              information about the site to the user.
+************************************************************************/
 var smooth_scroll_to = function(dir) {
     if (dir == 1) {
         // Set it to scroll down
