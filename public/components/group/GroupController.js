@@ -1,6 +1,6 @@
 /*
  * FileName: GroupController.js
- * Authors: Joe d'Eon (if you edit this file, add your name to this list)
+ * Authors: Joe d'Eon, Stephen Gilardi
  * Description: This controller will be used to control the view of a single
  *              group. It will have all attributes and behaviors of a single
  *              group. To query the database, one must go throught the
