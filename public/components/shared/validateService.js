@@ -27,6 +27,7 @@ app.service('validateService',['$q', function($q){
         var alreadyInGoup = false;
         for (index = 0; index < arraySent.length; index++){
             if(emailToCheck == (arraySent[index]).email){
+                //if the email is found in the arry, set the alreadyInGroup flag to true.
                 alreadyInGoup = true;
             }
         }
