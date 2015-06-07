@@ -67,9 +67,9 @@
             
             <div id="greeting">Hi, {{ userName }}</div>
             <center>
-                <div ng-click="profileView=true; groupView=false; $parent.singleGroupView=false" ng-class="{selTab: profileView}" class="viewBtn">Personal</div>
-                <div ng-click="groupView=true; profileView=false; $parent.singleGroupView=false" ng-class="{selTab: groupView}" class="viewBtn">Groups</div>
-                <div ng-hover="" ng-click="profileView=false; groupView=false; $parent.singleGroupView=true;" class="viewBtn" ng-class="{selTab: $parent.singleGroupView}" ng-hide="!singleGroupName" ng-attr-title="{{singleGroupName}}">
+                <div ng-click="tabClick('profile');" ng-class="{selTab: profileView}" class="viewBtn">Personal</div>
+                <div ng-click="tabClick('group');" ng-class="{selTab: groupView}" class="viewBtn">Groups</div>
+                <div ng-hover="" ng-click="tabClick('singleGroup');" class="viewBtn" ng-class="{selTab: $parent.singleGroupView}" ng-hide="!singleGroupName" ng-attr-title="{{singleGroupName}}">
                     {{ singleGroupName | limitTo:8 }}{{ singleGroupName.length > 8 ? '...' : '' }}
                 </div>
             </center>
@@ -149,8 +149,8 @@
                         <div id = "groupClick"
                              ng-click="$parent.profileView=false; 
                               $parent.groupView=false; 
-                              $parent.$parent.singleGroupView=true; 
-                              $parent.currentGroupId = group.id; 
+                              $parent.$parent.singleGroupView=true;
+                              $parent.currentGroupId = group.id;
                               $parent.currentGroupColor = group.color;
                               addGroup(); $parent.updateSingleGroupTab(group.name)" ng-attr-title="{{ group.name }}">
                             <!-- TRUNCATE NAME OF GROUP -->

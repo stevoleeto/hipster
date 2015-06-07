@@ -821,4 +821,19 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 $scope.mytime = null;
             };
 
+            $scope.tabClick = function(tab) {
+                if (tab == "profile") {
+                    $scope.profileView=true;
+                    $scope.groupView=false;
+                    $scope.$parent.singleGroupView=false;
+                } else if (tab == "group") {
+                    $scope.groupView=true;
+                    $scope.profileView=false;
+                    $scope.$parent.singleGroupView=false;
+                } else {
+                    $scope.profileView=false;
+                    $scope.groupView=false;
+                    $scope.$parent.singleGroupView=true;
+                }
+            }
         }]);//end profilecontrller
