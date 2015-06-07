@@ -1,5 +1,6 @@
 app.controller('AccountSettingsController', function($scope, $modalInstance, modalParams){
 
+    // Grab the data passed in from modalParams
     $scope.newName = modalParams.name;
     /*$scope.newEmail = modalParams.email;*/
     $scope.newGoogleID = modalParams.google;
@@ -52,6 +53,19 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
     }
     /** END AVENGERS ICON PACK **/
 
+    /************************************************************************
+     * Name:        initSelectedIcon
+
+     * Purpose:     Set the selected icon to be the user's current icon.
+
+     * Called In:   AccountSettingsController.js
+
+     * Description: This function loops through the icons and finds the
+     *              icon that is currently saved as the user's icon. It
+     *              takes that icon and sets it's selected flag to 1.
+     *              The program will display this icon with a blue border
+     *              to signify that it is the currently selected icon.
+     ************************************************************************/
     $scope.initSelectedIcon = function(icon) {
         if (icon.image == modalParams.icon) {
             icon.selected = 1;
@@ -75,6 +89,21 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
         });
     };
 
+    /************************************************************************
+     * Name:        saveSettings
+
+     * Purpose:     Populates an object with the user's new data to be
+     *              set in ProfileController.js when the modal closes.
+
+     * Called In:   AccountSettingsController.js
+
+     * Description: This functions performs input validation on the fields
+     *              that the user can edit. This includes the name,
+     *              google calendar ID, and user icon. If it passes
+     *              validation, an object gets populated with the new data.
+     *              A flag is also set to say that the save button was
+     *              clicked.
+     ************************************************************************/
     $scope.saveSettings = function () {
         if($scope.newName /*&& $scope.newEmail*/) {
             saveSettingsFlag = 1;
@@ -104,6 +133,18 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
         }
     };
 
+    /************************************************************************
+     * Name:        editPassword
+
+     * Purpose:     Emails the user with instructions on how to change their 
+     *              password.
+
+     * Called In:   AccountSettingsController.js
+
+     * Description: This function allows the user to change their account
+     *              password. This uses Parse's password reset functionality
+     *              to preserve maximum account security.
+     ************************************************************************/
     $scope.editPassword = function (){
         Parse.User.requestPasswordReset( modalParams.email , {
             success: function() {
@@ -113,6 +154,18 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
         });
     };
 
+    /************************************************************************
+     * Name:        removeAllEvents
+
+     * Purpose:     Clears the user's personal events.
+
+     * Called In:   AccountSettingsController.js
+
+     * Description: This function sets the remEventsFlag to 1 and builds an
+     *              object with the new data that the user set in the fields
+     *              above. The actual removeEvents functonality is 
+     *              handled in ProfileController.js
+     ************************************************************************/
     $scope.removeAllEvents = function () {
 
         remEventsFlag = 1;
@@ -126,6 +179,7 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
             remFlag: remEventsFlag
         };
 
+        // Notifies the user that their events have been cleared
         $scope.remLabel = true;
 
         setTimeout(function(){
@@ -133,7 +187,9 @@ app.controller('AccountSettingsController', function($scope, $modalInstance, mod
         }, 2000);
     };
 
+    // When the user clicks on the cancel button
     $scope.cancel = function () {
+        // Closes the modal
         $modalInstance.close(newAccountSettings);
     };
 });

@@ -389,11 +389,15 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                         repeat, //does this event repeat?
                         repeatTheseDays); //what does does this event repeat on
 
-                /*** IDK THIS CODE ***/
+                // gets all new events from the Event Service.
                 newEvents = eventService.getEvents();
                 var tempArray = [];
+
+                // gets the group schedule from the group service.
                 var tempGroupSched = groupService.getGroupSchedule();
 
+                // Iterates through the new events, pushing each one into both a temp array 
+                // and an tempGroupSchedule.
                 for (index = 0; index < newEvents.length; index++){
                     tempArray.push(newEvents[index]); 
                     tempGroupSched.push(newEvents[index]); 
