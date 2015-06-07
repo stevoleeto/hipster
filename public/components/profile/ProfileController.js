@@ -689,6 +689,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                             $scope.friendList.push({email: newFriend, name:pulledFriend[0].attributes.name});
                             currentUser.set("friendList", $scope.friendList);
                             currentUser.save();
+                            alert("Friend added successfully!");
                         } else {
                             alert("User is already your friend!");
                         }
