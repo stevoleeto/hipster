@@ -15,10 +15,6 @@
  *             addMember() - Adds a member to the current group.
  *             addMemberModal() - Opens a modal to get information from the
  *                                user to add a new member.
- *
- *             
- *
- *          
  * 
  */
 
