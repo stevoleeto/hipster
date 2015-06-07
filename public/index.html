@@ -409,8 +409,10 @@
                         Errors found with name and/or email field(s)!
                     </div>
                 </center>
+<!--
                 <label for="username" style="display:inline-block;width:175px;">User Name:</label>
                 <input style="width:50%;margin-bottom:15px;" value="{{newName}}" ng-model="newName" name="username" ng-style="(newName.length > 0) ? {'border-bottom':'1px solid green'} : {'border-bottom':'1px solid red'}" required ng-pattern="/^[a-z']([a-z'_\s])+$/i"><br>
+-->
                 <!-- COMMENTED OUT CHANGE EMAIL
                 <label for="email" style="display:inline-block;width:175px;">Email:</label>
                 <input style="width:50%;margin-bottom:15px;" value="{{newEmail}}" ng-model="newEmail" ng-style="(newEmail.length > 0) ? {'border-bottom':'1px solid green'} : {'border-bottom':'1px solid red'}" required ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" name="email"><br>
@@ -466,29 +468,6 @@
             <div class="modal-footer">
                 <button class="btn btn-success" ng-click="saveSettings();">Update Profile</button>
                 <button class="btn btn-warning" ng-click="cancel()">Close</button>
-            </div>
-        </script>
-
-        <script type="text/ng-template" id="groupInfo.html">
-                <div ng-controller="GroupController">
-                    <div style="background-color:{{ groupColor }}" class="modal-header">
-                        <h3 class="modal-title">{{ groupName }}</h3>
-                    </div>
-                    <div class="modal-body">
-                        <h4><b>Group Code:</b> {{currentGroupId}}</h4>
-                        <h3>Members</h3>
-                        <div style="overflow-y:scroll;height:150px;">
-                            <div class="members" ng-repeat="member in memberList track by $index">
-                                <img class="memberIcon" ng-src="{{member.icon}}" ng-init="getMemberIcon(member.email);"/>
-                                <p text-align="center">{{member.name}}</p>
-                            </div>
-                            <div id="addMemberBtn" ng-click="addMemberModal()"></div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-warning" ng-click="cancel()">Close</button>
-                    </div>
-                </div>
             </div>
         </script>
 
