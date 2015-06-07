@@ -1,6 +1,7 @@
 /*
  * FileName: eventService.js
  * Authors: Stephen Gilardi, Joseph Deon
+ * Date Last Modified: 6/6/2014
  * 
  * Description: This service will be used to create, copy, and return 
  *              events back to the Profile Controller. 
