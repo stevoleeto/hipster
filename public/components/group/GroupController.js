@@ -6,16 +6,35 @@
  *              group. To query the database, one must go throught the
  *              dataBaseService.
  *
- * Attributes: name     - The name of the group.
- *             currentGroupID     - unique ID of the group
- *             membersList - a list of members with the group leader in 
- *                           position zero. Each element will be a user email.
- *             groupColor - the color of this group, gotten from service
+ * Attributes: 
+ *  busyTimeColor - the color to show busy times
+ *  busyId - the id to set all pulled member events to so they are displayed
+ *           in background together.
+ *  dayRepeat - An array of booleans for repeating events.
+ *  eventSources - The array of arrays of events for the calendar to render.
+ *  friendList - The array of friends belonging to the user.
+ *  animationsEnabled - Enable animations for the modals.
+ *  uiConfig - The configurations of the calendar.
+ *
  * Functions:
- *             addMember() - Adds a member to the current group.
- *             addMemberModal() - Opens a modal to get information from the
- *                                user to add a new member.
- * 
+ *  openModal - Generic function for opening modals.
+ *  addMemberModal - Modal to add a member.
+ *  updateGroupSchedule - Update the group Schedule.
+ *  addMember - add a member
+ *  createEvent -create a new event
+ *
+ * TimePicker:
+ *  Attributes - 
+ *    eventStartTime - event start time
+ *    eventEndTime - event end time
+ *    hstep - what happens when you click the hour button
+ *    mstep - what happens when you click the minute button
+ *    options - timepicker options
+ *    ismeridian - boolean for meridian time
+ *  Behaviors -
+ *    changed - when the picker is changed
+ *    update - update the picker
+ *    clear - clear the picker
  */
 
 var currentUser = Parse.User.current();
@@ -45,10 +64,65 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
             $scope.eventSources = [];
             $scope.eventColor = {mine : '#B9F5FF'};
             $scope.friendList = currentUser.get("friendList");
-            
+
             $scope.animationsEnabled = true;    
 
-            /* generic modal */
+            /* Group Calendar Settings */
+            /* ----------------------- */
+            $scope.uiConfig = {
+                calendar:{
+                    height: 'auto',
+                    selectable: true,
+                    select: function(start, end, jsEvent, view){
+                        $scope.eventStartDate = (start.local()).toDate();
+                        $scope.eventEndDate =  (end.local()).toDate();
+                        $scope.eventStartTime = ((start.local()).toDate());
+                        $scope.eventEndTime = ((end.local()).toDate());
+                    },
+                    eventClick: function(event, jsEvent, view) {
+                        openModal('saveEvent.html', 'SaveGroupEventController', 'lg', null)
+                            .then(function(){
+                                for(index = 0; index < $scope.eventSources[0].length; index++){
+                                    if(event.id === $scope.eventSources[0][index].id){
+                                        var newEvent = eventService.copyEvent($scope.eventSources[0][index]);
+                                        newEvent.title = event.title + " (" + groupService.getGroupName() + ")";
+                                        currentUser.get("personalSchedule").push(newEvent);
+                                        currentUser.save(); 
+                                    }
+                                }
+                            });
+                    },
+                    editable: false,
+                    viewRender: function(view, element) {
+                        //$log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
+                    },
+                    defaultView: 'agendaWeek',
+                    slotDuration: '01:00:00',
+                    minTime: '06:00:00',
+                    maxTime: '24:00:00',
+                    dayClick: function(date, jsEvent, view) {
+                    },
+                    allDaySlot:false
+                }
+            };
+
+            /************************************************************************
+             * Name:        openModal
+
+             * Purpose:     A generic function for initializing a modal.
+
+             * Called In:   GroupController.js
+
+             * Description: Uses the $modal service to open a modal with the
+             *              input settings. 
+             *
+             * Parameters:
+             *              template - the template html for the modal
+             *              ctrl - the controller for the modal
+             *              size - the size of the modal
+             *              param - the data the caller wants to send to the
+             *                      modal
+             ************************************************************************/
             var openModal = function(template, ctrl, size, param ){
                 var modalInstance = $modal.open({
                     animation: true,
@@ -97,44 +171,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                 });
             };
 
-            /* Group Calendar Settings */
-            /* ----------------------- */
-            $scope.uiConfig = {
-                calendar:{
-                    height: 'auto',
-                    selectable: true,
-                    select: function(start, end, jsEvent, view){
-                        $scope.eventStartDate = (start.local()).toDate();
-                        $scope.eventEndDate =  (end.local()).toDate();
-                        $scope.eventStartTime = ((start.local()).toDate());
-                        $scope.eventEndTime = ((end.local()).toDate());
-                    },
-                    eventClick: function(event, jsEvent, view) {
-                        openModal('saveEvent.html', 'SaveGroupEventController', 'lg', null)
-                            .then(function(){
-                                for(index = 0; index < $scope.eventSources[0].length; index++){
-                                    if(event.id === $scope.eventSources[0][index].id){
-                                        var newEvent = eventService.copyEvent($scope.eventSources[0][index]);
-                                        newEvent.title = event.title + " (" + groupService.getGroupName() + ")";
-                                        currentUser.get("personalSchedule").push(newEvent);
-                                        currentUser.save(); 
-                                    }
-                                }
-                            });
-                    },
-                    editable: false,
-                    viewRender: function(view, element) {
-                        //$log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
-                    },
-                    defaultView: 'agendaWeek',
-                    slotDuration: '01:00:00',
-                    minTime: '06:00:00',
-                    maxTime: '24:00:00',
-                    dayClick: function(date, jsEvent, view) {
-                    },
-                    allDaySlot:false
-                }
-            };
+
 
             /* END Group Calendar Settings */
 
@@ -147,7 +184,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
              * *******************************************
              */
 
-            /* Watch to see if single group view is set to true, if it is, pull down group info */
+            // This is done every time a user switched to single group view.
             $scope.$watch('singleGroupView', function(){
                 if($scope.singleGroupView === false){
                     /* clear current group data */
@@ -157,32 +194,50 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                 }
                 /* if we have switched to single group view */
                 if($scope.singleGroupView === true){
-                    $scope.currentGroupId = groupService.getGroupId();
-                    $scope.groupColor = groupService.getGroupColor();
-
-                    /* initialize group data and get an array of the member's events 
-                     * through a callback */
-                    groupService.initGroup().then(function(returnedEvents){
-
-                        $scope.groupName = groupService.getGroupName();
-                        $scope.memberList = groupService.getMemberList();
-                        /* display the group Schedule */
-                        
-
-                        $scope.eventSources.push(groupService.getGroupSchedule());
-
-                        /* iterate through the returned events array and push all events 
-                         * into our source */
-                        for(index = 0; index < returnedEvents.length; index++){
-                            if(returnedEvents[index].length !== 0){
-                                $scope.eventSources.push(returnedEvents[index]);
-                            }
-                        }
-
-                    })
+                    updateGroupSchedule();
                 }
             });
 
+
+
+             /************************************************************************
+             * Name:    updateGroupSchedule
+
+             * Purpose: To update the current single group's calendar with 
+             *          the group's most recent events.
+
+             * Called In: GroupController.js
+
+             * Description: Delegates to groupService to initialize the group
+             *              information, then gets the groupName, memberList,
+             *              and group schedule.
+             ************************************************************************/
+            var updateGroupSchedule = function(){
+                $scope.currentGroupId = groupService.getGroupId();
+                $scope.groupColor = groupService.getGroupColor();
+
+                /* initialize group data and get an array of the member's events 
+                 * through a callback */
+                groupService.initGroup().then(function(returnedEvents){
+
+                    $scope.groupName = groupService.getGroupName();
+                    $scope.memberList = groupService.getMemberList();
+                    /* display the group Schedule */
+
+
+                    $scope.eventSources.push(groupService.getGroupSchedule());
+
+                    /* iterate through the returned events array and push all events 
+                     * into our source */
+                    for(index = 0; index < returnedEvents.length; index++){
+                        if(returnedEvents[index].length !== 0){
+                            $scope.eventSources.push(returnedEvents[index]);
+                        }
+                    }
+
+                })
+
+            }
 
             /************************************************************************
              * Name:    addMember()
@@ -231,150 +286,154 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
             };
 
 
-/************************************************************************
- * Name:    createEvent()
+            /************************************************************************
+             * Name:        createEvent()TODO
 
- * Purpose:   Allows the user to add an event to their calendar.
+             * Purpose:     Allows the user to add an event to their calendar.
 
- * Called In:   index.html
+             * Called In:   index.html
 
- * Description: Removs all groups found in their GroupList userGroups array.
- ************************************************************************/
-$scope.createEvent = function(){
-    var repDays = "Repeats on: ";
-    var repeatTheseDays = [];
-    var repeat = false;
+             * Description: Removes all groups found in their GroupList userGroups array.
+             ************************************************************************/
+            $scope.createEvent = function(){
+                var repDays = "Repeats on: ";
+                var repeatTheseDays = [];
+                var repeat = false;
 
-    if (!$scope.newEventName){
-        alert("Enter a event name!");
-        return;
-    }
+                if (!$scope.newEventName){
+                    alert("Enter a event name!");
+                    return;
+                }
 
-    if ($scope.eventColor.mine == '#fff') {
-        alert("Choose a color for your event!");
-        return;
-    }
+                if ($scope.eventColor.mine == '#fff') {
+                    alert("Choose a color for your event!");
+                    return;
+                }
 
-    if(Date.parse($scope.eventStartTime) > Date.parse($scope.eventEndTime)) {
-        alert("Your end time is before your start time!!");
-        return;
-    }
+                if(Date.parse($scope.eventStartTime) > Date.parse($scope.eventEndTime)) {
+                    alert("Your end time is before your start time!!");
+                    return;
+                }
 
-    if(Date.parse($scope.eventStartTime) == Date.parse($scope.eventEndTime)) {
-        alert("Your event starts and ends at the same time!!");
-        return;
-    }
+                if(Date.parse($scope.eventStartTime) == Date.parse($scope.eventEndTime)) {
+                    alert("Your event starts and ends at the same time!!");
+                    return;
+                }
 
-    if ($scope.dayRepeat.monday || 
-            $scope.dayRepeat.tuesday || 
-            $scope.dayRepeat.wednesday ||
-            $scope.dayRepeat.thursday ||
-            $scope.dayRepeat.friday ||
-            $scope.dayRepeat.saturday ||
-            $scope.dayRepeat.sunday){
-                repeat = true;
+                if ($scope.dayRepeat.monday || 
+                        $scope.dayRepeat.tuesday || 
+                        $scope.dayRepeat.wednesday ||
+                        $scope.dayRepeat.thursday ||
+                        $scope.dayRepeat.friday ||
+                        $scope.dayRepeat.saturday ||
+                        $scope.dayRepeat.sunday){
+                            repeat = true;
+                        }
+
+                if(repeat){
+
+                    if ($scope.dayRepeat.monday){
+                        repeatTheseDays.push(1);
+                        repDays += "Monday, ";
+                    }
+                    if ($scope.dayRepeat.tuesday){
+                        repeatTheseDays.push(2);
+                        repDays += "Tuesday, ";
+                    }
+                    if ($scope.dayRepeat.wednesday){
+                        repeatTheseDays.push(3);
+                        repDays += "Wednesday, ";
+                    }
+                    if ($scope.dayRepeat.thursday){
+                        repeatTheseDays.push(4);
+                        repDays += "Thursday, ";
+                    }
+                    if ($scope.dayRepeat.friday){
+                        repeatTheseDays.push(5);
+                        repDays += "Friday, ";
+                    }
+                    if ($scope.dayRepeat.saturday){
+                        repeatTheseDays.push(6);
+                        repDays += "Saturday, ";
+                    }
+                    if ($scope.dayRepeat.sunday){
+                        repeatTheseDays.push(0);
+                        repDays += "Sunday";
+                    }
+                }    
+
+                eventService.createEvent($scope.newEventName, //event name
+                        $scope.eventColor.mine, //event color
+                        (moment($scope.eventStartDate.toISOString()).dateOnly()), //start date
+                        (moment($scope.eventStartTime.toISOString()).hour()), //start hour
+                        (moment($scope.eventStartTime.toISOString()).minute()), //start min
+                        (moment($scope.eventEndDate.toISOString()).dateOnly()), //end date
+                        (moment($scope.eventEndTime.toISOString()).hour()), //end hour
+                        (moment($scope.eventEndTime.toISOString()).minute()), //end min
+                        repeat, //does this event repeat?
+                        repeatTheseDays); //what does does this event repeat on
+
+                newEvents = eventService.getEvents();
+                var tempArray = [];
+                var tempGroupSched = groupService.getGroupSchedule();
+
+                for (index = 0; index < newEvents.length; index++){
+                    tempArray.push(newEvents[index]); 
+                    tempGroupSched.push(newEvents[index]); 
+                }
+
+                $scope.eventSources.push(tempArray);
+                /* save the new group schedule */
+                groupService.saveGroupSchedule(tempGroupSched);
+
+                var list = groupService.getMemberList();
+                var memberStr = "";
+                for (var i = 0; i < list.length; ++i) {
+                    if (list[i].name != currentUser.get("name")) {
+                        if (i != list.length - 1) {
+                            memberStr += (list[i].name + " <" + list[i].email + ">, ");
+                        } else {
+                            memberStr += (list[i].name + " <" + list[i].email + ">");
+                        }
+                    }
+                }
+
+                var start = new moment($scope.eventStartDate);
+                var end = new moment($scope.eventEndDate);
+
+                if (repDays == "Repeats on: ") {
+                    repDays = "This event does not repeat";
+                }
+
+                var info = "\tStarts on: " + start.format("MM/DD/YYYY") + " at " + start.format("hh:mm A") + "<br>" + 
+                    "\tEnds on: " + end.format("MM/DD/YYYY") + " at " + end.format("hh:mm A") + "<br>\t" + repDays;
+
+                Parse.Cloud.run('mailNewGroupEvent', {user: currentUser.get("name"), eventName: $scope.newEventName, group: $scope.groupName, members: memberStr, details: info}, {
+                    success: function(result) {},
+                    error: function(error) {}
+                });
+
+                $scope.newEventName = "";
+
+                eventService.clearEvents();
+
+                for(index = 0; index < $scope.dayRepeat.length; index++){
+                    $scope.dayRepeat[i] = false;
+                }
             }
 
-    if(repeat){
 
-        if ($scope.dayRepeat.monday){
-            repeatTheseDays.push(1);
-            repDays += "Monday, ";
-        }
-        if ($scope.dayRepeat.tuesday){
-            repeatTheseDays.push(2);
-            repDays += "Tuesday, ";
-        }
-        if ($scope.dayRepeat.wednesday){
-            repeatTheseDays.push(3);
-            repDays += "Wednesday, ";
-        }
-        if ($scope.dayRepeat.thursday){
-            repeatTheseDays.push(4);
-            repDays += "Thursday, ";
-        }
-        if ($scope.dayRepeat.friday){
-            repeatTheseDays.push(5);
-            repDays += "Friday, ";
-        }
-        if ($scope.dayRepeat.saturday){
-            repeatTheseDays.push(6);
-            repDays += "Saturday, ";
-        }
-        if ($scope.dayRepeat.sunday){
-            repeatTheseDays.push(0);
-            repDays += "Sunday";
-        }
-    }    
+             /************************************************************************
+             * Name:        Time Picker
 
-    eventService.createEvent($scope.newEventName, //event name
-            $scope.eventColor.mine, //event color
-            (moment($scope.eventStartDate.toISOString()).dateOnly()), //start date
-            (moment($scope.eventStartTime.toISOString()).hour()), //start hour
-            (moment($scope.eventStartTime.toISOString()).minute()), //start min
-            (moment($scope.eventEndDate.toISOString()).dateOnly()), //end date
-            (moment($scope.eventEndTime.toISOString()).hour()), //end hour
-            (moment($scope.eventEndTime.toISOString()).minute()), //end min
-            repeat, //does this event repeat?
-            repeatTheseDays); //what does does this event repeat on
+             * Purpose:     To display and implement a small box for the user to
+             *              adjust the time of the event they would like to create.
 
-    newEvents = eventService.getEvents();
-    var tempArray = [];
-    var tempGroupSched = groupService.getGroupSchedule();
+             * Called In:   index.html
 
-    for (index = 0; index < newEvents.length; index++){
-        tempArray.push(newEvents[index]); 
-        tempGroupSched.push(newEvents[index]); 
-    }
+             * Description: Below is the implementation of time picker.
 
-    $scope.eventSources.push(tempArray);
-    /* save the new group schedule */
-    groupService.saveGroupSchedule(tempGroupSched);
-    // SAVE TO GROUP CALENDAR TODO
-
-    var list = groupService.getMemberList();
-    var memberStr = "";
-    for (var i = 0; i < list.length; ++i) {
-        if (list[i].name != currentUser.get("name")) {
-            if (i != list.length - 1) {
-                memberStr += (list[i].name + " <" + list[i].email + ">, ");
-            } else {
-                memberStr += (list[i].name + " <" + list[i].email + ">");
-            }
-        }
-    }
-
-    var start = new moment($scope.eventStartDate);
-    var end = new moment($scope.eventEndDate);
-
-    if (repDays == "Repeats on: ") {
-        repDays = "This event does not repeat";
-    }
-    /*var info = "\tStarts on: " + (start.getMonth() + 1) + "/" + (start.getDate() + 1) + "/" + (start.getFullYear() + 1) +" at " + (start.getHours() + 1) + ":" + sMin + "<br>" + 
-                "\tEnds on: " + (end.getMonth() + 1) + "/" + (end.getDate() + 1) + "/" + (end.getFullYear() + 1) +" at " + (end.getHours() + 1) + ":" + eMin + "<br>" +
-                "\tRepeats on: " + repDays;*/
-
-    var info = "\tStarts on: " + start.format("MM/DD/YYYY") + " at " + start.format("hh:mm A") + "<br>" + 
-               "\tEnds on: " + end.format("MM/DD/YYYY") + " at " + end.format("hh:mm A") + "<br>\t" + repDays;
-
-    Parse.Cloud.run('mailNewGroupEvent', {user: currentUser.get("name"), eventName: $scope.newEventName, group: $scope.groupName, members: memberStr, details: info}, {
-        success: function(result) {},
-        error: function(error) {}
-    });
-
-    $scope.newEventName = "";
-
-    eventService.clearEvents();
-
-    for(index = 0; index < $scope.dayRepeat.length; index++){
-        $scope.dayRepeat[i] = false;
-    }
-}
-
-            /*
-             * Time Picker
-             *
-             */
+             ************************************************************************/
 
 
             $scope.eventStartTime = new Date();
