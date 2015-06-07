@@ -77,12 +77,12 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 
             $scope.dayRepeat = {
                 monday : false,
-tuesday : false,
-wednesday : false,
-thursday : false,
-friday : false,
-saturday : false,
-sunday : false
+                tuesday : false,
+                wednesday : false,
+                thursday : false,
+                friday : false,
+                saturday : false,
+                sunday : false
             };
 
             // Profile Calendar Settings
