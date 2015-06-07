@@ -1,4 +1,19 @@
 /*
+ * FileName: style.css
+ * Authors: Michael Cho, Saveen Chadalawada (if you edit this file, add your name to this list)
+ * Description: This stylesheet will contain the CSS code for the UI design of BusyBlocks. It is
+                Organized into styles that are associated with GENERAL/SHARED STYLES, PERSONAL VIEW STYLES, 
+                GROUP VIEW STYLES, & SINGLEGROUP VIEW STYLES.
+
+                This stylesheet works with:
+                    -index.html
+                    -login.html
+
+    If you are looking for styles associated with the Full Calendar then it will not be located in this file, it will be located in:
+        -fullcalendar.css
+ */
+
+/*
 -------------------------------------------------------------------------------------------------------------------
 GENERAL/SHARED STYLES
 -------------------------------------------------------------------------------------------------------------------
@@ -872,6 +887,7 @@ SINGLEGROUP VIEW STYLES
     text-align: center;
     height: auto;
     width: 82px;
+    margin-top:15px;
 }
 
 .memberIcon {
@@ -950,7 +966,6 @@ SINGLEGROUP VIEW STYLES
     float:left;
     left:2%;
     letter-spacing: 3px;
-    top:5px;
 /*    border:solid black 1px;*/
 }
 
