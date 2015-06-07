@@ -31,7 +31,7 @@ app.controller('EditGroupController', function($scope, $modalInstance, modalPara
     *                       newColor: The new color selected by the user.
     *                       id:       The currently selected Group's ID.
     *
-    * Called In:   ProfileController.js
+    * Called In:   editGroup.html
     ************************************************************************/
     $scope.ok = function(){
         console.log("Ok");
@@ -49,7 +49,7 @@ app.controller('EditGroupController', function($scope, $modalInstance, modalPara
     * Purpose:     Dismisses the Edit Group Modal.
     *
     *
-    * Called In:   ProfileController.js
+    * Called In:   editGroup.html
     ************************************************************************/
     $scope.cancel = function () {
         $modalInstance.dismiss();

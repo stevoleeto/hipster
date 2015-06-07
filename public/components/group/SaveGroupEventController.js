@@ -19,7 +19,7 @@ app.controller('SaveGroupEventController', function($scope, $modalInstance){
     * Purpose:     Closes the Save Group Event Modal. Lets the Group Controller
     * 				know that the user chose to save their event.
     *
-    * Called In:   GroupController.js
+    * Called In:   saveEvent.html
     ************************************************************************/
     $scope.save = function(){
         $modalInstance.close();
@@ -30,7 +30,7 @@ app.controller('SaveGroupEventController', function($scope, $modalInstance){
     *
     * Purpose:     Dismisses the Edit Group Modal.
     *
-    * Called In:   GroupController.js
+    * Called In:   saveEvent.html
     ************************************************************************/
 	$scope.cancel = function () {
         $modalInstance.dismiss();
