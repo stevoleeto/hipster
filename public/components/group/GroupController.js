@@ -254,6 +254,11 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
             var addMember = function(newMember){
                 var alreadyInGroup = validateService.isEmailInArray($scope.memberList, newMember);
 
+                if (newMember == currentUser.get("username")) {
+                    alert("You can't to add yourself!!");
+                    return;
+                }
+
                 if(!alreadyInGroup){
                     groupService.addMember($scope.currentGroupId, newMember).then(function(){
                         $scope.memberList = groupService.getMemberList();
