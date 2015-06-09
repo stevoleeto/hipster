@@ -104,6 +104,7 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
     var initGroup = function(viewMemberList){
         var deferred = $q.defer();
         dataBaseService.queryGroup(currentGroupId).then(function(groupQuery){
+            console.log(viewMemberList);
 
             groupName = groupQuery[0].get("name");
             memberList = groupQuery[0].get("memberList");
@@ -179,6 +180,10 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
                         }
                     })
                 }//end query user and end if
+                else{
+                    queriesLeft--; // decrement calls to make
+                    googleCalQueriesLeft--;
+                }
             } //end outer for
         })
         return deferred.promise;

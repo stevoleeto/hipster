@@ -240,7 +240,7 @@
                     <div class="card" id="memberView" ng-init="addMemberView=false" ng-show="addMemberView">
                         <a name="membersViewAnchor"><p id="membersTitle">Members</p></a><br>
                         <div class="members" ng-repeat="member in memberList track by $index" 
-                             ng-click="member.selected=!member.selected;func();" ng-class="{'selMember':!member.selected}">
+                             ng-click="member.selected=!member.selected;func(); updateSelected();" ng-class="{'selMember':!member.selected}">
                             <img class="memberIcon" ng-src="{{member.icon}}" ng-init="getMemberIcon(member.email);member.selected=true;"/>
                             <p text-align="center">{{member.name}}</p>
                         </div>
