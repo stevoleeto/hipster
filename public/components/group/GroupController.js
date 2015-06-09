@@ -545,5 +545,6 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                         $scope.memberList[index]["selected"] = false;
                     }
                 }
+                updateGroupSchedule();
             }
         }]);

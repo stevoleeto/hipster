@@ -981,16 +981,9 @@ SINGLEGROUP VIEW STYLES
 
 #addMemberBtn
 {
-    position: relative;
     cursor:pointer;
-    float: left;
-    top:40px;
-    left:40px;
-    height: 40px;
-    width: 40px;
     background-image: url('images/addGroup.png');
     background-repeat: no-repeat;
-    border-radius: 50%;
     background-size: contain;
     opacity:.75;
     transition:opacity .3s;
@@ -1006,6 +999,18 @@ SINGLEGROUP VIEW STYLES
     -webkit-transition: opacity .3s;
     -moz-transition: opacity .3s;
     -o-transition: opacity .3s;
+}
+
+.memberOptions {
+    position: relative;
+    top:40px;
+    left:40px;
+    float: left;
+    border-radius: 50%;
+    display: inline;
+    height: 40px;
+    width: 40px;
+    margin: 0 5px;
 }
 
 .addFromFriends:hover
