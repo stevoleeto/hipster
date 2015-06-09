@@ -678,7 +678,6 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 var notAlreadyFriend = 1;
                 dataBaseService.queryUser(newFriend).then(function(pulledFriend) {
                     if (pulledFriend.length > 0) {
-                        console.log($scope.friendList);
                         for ( var i = 0; i < $scope.friendList.length; ++i) {
                             if ($scope.friendList[i].email == newFriend) {
                                 notAlreadyFriend = 0;

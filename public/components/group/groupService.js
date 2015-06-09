@@ -127,7 +127,6 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
                         for (indexInner = 0; indexInner < tempSched.length; indexInner++){
                             tempSched[indexInner].rendering = "background";
                             tempSched[indexInner].title = "";
-                            tempSched[indexInner].member = userQuery[0].get("username");
                             tempSched[indexInner]._id = busyId;
                             tempSched[indexInner].__id = busyId;
                             tempSched[indexInner].color = busyTimeColor;
@@ -155,7 +154,6 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
                                     if(startTime && endTime){
                                         var newEvent = {
                                             textColor: 'white',
-                                member: userQuery[0].get("username"),
                                 title:"",
                                 id: busyId,
                                 start: startTime,
