@@ -58,10 +58,12 @@ a:active {
     top: 45px;
 }
 
+
+
 #loading
 {
-    width:100%;
-    height:100%;
+    width:100vh;
+    height:100vh;
     background:#FCFAF8;
 }
 
@@ -888,6 +890,7 @@ SINGLEGROUP VIEW STYLES
     height: auto;
     width: 82px;
     margin-top:15px;
+    cursor: pointer;
 }
 
 .memberIcon {
@@ -895,6 +898,10 @@ SINGLEGROUP VIEW STYLES
     width: 80px;
     background-repeat: no-repeat;
     background-size: contain;
+}
+
+.selMember {
+    opacity: 0.5;
 }
 
 #colIcons {

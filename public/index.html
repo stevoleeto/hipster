@@ -42,7 +42,7 @@
     
     <body style="background: #FCFAF8;">
         <div ng-if="false">
-            <div id="loading"></div>
+            <p id="loading"></p>
         </div>
         <!-- PROFILE CONTROLLER -->
         <div ng-controller="ProfileController"> 
@@ -188,6 +188,7 @@
                         <div class="createEvent card">
                             <input type="text" placeholder="Event Name" name="pEventName" class="eventPar" ng-model="newEventName">
                             <br><br>
+                            <p for="repDays">Select Repeating Days:</p>
                             <div class="btn-group btn-group-justified" role="group" aria-label="...">
                                 <a class="btn btn-default" ng-model="dayRepeat.sunday" btn-checkbox>Sun</a>
                                 <a class="btn btn-default" ng-model="dayRepeat.monday" btn-checkbox>Mon</a>
@@ -238,11 +239,12 @@
                     <!-- GROUP'S MEMBERS -->
                     <div class="card" id="memberView" ng-init="addMemberView=false" ng-show="addMemberView">
                         <a name="membersViewAnchor"><p id="membersTitle">Members</p></a><br>
-                        <div class="members" ng-repeat="member in memberList track by $index">
-                            <img class="memberIcon" ng-src="{{member.icon}}" ng-init="getMemberIcon(member.email);"/>
+                        <div class="members" ng-repeat="member in memberList track by $index" 
+                             ng-click="member.selected=!member.selected;func();" ng-class="{'selMember':!member.selected}">
+                            <img class="memberIcon" ng-src="{{member.icon}}" ng-init="getMemberIcon(member.email);member.selected=true;"/>
                             <p text-align="center">{{member.name}}</p>
                         </div>
-                        <div ng-click = "addMemberModal()" id="addMemberBtn"></div>
+                        <div ng-click="addMemberModal()" id="addMemberBtn"></div>
                     </div>
                 </div>
             </div>

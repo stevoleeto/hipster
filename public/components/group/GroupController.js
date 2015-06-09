@@ -38,6 +38,7 @@
  */
 
 var currentUser = Parse.User.current();
+var dispMembers = [];
 
 app.controller('GroupController', ['$scope','groupService', 'eventService', 'validateService', '$timeout', 'uiCalendarConfig','$log', '$modal', '$window', 
         function($scope, groupService, eventService, validateService, $timeout, uiCalendarConfig, $log, $modal, $window) { 
@@ -260,7 +261,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                 var alreadyInGroup = validateService.isEmailInArray($scope.memberList, newMember);
 
                 if (newMember == currentUser.get("username")) {
-                    alert("You can't to add yourself!!");
+                    alert("You can't add yourself as a member!!");
                     return;
                 }
 
@@ -531,5 +532,9 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                         }
                     }
                 });
+            }
+
+            $scope.func = function() {
+                console.log($scope.memberList);
             }
         }]);
