@@ -102,12 +102,16 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
      *              - memberList variable has groups member list
      ************************************************************************/
     var initGroup = function(viewMemberList){
+        memberEventArray.length = 0;
         var deferred = $q.defer();
         dataBaseService.queryGroup(currentGroupId).then(function(groupQuery){
-            console.log(viewMemberList);
 
             groupName = groupQuery[0].get("name");
             memberList = groupQuery[0].get("memberList");
+            //if the view has an altered member list set it
+            if(viewMemberList){
+                memberList = viewMemberList;
+            }
             groupSchedule = groupQuery[0].get("groupSchedule");
             lastGroupQuery = groupQuery;
 
@@ -183,6 +187,9 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
                 else{
                     queriesLeft--; // decrement calls to make
                     googleCalQueriesLeft--;
+                    if(googleCalQueriesLeft <= 0 && queriesLeft <= 0){
+                        deferred.resolve(memberEventArray);
+                    }
                 }
             } //end outer for
         })

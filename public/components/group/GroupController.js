@@ -218,6 +218,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
              *              and group schedule.
              ************************************************************************/
             var updateGroupSchedule = function(){
+                $scope.eventSources.length = 0;
                 $scope.currentGroupId = groupService.getGroupId();
                 $scope.groupColor = groupService.getGroupColor();
 
@@ -240,6 +241,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                             $scope.eventSources.push(returnedEvents[index]);
                         }
                     }
+                        angular.element('#userCalendar').fullCalendar('refetchEvents');
 
                 })
 
