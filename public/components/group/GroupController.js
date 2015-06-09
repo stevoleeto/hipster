@@ -205,7 +205,6 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
             }
 
 
-
              /************************************************************************
              * Name:    updateGroupSchedule
 
@@ -231,7 +230,6 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                     $scope.groupName = groupService.getGroupName();
                     $scope.memberList = groupService.getMemberList();
                     /* display the group Schedule */
-
 
                     $scope.eventSources.push(groupService.getGroupSchedule());
 
@@ -287,6 +285,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                                 tempSched[index].color = busyTimeColor;
                             }
                             $scope.eventSources.push(tempSched);
+                            $scope.setSelectedMembers(1);
                         }
                         else{
                             console.log("New Member not found");
@@ -537,7 +536,14 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                 });
             }
 
-            $scope.func = function() {
-                console.log($scope.memberList);
+            $scope.setSelectedMembers = function(opt) {
+                for (var index = 0; index < $scope.memberList.length; ++index){
+                    if (opt == 1) {
+                        $scope.memberList[index]["selected"] = true;
+                    } else {
+                        $scope.memberList[index]["selected"] = false;
+                    }
+                }
+                updateGroupSchedule();
             }
         }]);

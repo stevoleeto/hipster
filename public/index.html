@@ -240,11 +240,17 @@
                     <div class="card" id="memberView" ng-init="addMemberView=false" ng-show="addMemberView">
                         <a name="membersViewAnchor"><p id="membersTitle">Members</p></a><br>
                         <div class="members" ng-repeat="member in memberList track by $index" 
-                             ng-click="member.selected=!member.selected;func(); updateSelected();" ng-class="{'selMember':!member.selected}">
+                             ng-click="member.selected=!member.selected;updateSelected();" ng-class="{'selMember':!member.selected}">
                             <img class="memberIcon" ng-src="{{member.icon}}" ng-init="getMemberIcon(member.email);member.selected=true;"/>
                             <p text-align="center">{{member.name}}</p>
                         </div>
-                        <div ng-click="addMemberModal()" id="addMemberBtn"></div>
+                        <div style="display:inline-block;">
+                            <div ng-click="addMemberModal()" id="addMemberBtn" class="memberOptions" title="Add A Member"></div>
+                            <div class="btn btn-success glyphicon glyphicon-check memberOptions" ng-click="setSelectedMembers(1);" 
+                                 title="Display All Member's Schedules" aria-hidden="true"></div>
+                            <div class="btn btn-danger glyphicon glyphicon-unchecked memberOptions" ng-click="setSelectedMembers(0);" 
+                                 title="Hide All Member's Schedules" aria-hidden="true"></div>
+                        </div>
                     </div>
                 </div>
             </div>
