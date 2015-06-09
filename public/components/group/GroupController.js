@@ -537,7 +537,13 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                 });
             }
 
-            $scope.func = function() {
-                console.log($scope.memberList);
+            $scope.setSelectedMembers = function(opt) {
+                for (var index = 0; index < $scope.memberList.length; ++index){
+                    if (opt == 1) {
+                        $scope.memberList[index]["selected"] = true;
+                    } else {
+                        $scope.memberList[index]["selected"] = false;
+                    }
+                }
             }
         }]);
