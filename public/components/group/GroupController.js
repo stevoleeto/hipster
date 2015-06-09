@@ -528,4 +528,8 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                     }
                 });
             }
+
+            $scope.func = function() {
+                console.log($scope.memberList);
+            }
         }]);

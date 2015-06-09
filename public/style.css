@@ -900,6 +900,10 @@ SINGLEGROUP VIEW STYLES
     background-size: contain;
 }
 
+.selMember {
+    opacity: 0.5;
+}
+
 #colIcons {
     height: 300px;
     overflow-y: scroll;
