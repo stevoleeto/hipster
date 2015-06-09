@@ -426,7 +426,8 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                 groupService.saveGroupSchedule(tempGroupSched);
 
                 // Get a list of the group's members
-                var list = groupService.getMemberList();
+                //var list = groupService.getMemberList();
+                var list = $scope.memberList;
                 var memberStr = "";
                 // Loop through members and add their name and email to a string if they are not the current user
                 for (var i = 0; i < list.length; ++i) {
