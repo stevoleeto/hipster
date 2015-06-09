@@ -198,6 +198,10 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                 }
             });
 
+            $scope.updateSelected = function(){
+                updateGroupSchedule();
+            }
+
 
 
              /************************************************************************
@@ -218,7 +222,8 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
 
                 /* initialize group data and get an array of the member's events 
                  * through a callback */
-                groupService.initGroup().then(function(returnedEvents){
+                groupService.initGroup($scope.memberList).then(function(returnedEvents){
+
 
                     $scope.groupName = groupService.getGroupName();
                     $scope.memberList = groupService.getMemberList();
