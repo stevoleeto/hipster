@@ -191,6 +191,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                     /* clear current group data */
                     $scope.groupName = '';
                     $scope.eventSources.length = 0;
+                    $scope.memberList = null;
                     groupService.clearMemberArray();
                 }
                 /* if we have switched to single group view */
