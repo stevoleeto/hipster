@@ -138,7 +138,7 @@ input
     height: 100%;
     color: white;
     font-size: 24px;
-    line-height: 45px;
+    line-height: 41px;
     display: table-cell;
     vertical-align: middle;
     transition: width .5s;
@@ -891,6 +891,7 @@ SINGLEGROUP VIEW STYLES
     width: 82px;
     margin-top:15px;
     cursor: pointer;
+    transition: opacity 0.5s;
 }
 
 .memberIcon {
@@ -902,6 +903,7 @@ SINGLEGROUP VIEW STYLES
 
 .selMember {
     opacity: 0.5;
+    transition: opacity 0.5s;
 }
 
 #colIcons {
