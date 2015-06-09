@@ -162,7 +162,8 @@ input
 
 .selTab
 {
-    border-bottom:solid orange 4px;
+    /*border-bottom:solid orange 4px;*/
+    box-shadow: 0px -4px 0px 0px #F90 inset;
     background: #4284F5;
     width: 140px;
     overflow: hidden;
@@ -891,6 +892,7 @@ SINGLEGROUP VIEW STYLES
     width: 82px;
     margin-top:15px;
     cursor: pointer;
+    transition: opacity 0.5s;
 }
 
 .memberIcon {
@@ -902,6 +904,7 @@ SINGLEGROUP VIEW STYLES
 
 .selMember {
     opacity: 0.5;
+    transition: opacity 0.5s;
 }
 
 #colIcons {
