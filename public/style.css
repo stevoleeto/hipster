@@ -19,6 +19,15 @@ GENERAL/SHARED STYLES
 -------------------------------------------------------------------------------------------------------------------
 */
 
+#loading
+{
+    border:solid black 1px;
+    z-index:9999999;
+    width:100%;
+    height:100vh;
+    background:#FCFAF8;
+}
+
 body  {
     margin-left: auto;
     margin-right: auto;
@@ -60,12 +69,7 @@ a:active {
 
 
 
-#loading
-{
-    width:100vh;
-    height:100vh;
-    background:#FCFAF8;
-}
+
 
 #header 
 {
