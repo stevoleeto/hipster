@@ -888,6 +888,7 @@ SINGLEGROUP VIEW STYLES
     height: auto;
     width: 82px;
     margin-top:15px;
+    cursor: pointer;
 }
 
 .memberIcon {
