@@ -240,7 +240,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                             $scope.eventSources.push(returnedEvents[index]);
                         }
                     }
-                        angular.element('#userCalendar').fullCalendar('refetchEvents');
+                        angular.element('#groupCalendar').fullCalendar('refetchEvents');
 
                 })
 
