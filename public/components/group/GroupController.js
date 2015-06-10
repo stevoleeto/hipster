@@ -191,6 +191,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                     /* clear current group data */
                     $scope.groupName = '';
                     $scope.eventSources.length = 0;
+                    $scope.memberList = null;
                     groupService.clearMemberArray();
                 }
                 /* if we have switched to single group view */
@@ -199,6 +200,9 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                 }
             });
 
+            $scope.updateSelected = function(){
+                updateGroupSchedule();
+            }
 
 
              /************************************************************************
@@ -214,17 +218,18 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
              *              and group schedule.
              ************************************************************************/
             var updateGroupSchedule = function(){
+                $scope.eventSources.length = 0;
                 $scope.currentGroupId = groupService.getGroupId();
                 $scope.groupColor = groupService.getGroupColor();
 
                 /* initialize group data and get an array of the member's events 
                  * through a callback */
-                groupService.initGroup().then(function(returnedEvents){
+                groupService.initGroup($scope.memberList).then(function(returnedEvents){
+
 
                     $scope.groupName = groupService.getGroupName();
                     $scope.memberList = groupService.getMemberList();
                     /* display the group Schedule */
-
 
                     $scope.eventSources.push(groupService.getGroupSchedule());
 
@@ -235,6 +240,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                             $scope.eventSources.push(returnedEvents[index]);
                         }
                     }
+                        angular.element('#groupCalendar').fullCalendar('refetchEvents');
 
                 })
 
@@ -279,6 +285,7 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                                 tempSched[index].color = busyTimeColor;
                             }
                             $scope.eventSources.push(tempSched);
+                            $scope.setSelectedMembers(1);
                         }
                         else{
                             console.log("New Member not found");
@@ -419,7 +426,8 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                 groupService.saveGroupSchedule(tempGroupSched);
 
                 // Get a list of the group's members
-                var list = groupService.getMemberList();
+                //var list = groupService.getMemberList();
+                var list = $scope.memberList;
                 var memberStr = "";
                 // Loop through members and add their name and email to a string if they are not the current user
                 for (var i = 0; i < list.length; ++i) {
@@ -529,7 +537,14 @@ app.controller('GroupController', ['$scope','groupService', 'eventService', 'val
                 });
             }
 
-            $scope.func = function() {
-                console.log($scope.memberList);
+            $scope.setSelectedMembers = function(opt) {
+                for (var index = 0; index < $scope.memberList.length; ++index){
+                    if (opt == 1) {
+                        $scope.memberList[index]["selected"] = true;
+                    } else {
+                        $scope.memberList[index]["selected"] = false;
+                    }
+                }
+                updateGroupSchedule();
             }
         }]);

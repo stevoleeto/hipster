@@ -25,6 +25,11 @@
         <link rel="stylesheet" href="lib/bower_components/fullcalendar/dist/fullcalendar.css"/>
         <script type="text/javascript" src="lib/bower_components/init.js"></script>
 
+
+        <!-- JQuery and Angular must be loaded in the HEAD to prevent screen flicker effect -->
+        <script type="text/javascript" src="lib/bower_components/jquery/dist/jquery.js"></script>
+        <script type="text/javascript" src="lib/bower_components/angular/angular.js"></script>
+
         <!-- JS Code to run on load -->
         <script> 
             // Connect to the database
@@ -43,8 +48,8 @@
         <title>Busy Blocks</title>
     </head>
     
-    <body style="background: #FCFAF8;">
-        
+    <!-- ng-cloak prevents screen flicker in beginning -->
+    <body ng-cloak style="background: #FCFAF8;">
         <!-- PROFILE CONTROLLER -->
         <div ng-controller="ProfileController"> 
         <div id="logoutWrapper">
@@ -241,11 +246,17 @@
                     <div class="card" id="memberView" ng-init="addMemberView=false" ng-show="addMemberView">
                         <a name="membersViewAnchor"><p id="membersTitle">Members</p></a><br>
                         <div class="members" ng-repeat="member in memberList track by $index" 
-                             ng-click="member.selected=!member.selected;func();" ng-class="{'selMember':!member.selected}">
+                             ng-click="member.selected=!member.selected;updateSelected();" ng-class="{'selMember':!member.selected}">
                             <img class="memberIcon" ng-src="{{member.icon}}" ng-init="getMemberIcon(member.email);member.selected=true;"/>
                             <p text-align="center">{{member.name}}</p>
                         </div>
-                        <div ng-click="addMemberModal()" id="addMemberBtn"></div>
+                        <div style="display:inline-block;">
+                            <div ng-click="addMemberModal()" id="addMemberBtn" class="memberOptions" title="Add A Member"></div>
+                            <div class="btn btn-success glyphicon glyphicon-check memberOptions" ng-click="setSelectedMembers(1);" 
+                                 title="Display All Member's Schedules" aria-hidden="true"></div>
+                            <div class="btn btn-danger glyphicon glyphicon-unchecked memberOptions" ng-click="setSelectedMembers(0);" 
+                                 title="Hide All Member's Schedules" aria-hidden="true"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -624,22 +635,20 @@
         </script>
 
         <!--
-        *   -------------------------------------------------------------
-        *   -------------------------------------------------------------
-        *
-        *   External Script Files
-        *   ----------------------
-        *   These are external files that are being imported in
-        *
+        <!--*   -------------------------------------------------------------
+        <!--*   -------------------------------------------------------------
+        <!--*
+        <!--*   External Script Files
+        <!--*   ----------------------
+        <!--*   These are external files that are being imported in
+        <!--*
         *   -------------------------------------------------------------
         *   -------------------------------------------------------------
         -->
 
         <!-- jquery, moment, and angular have to get included before fullcalendar -->
-        <script type="text/javascript" src="lib/bower_components/jquery/dist/jquery.js"></script>
         <script type="text/javascript" src="lib/bower_components/moment/moment.js"></script>
         <script type="text/javascript" src="lib/moment-recur.min.js"></script>
-        <script type="text/javascript" src="lib/bower_components/angular/angular.js"></script>
         <script type="text/javascript" src="lib/bower_components/angular-ui-calendar/src/calendar.js"></script>
         <script type="text/javascript" src="lib/bower_components/fullcalendar/dist/fullcalendar.js"></script>
         <script type="text/javascript" src="lib/bower_components/loadingBar/src/loading-bar.js"></script>

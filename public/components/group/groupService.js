@@ -84,6 +84,7 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
         lastGroupQuery[0].save();
     };
 
+
     /************************************************************************
      * Name:    initGroup()
 
@@ -100,12 +101,17 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
      *              - groupName has group's name
      *              - memberList variable has groups member list
      ************************************************************************/
-    var initGroup = function(){
+    var initGroup = function(viewMemberList){
+        memberEventArray.length = 0;
         var deferred = $q.defer();
         dataBaseService.queryGroup(currentGroupId).then(function(groupQuery){
 
             groupName = groupQuery[0].get("name");
             memberList = groupQuery[0].get("memberList");
+            //if the view has an altered member list set it
+            if(viewMemberList){
+                memberList = viewMemberList;
+            }
             groupSchedule = groupQuery[0].get("groupSchedule");
             lastGroupQuery = groupQuery;
 
@@ -113,68 +119,76 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
             var googleCalQueriesLeft = memberList.length;
             /* iterate over memberList to pull all their data into */
             for(index = 0; index < memberList.length; index ++){
-                dataBaseService.queryUser(memberList[index].email).then(function(userQuery){
-                    var tempSched = userQuery[0].get("personalSchedule");
-                    /* iterate over all events and change half to be displayed in
-                     * the background and have to be displayed in the foreground */
-                    for (indexInner = 0; indexInner < tempSched.length; indexInner++){
-                        tempSched[indexInner].rendering = "background";
-                        tempSched[indexInner].title = "";
-                        tempSched[indexInner]._id = busyId;
-                        tempSched[indexInner].__id = busyId;
-                        tempSched[indexInner].color = busyTimeColor;
-                    } // end inner for
-                    memberEventArray.push(tempSched);
-                    queriesLeft--; // decrement calls to make
+                if(!viewMemberList || viewMemberList[index].selected){
+                    dataBaseService.queryUser(memberList[index].email).then(function(userQuery){
+                        var tempSched = userQuery[0].get("personalSchedule");
+                        /* iterate over all events and change half to be displayed in
+                         * the background and have to be displayed in the foreground */
+                        for (indexInner = 0; indexInner < tempSched.length; indexInner++){
+                            tempSched[indexInner].rendering = "background";
+                            tempSched[indexInner].title = "";
+                            tempSched[indexInner]._id = busyId;
+                            tempSched[indexInner].__id = busyId;
+                            tempSched[indexInner].color = busyTimeColor;
+                        } // end inner for
+                        memberEventArray.push(tempSched);
+                        queriesLeft--; // decrement calls to make
 
 
-                    /* get the user's google calendar data! */
-                    var googleCalendarID = userQuery[0].get("googleCalendarID");
-                    if( googleCalendarID){
-                        googleCalendarService.queryGoogleCalendar(googleCalendarID).then(function(newCal){
-                            googleCalQueriesLeft--;
-                            var tempSched = [];
-                            // iterate through the newly pulled google calendar
-                            for (indexInner = 0; indexInner < newCal.items.length; indexInner++){
-                                var startTime;
-                                var endTime;
-                                if(newCal.items[indexInner].start){
-                                    startTime = newCal.items[indexInner].start.dateTime;
-                                }
-                                if(newCal.items[indexInner].end){
-                                    endTime = newCal.items[indexInner].end.dateTime;
-                                }
-                                if(startTime && endTime){
-                                    var newEvent = {
-                                        textColor: 'white',
-                            title:"",
-                            id: busyId,
-                            start: startTime,
-                            end: endTime,
-                            color: '#d2d2cd',
-                            rendering: "background"
+                        /* get the user's google calendar data! */
+                        var googleCalendarID = userQuery[0].get("googleCalendarID");
+                        if( googleCalendarID){
+                            googleCalendarService.queryGoogleCalendar(googleCalendarID).then(function(newCal){
+                                googleCalQueriesLeft--;
+                                var tempSched = [];
+                                // iterate through the newly pulled google calendar
+                                for (indexInner = 0; indexInner < newCal.items.length; indexInner++){
+                                    var startTime;
+                                    var endTime;
+                                    if(newCal.items[indexInner].start){
+                                        startTime = newCal.items[indexInner].start.dateTime;
                                     }
-                                    tempSched.push(newEvent);
+                                    if(newCal.items[indexInner].end){
+                                        endTime = newCal.items[indexInner].end.dateTime;
+                                    }
+                                    if(startTime && endTime){
+                                        var newEvent = {
+                                            textColor: 'white',
+                                title:"",
+                                id: busyId,
+                                start: startTime,
+                                end: endTime,
+                                color: '#d2d2cd',
+                                rendering: "background"
+                                        }
+                                        tempSched.push(newEvent);
+                                    }
+                                } // end inner for
+                                memberEventArray.push(tempSched);
+                                if(googleCalQueriesLeft <= 0 && queriesLeft <= 0){
+                                    deferred.resolve(memberEventArray);
                                 }
-                            } // end inner for
-                            memberEventArray.push(tempSched);
+                            },
+                                function(reason){
+                                    googleCalQueriesLeft--;
+                                })
+                        }
+                        /* if no calID, decrement queries anyway and check if we should resolve*/
+                        else{
+                            googleCalQueriesLeft--;
                             if(googleCalQueriesLeft <= 0 && queriesLeft <= 0){
                                 deferred.resolve(memberEventArray);
                             }
-                        },
-                            function(reason){
-                            googleCalQueriesLeft--;
-                                console.log("succeed in failing");
-                            })
-                    }
-                    /* if no calID, decrement queries anyway and check if we should resolve*/
-                    else{
-                        googleCalQueriesLeft--;
-                        if(googleCalQueriesLeft <= 0 && queriesLeft <= 0){
-                            deferred.resolve(memberEventArray);
                         }
+                    })
+                }//end query user and end if
+                else{
+                    queriesLeft--; // decrement calls to make
+                    googleCalQueriesLeft--;
+                    if(googleCalQueriesLeft <= 0 && queriesLeft <= 0){
+                        deferred.resolve(memberEventArray);
                     }
-                })
+                }
             } //end outer for
         })
         return deferred.promise;
@@ -201,7 +215,7 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
             groupName = groupQuery[0].attributes.name;
 
             /* make sure the new member is resolved */
-                /* query the user get it's data */
+            /* query the user get it's data */
             deferred.resolve(
                 dataBaseService.queryUser(newMemberEmail).then(function(userQuery){
                     if(userQuery[0]){
@@ -211,29 +225,29 @@ app.service('groupService',['$q','googleCalendarService','dataBaseService', func
                 );
 
             /* make sure the new groupList is resolved */
-                /* query the groupList of the new member and do the following:
-                 * 1) update the new member's groupList with the new group 
-                 * 2) update our working memberlist
-                 * 3) update the memberlist of the group */
+            /* query the groupList of the new member and do the following:
+             * 1) update the new member's groupList with the new group 
+             * 2) update our working memberlist
+             * 3) update the memberlist of the group */
             return dataBaseService.queryGroupList(newMemberEmail).then(function(groupListQuery){
                 if(groupListQuery[0]){
                     var newMemberGroupList = groupListQuery[0]._serverData.userGroups;
                     /* set new member's grouplist to have the new group in it */
                     newMemberGroupList[newMemberGroupList.length] =
-                            {id: getGroupId(), name: groupName, color: getGroupColor()};
-                    /* save the new member's grouplist */
-                    groupListQuery[0].save();
-                    /* add username and email to memberlist */
-                    memberList[memberList.length] = 
-                            {name: groupListQuery[0].attributes.userName, email:groupListQuery[0].attributes.userEmail};
-                    /* save group to database with updated memberlist */
-                    groupQuery[0].save();
+            {id: getGroupId(), name: groupName, color: getGroupColor()};
+            /* save the new member's grouplist */
+            groupListQuery[0].save();
+            /* add username and email to memberlist */
+            memberList[memberList.length] = 
+            {name: groupListQuery[0].attributes.userName, email:groupListQuery[0].attributes.userEmail};
+            /* save group to database with updated memberlist */
+            groupQuery[0].save();
 
-                    /* cloud code call to send an alert to new member */
-                    Parse.Cloud.run('mailGroupAlert', {email: newMemberEmail, group: groupName}, {
-                        success: function(result) {},
-                        error: function(error) {}
-                    });
+            /* cloud code call to send an alert to new member */
+            Parse.Cloud.run('mailGroupAlert', {email: newMemberEmail, group: groupName}, {
+                success: function(result) {},
+                error: function(error) {}
+            });
                 }
 
             })
