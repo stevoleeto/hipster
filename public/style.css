@@ -166,8 +166,8 @@ input
 
 .selTab
 {
-    border-bottom:solid orange 4px;
-    /*box-shadow: 0px -4px 0px 0px #F90 inset;*/
+/*    border-bottom:solid orange 4px;*/
+    box-shadow: 0px -4px 0px 0px #F90 inset;
     background: #4284F5;
     width: 140px;
     overflow: hidden;
