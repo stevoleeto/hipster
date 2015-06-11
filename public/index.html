@@ -252,12 +252,17 @@
                         </div>
                         <div style="display:inline-block;">
                             <!-- <div ng-click="addMemberModal()" id="addMemberBtn" class="memberOptions" title="Add A Member"></div> -->
-                            <div class="btn btn-primary glyphicon glyphicon-plus memberOptions" ng-click="addMemberModal()" 
-                                 title="Add A Member" aria-hidden="true"></div>
-                            <div class="btn btn-success glyphicon glyphicon-check memberOptions" ng-click="setSelectedMembers(1);" 
-                                 title="Display All Member's Schedules" aria-hidden="true"></div>
-                            <div class="btn btn-danger glyphicon glyphicon-unchecked memberOptions" ng-click="setSelectedMembers(0);" 
-                                 title="Hide All Member's Schedules" aria-hidden="true"></div>
+                            <ul style="list-style-type:none;">
+                                <li>
+                                    <div class="btn btn-primary glyphicon glyphicon-plus memberOptions" ng-click="addMemberModal()" title="Add A Member" aria-hidden="true"></div>
+                                </li>
+                                <li>
+                                    <div class="btn btn-success glyphicon glyphicon-check memberOptions" ng-click="setSelectedMembers(1);"title="Display All Member's Schedules" aria-hidden="true"></div>
+                                </li>
+                                <li>
+                                    <div class="btn btn-danger glyphicon glyphicon-unchecked memberOptions" ng-click="setSelectedMembers(0);" title="Hide All Member's Schedules" aria-hidden="true"></div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
