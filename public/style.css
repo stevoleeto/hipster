@@ -1007,17 +1007,24 @@ SINGLEGROUP VIEW STYLES
 
 .memberOptions {
     position: relative;
-    /*top:40px;*/
-    /*left:40px;*/
     float: left;
     border-radius: 50%;
     display: inline;
     height: 40px;
     width: 40px;
-    margin: 5px 0;
     line-height: 24px;
     text-align: center;
     transition: border-radius 0.5s;
+
+    /*VERTICAL
+    top: 40px;
+    left: 40px;
+    margin: 5px 0;*/
+
+    /*HORIZONTAL*/
+    top: 40px;
+    left: 40px;
+    margin: 0 5px;
 }
 
 .memberOptions:hover {
