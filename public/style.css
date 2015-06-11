@@ -166,8 +166,8 @@ input
 
 .selTab
 {
-    /*border-bottom:solid orange 4px;*/
-    box-shadow: 0px -4px 0px 0px #F90 inset;
+    border-bottom:solid orange 4px;
+    /*box-shadow: 0px -4px 0px 0px #F90 inset;*/
     background: #4284F5;
     width: 140px;
     overflow: hidden;
@@ -1017,6 +1017,12 @@ SINGLEGROUP VIEW STYLES
     margin: 0 5px;
     line-height: 24px;
     text-align: center;
+    transition: border-radius 0.5s;
+}
+
+.memberOptions:hover {
+    border-radius: 5px;
+    transition: border-radius 0.5s;
 }
 
 .addFromFriends:hover
