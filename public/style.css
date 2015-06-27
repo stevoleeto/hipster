@@ -67,10 +67,6 @@ a:active {
     top: 45px;
 }
 
-
-
-
-
 #header 
 {
     width: 100%;
@@ -81,6 +77,7 @@ a:active {
     text-align: center;
     background:#FCFAF8;
     opacity: 0.75;
+    animation: slide-in-from-top .5s .25s ease both;
 }
 
 #header span
@@ -188,6 +185,14 @@ input
 /*    border-top: 1px solid black;*/
     z-index: 10;
     background: #5B97F5;
+    animation: slide-in-from-top .5s .25s ease both;
+}
+
+@keyframes slide-in-from-top {
+    from {
+        transform: translateY(-10rem);
+        opacity: 0;
+    }
 }
 
 .friendsOptionsBtn
@@ -456,6 +461,14 @@ LOGIN PAGE STYLES
     height: 340px;
     margin-right: auto;
     margin-left: auto;
+    animation: slide-in-from-below .5s .25s ease both;
+}
+
+@keyframes slide-in-from-below {
+    from {
+        transform: translateY(30rem);
+        opacity: 0;
+    }
 }
 
 .active 
@@ -559,6 +572,14 @@ PROFILE VIEW STYLES
     padding:5px;
     margin-bottom: 10px;
 /*    border:solid black 1px;*/
+    animation: slide-in-from-left .5s .25s ease both;
+}
+
+@keyframes slide-in-from-left {
+    from {
+        transform: translateX(-30rem);
+        opacity: 0;
+    }
 }
 
 #createWrapper
@@ -591,6 +612,14 @@ PROFILE VIEW STYLES
 /*    height: auto;*/
     padding-top:10px;
     background:white;
+    animation: slide-in-from-right .5s .25s ease both;
+}
+
+@keyframes slide-in-from-right {
+    from {
+        transform: translateX(30rem);
+        opacity: 0;
+    }
 }
 
 .repeatBtn
@@ -633,8 +662,27 @@ GROUPS VIEW
     /*background: #FDA7B2;*/
     margin-top:40px;
     z-index:0;
+    animation: curve-up-from-left .5s .25s ease both;
+    transform-origin: top left;
 }
 
+.groupSelect:nth-child(even) {
+    animation: curve-up-from-right .5s .25s ease both;
+}
+
+@keyframes curve-up-from-left {
+    from {
+        transform: translateY(-15rem) rotate(15deg);
+        opacity: 0;
+    }
+}
+
+@keyframes curve-up-from-right {
+    from {
+        transform: translateY(-15rem) rotate(-15deg);
+        opacity: 0;
+    }
+}
 
 .groupSelect:hover #minus
 {
@@ -971,6 +1019,7 @@ SINGLEGROUP VIEW STYLES
     width: 96%;
     background:white;
 /*    border:solid black 1px;*/
+    animation: slide-in-from-right .5s .25s ease both;
 }
 
 #membersTitle
