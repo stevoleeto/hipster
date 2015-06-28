@@ -32,6 +32,12 @@ app.controller('LoginController', ['$scope', function($scope) {
   $scope.email = '';
   $scope.password = '';
   $scope.repassword = '';
+  $scope.lTips = 'info';
+  $scope.lTipsMsg = 'Please fill in the following fields';
+  $scope.sTips = 'info';
+  $scope.sTipsMsg = 'Please fill in the following fields';
+
+  var getInWrapper = $('#getInWrapper');
 
   /************************************************************************
    * Name:		signUp
@@ -50,7 +56,7 @@ app.controller('LoginController', ['$scope', function($scope) {
   $scope.signUp = function(){
     //if the name or email is invalid, update tip box and return
     if(!$scope.name || !$scope.email || !$scope.password || ($scope.password != $scope.repassword)){
-      updateTips( 'sTips', 'Please enter valid input.');
+      updateTips( 0, 'Please enter valid inputs');
       return;
     }
 
@@ -75,11 +81,12 @@ app.controller('LoginController', ['$scope', function($scope) {
         newGroupList.save(null, {
           success: function(GroupList) {}
         });
+        
         //redirects the user to the website.
         location.href="../../index.html";
       },
       error: function( user ) {
-        updateTips( 'sTips', 'Email already in use.');
+        updateTips( 0, 'Email already in use');
       }
     });
   }
@@ -99,7 +106,7 @@ app.controller('LoginController', ['$scope', function($scope) {
     $scope.login = function(){
       //Confirms that the user used a valid email and password to sign in.
       if(!$scope.email || !$scope.password ){
-        updateTips( 'lTips', 'Please enter valid input.');
+        updateTips( 1, 'Please enter valid input');
         return;
       }
 
@@ -110,7 +117,7 @@ app.controller('LoginController', ['$scope', function($scope) {
           location.href="../../index.html";
         },
         error: function( user ) {
-          updateTips( 'lTips', 'Email or password not recognized.');
+          updateTips( 1, 'Email or password not recognized');
         }
       });
     }
@@ -134,31 +141,36 @@ app.controller('LoginController', ['$scope', function($scope) {
         }
       });
     }
+
+    /************************************************************************
+     * Name:    updateTips()
+     * Purpose:   Updates the value and css of the tip bar at the top of 
+                  the form if there is an error
+     * Description: Sets the value, background color, and border color of the
+                    tips bar
+     * Called in:   login(), signup(), checkAlreadyUser()
+     * Input:   var id - The ID of the tips field to update.
+                var newTip - The string to be displayed in the tip bar.
+    ************************************************************************/
+    var updateTips = function( form, newTip ) {
+      if (form) {
+        $scope.lTips = 'error';
+        $scope.lTipsMsg = newTip;
+      } else {
+        $scope.sTips = 'error';
+        $scope.sTipsMsg = newTip;
+      }
+
+      $('#getInWrapper').addClass('inputProb');
+      $('#getInWrapper').on('animationend', function(e){
+        $('#getInWrapper').removeClass('inputProb');
+      });
+    }
   }]);
 
 /////////////////////
 //Helper JS functions
 /////////////////////
-
-/************************************************************************
- * Name:    updateTips()
- * Purpose:   Updates the value and css of the tip bar at the top of 
- the form if there is an error
- * Description: Sets the value, background color, and border color of the
- tips bar
- * Called in:   login(), signup(), checkAlreadyUser()
- * Input:   var id - The ID of the tips field to update.
- var newTip - The string to be displayed in the tip bar.
- ************************************************************************/
-function updateTips( id, newTip ) {
-  var tips = document.getElementById(id);
-  //Change the text displayed to the argument
-  tips.innerHTML = newTip;
-  //Change the background-color and border color of the tips bar.
-  tips.style.background  = '#F44336';
-  tips.style.border = '2px solid #D50000';
-  tips.style.color = 'white';
-}
 
 /************************************************************************
  * Name:    dispTab()
@@ -178,7 +190,7 @@ function dispTab( tabId ) {
   //If the user clicked on "Log In" tab
   if ( tabId == 'login' ) {
     //Change the background of "Sign Up" tab gray
-    signup.style.background = '#D8D8D8';
+    signup.style.background = '#eee';
     signup.style.color = "grey";
     //Change the background of "Log In" tab white
     login.style.background = 'white';
@@ -189,7 +201,7 @@ function dispTab( tabId ) {
     lForm.style.display = 'block';
   } else {
     //Change the background of "Log In" tab gray
-    login.style.background = '#D8D8D8';
+    login.style.background = '#eee';
     login.style.color = "grey"
     //Change the background of "Sign Up" tab white
     signup.style.background = 'white';

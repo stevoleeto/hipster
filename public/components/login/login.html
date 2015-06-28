@@ -63,7 +63,7 @@
                 -->
                 <div id="options">
                     <div id="login" onclick="dispTab('login')" style="background:white;">Login</div>
-                    <div id="signup" onclick="dispTab('signup')" style="background:#D8D8D8; color:grey">Sign Up</div>
+                    <div id="signup" onclick="dispTab('signup')" style="background:#eee; color:grey">Sign Up</div>
                 </div>
                 <center><br><br>
                     <!--
@@ -73,7 +73,7 @@
                     *                Shows a reset password for user's who have forgotten their password.
                     -->
                     <div id="lForm" style="display:block;position:relative;top:20px;">
-                        <div id="lTips" class="tips">Please fill in the following fields</div><br>
+                        <div id="lTips" ng-class="{'lblInfo':lTips=='info','lblError':lTips=='error'}">{{ lTipsMsg }}</div><br>
                         <form novalidate ng-submit="login()">
                             <input id="lEmail" type="email" ng-model="email" ng-pattern="/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/" placeholder="Email"><br><br>
                             <input id="lPass" type="password" ng-model="password" placeholder="Password"><br><br>
@@ -89,7 +89,8 @@
                     *                Shows a reset password for user's who have forgotten their password.
                     -->              
                     <div name="sForm "id="sForm" style="display:none;position:relative;top:20px;">
-                        <div id="sTips" class="tips">Please fill in the following fields</div><br>
+                        <div id="sTips" ng-class="{'lblInfo':sTips=='info','lblError':sTips==='error'}">{{ sTipsMsg }}</div>
+                        <br>
                         <form novalidate ng-submit="signUp()">
                             <input name="sname" id="sName" type="text" ng-model="name" required ng-pattern="/^[a-z']([a-z'_\s])+$/i" placeholder="Name"
                                  ng-style="( name.length == 0 ) ? { 'border-bottom':'1px solid #c6c6c6' } : ( (name) ? { 'border-bottom':'1px solid green' } : { 'border-bottom':'1px solid red' } )"><br><br>

@@ -461,14 +461,6 @@ LOGIN PAGE STYLES
     height: 340px;
     margin-right: auto;
     margin-left: auto;
-    animation: slide-in-from-below .5s .25s ease both;
-}
-
-@keyframes slide-in-from-below {
-    from {
-        transform: translateY(30rem);
-        opacity: 0;
-    }
 }
 
 .active 
@@ -519,6 +511,40 @@ LOGIN PAGE STYLES
     cursor: pointer;
     background: #235Ff6;
     transition:background .5s;
+}
+
+.inputProb {
+    animation: horizontal-shake .3s linear 2;
+}
+
+@keyframes horizontal-shake {
+    from {
+        left: 0;
+    }
+    25% {
+        left: -10px;
+    }
+    75% {
+        left: 10px;
+    }
+    to {
+        left: 0;
+    }
+}
+
+.inputSuccess {
+    animation: drop-down-into-the-shadows .5s .25s ease both;
+}
+
+@keyframes {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(30rem);
+        opacity: 0;
+    }
 }
 
 /*
