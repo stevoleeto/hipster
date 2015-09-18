@@ -17,7 +17,7 @@ Google Chrome.
 
 To access our code:
 Our github URL:
-https://github.com/stevoleeto/hipster
+https://github.com/jmdeon/BusyBlocks
 
 Emails to use for adding friends and members:
 bbtester1@gmail.com
