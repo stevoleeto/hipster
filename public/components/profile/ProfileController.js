@@ -133,7 +133,35 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 }
             });
 
+            // As soon as the page loads, run this to add the print button to the DOM ASAP
+            $(document).ready(function(){
+                // Build the print button dynamically because I wanted to put it in the calendar header and I couldn't access it
+                var printBtn = '<div id="printBtn" class="btn btn-primary"><span class="glyphicon glyphicon-print"></span></div>';
+                // Prepend before the month/week/day buttons on the right side of the calendar
+                $('.personal.schedule .fc-right').prepend(printBtn);
 
+                // When the print button is clicked on
+                $('#printBtn').on('click', function(){
+                    // Store the text that was in the center of the calendar (date range)
+                    var oldTitle = $('.personal.schedule .fc-center h2').text();
+                    // Change it for printing purposes
+                    $('.personal.schedule .fc-center h2').text('Your Schedule');
+                    // Get the specific element to print rather than the whole page
+                    var prtContent = document.getElementById("scheduleWrapper");
+                    // Set printing options. IDK...this is how someone did it on stack overflow...
+                    var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+                    // Send the specific element to the printer
+                    WinPrint.document.write(prtContent.innerHTML);
+                    // Also send the css data to make it colorful and look good when printing
+                    WinPrint.document.write('<link rel="stylesheet" href="lib/bower_components/fullcalendar/dist/fullcalendar.css"/>');
+                    WinPrint.document.close();
+                    WinPrint.focus();
+                    WinPrint.print();
+                    WinPrint.close();
+                    // Change the text at the top of the calendar back to the date range
+                    $('.personal.schedule .fc-center h2').text(oldTitle);
+                });
+            });
             /*
              * **********MODALS***********
              * ***************************
@@ -835,5 +863,5 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                     $scope.groupView=false;
                     $scope.$parent.singleGroupView=true;
                 }
-            }
+            };
         }]);//end profilecontrller

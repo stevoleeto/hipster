@@ -87,7 +87,7 @@
                     <div id="scheduleWrapper">
                         <p id="yourSched">Your Schedule</p>
                 
-                        <div class="schedule card">
+                        <div class="personal schedule card">
                             <!-- UI CALENDAR -->
                             <div  ng-model="eventSources" calendar='userCalendar' calendar-watch-event="color" ui-calendar="uiConfig.calendar"></div>
                         </div>
@@ -182,7 +182,7 @@
                 <div style="clear:both;">
                     <div id="scheduleWrapper" style="top:0;">
                         <p id="yourSched">Schedule for <i>{{groupName}}</i></p>
-                        <div class="schedule card">
+                        <div class="group schedule card">
                             <!-- GROUP UI CALENDAR -->
                             <div  ng-model="eventSources" calendar='groupCalendar' ui-calendar="uiConfig.calendar"  ></div> 
                         </div>
