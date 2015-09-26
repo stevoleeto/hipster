@@ -817,6 +817,7 @@ GROUPS VIEW
     -webkit-transition: opacity .3s;
     -moz-transition: opacity .3s;
     -o-transition: opacity .3s;
+    animation: curve-up-from-left .5s .25s ease both;
 }
 
 #addGroupBtn:hover {
