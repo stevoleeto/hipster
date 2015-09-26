@@ -381,12 +381,16 @@ LOGIN PAGE STYLES
     position:relative;
     left:10px;
     background-color:#B8FCBC;
+    color:black;
     padding: 4px;
 }
 
 #blocks
 {
+    position: relative;
+    left: 8px;
     text-decoration:underline;
+    color:black;
 }
 
 .forgotBtn
