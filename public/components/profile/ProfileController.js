@@ -5,7 +5,7 @@
  *              of a user. It will have all the attributes and behaviors of
  *              a single user defined.
  *
- * Attributes:  
+ * Attributes:
  *  userName - The current user's name.
  *  icon - The current user's icon.
  *  joinDate - The current user's join date.
@@ -39,7 +39,7 @@
  *  settingsSave - save settings
  *
  * TimePicker:
- *  Attributes - 
+ *  Attributes -
  *    eventStartTime - event start time
  *    eventEndTime - event end time
  *    hstep - what happens when you click the hour button
@@ -50,16 +50,16 @@
  *    changed - when the picker is changed
  *    update - update the picker
  *    clear - clear the picker
- * 
+ *
  */
 
 var currentUser = Parse.User.current();
 var newIcon = '';
 
+app.controller('ProfileController', ['$rootScope', '$scope', 'groupService', 'eventService', '$timeout','userService', 'dataBaseService', 'validateService', 'uiCalendarConfig', '$modal', '$log', '$window',
+        function($rootScope, $scope, groupService, eventService, $timeout, userService, dataBaseService , validateService, uiCalendarConfig, $modal,$log, $window) {
 
-app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '$timeout','userService', 'dataBaseService', 'validateService', 'uiCalendarConfig', '$modal', '$log', '$window', 
-        function($scope, groupService, eventService, $timeout, userService, dataBaseService , validateService, uiCalendarConfig, $modal,$log, $window) {
-
+            $rootScope.theme = 'light';
             $scope.animationsEnabled = true;
 
             /* user data */
@@ -119,7 +119,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 
 
             //set users email in service
-            userService.setEmail(currentUser.get("username")); 
+            userService.setEmail(currentUser.get("username"));
             userService.setName($scope.userName);
 
             /* GET USER GROUPLIST */
@@ -180,7 +180,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
              * Called In:   ProfileController.js
 
              * Description: Uses the $modal service to open a modal with the
-             *              input settings. 
+             *              input settings.
              *
              * Parameters:
              *              template - the template html for the modal
@@ -251,7 +251,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             /************************************************************************
              * Name:        friendsListModal
 
-             * Purpose:     To provide the user with a modal for viewing their 
+             * Purpose:     To provide the user with a modal for viewing their
              *              friendsList.
 
              * Called In:   index.html
@@ -285,7 +285,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                     // if the user saved their new settings
                     if(newAccountSettings.saveFlag == 1) {
                         $scope.settingsSave(newAccountSettings.newUserName, newAccountSettings.newUserEmail, newAccountSettings.newGoogle, newAccountSettings.newUserIcon);
-                        currentUser.set("googleCalendarID", newAccountSettings.newGoogle); 
+                        currentUser.set("googleCalendarID", newAccountSettings.newGoogle);
                         // update view with new calendar
                         updatePersonalSchedule();
                     }
@@ -296,7 +296,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
             /************************************************************************
              * Name:        addGroupModal
 
-             * Purpose:     To provide the user with a modal to create a 
+             * Purpose:     To provide the user with a modal to create a
              *              new group.
 
              * Called In:   index.html
@@ -322,7 +322,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
              * Called In:   index.html
 
              * Description: This function only opens the modal, and the modal
-             *              controller itself is in charge of all other 
+             *              controller itself is in charge of all other
              *              behavior.
              ************************************************************************/
             $scope.contactModal = function () {
@@ -393,7 +393,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
              *              personalSchedule array. If the user has a gCal
              *              ID, call userService to set the googleCalendar
              *              then get the calendar and update the googleCalendar
-             *              array with them. 
+             *              array with them.
              *
              *              Note on arrays:
              *              We do a lot of clearing and pushing of the same
@@ -403,7 +403,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
              ************************************************************************/
             var updatePersonalSchedule = function(){
                 personalSchedule.length = 0;
-                // call user service to get the current schedule 
+                // call user service to get the current schedule
                 userService.getCurrentSchedule($scope.email).then(function(currentSchedule){
                     for(index = 0; index < currentSchedule.length; index ++){
                         personalSchedule.push(eventService.copyEvent(currentSchedule[index]));
@@ -443,7 +443,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
              * Description: Calls groupService to set its current group id and
              *              group color so it can display them correctly.
              ************************************************************************/
-            $scope.addGroup = function(){	
+            $scope.addGroup = function(){
                 groupService.setGroupId($scope.currentGroupId);
                 groupService.setGroupColor($scope.currentGroupColor);
             }
@@ -477,7 +477,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 for(index = 0; index < $scope.myGroupList.length; index++){
                     if(groupID === $scope.myGroupList[index]['id']){
                         $scope.myGroupList[index]['color'] = newColor;
-                        break; 
+                        break;
                     }
                 }
 
@@ -517,7 +517,7 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 
              * Called In:   main()
 
-             * Description:	Calls Parse's logout function. 
+             * Description:	Calls Parse's logout function.
              ************************************************************************/
             $scope.logout = function(){
                 Parse.User.logOut();
@@ -609,8 +609,8 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                     return;
                 }
 
-                if ($scope.dayRepeat.monday || 
-                        $scope.dayRepeat.tuesday || 
+                if ($scope.dayRepeat.monday ||
+                        $scope.dayRepeat.tuesday ||
                         $scope.dayRepeat.wednesday ||
                         $scope.dayRepeat.thursday ||
                         $scope.dayRepeat.friday ||
@@ -641,9 +641,9 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                         repeatTheseDays.push(6);
                     }
                     if ($scope.dayRepeat.sunday){
-                        repeatTheseDays.push(0); 
+                        repeatTheseDays.push(0);
                     }
-                }    
+                }
 
                 // delegate to eventService to create the event with the passed in data
                 eventService.createEvent($scope.newEventName, //event name
@@ -672,8 +672,8 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                 for(index = 0; index < $scope.dayRepeat.length; index++){
                     $scope.dayRepeat[i] = false;
                 }
-                $scope.dayRepeat.monday = $scope.dayRepeat.tuesday = 
-                    $scope.dayRepeat.wednesday = $scope.dayRepeat.thursday = 
+                $scope.dayRepeat.monday = $scope.dayRepeat.tuesday =
+                    $scope.dayRepeat.wednesday = $scope.dayRepeat.thursday =
                     $scope.dayRepeat.friday = $scope.dayRepeat.saturday = $scope.dayRepeat.sunday = false;
             }
 
@@ -734,10 +734,10 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 
              * Called In:   ProfileController.js (this file)
 
-             * Description: Deletes an event and updates the view with the 
+             * Description: Deletes an event and updates the view with the
              *              updated schedule.
              ************************************************************************/
-            var deleteEvent = function(eventClicked){    
+            var deleteEvent = function(eventClicked){
                 for(index = 0; index < personalSchedule.length; index++){
                     if(eventClicked.id == personalSchedule[index].id){
                         personalSchedule.splice(index, 1);
@@ -818,10 +818,10 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
 
              * Description: Below is some functionality for a small
              *              ui box for choosing the time.
+
              ************************************************************************/
             $scope.eventStartTime = new Date();
             $scope.eventEndTime = new Date();
-
 
             $scope.hstep = 1;
             $scope.mstep = 1;
@@ -863,5 +863,9 @@ app.controller('ProfileController', ['$scope', 'groupService', 'eventService', '
                     $scope.groupView=false;
                     $scope.$parent.singleGroupView=true;
                 }
+            };
+
+            $scope.switchTheme = function(newTheme) {
+              $rootScope.theme = newTheme;
             };
         }]);//end profilecontrller

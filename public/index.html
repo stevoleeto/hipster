@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <!-- Initialize ng-app -->
-<html ng-app="myApp" style="background:#FCFAF8;">
-    <head style="background: #FCFAF8;">
+<html ng-app="myApp">
+    <head>
         <!-- Initialize document settings -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0">
-        
+
         <!-- Website icon -->
         <link rel="icon" type="image/gif" href="images/favicon.gif">
 
@@ -16,30 +16,32 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <!-- Our lite CSS -->
         <link rel="stylesheet" type="text/css" href="./style.css">
+        <!-- Our dark CSS -->
+        <link rel="stylesheet" type="text/css" href="./dark.css" ng-if="theme=='dark'">
 
         <!-- Get access to the Parse library -->
-		<script type="text/javascript" src="https://parse.com/downloads/javascript/parse-1.4.2.js"></script>
+		    <script type="text/javascript" src="https://parse.com/downloads/javascript/parse-1.4.2.js"></script>
 
         <!-- Load UI Calendar sources -->
         <link rel="stylesheet" href="lib/bower_components/fullcalendar/dist/fullcalendar.css"/>
         <script type="text/javascript" src="lib/bower_components/init.js"></script>
-
 
         <!-- JQuery and Angular must be loaded in the HEAD to prevent screen flicker effect -->
         <script type="text/javascript" src="lib/bower_components/jquery/dist/jquery.js"></script>
         <script type="text/javascript" src="lib/bower_components/angular/angular.js"></script>
 
         <!-- JS Code to run on load -->
-        <script> 
+        <script>
             // Connect to the database
             Parse.initialize(appID,jsKey);
             // If the user is not logged in, redirect to the login screen
             var currentUser = Parse.User.current();
             if (!currentUser) {
             	location.href = "components/login/login.html";
-            } 
-        </script> 
+            }
+        </script>
 
         <div ng-if="false">
             <p id="loading"></p>
@@ -47,52 +49,55 @@
         <!-- TITLE -->
         <title>Busy Blocks</title>
     </head>
-    
+
     <!-- ng-cloak prevents screen flicker in beginning -->
-    <body ng-cloak style="background: #FCFAF8;">
+    <body ng-cloak>
         <!-- PROFILE CONTROLLER -->
-        <div ng-controller="ProfileController"> 
+        <div ng-controller="ProfileController">
         <div id="logoutWrapper">
             <div class="dropDown" dropdown>
                 <div class="logoutbtn" ng-show="homeView" dropdown-toggle></div>
-                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                        <li><a ng-click="accountSettingsModal();">Account Settings</a></li>
-                        <li><a ng-click="contactModal();">Contact Us!</a></li>
-                        <li class="divider"></li>
-                        <li><a ng-click="logout()">Logout</a></li>
-                    </ul>
+                  <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                      <li><a ng-click="accountSettingsModal();">Account Settings</a></li>
+                      <li><a ng-click="contactModal();">Contact Us!</a></li>
+                      <li class="divider"></li>
+                      <div class="dropdown-header">Themes</div>
+                      <li ng-class="{'active':theme=='light'}"><a ng-click="switchTheme('light')">Light</a></li>
+                      <li ng-class="{'active':theme=='dark'}"><a ng-click="switchTheme('dark')">Dark</a></li>
+                      <li class="divider"></li>
+                      <li><a ng-click="logout()">Logout</a></li>
+                  </ul>
             </div>
-            
+
             <div class="dropDown" dropdown>
                 <div class = "friendsOptionsBtn" ng-show="homeView" dropdown-toggle></div>
-                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                        <li><a ng-click="addFriendModal()">Add Friend</a></li>
-                        <li><a ng-click="friendListModal()">View Friends List</a></li>
-                    </ul>
+                  <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                      <li><a ng-click="addFriendModal()">Add Friend</a></li>
+                      <li><a ng-click="friendListModal()">View Friends List</a></li>
+                  </ul>
             </div>
-            
+
             <div id="greeting">Hi, {{ userName }}</div>
             <center>
-                <div ng-click="tabClick('profile');" ng-class="{selTab: profileView}" class="viewBtn">Personal</div>
-                <div ng-click="tabClick('group');" ng-class="{selTab: groupView}" class="viewBtn">Groups</div>
+                <div ng-click="tabClick('profile');" ng-class="{'selTab': profileView}" class="viewBtn">Personal</div>
+                <div ng-click="tabClick('group');" ng-class="{'selTab': groupView}" class="viewBtn">Groups</div>
                 <div ng-hover="" ng-click="tabClick('singleGroup');" class="viewBtn" ng-class="{selTab: $parent.singleGroupView}" ng-hide="!singleGroupName" ng-attr-title="{{singleGroupName}}">
                     {{ singleGroupName | limitTo:8 }}{{ singleGroupName.length > 8 ? '...' : '' }}
                 </div>
             </center>
         </div>
-    
-        <div id="homeView" ng-init="homeView=true" ng-show="homeView">     
+
+        <div id="homeView" ng-init="homeView=true" ng-show="homeView">
         	<div ng-init="profileView=true" ng-show="profileView" id="profileView">
             	<div id="profileWrapper">
                     <div id="scheduleWrapper">
                         <p id="yourSched">Your Schedule</p>
-                
                         <div class="personal schedule card">
                             <!-- UI CALENDAR -->
                             <div  ng-model="eventSources" calendar='userCalendar' calendar-watch-event="color" ui-calendar="uiConfig.calendar"></div>
                         </div>
                     </div>
-                    
+
                     <!-- CREATE EVENT -->
                     <div id="createWrapper">
                         <p id="createTitle">Create Personal Event</p>
@@ -135,26 +140,26 @@
                                 <timepicker ng-init="eventEndTime"  ng-model="eventEndTime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" name="pEndTime"></timepicker>
                             </center>
                             <br>
-                            
+
                             <center>
                                 <button Popover-animation="true" popover-template="'eventColorSelect.html'" popover-placement="top" class="btn btn-default" style="transition:background .5s;" ng-style="{'background':eventColor.mine}" ng-init="eventColor.mine='#fff'" popover-trigger="focus" popover-title="Select Color" class="colorFade">Choose A Color</button>
-                            </center> 
+                            </center>
                             <br>
                             <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
                     </div>
             	</div>
         	</div>
-            
+
             <!-- DISPLAYS ONLY WHEN THE USER CLICKS ON THE GROUPS TAB -->
         	<div ng-init="groupView=false" ng-show="groupView" id="groupView">
             	<div>
                     <!-- EACH OF THE GROUPS THAT THE USER IS A MEMBER OF -->
-                    <div ng-repeat="group in myGroupList track by $index" class ="groupSelect card"  
+                    <div ng-repeat="group in myGroupList track by $index" class ="groupSelect card"
                        ng-style="{background:group.color}">
                         <div id = "groupClick"
-                             ng-click="$parent.profileView=false; 
-                              $parent.groupView=false; 
+                             ng-click="$parent.profileView=false;
+                              $parent.groupView=false;
                               $parent.$parent.singleGroupView=true;
                               $parent.currentGroupId = group.id;
                               $parent.currentGroupColor = group.color;
@@ -162,7 +167,7 @@
                             <!-- TRUNCATE NAME OF GROUP -->
                             <p>{{ group.name | limitTo:12 }}{{ group.name.length > 12 ? '...' : '' }}</p>
                         </div>
-                        
+
                         <div ng-click="editGroupModal(group.name, group.color, group.id)" id="pencil"></div>
                         <div Popover-animation="true" popover-template="'confirmRemove.html'" popover-trigger="focus" popover-placement="top" id="minus" popover-title="Confirm Remove" tabindex="0"></div>
                         <script type="text/ng-template" id="confirmRemove.html">
@@ -173,7 +178,7 @@
                     <div ng-click="addGroupModal()" id="addGroupBtn"></div>
             	</div>
         	</div>
-        </div> 
+        </div>
       </div> <!--END PROFILE CONTROLLER -->
         <!-- GROUP CONTROLLER -->
         <!-- DISPLAYS WHEN THE USER CLICKS ON A GROUP FROM THE GROUP LIST OR ON THE GROUP'S TAB -->
@@ -184,10 +189,10 @@
                         <p id="yourSched">Schedule for <i>{{groupName}}</i></p>
                         <div class="group schedule card">
                             <!-- GROUP UI CALENDAR -->
-                            <div  ng-model="eventSources" calendar='groupCalendar' ui-calendar="uiConfig.calendar"  ></div> 
+                            <div  ng-model="eventSources" calendar='groupCalendar' ui-calendar="uiConfig.calendar"  ></div>
                         </div>
                     </div>
-                    
+
                     <!-- GROUP CREATE EVENT -->
                     <div id="createWrapper" style="top:0px;">
                         <p id="createTitle">Create Group Event</p>
@@ -232,20 +237,20 @@
 
                             <center>
                                 <button Popover-animation="true" popover-template="'eventColorSelect.html'" popover-placement="top" class="btn btn-default" ng-style="{'background':eventColor.mine}" ng-init="eventColor.mine='#fff'" popover-trigger="focus" popover-title="Select Color" class="colorFade">Choose A Color</button>
-                            </center> 
-                            
+                            </center>
+
                             <div ng-click="createEvent()" class="createButton" style="margin-top:10px;">Create</div>
                         </div>
                         <a href="#membersViewAnchor"><button ng-click="addMemberView=!addMemberView;" id="memberInfoBtn" >Member Info / Add Member</button></a>
-                        
+
                         <span style="font-size: 17px; margin-top: 10px; letter-spacing: 2px; float:left;clear:both;"><strong>Group Code: </strong></span>
-                        <span style="font-size: 17px; margin-top:10px; letter-spacing: 2px; float:left;">{{currentGroupId}}</span> 
-                    </div> 
-                    
+                        <span style="font-size: 17px; margin-top:10px; letter-spacing: 2px; float:left;">{{currentGroupId}}</span>
+                    </div>
+
                     <!-- GROUP'S MEMBERS -->
                     <div class="card" id="memberView" ng-init="addMemberView=false" ng-show="addMemberView">
                         <a name="membersViewAnchor"><p id="membersTitle">Members</p></a><br>
-                        <div class="members" ng-repeat="member in memberList track by $index" 
+                        <div class="members" ng-repeat="member in memberList track by $index"
                              ng-click="member.selected=!member.selected;updateSelected();" ng-class="{'selMember':!member.selected}">
                             <img class="memberIcon" ng-src="{{member.icon}}" ng-init="getMemberIcon(member.email);member.selected=true;"/>
                             <p text-align="center">{{member.name}}</p>
@@ -257,7 +262,7 @@
                             <div class="btn btn-primary glyphicon glyphicon-plus memberOptions" ng-click="addMemberModal()" title="Add A Member" aria-hidden="true"></div>
                             <div class="btn btn-success glyphicon glyphicon-check memberOptions" ng-click="setSelectedMembers(1);"title="Display All Member's Schedules" aria-hidden="true"></div>
                             <div class="btn btn-danger glyphicon glyphicon-unchecked memberOptions" ng-click="setSelectedMembers(0);" title="Hide All Member's Schedules" aria-hidden="true"></div>
-                            
+
                             <!-- VERTICAL MEMBER OPTIONS
                             <ul style="list-style-type:none;">
                                 <li>
@@ -281,7 +286,7 @@
         *   -------------------------------------------------------------
         *   HTML TEMPLATES
         *   ----------------
-        *   These are templates for various controllers to use. Modals and 
+        *   These are templates for various controllers to use. Modals and
         *   popovers use these.
         *   -------------------------------------------------------------
         *   -------------------------------------------------------------
@@ -338,7 +343,7 @@
                 <br>
             </div>
         </script>
-        
+
         <!-- STRUCTURE OF MODAL FOR WHEN THE USER WANTS TO EDIT A GROUP EVENT'S COLOR -->
         <script type="text/ng-template" id="editGroupColor.html">
             <div id="groupColorSelect">
@@ -443,7 +448,7 @@
             <div class="modal-body">
                 <center>
                     <div class="lblSuccess" ng-show="saveLabel">
-                        <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> 
+                        <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>
                         Everything looks good!
                     </div>
                     <div class="lblError" ng-show="errLabel">
@@ -475,10 +480,10 @@
                             Obtain your Google Calendar ID:<br>
                             <ol>
                                 <li>In the Google Calendar interface, locate the "My calendars" area on the left.</li>
-                                <li>Hover over the calendar you need and click the downward arrow.</li> 
+                                <li>Hover over the calendar you need and click the downward arrow.</li>
                                 <li>A menu will appear. Click "Calendar settings".</li>
                                 <li>In the "Calendar Address" section of the screen, you will see your Calendar ID. It will look something like "abcd1234@group.calendar.google.com".</li>
-                            </ol>           
+                            </ol>
                         </p>
                     </accordion-group>
                 </accordion>
@@ -566,7 +571,7 @@
                         <div style="background:#FD8964;" ng-click="newGroupColor='#FD8964'"></div>
                         <div style="background:#BDBDBD;" ng-click="newGroupColor='#BDBDBD'"></div>
                         <div style="background:#90A4AE;" ng-click="newGroupColor='#90A4AE'"></div>
-                    </div>    
+                    </div>
                     <br><br>
                 </div>
                 <div class="modal-footer">
@@ -575,7 +580,7 @@
                 </div>
             </div>
         </script>
-                    
+
         <!-- STRUCTURE OF MODAL FOR WHEN THE USER CLICKS ON THE ADD GROUP BUTTON -->
         <script type="text/ng-template" id="addGroup.html">
                 <div ng-style="{background:groupColor}" style="transition:background 0.5s;" class="modal-header">
@@ -593,7 +598,7 @@
                     <p style="text-align:center"><strong>- OR add a group using an existing group code -</strong></p>
                     <input ng-style="( newGroupName.length > 0 ) ? { 'opacity':'.5' } :  { 'border-bottom':'1px solid green' }" type="text" ng-model="newGroupCode" placeholder="Enter A Group Code" ng-disabled="newGroupName.length > 0">
                     <br><br>
-                    <label for="groupColor">Select a Color</label>   
+                    <label for="groupColor">Select a Color</label>
                     <div id="groupColorSelect">
                         <div style="background:#B9F5FF;" ng-click="groupColor='#B9F5FF'"></div>
                         <div style="background:#B5FBA3;" ng-click="groupColor='#B5FBA3'"></div>
@@ -613,7 +618,7 @@
                         <div style="background:#FD8964;" ng-click="groupColor='#FD8964'"></div>
                         <div style="background:#BDBDBD;" ng-click="groupColor='#BDBDBD'"></div>
                         <div style="background:#90A4AE;" ng-click="groupColor='#90A4AE'"></div>
-                    </div>    
+                    </div>
                     <br><br><br>
                 </div>
                 <div class="modal-footer">
@@ -666,7 +671,7 @@
         <script type="text/javascript" src="lib/bower_components/angular-ui-calendar/src/calendar.js"></script>
         <script type="text/javascript" src="lib/bower_components/fullcalendar/dist/fullcalendar.js"></script>
         <script type="text/javascript" src="lib/bower_components/loadingBar/src/loading-bar.js"></script>
-        
+
         <!-- Load BootStrap -->
         <script type="text/javascript" src="lib/ui-bootstrap-tpls-0.13.0.min.js"></script>
 
