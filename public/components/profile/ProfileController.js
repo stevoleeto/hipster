@@ -144,6 +144,8 @@ app.controller('ProfileController', ['$rootScope', '$scope', 'groupService', 'ev
                 $('#printBtn').on('click', function(){
                     // Store the text that was in the center of the calendar (date range)
                     var oldTitle = $('.personal.schedule .fc-center h2').text();
+                    // Hide the calendar navigation buttons
+                    $('.fc-toolbar .fc-left, .fc-toolbar .fc-right').css({'opacity':'0'});
                     // Change it for printing purposes
                     $('.personal.schedule .fc-center h2').text('Your Schedule');
                     // Get the specific element to print rather than the whole page
@@ -158,6 +160,8 @@ app.controller('ProfileController', ['$rootScope', '$scope', 'groupService', 'ev
                     WinPrint.focus();
                     WinPrint.print();
                     WinPrint.close();
+                    // Show the calendar navigation buttons again
+                    $('.fc-toolbar .fc-left, .fc-toolbar .fc-right').css({'opacity':'1'});
                     // Change the text at the top of the calendar back to the date range
                     $('.personal.schedule .fc-center h2').text(oldTitle);
                 });
